@@ -8,7 +8,7 @@ Change the DOWNLOAD_URL to "http://munkibuilds.org/munkitools-latest.dmg" to get
     <key>Input</key>
     <dict>
         <key>IDENTIFIER</key>
-        <string>com.googlecode.autopkg.munki.munkitools</string>
+        <string>com.github.autopkg.munki.munkitools</string>
         <key>NAME</key>
         <string>munkitools</string>
         <key>DOWNLOAD_URL</key>

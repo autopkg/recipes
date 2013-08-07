@@ -5,7 +5,7 @@
     <key>Input</key>
     <dict>
         <key>IDENTIFIER</key>
-        <string>com.googlecode.autopkg.pkg.Firefox_EN</string>
+        <string>com.github.autopkg.pkg.Firefox_EN</string>
         <key>RELEASE</key>
         <string>latest</string>
         <key>NAME</key>

@@ -5,7 +5,7 @@
     <key>Input</key>
     <dict>
         <key>IDENTIFIER</key>
-        <string>com.googlecode.autopkg.munki.Praat</string>
+        <string>com.github.autopkg.munki.Praat</string>
         <key>NAME</key>
         <string>Praat</string>
         <key>MUNKI_REPO_SUBDIR</key>

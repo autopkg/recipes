@@ -7,7 +7,7 @@
         <key>ABORT_IF_CACHED</key>
         <false/>
         <key>IDENTIFIER</key>
-        <string>com.googlecode.autopkg.munki.bbedit</string>
+        <string>com.github.autopkg.munki.bbedit</string>
         <key>MUNKI_REPO_SUBDIR</key>
         <string>apps/BBEdit</string>
         <key>NAME</key>

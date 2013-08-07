@@ -5,7 +5,7 @@
     <key>Input</key>
     <dict>
         <key>IDENTIFIER</key>
-        <string>com.googlecode.autopkg.munki.Cyberduck</string>
+        <string>com.github.autopkg.munki.Cyberduck</string>
         <key>NAME</key>
         <string>Cyberduck</string>
         <key>MUNKI_REPO_SUBDIR</key>

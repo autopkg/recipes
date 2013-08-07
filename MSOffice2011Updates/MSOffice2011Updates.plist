@@ -5,7 +5,7 @@
     <key>Input</key>
     <dict>
         <key>IDENTIFIER</key>
-        <string>com.googlecode.autopkg.munki.Office2011Updates</string>
+        <string>com.github.autopkg.munki.Office2011Updates</string>
         <key>NAME</key>
         <string>Office2011_update</string>
         <key>MUNKI_REPO_SUBDIR</key>

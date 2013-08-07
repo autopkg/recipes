@@ -7,7 +7,7 @@
         <key>ABORT_IF_CACHED</key>
         <false/>
         <key>IDENTIFIER</key>
-        <string>com.googlecode.autopkg.munki.textwrangler</string>
+        <string>com.github.autopkg.munki.textwrangler</string>
         <key>MUNKI_REPO_SUBDIR</key>
         <string>apps/TextWrangler</string>
         <key>NAME</key>

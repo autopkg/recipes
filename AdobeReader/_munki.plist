@@ -12,7 +12,7 @@ trash folder to copy the .app into.</string>
     <key>Input</key>
     <dict>
         <key>IDENTIFIER</key>
-        <string>com.googlecode.autopkg.munki.AdobeReader</string>
+        <string>com.github.autopkg.munki.AdobeReader</string>
         <key>LANGUAGE</key>
         <string>English</string>
         <key>MAJOR_VERSION</key>

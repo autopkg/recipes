@@ -5,7 +5,7 @@
     <key>Input</key>
     <dict>
         <key>IDENTIFIER</key>
-        <string>com.googlecode.autopkg.munki.google-earth</string>
+        <string>com.github.autopkg.munki.google-earth</string>
         <key>NAME</key>
         <string>GoogleEarth</string>
         <key>MUNKI_REPO_SUBDIR</key>

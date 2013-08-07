@@ -7,7 +7,7 @@
     <key>Input</key>
     <dict>
         <key>IDENTIFIER</key>
-        <string>com.googlecode.autopkg.munki.Adium</string>
+        <string>com.github.autopkg.munki.Adium</string>
         <key>NAME</key>
         <string>Adium</string>
         <key>MUNKI_REPO_SUBDIR</key>

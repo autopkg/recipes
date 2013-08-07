@@ -7,7 +7,7 @@
     <key>Input</key>
     <dict>
         <key>IDENTIFIER</key>
-        <string>com.googlecode.autopkg.pkg.Adium</string>
+        <string>com.github.autopkg.pkg.Adium</string>
         <key>NAME</key>
         <string>Adium</string>
     </dict>

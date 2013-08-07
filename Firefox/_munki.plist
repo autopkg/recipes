@@ -13,7 +13,7 @@ combination is offered.</string>
     <key>Input</key>
     <dict>
         <key>IDENTIFIER</key>
-        <string>com.googlecode.autopkg.munki.firefox-rc-en_US</string>
+        <string>com.github.autopkg.munki.firefox-rc-en_US</string>
         <key>RELEASE</key>
         <string>latest</string>
         <key>LOCALE</key>

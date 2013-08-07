@@ -13,7 +13,7 @@ combination is offered.</string>
     <key>Input</key>
     <dict>
         <key>IDENTIFIER</key>
-        <string>com.googlecode.autopkg.munki.thunderbird</string>
+        <string>com.github.autopkg.munki.thunderbird</string>
         <key>RELEASE</key>
         <string>latest</string>
         <key>LOCALE</key>

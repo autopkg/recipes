@@ -12,7 +12,7 @@ https://jamfnation.jamfsoftware.com/discussion.html?id=6489
     <key>Input</key>
     <dict>
         <key>IDENTIFIER</key>
-        <string>com.googlecode.autopkg.munki.OracleJava7</string>
+        <string>com.github.autopkg.munki.OracleJava7</string>
         <key>MUNKI_REPO_SUBDIR</key>
         <string>plugins/Java</string>
         <key>NAME</key>

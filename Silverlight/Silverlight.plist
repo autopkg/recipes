@@ -5,7 +5,7 @@
     <key>Input</key>
     <dict>
         <key>IDENTIFIER</key>
-        <string>com.googlecode.autopkg.munki.Silverlight</string>
+        <string>com.github.autopkg.munki.Silverlight</string>
         <key>NAME</key>
         <string>Silverlight</string>
         <key>MUNKI_REPO_SUBDIR</key>
