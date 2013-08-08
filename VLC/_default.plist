@@ -14,8 +14,6 @@
         <dict>
             <key>Processor</key>
             <string>VLCURLProvider</string>
-            <key>Arguments</key>
-            <dict/>
         </dict>
         <dict>
             <key>Processor</key>

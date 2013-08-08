@@ -2,22 +2,16 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-    <key>Description</key>
-    <string>Downloads the latest Facter using Puppet Labs' Mac download list at
-downloads.puppetlabs.com/mac, and imports into Munki.
-
-VERSION can be overridden with a specific version number, or left to
-the default, 'latest'.</string>
     <key>Input</key>
     <dict>
         <key>IDENTIFIER</key>
-        <string>com.github.autopkg.munki.facter</string>
-        <key>MUNKI_REPO_SUBDIR</key>
-        <string>support/Facter</string>
+        <string>com.github.autopkg.munki.XLD</string>
         <key>NAME</key>
-        <string>Facter</string>
-        <key>VERSION</key>
-        <string>latest</string>
+        <string>XLD</string>
+        <key>MUNKI_REPO_SUBDIR</key>
+        <string>apps/XLD</string>
+        <key>SU_FEED_URL</key>
+        <string>http://xld.googlecode.com/svn/appcast/xld-appcast_e.xml</string>
         <key>pkginfo</key>
         <dict>
             <key>catalogs</key>
@@ -25,9 +19,9 @@ the default, 'latest'.</string>
                 <string>testing</string>
             </array>
             <key>description</key>
-            <string>Facter is an independent, cross-platform Ruby library designed to gather information on all the nodes you will managing with Puppet.</string>
+            <string>X Lossless Decoder (XLD) is a tool for Mac OS X that is able to decode/convert/play various 'lossless' audio files. The supported audio files can be split into some tracks with cue sheet when decoding.</string>
             <key>display_name</key>
-            <string>%NAME%</string>
+            <string>X Lossless Decoder (XLD)</string>
             <key>name</key>
             <string>%NAME%</string>
             <key>unattended_install</key>
@@ -37,30 +31,30 @@ the default, 'latest'.</string>
     <key>Process</key>
     <array>
         <dict>
+            <key>Processor</key>
+            <string>SparkleUpdateInfoProvider</string>
             <key>Arguments</key>
             <dict>
-                <key>get_version</key>
-                <string>%VERSION%</string>
-                <key>product_name</key>
-                <string>facter</string>
+                <key>appcast_url</key>
+                <string>%SU_FEED_URL%</string>
             </dict>
-            <key>Processor</key>
-            <string>PuppetlabsProductsURLProvider</string>
         </dict>
         <dict>
-            <key>Arguments</key>
-            <dict>
-                <key>url</key>
-                <string>%url%</string>
-                <key>filename</key>
-                <string>%NAME%-%version%.dmg</string>
-            </dict>
             <key>Processor</key>
             <string>URLDownloader</string>
+            <key>Arguments</key>
+            <dict>
+                <key>filename</key>
+                <string>%NAME%.dmg</string>
+            </dict>
         </dict>
         <dict>
             <key>Processor</key>
             <string>EndOfCheckPhase</string>
+        </dict>
+        <dict>
+            <key>Processor</key>
+            <string>MunkiPkginfoMerger</string>
         </dict>
         <dict>
             <key>Arguments</key>

@@ -2,10 +2,11 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+    <key>Description</key>
+    <string>Downloads the current installation package for BBEdit. Imports it
+into Munki, adding a postinstall_script that installs the command-line tools.</string>
     <key>Input</key>
     <dict>
-        <key>ABORT_IF_CACHED</key>
-        <false/>
         <key>IDENTIFIER</key>
         <string>com.github.autopkg.munki.bbedit</string>
         <key>MUNKI_REPO_SUBDIR</key>
@@ -72,8 +73,6 @@ done
         <dict>
             <key>Processor</key>
             <string>EndOfCheckPhase</string>
-            <key>Arguments</key>
-            <dict/>
         </dict>
         <dict>
             <key>Processor</key>

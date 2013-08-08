@@ -3,15 +3,30 @@
 <plist version="1.0">
 <dict>
     <key>Description</key>
-    <string>Downloads the latest version of Praat and imports into Munki.</string>
+    <string>Downloads updates for Adobe Acrobat Pro 9 and imports them into 
+Munki. It will also set the appropriate 'requires' item for the 
+previous update in the Munki pkginfo.
+
+Acrobat Pro 9 updates get their own installer type in Munki, 
+and makepkginfo will handle requiring a logout for these. Acrobat 
+Pro 9 uses a separate recipe from X/XI as its download is provided
+as a zip file, which must be re-packed to a .dmg.
+
+The value(s) for update_for in the pkginfo should be set to that 
+of your base Adobe Acrobat Pro 9 installer item.
+
+VERSION can be a specific update version, ie. '9.5.2', or the 
+default, 'latest'.</string>
     <key>Input</key>
     <dict>
         <key>IDENTIFIER</key>
-        <string>com.github.autopkg.munki.Praat</string>
-        <key>NAME</key>
-        <string>Praat</string>
+        <string>com.github.autopkg.munki.AdobeAcrobatPro9Update</string>
         <key>MUNKI_REPO_SUBDIR</key>
-        <string>apps</string>
+        <string>apps/AcrobatPro</string>
+        <key>NAME</key>
+        <string>AdobeAcrobatPro9_Update</string>
+        <key>VERSION</key>
+        <string>latest</string>
         <key>pkginfo</key>
         <dict>
             <key>catalogs</key>
@@ -19,29 +34,37 @@
                 <string>testing</string>
             </array>
             <key>description</key>
-            <string>Praat is a program for speech analysis and synthesis.</string>
+            <string></string>
             <key>display_name</key>
-            <string>Praat</string>
+            <string>Adobe Acrobat Pro Update</string>
             <key>name</key>
             <string>%NAME%</string>
             <key>unattended_install</key>
             <true/>
+            <key>update_for</key>
+            <array>
+                <string>AdobeAcrobatPro9</string>
+            </array>
         </dict>
     </dict>
     <key>Process</key>
     <array>
         <dict>
+            <key>Arguments</key>
+            <dict>
+                <key>major_version</key>
+                <string>9</string>
+                <key>munki_update_name</key>
+                <string>%NAME%</string>
+                <key>version</key>
+                <string>%VERSION%</string>
+            </dict>
             <key>Processor</key>
-            <string>PraatURLProvider</string>
+            <string>AdobeAcrobatProUpdateInfoProvider</string>
         </dict>
         <dict>
             <key>Processor</key>
             <string>URLDownloader</string>
-            <key>Arguments</key>
-            <dict>
-                <key>filename</key>
-                <string>%NAME%.dmg</string>
-            </dict>
         </dict>
         <dict>
             <key>Processor</key>
@@ -49,24 +72,15 @@
         </dict>
         <dict>
             <key>Processor</key>
-            <string>Copier</string>
+            <string>Unarchiver</string>
             <key>Arguments</key>
             <dict>
-                <key>source_path</key>
-                <string>%pathname%/%NAME%.app</string>
+                <key>archive_path</key>
+                <string>%pathname%</string>
                 <key>destination_path</key>
-                <string>%RECIPE_CACHE_DIR%/%NAME%/%NAME%.app</string>
-                <key>overwrite</key>
+                <string>%RECIPE_CACHE_DIR%/%NAME%</string>
+                <key>purge_destination</key>
                 <true/>
-            </dict>
-        </dict>
-        <dict>
-            <key>Processor</key>
-            <string>PraatVersionFixer</string>
-            <key>Arguments</key>
-            <dict>
-                <key>app_path</key>
-                <string>%destination_path%</string>
             </dict>
         </dict>
         <dict>
@@ -77,8 +91,12 @@
                 <key>dmg_root</key>
                 <string>%RECIPE_CACHE_DIR%/%NAME%</string>
                 <key>dmg_path</key>
-                <string>%RECIPE_CACHE_DIR%/%NAME%-%version%.dmg</string>
+                <string>%RECIPE_CACHE_DIR%/%NAME%.dmg</string>
             </dict>
+        </dict>
+        <dict>
+            <key>Processor</key>
+            <string>MunkiPkginfoMerger</string>
         </dict>
         <dict>
             <key>Arguments</key>

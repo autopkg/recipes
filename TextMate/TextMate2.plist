@@ -3,15 +3,26 @@
 <plist version="1.0">
 <dict>
     <key>Description</key>
-    <string>Downloads the latest version of Praat and imports into Munki.</string>
+    <string>Downloads the latest TextMate 2 and imports into Munki.
+
+The postinstall script symlinks the 'mate' command-line helper tool from
+the application bundle to /usr/local/bin/mate, the same path that TextMate2
+would install it to.
+
+BRANCH can be one of 'release' or 'beta', which correspond respectively
+to the 'Normal' and 'Nightly' options in TextMate 2's Software Update
+preferences panel.
+</string>
     <key>Input</key>
     <dict>
         <key>IDENTIFIER</key>
-        <string>com.github.autopkg.munki.Praat</string>
-        <key>NAME</key>
-        <string>Praat</string>
+        <string>com.github.autopkg.munki.TextMate2</string>
         <key>MUNKI_REPO_SUBDIR</key>
-        <string>apps</string>
+        <string>apps/TextMate2</string>
+        <key>NAME</key>
+        <string>TextMate2</string>
+        <key>BRANCH</key>
+        <string>release</string>
         <key>pkginfo</key>
         <dict>
             <key>catalogs</key>
@@ -19,11 +30,16 @@
                 <string>testing</string>
             </array>
             <key>description</key>
-            <string>Praat is a program for speech analysis and synthesis.</string>
+            <string>TextMate brings Apple&apos;s approach to operating systems into the world of text editors. By bridging UNIX underpinnings and GUI, TextMate cherry-picks the best of both worlds to the benefit of expert scripters and novice users alike.</string>
             <key>display_name</key>
-            <string>Praat</string>
+            <string>TextMate 2</string>
             <key>name</key>
             <string>%NAME%</string>
+            <key>postinstall_script</key>
+            <string>#!/bin/sh
+[ -d /usr/local/bin ] || mkdir -p /usr/local/bin
+/bin/ln -sf /Applications/TextMate.app/Contents/Resources/mate /usr/local/bin/mate
+</string>
             <key>unattended_install</key>
             <true/>
         </dict>
@@ -32,16 +48,16 @@
     <array>
         <dict>
             <key>Processor</key>
-            <string>PraatURLProvider</string>
+            <string>TextMateURLProvider</string>
+            <key>Arguments</key>
+            <dict>
+                <key>branch</key>
+                <string>%BRANCH%</string>
+            </dict>
         </dict>
         <dict>
             <key>Processor</key>
             <string>URLDownloader</string>
-            <key>Arguments</key>
-            <dict>
-                <key>filename</key>
-                <string>%NAME%.dmg</string>
-            </dict>
         </dict>
         <dict>
             <key>Processor</key>
@@ -49,24 +65,15 @@
         </dict>
         <dict>
             <key>Processor</key>
-            <string>Copier</string>
+            <string>Unarchiver</string>
             <key>Arguments</key>
             <dict>
-                <key>source_path</key>
-                <string>%pathname%/%NAME%.app</string>
+                <key>archive_path</key>
+                <string>%pathname%</string>
                 <key>destination_path</key>
-                <string>%RECIPE_CACHE_DIR%/%NAME%/%NAME%.app</string>
-                <key>overwrite</key>
+                <string>%RECIPE_CACHE_DIR%/%NAME%</string>
+                <key>purge_destination</key>
                 <true/>
-            </dict>
-        </dict>
-        <dict>
-            <key>Processor</key>
-            <string>PraatVersionFixer</string>
-            <key>Arguments</key>
-            <dict>
-                <key>app_path</key>
-                <string>%destination_path%</string>
             </dict>
         </dict>
         <dict>
@@ -77,7 +84,7 @@
                 <key>dmg_root</key>
                 <string>%RECIPE_CACHE_DIR%/%NAME%</string>
                 <key>dmg_path</key>
-                <string>%RECIPE_CACHE_DIR%/%NAME%-%version%.dmg</string>
+                <string>%RECIPE_CACHE_DIR%/%NAME%.dmg</string>
             </dict>
         </dict>
         <dict>
