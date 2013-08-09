@@ -3,23 +3,36 @@
 <plist version="1.0">
 <dict>
     <key>Description</key>
-    <string>This recipe is currently broken. The TextMateURLProvider would need
-to be updated to specifically support the pre-2 version of TextMate,
-which is also unlikely to receive any more updates in the future.</string>
+    <string>Downloads TextMate 1.5.11 and imports into Munki. The URL
+is hardcoded because it's not likely to ever get another update.</string>
     <key>Input</key>
     <dict>
         <key>IDENTIFIER</key>
         <string>com.github.autopkg.munki.TextMate</string>
         <key>NAME</key>
         <string>TextMate</string>
-        <key>MUNKI_DISPLAYNAME</key>
-        <string>TextMate</string>
-        <key>MUNKI_DESCRIPTION</key>
-        <string>TextMate brings Apple&apos;s approach to operating systems into the world of text editors. By bridging UNIX underpinnings and GUI, TextMate cherry-picks the best of both worlds to the benefit of expert scripters and novice users alike.</string>
-        <key>MUNKI_CATALOG</key>
-        <string>testing</string>
         <key>MUNKI_REPO_SUBDIR</key>
         <string>apps</string>
+        <key>pkginfo</key>
+        <dict>
+            <key>catalogs</key>
+            <array>
+                <string>testing</string>
+            </array>
+            <key>description</key>
+            <string>TextMate brings Apple&apos;s approach to operating systems into the world of text editors. By bridging UNIX underpinnings and GUI, TextMate cherry-picks the best of both worlds to the benefit of expert scripters and novice users alike.</string>
+            <key>display_name</key>
+            <string>TextMate</string>
+            <key>name</key>
+            <string>%NAME%</string>
+            <key>postinstall_script</key>
+            <string>#!/bin/sh
+[ -d /usr/local/bin ] || mkdir -p /usr/local/bin
+/bin/ln -sf /Applications/TextMate.app/Contents/Resources/mate /usr/local/bin/mate
+</string>
+            <key>unattended_install</key>
+            <true/>
+        </dict>
     </dict>
     <key>Process</key>
     <array>
@@ -29,20 +42,18 @@ which is also unlikely to receive any more updates in the future.</string>
             <key>Arguments</key>
             <dict>
                 <key>url</key>
-                <string>http://download.macromates.com/</string>
-                <key>filename</key>
-                <string>%NAME%.zip</string>
+                <string>http://archive.textmate.org/TextMate_1.5.11_r1635.zip</string>
             </dict>
+        </dict>
+        <dict>
+            <key>Processor</key>
+            <string>EndOfCheckPhase</string>
         </dict>
         <dict>
             <key>Processor</key>
             <string>Unarchiver</string>
             <key>Arguments</key>
             <dict>
-                <key>archive_path</key>
-                <string>%pathname%</string>
-                <key>destination_path</key>
-                <string>%RECIPE_CACHE_DIR%/%NAME%</string>
                 <key>purge_destination</key>
                 <true/>
             </dict>
@@ -59,31 +70,12 @@ which is also unlikely to receive any more updates in the future.</string>
             </dict>
         </dict>
         <dict>
-            <key>Processor</key>
-            <string>EndOfCheckPhase</string>
-        </dict>
-        <dict>
             <key>Arguments</key>
             <dict>
                 <key>pkg_path</key>
                 <string>%dmg_path%</string>
                 <key>repo_subdirectory</key>
                 <string>%MUNKI_REPO_SUBDIR%</string>
-                <key>pkginfo</key>
-                <dict>
-                    <key>catalogs</key>
-                    <array>
-                        <string>%MUNKI_CATALOG%</string>
-                    </array>
-                    <key>description</key>
-                    <string>%MUNKI_DESCRIPTION%</string>
-                    <key>display_name</key>
-                    <string>%MUNKI_DISPLAYNAME%</string>
-                    <key>name</key>
-                    <string>%NAME%</string>
-                    <key>unattended_install</key>
-                    <true/>
-                </dict>
             </dict>
             <key>Processor</key>
             <string>MunkiImporter</string>
