@@ -8,11 +8,11 @@
         <string>com.github.autopkg.autopkg</string>
         <key>NAME</key>
         <string>autopkg</string>
-        <key>VERSION</key>
-        <string>0.1</string>
         <key>URL</key>
         <string>https://github.com/autopkg/autopkg/zipball/master</string>
     </dict>
+    <key>MinimumVersion</key>
+    <string>0.1.0</string>
     <key>Process</key>
     <array>
         <dict>
@@ -53,6 +53,19 @@
             </dict>
             <key>Processor</key>
             <string>AutoPkgSourceFinder</string>
+        </dict>
+        <dict>
+            <key>Comment</key>
+            <string>Extract a version string from version.plist to use for the package.</string>
+            <key>Arguments</key>
+            <dict>
+                <key>input_plist_path</key>
+                <string>%autopkg_path%/Code/autopkglib/version.plist</string>
+                <key>plist_version_key</key>
+                <string>Version</string>
+            </dict>
+            <key>Processor</key>
+            <string>Versioner</string>
         </dict>
         <dict>
             <key>Comment</key>
@@ -187,7 +200,7 @@
             <key>Arguments</key>
             <dict>
                 <key>version</key>
-                <string>%VERSION%</string>
+                <string>%version%</string>
                 <key>template_path</key>
                 <string>%RECIPE_DIR%/PackageInfoTemplate</string>
                 <key>infofile</key>
