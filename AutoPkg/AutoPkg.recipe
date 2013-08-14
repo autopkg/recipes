@@ -181,6 +181,21 @@
         </dict>
         <dict>
             <key>Comment</key>
+            <string>Copy FoundationPlist to /Library/AutoPkg</string>
+            <key>Processor</key>
+            <string>Copier</string>
+            <key>Arguments</key>
+            <dict>
+                <key>source_path</key>
+                <string>%autopkg_path%/Code/FoundationPlist</string>
+                <key>destination_path</key>
+                <string>%pkgroot%/Library/AutoPkg/FoundationPlist</string>
+                <key>overwrite</key>
+                <true/>
+            </dict>
+        </dict>
+        <dict>
+            <key>Comment</key>
             <string>Copy launchd plist</string>
             <key>Processor</key>
             <string>Copier</string>
