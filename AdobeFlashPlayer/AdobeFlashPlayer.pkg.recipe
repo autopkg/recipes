@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Description</key>
+    <string>Downloads Adobe Flash Player installer and extracts the embedded package. No repackaging done.</string>
+    <key>Input</key>
+    <dict>
+        <key>IDENTIFIER</key>
+        <string>com.github.autopkg.pkg.FlashPlayerExtractPackage</string>
+        <key>NAME</key>
+        <string>AdobeFlashPlayer</string>
+    </dict>
+    <key>Process</key>
+    <array>
+        <dict>
+            <key>Processor</key>
+            <string>AdobeFlashURLProvider</string>
+        </dict>
+        <dict>
+            <key>Processor</key>
+            <string>URLDownloader</string>
+            <key>Arguments</key>
+            <dict>
+                <key>filename</key>
+                <string>%NAME%.dmg</string>
+            </dict>
+        </dict>
+        <dict>
+            <key>Processor</key>
+            <string>EndOfCheckPhase</string>
+        </dict>
+        <dict>
+            <key>Comment</key>
+            <string>Get Adobe Flash version from the pkg</string>
+            <key>Processor</key>
+            <string>Versioner</string>
+            <key>Arguments</key>
+            <dict>
+                <key>input_plist_path</key>
+                <string>%pathname%/Install Adobe Flash Player.app/Contents/Resources/Adobe Flash Player.pkg/Contents/Info.plist</string>
+                <key>plist_version_key</key>
+                <string>CFBundleShortVersionString</string>
+            </dict>
+        </dict>
+        <dict>
+            <key>Comment</key>
+            <string>Copy the embedded package out of the application bundle in the disk image.</string>
+            <key>Arguments</key>
+            <dict>
+                <key>source_path</key>
+                <string>%pathname%/Install Adobe Flash Player.app/Contents/Resources/Adobe Flash Player.pkg</string>
+                <key>destination_path</key>
+                <string>%RECIPE_CACHE_DIR%/Adobe Flash Player-%version%.pkg</string>
+                <key>overwrite</key>
+                <true/>
+            </dict>
+            <key>Processor</key>
+            <string>Copier</string>
+        </dict>
+    </array>
+</dict>
+</plist>
