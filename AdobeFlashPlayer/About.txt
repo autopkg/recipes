@@ -18,3 +18,8 @@ AdobeFlashPlayer.munki.recipe:
 AdobeFlashPlayerExtractPackage.munki.recipe:
 
     Downloads the latest Adobe Flash Player installer, extracts the embedded package inside Install Adobe Flash Player.app, wraps it in a disk image, and imports it into Munki.
+
+
+AdobeFlashPlayerRepackage.munki.recipe:
+
+    Repackages the Adobe Flash Player installer as with AdobeFlashPlayerRepackage.pkg.recipe; then imports into Munki. All the same caveats apply.
