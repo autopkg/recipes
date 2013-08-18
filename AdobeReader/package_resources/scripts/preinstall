@@ -1,0 +1,9 @@
+#!/bin/bash
+# replacement preinstall script for Adobe Reader
+
+installation_path=$2
+readerApp="Adobe Reader.app"
+
+if [ -e "$installation_path/$readerApp" ] ; then
+  /bin/rm -r "$installation_path/$readerApp"
+fi
