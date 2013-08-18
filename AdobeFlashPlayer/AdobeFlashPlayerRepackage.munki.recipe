@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
     <key>Description</key>
-    <string>Downloads Adobe Flash Player installer and extracts the embedded package and repackages.</string>
+    <string>Downloads Adobe Flash Player installer and extracts the embedded package and repackages. Imports new package into Munki.</string>
     <key>Input</key>
     <dict>
         <key>IDENTIFIER</key>
