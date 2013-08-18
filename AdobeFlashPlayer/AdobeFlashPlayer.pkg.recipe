@@ -50,13 +50,11 @@
             <dict>
                 <key>source_path</key>
                 <string>%pathname%/Install Adobe Flash Player.app/Contents/Resources/Adobe Flash Player.pkg</string>
-                <key>destination_path</key>
+                <key>pkg_path</key>
                 <string>%RECIPE_CACHE_DIR%/Adobe Flash Player-%version%.pkg</string>
-                <key>overwrite</key>
-                <true/>
             </dict>
             <key>Processor</key>
-            <string>Copier</string>
+            <string>PkgCopier</string>
         </dict>
     </array>
 </dict>
