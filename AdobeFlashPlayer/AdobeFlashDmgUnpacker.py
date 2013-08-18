@@ -21,14 +21,14 @@ import tempfile
 import shutil
 import subprocess
 
-from autopkglib.DmgMounter import DmgMounter
+from autopkglib.PkgExtractor import PkgExtractor
 from autopkglib import Processor, ProcessorError
 
 
 __all__ = ["AdobeFlashDmgUnpacker"]
 
 
-class AdobeFlashDmgUnpacker(DmgMounter):
+class AdobeFlashDmgUnpacker(PkgExtractor):
     description = "Mounts a Flash dmg and extracts the Player pkg payload to pkgroot."
     input_variables = {
         "dmg_path": {
@@ -59,51 +59,6 @@ class AdobeFlashDmgUnpacker(DmgMounter):
         except FoundationPlist.FoundationPlistException as err:
             raise ProcessorError(err)
         return info
-
-    def extract_payload(self, pkg_path, extract_root):
-        '''Extract package contents to extract_root, preserving intended
-         directory structure'''
-        info_plist = os.path.join(pkg_path, "Contents/Info.plist")
-        archive_path = os.path.join(pkg_path, "Contents/Archive.pax.gz")
-        if not os.path.exists(info_plist):
-            raise ProcessorError("Info.plist not found in pkg")
-        if not os.path.exists(archive_path):
-            raise ProcessorError("Archive.pax.gz not found in pkg")
-
-        if os.path.exists(extract_root):
-            try:
-                shutil.rmtree(extract_root)
-            except (OSError, IOError), err:
-                raise ProcessorError("Failed to remove extract_root: %s" % err)
-
-        try:
-            info = FoundationPlist.readPlist(info_plist)
-        except FoundationPlist.FoundationPlistException, err:
-            raise ProcessorError("Failed to read Info.plist: %s" % err)
-
-        install_target = info.get("IFPkgFlagDefaultLocation", "/").lstrip("/")
-        extract_path = os.path.join(extract_root, install_target)
-        try:
-            os.makedirs(extract_path, 0755)
-        except (OSError, IOError), err:
-            raise ProcessorError("Failed to create extract_path: %s" % err)
-
-        # Unpack payload.
-        try:
-            p = subprocess.Popen(("/usr/bin/ditto",
-                                  "-x",
-                                  "-z",
-                                  archive_path,
-                                  extract_path),
-                                  stdout=subprocess.PIPE,
-                                  stderr=subprocess.PIPE)
-            (out, err) = p.communicate()
-        except OSError as err:
-            raise ProcessorError(
-                "ditto execution failed with error code %d: %s" 
-                % (err.errno, err.strerror))
-        if p.returncode != 0:
-            raise ProcessorError("Unpacking payload failed: %s" % err)
 
     def decompress_plugin(self, pkg_path, pkgroot):
         '''Patches postflight binary to decompress the Flash Player.plugin'''
