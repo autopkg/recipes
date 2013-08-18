@@ -48,10 +48,10 @@
             <string>Copy the embedded package out of the application bundle in the disk image.</string>
             <key>Arguments</key>
             <dict>
-                <key>source_path</key>
+                <key>source_pkg</key>
                 <string>%pathname%/Install Adobe Flash Player.app/Contents/Resources/Adobe Flash Player.pkg</string>
                 <key>pkg_path</key>
-                <string>%RECIPE_CACHE_DIR%/Adobe Flash Player-%version%.pkg</string>
+                <string>%RECIPE_CACHE_DIR%/%NAME%-%version%.pkg</string>
             </dict>
             <key>Processor</key>
             <string>PkgCopier</string>
