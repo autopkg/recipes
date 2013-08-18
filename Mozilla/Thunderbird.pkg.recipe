@@ -77,7 +77,7 @@
             <key>Arguments</key>
             <dict>
                 <key>template_path</key>
-                <string>%RECIPE_DIR%/PackageInfoTemplate</string>
+                <string>%RECIPE_DIR%/thunderbird_pkg_resources/PackageInfoTemplate</string>
                 <key>infofile</key>
                 <string>%RECIPE_CACHE_DIR%/PackageInfo</string>
                 <key>pkgtype</key>
@@ -98,7 +98,7 @@
                     <key>id</key>
                     <string>org.mozilla.thunderbird.pkg</string>
                     <key>resources</key>
-                    <string>%RECIPE_DIR%/Resources</string>
+                    <string>%RECIPE_DIR%/thunderbird_pkg_resources/Resources</string>
                     <key>options</key>
                     <string>purge_ds_store</string>
                     <key>chown</key>
