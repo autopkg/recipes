@@ -133,7 +133,7 @@ class AdobeReaderRepackager(DmgMounter):
             raise ProcessorError("Can't read %s: %s" % (dist_file, err))
             
         dist_root = dist.getroot()
-        if dist_root.tag != "installer-script":
+        if not dist_root.tag in ["installer-script", "installer-gui-script"]:
             raise ProcessorError(
                 "Distribution file is not in the expected format.")
         domains = dist_root.find("domains")
