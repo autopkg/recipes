@@ -43,19 +43,6 @@
         </dict>
         <dict>
             <key>Processor</key>
-            <string>PkgInfoCreator</string>
-            <key>Arguments</key>
-            <dict>
-                <key>template_path</key>
-                <string>%RECIPE_DIR%/info_template.plist</string>
-                <key>infofile</key>
-                <string>%RECIPE_CACHE_DIR%/Info.plist</string>
-                <key>pkgtype</key>
-                <string>flat</string>
-            </dict>
-        </dict>
-        <dict>
-            <key>Processor</key>
             <string>PkgCreator</string>
             <key>Arguments</key>
             <dict>
@@ -63,14 +50,16 @@
                 <string>%NAME%-%version%</string>
                 <key>pkg_request</key>
                 <dict>
+                    <key>pkgtype</key>
+                    <string>flat</string>
                     <key>pkgdir</key>
                     <string>%RECIPE_CACHE_DIR%</string>
                     <key>id</key>
                     <string>com.adobe.pkg.FlashPlayer</string>
                     <key>infofile</key>
-                    <string>%RECIPE_CACHE_DIR%/Info.plist</string>
+                    <string></string>
                     <key>resources</key>
-                    <string>%RECIPE_DIR%/Resources</string>
+                    <string></string>
                     <key>options</key>
                     <string>purge_ds_store</string>
                     <key>chown</key>
