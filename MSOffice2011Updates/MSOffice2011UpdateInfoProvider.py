@@ -62,6 +62,9 @@ class MSOffice2011UpdateInfoProvider(Processor):
         "url": {
             "description": "URL to the latest Office 2011 update.",
         },
+        "pkg_name": {
+            "description": "Name of the package within the disk image.",
+        }, 
         "additional_pkginfo": {
             "description": 
                 "Some pkginfo fields extracted from the Microsoft metadata.",
@@ -197,6 +200,7 @@ class MSOffice2011UpdateInfoProvider(Processor):
             item = matched_items[0]
         
         self.env["url"] = item["Location"]
+        self.env["pkg_name"] = item["Payload"]
         self.output("Found URL %s" % self.env["url"])
         self.output("Got update: '%s'" % item["Title"])
         # now extract useful info from the rest of the metadata that could
