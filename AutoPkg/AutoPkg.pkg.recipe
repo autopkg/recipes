@@ -209,6 +209,19 @@
         </dict>
         <dict>
             <key>Comment</key>
+            <string>Remove source launchd plist</string>
+            <key>Processor</key>
+            <string>PathDeleter</string>
+            <key>Arguments</key>
+            <dict>
+                <key>path_list</key>
+                <array>
+                    <string>%pkgroot%/Library/AutoPkg/autopkgserver/autopkgserver.plist</string>
+                </array>
+            </dict>
+        </dict>
+        <dict>
+            <key>Comment</key>
             <string>Make PackageInfo file for our package</string>
             <key>Processor</key>
             <string>PkgInfoCreator</string>
