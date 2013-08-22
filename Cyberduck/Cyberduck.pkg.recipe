@@ -96,6 +96,8 @@ Alternate URLs that can be used for SPARKLE_FEED_URL:
                     <string></string>
                     <key>resources</key>
                     <string></string>
+                    <key>scripts</key>
+                    <string></string>
                     <key>options</key>
                     <string>purge_ds_store</string>
                     <key>chown</key>
