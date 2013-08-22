@@ -16,7 +16,7 @@ is more recent than the copy in /Applications.
 
 This recipe assumes the user cannot write to the installed version at
 /Applications/Dropbox.app, and therefore merges an installs key with a versionless
-Dropbox application item, so that if a newer version of Dropbox is ever imported
+Dropbox file item, so that if a newer version of Dropbox is ever imported
 into the repo, it will not trigger updates on clients whose newer version is only
 located in their user's home folder.</string>
     <key>Input</key>
@@ -98,7 +98,7 @@ fi
                             <key>path</key>
                             <string>/Applications/Dropbox.app</string>
                             <key>type</key>
-                            <string>application</string>
+                            <string>file</string>
                         </dict>
                     </array>
                 </dict>
