@@ -2,6 +2,12 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+    <key>Description</key>
+    <string>Downloads latest VLC disk image and builds a package.
+
+Default SPARKLE_FEED_URL is the universal Intel build, but path 'vlc.xml' may be 
+substituted for 'vlc-intel32.xml', 'vlc-intel64.xml' or 'vlc-powerpc.xml' to 
+retrieve other builds.</string>
     <key>Input</key>
     <dict>
         <key>IDENTIFIER</key>
