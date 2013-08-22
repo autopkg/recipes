@@ -1,0 +1,17 @@
+#!/bin/sh
+
+LAUNCHD_PLIST=/Library/LaunchDaemons/com.github.autopkg.autopkgserver.plist
+
+# load the LaunchDaemon only if we're installing to the currently-booted volume
+if [[ "$3" == "/" ]]; then
+    echo "Installation is to the currently-booted volume."
+    if [ -e "$LAUNCHD_PLIST" ]; then
+        # most likely it's loaded..
+        echo "Attempting to unload $LAUNCHD_PLIST.."
+        /bin/launchctl unload "$LAUNCHD_PLIST"
+    fi
+    echo "Attempting to load $LAUNCHD_PLIST.."
+    /bin/launchctl load "$LAUNCHD_PLIST"
+fi
+
+exit 0

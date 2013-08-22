@@ -232,6 +232,8 @@
                     <string>%RECIPE_DIR%/Resources</string>
                     <key>options</key>
                     <string>purge_ds_store</string>
+                    <key>scripts</key>
+                    <string>%RECIPE_DIR%/Scripts</string>
                     <key>chown</key>
                     <array>
                         <dict>
