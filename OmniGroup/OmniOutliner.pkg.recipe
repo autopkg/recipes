@@ -75,20 +75,12 @@
             <dict>
                 <key>pkg_request</key>
                 <dict>
-                    <key>pkgtype</key>
-                    <string>flat</string>
                     <key>pkgname</key>
                     <string>%NAME%-%version%</string>
                     <key>version</key>
                     <string>%version%</string>
                     <key>id</key>
                     <string>%bundleid%</string>
-                    <key>infofile</key>
-                    <string></string>
-                    <key>resources</key>
-                    <string></string>
-                    <key>scripts</key>
-                    <string></string>
                     <key>options</key>
                     <string>purge_ds_store</string>
                     <key>chown</key>
