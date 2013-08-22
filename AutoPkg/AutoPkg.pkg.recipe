@@ -125,32 +125,6 @@
         </dict>
         <dict>
             <key>Comment</key>
-            <string>Copy automunkiimport to /Library/AutoPkg</string>
-            <key>Processor</key>
-            <string>Copier</string>
-            <key>Arguments</key>
-            <dict>
-                <key>source_path</key>
-                <string>%autopkg_path%/Code/automunkiimport</string>
-                <key>destination_path</key>
-                <string>%pkgroot%/Library/AutoPkg/automunkiimport</string>
-            </dict>
-        </dict>
-        <dict>
-            <key>Comment</key>
-            <string>Symlink /Library/AutoPkg/automunkiimport to /usr/local/bin/automunkiimport</string>
-            <key>Processor</key>
-            <string>Symlinker</string>
-            <key>Arguments</key>
-            <dict>
-                <key>source_path</key>
-                <string>/Library/AutoPkg/automunkiimport</string>
-                <key>destination_path</key>
-                <string>%pkgroot%/usr/local/bin/automunkiimport</string>
-            </dict>
-        </dict>
-        <dict>
-            <key>Comment</key>
             <string>Copy autopkglib to /Library/AutoPkg</string>
             <key>Processor</key>
             <string>Copier</string>
@@ -279,16 +253,6 @@
                         <dict>
                             <key>path</key>
                             <string>Library/AutoPkg/autopkg</string>
-                            <key>user</key>
-                            <string>root</string>
-                            <key>group</key>
-                            <string>wheel</string>
-                            <key>mode</key>
-                            <string>0755</string>
-                        </dict>
-                        <dict>
-                            <key>path</key>
-                            <string>Library/AutoPkg/automunkiimport</string>
                             <key>user</key>
                             <string>root</string>
                             <key>group</key>
