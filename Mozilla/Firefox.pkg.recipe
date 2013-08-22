@@ -107,6 +107,8 @@ combination is offered.</string>
                     <string>org.mozilla.firefox.pkg</string>
                     <key>resources</key>
                     <string>%RECIPE_DIR%/firefox_pkg_resources/Resources</string>
+                    <key>scripts</key>
+                    <string></string>
                     <key>options</key>
                     <string>purge_ds_store</string>
                     <key>chown</key>
