@@ -3,7 +3,10 @@
 <plist version="1.0">
 <dict>
     <key>Description</key>
-    <string>Reader ships as an installer pkg that deploys a .app, so we add it to
+    <string>Downloads the latest Adobe Reader and imports into Munki.
+Set MAJOR_VERSION to "10" to get the latest/last version of Adobe Reader 10 instead of 11.
+
+Additional notes: Reader ships as an installer pkg that deploys a .app, so we add it to
 blocking_applications. Adobe Acrobat Pro.app is also a blocking_application as it also
 prevents installation. The Reader website states that 10.6.4 is a minimum
 requirement for 11. The preinstall_script is there to get around an 

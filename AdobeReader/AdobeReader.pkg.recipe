@@ -4,7 +4,9 @@
 <dict>
     <key>Description</key>
     <string>Downloads the current Adobe Reader pkg and repackages, replacing a problematic preinstall script, 
-and enabling installation on non-boot volumes.</string>
+and enabling installation on non-boot volumes. Setting MAJOR_VERSION to "10" will cause a download of the 
+latest/last version of Adobe Reader 10, but the repackager is unlikely to operate properly with that version.
+</string>
     <key>Input</key>
     <dict>
         <key>IDENTIFIER</key>
