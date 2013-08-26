@@ -2,18 +2,20 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+    <key>Identifier</key>
+    <string>com.github.autopkg.munki.Office2011Updates</string>
     <key>Description</key>
     <string>Finds latest Office 2011 update, downloads the disk image and extracts the pkg.
 Set VERSION to a specific version number to download that version instead.</string>
     <key>Input</key>
     <dict>
-        <key>IDENTIFIER</key>
-        <string>com.github.autopkg.pkg.Office2011Updates</string>
         <key>NAME</key>
         <string>Office2011_update</string>
         <key>VERSION</key>
         <string>latest</string>
     </dict>
+    <key>MinimumVersion</key>
+    <string>0.2.0</string>
     <key>Process</key>
     <array>
         <dict>

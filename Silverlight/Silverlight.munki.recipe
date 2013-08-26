@@ -4,10 +4,10 @@
 <dict>
     <key>Description</key>
     <string>Downloads latest Silverlight installer and imports into Munki.</string>
+    <key>Identifier</key>
+    <string>com.github.autopkg.munki.Silverlight</string>
     <key>Input</key>
     <dict>
-        <key>IDENTIFIER</key>
-        <string>com.github.autopkg.munki.Silverlight</string>
         <key>NAME</key>
         <string>Silverlight</string>
         <key>MUNKI_REPO_SUBDIR</key>
@@ -32,6 +32,8 @@
             <true/>
         </dict>
     </dict>
+    <key>MinimumVersion</key>
+    <string>0.2.0</string>
     <key>Process</key>
     <array>
         <dict>

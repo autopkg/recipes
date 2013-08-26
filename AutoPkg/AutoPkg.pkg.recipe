@@ -4,17 +4,17 @@
 <dict>
     <key>Description</key>
     <string>Package the current Git commit of autopkg</string>
+    <key>Identifier</key>
+    <string>com.github.autopkg.autopkg</string>
     <key>Input</key>
     <dict>
-        <key>IDENTIFIER</key>
-        <string>com.github.autopkg.autopkg</string>
         <key>NAME</key>
         <string>autopkg</string>
         <key>URL</key>
         <string>https://github.com/autopkg/autopkg/zipball/master</string>
     </dict>
     <key>MinimumVersion</key>
-    <string>0.1.0</string>
+    <string>0.2.0</string>
     <key>Process</key>
     <array>
         <dict>
@@ -206,7 +206,7 @@
                 <key>version</key>
                 <string>%version%</string>
                 <key>template_path</key>
-                <string>%RECIPE_DIR%/PackageInfoTemplate</string>
+                <string>PackageInfoTemplate</string>
                 <key>infofile</key>
                 <string>%RECIPE_CACHE_DIR%/PackageInfo</string>
                 <key>pkgtype</key>
@@ -231,11 +231,11 @@
                     <key>infofile</key>
                     <string>%RECIPE_CACHE_DIR%/PackageInfo</string>
                     <key>resources</key>
-                    <string>%RECIPE_DIR%/Resources</string>
+                    <string>Resources</string>
                     <key>options</key>
                     <string>purge_ds_store</string>
                     <key>scripts</key>
-                    <string>%RECIPE_DIR%/Scripts</string>
+                    <string>Scripts</string>
                     <key>chown</key>
                     <array>
                         <dict>

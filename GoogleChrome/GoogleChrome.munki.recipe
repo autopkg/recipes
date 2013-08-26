@@ -4,16 +4,14 @@
 <dict>
     <key>Description</key>
     <string>Downloads the latest Google Chrome disk image and imports into Munki.</string>
+    <key>Identifier</key>
+    <string>com.github.autopkg.munki.google-chrome</string>
     <key>Input</key>
     <dict>
-        <key>IDENTIFIER</key>
-        <string>com.github.autopkg.munki.google-chrome</string>
         <key>NAME</key>
         <string>GoogleChrome</string>
         <key>MUNKI_REPO_SUBDIR</key>
         <string>apps</string>
-        <key>DOWNLOAD_URL</key>
-        <string>https://dl.google.com/chrome/mac/stable/GGRO/googlechrome.dmg</string>
         <key>pkginfo</key>
         <dict>
             <key>catalogs</key>
@@ -30,23 +28,12 @@
             <true/>
         </dict>
     </dict>
+    <key>MinimumVersion</key>
+    <string>0.2.0</string>
+    <key>ParentRecipe</key>
+    <string>com.github.autopkg.download.googlechrome</string>
     <key>Process</key>
     <array>
-        <dict>
-            <key>Processor</key>
-            <string>URLDownloader</string>
-            <key>Arguments</key>
-            <dict>
-                <key>url</key>
-                <string>%DOWNLOAD_URL%</string>
-                <key>filename</key>
-                <string>%NAME%.dmg</string>
-            </dict>
-        </dict>
-        <dict>
-            <key>Processor</key>
-            <string>EndOfCheckPhase</string>
-        </dict>
         <dict>
             <key>Arguments</key>
             <dict>

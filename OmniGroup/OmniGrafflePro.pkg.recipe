@@ -4,15 +4,17 @@
 <dict>
     <key>Description</key>
     <string>Downloads latest OmniGrafflePro disk image builds a package.</string>
+    <key>Identifier</key>
+    <string>com.github.autopkg.pkg.omnigrafflepro</string>
     <key>Input</key>
     <dict>
-        <key>IDENTIFIER</key>
-        <string>com.github.autopkg.pkg.omnigrafflepro</string>
         <key>NAME</key>
         <string>OmniGrafflePro</string>
         <key>APPCAST_URL</key>
         <string>http://update.omnigroup.com/appcast/com.omnigroup.OmniGrafflePro</string>
     </dict>
+    <key>MinimumVersion</key>
+    <string>0.2.0</string>
     <key>Process</key>
     <array>
         <dict>

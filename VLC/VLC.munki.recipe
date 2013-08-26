@@ -3,21 +3,15 @@
 <plist version="1.0">
 <dict>
     <key>Description</key>
-    <string>Downloads latest VLC disk image and imports into Munki.
-
-Default SPARKLE_FEED_URL is the universal Intel build, but path 'vlc.xml' may be 
-substituted for 'vlc-intel32.xml', 'vlc-intel64.xml' or 'vlc-powerpc.xml' to 
-retrieve other builds.</string>
+    <string>Downloads latest VLC disk image and imports into Munki.</string>
+    <key>Identifier</key>
+    <string>com.github.autopkg.munki.VLC</string>
     <key>Input</key>
     <dict>
-        <key>IDENTIFIER</key>
-        <string>com.github.autopkg.munki.VLC</string>
         <key>NAME</key>
         <string>VLC</string>
         <key>MUNKI_REPO_SUBDIR</key>
         <string>apps/%NAME%</string>
-        <key>SPARKLE_FEED_URL</key>
-        <string>http://update.videolan.org/vlc/sparkle/vlc.xml</string>
         <key>pkginfo</key>
         <dict>
             <key>catalogs</key>
@@ -34,6 +28,10 @@ retrieve other builds.</string>
             <true/>
         </dict>
     </dict>
+    <key>MinimumVersion</key>
+    <string>0.2.0</string>
+    <key>ParentRecipe</key>
+    <string>com.github.autopkg.download.VLC</string>
     <key>Process</key>
     <array>
         <dict>

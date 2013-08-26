@@ -13,10 +13,10 @@ BRANCH can be one of 'release' or 'beta', which correspond respectively
 to the 'Normal' and 'Nightly' options in TextMate 2's Software Update
 preferences panel.
 </string>
+    <key>Identifier</key>
+    <string>com.github.autopkg.munki.TextMate2</string>
     <key>Input</key>
     <dict>
-        <key>IDENTIFIER</key>
-        <string>com.github.autopkg.munki.TextMate2</string>
         <key>MUNKI_REPO_SUBDIR</key>
         <string>apps/TextMate2</string>
         <key>NAME</key>
@@ -44,6 +44,8 @@ preferences panel.
             <true/>
         </dict>
     </dict>
+    <key>MinimumVersion</key>
+    <string>0.2.0</string>
     <key>Process</key>
     <array>
         <dict>

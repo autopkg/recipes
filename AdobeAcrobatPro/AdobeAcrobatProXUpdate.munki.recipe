@@ -18,10 +18,10 @@ be able to share this recipe and manage multiple major versions.
 
 VERSION can be a specific update version, ie. '10.1.6', or the 
 default, 'latest'.</string>
+    <key>Identifier</key>
+    <string>com.github.autopkg.munki.AdobeAcrobatProXUpdate</string>
     <key>Input</key>
     <dict>
-        <key>IDENTIFIER</key>
-        <string>com.github.autopkg.munki.AdobeAcrobatProXUpdate</string>
         <key>MAJOR_VERSION</key>
         <string>10</string>
         <key>MUNKI_REPO_SUBDIR</key>
@@ -54,6 +54,8 @@ default, 'latest'.</string>
             </array>
         </dict>
     </dict>
+    <key>MinimumVersion</key>
+    <string>0.2.0</string>
     <key>Process</key>
     <array>
         <dict>

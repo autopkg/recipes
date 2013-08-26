@@ -18,10 +18,10 @@ https://jamfnation.jamfsoftware.com/discussion.html?id=6489
 http://macops.ca/everything-youll-wish-you-didnt-know-about-disabling-java-7-updates
 http://www.itninja.com/question/java-7-update-11-insecure-version-prompt-with-upgrade-button
 https://forums.oracle.com/forums/thread.jspa?threadID=2488735&amp;tstart=0</string>
+    <key>Identifier</key>
+    <string>com.github.autopkg.munki.OracleJava7</string>
     <key>Input</key>
     <dict>
-        <key>IDENTIFIER</key>
-        <string>com.github.autopkg.munki.OracleJava7</string>
         <key>MUNKI_REPO_SUBDIR</key>
         <string>plugins/Java</string>
         <key>NAME</key>
@@ -67,6 +67,8 @@ EOF
             <true/>
         </dict>
     </dict>
+    <key>MinimumVersion</key>
+    <string>0.2.0</string>
     <key>Process</key>
     <array>
         <dict>

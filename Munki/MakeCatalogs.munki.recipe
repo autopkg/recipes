@@ -5,11 +5,13 @@
     <key>Description</key>
     <string>Rebuilds Munki catalogs in munki_repo_path if any other recipe imported something.
 Use -k force_rebuild=YES to force a rebuild.</string>
+    <key>Identifier</key>
+    <string>com.github.autopkg.munki.makecatalogs</string>
     <key>Input</key>
     <dict>
-        <key>IDENTIFIER</key>
-        <string>com.github.autopkg.munki.makecatalogs</string>
     </dict>
+    <key>MinimumVersion</key>
+    <string>0.2.0</string>
     <key>Process</key>
     <array>
         <dict>

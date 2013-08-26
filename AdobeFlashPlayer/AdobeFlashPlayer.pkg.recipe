@@ -4,32 +4,19 @@
 <dict>
     <key>Description</key>
     <string>Downloads Adobe Flash Player installer and extracts the embedded package. No repackaging done.</string>
+    <key>Identifier</key>
+    <string>com.github.autopkg.pkg.FlashPlayerExtractPackage</string>
     <key>Input</key>
     <dict>
-        <key>IDENTIFIER</key>
-        <string>com.github.autopkg.pkg.FlashPlayerExtractPackage</string>
         <key>NAME</key>
         <string>AdobeFlashPlayer</string>
     </dict>
+    <key>MinimumVersion</key>
+    <string>0.2.0</string>
+    <key>ParentRecipe</key>
+    <string>com.github.autopkg.download.FlashPlayer</string>
     <key>Process</key>
     <array>
-        <dict>
-            <key>Processor</key>
-            <string>AdobeFlashURLProvider</string>
-        </dict>
-        <dict>
-            <key>Processor</key>
-            <string>URLDownloader</string>
-            <key>Arguments</key>
-            <dict>
-                <key>filename</key>
-                <string>%NAME%.dmg</string>
-            </dict>
-        </dict>
-        <dict>
-            <key>Processor</key>
-            <string>EndOfCheckPhase</string>
-        </dict>
         <dict>
             <key>Comment</key>
             <string>Get Adobe Flash version from the pkg</string>

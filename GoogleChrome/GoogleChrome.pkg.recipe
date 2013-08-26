@@ -4,32 +4,17 @@
 <dict>
     <key>Description</key>
     <string>Downloads latest Google Chrome disk image and builds a package.</string>
+    <key>Identifier</key>
+    <string>com.github.autopkg.pkg.googlechrome</string>
     <key>Input</key>
     <dict>
-        <key>IDENTIFIER</key>
-        <string>com.github.autopkg.pkg.googlechrome</string>
         <key>NAME</key>
         <string>GoogleChrome</string>
-        <key>DOWNLOAD_URL</key>
-        <string>https://dl.google.com/chrome/mac/stable/GGRO/googlechrome.dmg</string>
     </dict>
+    <key>ParentRecipe</key>
+    <string>com.github.autopkg.download.googlechrome</string>
     <key>Process</key>
     <array>
-        <dict>
-            <key>Processor</key>
-            <string>URLDownloader</string>
-            <key>Arguments</key>
-            <dict>
-                <key>url</key>
-                <string>%DOWNLOAD_URL%</string>
-                <key>filename</key>
-                <string>%NAME%.dmg</string>
-            </dict>
-        </dict>
-        <dict>
-            <key>Processor</key>
-            <string>EndOfCheckPhase</string>
-        </dict>
         <dict>
             <key>Processor</key>
             <string>AppDmgVersioner</string>

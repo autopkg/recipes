@@ -4,10 +4,10 @@
 <dict>
     <key>Description</key>
     <string>Downloads Adobe Flash Player installer, imports into Munki.</string>
+    <key>Identifier</key>
+    <string>com.github.autopkg.munki.FlashPlayerNoRepackage</string>
     <key>Input</key>
     <dict>
-        <key>IDENTIFIER</key>
-        <string>com.github.autopkg.munki.FlashPlayerNoRepackage</string>
         <key>NAME</key>
         <string>AdobeFlashPlayer</string>
         <key>MUNKI_REPO_SUBDIR</key>
@@ -30,25 +30,12 @@
             <true/>
         </dict>
     </dict>
+    <key>MinimumVersion</key>
+    <string>0.2.0</string>
+    <key>ParentRecipe</key>
+    <string>com.github.autopkg.download.FlashPlayer</string>
     <key>Process</key>
     <array>
-        <dict>
-            <key>Processor</key>
-            <string>AdobeFlashURLProvider</string>
-        </dict>
-        <dict>
-            <key>Processor</key>
-            <string>URLDownloader</string>
-            <key>Arguments</key>
-            <dict>
-                <key>filename</key>
-                <string>%NAME%.dmg</string>
-            </dict>
-        </dict>
-        <dict>
-            <key>Processor</key>
-            <string>EndOfCheckPhase</string>
-        </dict>
         <dict>
             <key>Arguments</key>
             <dict>

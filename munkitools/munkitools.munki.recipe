@@ -5,10 +5,10 @@
     <key>Description</key>
     <string>Downloads and imports Munki tools. By default gets the latest dmg from http://code.google.com/p/munki/downloads/list.
 Change the DOWNLOAD_URL to "http://munkibuilds.org/munkitools-latest.dmg" to get latest build.</string>
+    <key>Identifier</key>
+    <string>com.github.autopkg.munki.munkitools</string>
     <key>Input</key>
     <dict>
-        <key>IDENTIFIER</key>
-        <string>com.github.autopkg.munki.munkitools</string>
         <key>NAME</key>
         <string>munkitools</string>
         <key>DOWNLOAD_URL</key>
@@ -46,6 +46,8 @@ Change the DOWNLOAD_URL to "http://munkibuilds.org/munkitools-latest.dmg" to get
         <key>MUNKITOOLS_LAUNCHD_DESCRIPTION</key>
         <string>launchd configuration files for use by Managed Software Update</string>
     </dict>
+    <key>MinimumVersion</key>
+    <string>0.2.0</string>
     <key>Process</key>
     <array>
         <dict>

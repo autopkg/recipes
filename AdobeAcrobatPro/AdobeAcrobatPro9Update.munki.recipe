@@ -17,10 +17,10 @@ of your base Adobe Acrobat Pro 9 installer item.
 
 VERSION can be a specific update version, ie. '9.5.2', or the 
 default, 'latest'.</string>
+    <key>Identifier</key>
+    <string>com.github.autopkg.munki.AdobeAcrobatPro9Update</string>
     <key>Input</key>
     <dict>
-        <key>IDENTIFIER</key>
-        <string>com.github.autopkg.munki.AdobeAcrobatPro9Update</string>
         <key>MUNKI_REPO_SUBDIR</key>
         <string>apps/AcrobatPro</string>
         <key>NAME</key>
@@ -47,6 +47,8 @@ default, 'latest'.</string>
             </array>
         </dict>
     </dict>
+    <key>MinimumVersion</key>
+    <string>0.2.0</string>
     <key>Process</key>
     <array>
         <dict>

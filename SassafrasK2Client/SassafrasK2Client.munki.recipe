@@ -24,10 +24,10 @@ use three decimals everywhere else (webpage, actual bundle files, etc.). We let
 makepkginfo use the package versions as-is. However, we use a separate installs
 item for KeyAccess.app, because the options passed to k2clientconfig may alter
 which packages are installed, and therefore the receipts array.</string>
+    <key>Identifier</key>
+    <string>com.github.autopkg.munki.sassafras-k2client</string>
     <key>Input</key>
     <dict>
-        <key>IDENTIFIER</key>
-        <string>com.github.autopkg.munki.sassafras-k2client</string>
         <key>K2CLIENTCONFIG_OPTIONS</key>
         <string>-s 2 -h keyserver.my.org -g yes -c yes -l yes</string>
         <key>NAME</key>
@@ -50,6 +50,8 @@ which packages are installed, and therefore the receipts array.</string>
             <string>%NAME%</string>
         </dict>
     </dict>
+    <key>MinimumVersion</key>
+    <string>0.2.0</string>
     <key>Process</key>
     <array>
         <dict>

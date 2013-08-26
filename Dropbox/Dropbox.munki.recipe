@@ -19,10 +19,10 @@ This recipe assumes the user cannot write to the installed version at
 Dropbox file item, so that if a newer version of Dropbox is ever imported
 into the repo, it will not trigger updates on clients whose newer version is only
 located in their user's home folder.</string>
+    <key>Identifier</key>
+    <string>com.github.autopkg.munki.dropbox</string>
     <key>Input</key>
     <dict>
-        <key>IDENTIFIER</key>
-        <string>com.github.autopkg.munki.dropbox</string>
         <key>MUNKI_REPO_SUBDIR</key>
         <string>apps/Dropbox</string>
         <key>NAME</key>
@@ -64,6 +64,8 @@ fi
 </string>
         </dict>
     </dict>
+    <key>MinimumVersion</key>
+    <string>0.2.0</string>
     <key>Process</key>
     <array>
         <dict>

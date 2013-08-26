@@ -5,10 +5,10 @@
     <key>Description</key>
     <string>Downloads TextMate 1.5.11 and imports into Munki. The URL
 is hardcoded because it's not likely to ever get another update.</string>
+    <key>Identifier</key>
+    <string>com.github.autopkg.munki.TextMate</string>
     <key>Input</key>
     <dict>
-        <key>IDENTIFIER</key>
-        <string>com.github.autopkg.munki.TextMate</string>
         <key>NAME</key>
         <string>TextMate</string>
         <key>MUNKI_REPO_SUBDIR</key>
@@ -34,6 +34,8 @@ is hardcoded because it's not likely to ever get another update.</string>
             <true/>
         </dict>
     </dict>
+    <key>MinimumVersion</key>
+    <string>0.2.0</string>
     <key>Process</key>
     <array>
         <dict>

@@ -8,10 +8,10 @@
 Alternate Beta URL that can be used for SPARKLE_FEED_URL:
 http://update.evernote.com/prerelease/ENMac/EvernoteMacUpdate.xml
 </string>
+    <key>Identifier</key>
+    <string>com.github.autopkg.munki.Evernote</string>
     <key>Input</key>
     <dict>
-        <key>IDENTIFIER</key>
-        <string>com.github.autopkg.munki.Evernote</string>
         <key>NAME</key>
         <string>Evernote</string>
         <key>MUNKI_REPO_SUBDIR</key>
@@ -34,6 +34,8 @@ http://update.evernote.com/prerelease/ENMac/EvernoteMacUpdate.xml
             <true/>
         </dict>
     </dict>
+    <key>MinimumVersion</key>
+    <string>0.2.0</string>
     <key>Process</key>
     <array>
         <dict>

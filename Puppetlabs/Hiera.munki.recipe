@@ -8,10 +8,10 @@ downloads.puppetlabs.com/mac, and imports into Munki.
 
 VERSION can be overridden with a specific version number, or left to
 the default, 'latest'.</string>
+    <key>Identifier</key>
+    <string>com.github.autopkg.munki.hiera</string>
     <key>Input</key>
     <dict>
-        <key>IDENTIFIER</key>
-        <string>com.github.autopkg.munki.hiera</string>
         <key>MUNKI_REPO_SUBDIR</key>
         <string>support/Hiera</string>
         <key>NAME</key>
@@ -34,6 +34,8 @@ the default, 'latest'.</string>
             <true/>
         </dict>
     </dict>
+    <key>MinimumVersion</key>
+    <string>0.2.0</string>
     <key>Process</key>
     <array>
         <dict>

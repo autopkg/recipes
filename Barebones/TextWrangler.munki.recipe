@@ -5,10 +5,10 @@
     <key>Description</key>
     <string>Downloads the current installation package for TextWrangler. Imports it
     into Munki, adding a postinstall_script that installs the command-line tools.</string>
+    <key>Identifier</key>
+    <string>com.github.autopkg.munki.textwrangler</string>
     <key>Input</key>
     <dict>
-        <key>IDENTIFIER</key>
-        <string>com.github.autopkg.munki.textwrangler</string>
         <key>MUNKI_REPO_SUBDIR</key>
         <string>apps/TextWrangler</string>
         <key>NAME</key>
@@ -48,6 +48,8 @@ done
             <true/>
         </dict>
     </dict>
+    <key>MinimumVersion</key>
+    <string>0.2.0</string>
     <key>Process</key>
     <array>
         <dict>

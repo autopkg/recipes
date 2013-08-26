@@ -4,10 +4,10 @@
 <dict>
     <key>Description</key>
     <string>Downloads Adobe Flash Player installer and extracts the embedded package and repackages. Imports new package into Munki.</string>
+    <key>Identifier</key>
+    <string>com.github.autopkg.munki.FlashPlayerRepackage</string>
     <key>Input</key>
     <dict>
-        <key>IDENTIFIER</key>
-        <string>com.github.autopkg.munki.FlashPlayerRepackage</string>
         <key>NAME</key>
         <string>AdobeFlashPlayer</string>
         <key>MUNKI_REPO_SUBDIR</key>
@@ -28,73 +28,12 @@
             <true/>
         </dict>
     </dict>
+    <key>MinimumVersion</key>
+    <string>0.2.0</string>
+    <key>ParentRecipe</key>
+    <string>com.github.autopkg.pkg.FlashPlayerRepackage</string>
     <key>Process</key>
     <array>
-        <dict>
-            <key>Processor</key>
-            <string>AdobeFlashURLProvider</string>
-        </dict>
-        <dict>
-            <key>Processor</key>
-            <string>URLDownloader</string>
-            <key>Arguments</key>
-            <dict>
-                <key>filename</key>
-                <string>%NAME%.dmg</string>
-            </dict>
-        </dict>
-        <dict>
-            <key>Processor</key>
-            <string>EndOfCheckPhase</string>
-        </dict>
-        <dict>
-            <key>Processor</key>
-            <string>AdobeFlashDmgUnpacker</string>
-            <key>Arguments</key>
-            <dict>
-                <key>dmg_path</key>
-                <string>%pathname%</string>
-                <key>pkgroot</key>
-                <string>%RECIPE_CACHE_DIR%/FlashPlayerPkg</string>
-            </dict>
-        </dict>
-        <dict>
-            <key>Processor</key>
-            <string>PkgCreator</string>
-            <key>Arguments</key>
-            <dict>
-                <key>pkgname</key>
-                <string>%NAME%-%version%</string>
-                <key>pkg_request</key>
-                <dict>
-                    <key>pkgdir</key>
-                    <string>%RECIPE_CACHE_DIR%</string>
-                    <key>id</key>
-                    <string>com.adobe.pkg.FlashPlayer</string>
-                    <key>options</key>
-                    <string>purge_ds_store</string>
-                    <key>chown</key>
-                    <array>
-                        <dict>
-                            <key>path</key>
-                            <string>Applications</string>
-                            <key>user</key>
-                            <string>root</string>
-                            <key>group</key>
-                            <string>admin</string>
-                        </dict>
-                        <dict>
-                            <key>path</key>
-                            <string>Library</string>
-                            <key>user</key>
-                            <string>root</string>
-                            <key>group</key>
-                            <string>admin</string>
-                        </dict>
-                    </array>
-                </dict>
-            </dict>
-        </dict>
         <dict>
             <key>Arguments</key>
             <dict>

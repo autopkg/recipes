@@ -4,10 +4,10 @@
 <dict>
     <key>Description</key>
     <string>Downloads the latest Spotify and imports into Munki.</string>
+    <key>Identifier</key>
+    <string>com.github.autopkg.munki.Spotify</string>
     <key>Input</key>
     <dict>
-        <key>IDENTIFIER</key>
-        <string>com.github.autopkg.munki.Spotify</string>
         <key>NAME</key>
         <string>Spotify</string>
         <key>MUNKI_REPO_SUBDIR</key>
@@ -30,6 +30,8 @@
             <true/>
         </dict>
     </dict>
+    <key>MinimumVersion</key>
+    <string>0.2.0</string>
     <key>Process</key>
     <array>
         <dict>

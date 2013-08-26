@@ -5,10 +5,10 @@
     <key>Description</key>
     <string>Downloads the latest 2.x version of Flip4Mac for OS X 10.5 and 10.6,
 and imports into Munki.</string>
+    <key>Identifier</key>
+    <string>com.github.autopkg.munki.Flip4Mac-2</string>
     <key>Input</key>
     <dict>
-        <key>IDENTIFIER</key>
-        <string>com.github.autopkg.munki.Flip4Mac-2</string>
         <key>MAJOR_VERSION</key>
         <string>2</string>
         <key>MUNKIIMPORT_PKG_NAME</key>
@@ -35,6 +35,8 @@ and imports into Munki.</string>
             <true/>
         </dict>
     </dict>
+    <key>MinimumVersion</key>
+    <string>0.2.0</string>
     <key>Process</key>
     <array>
         <dict>
