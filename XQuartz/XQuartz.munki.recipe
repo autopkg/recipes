@@ -27,7 +27,7 @@
             <key>display_name</key>
             <string>%NAME%</string>
             <key>minimum_os_version</key>
-            <string>10.8.0</string>
+            <string>10.6.3</string>
             <key>name</key>
             <string>%NAME%</string>
             <key>unattended_install</key>
