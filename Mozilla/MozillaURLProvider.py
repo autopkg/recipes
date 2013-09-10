@@ -27,7 +27,6 @@ __all__ = ["MozillaURLProvider"]
 MOZ_BASE_URL = "http://download-origin.cdn.mozilla.net/pub/mozilla.org/"
                #"firefox/releases")
 re_dmg = re.compile(r'a[^>]* href="(?P<filename>[^"]+\.dmg)"')
-re_locale = re.compile(r'^(?P<lang>[a-z]{2,3})([\-_](?P<region>[A-Z]{2}))?$')
 
 
 class MozillaURLProvider(Processor):
@@ -63,10 +62,7 @@ class MozillaURLProvider(Processor):
     
     def get_mozilla_dmg_url(self, base_url, product_name, release, locale):
         # Allow locale as both en-US and en_US.
-        m = re_locale.search(locale)
-        if m:
-            locale = "%s-%s" % (m.group("lang").lower(),
-                                m.group("region").upper())
+        locale = locale.replace("_", "-")
         
         # Construct download directory URL.
         release_dir = release.lower()
