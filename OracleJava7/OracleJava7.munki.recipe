@@ -34,6 +34,8 @@ https://forums.oracle.com/forums/thread.jspa?threadID=2488735&amp;tstart=0</stri
             </array>
             <key>description</key>
             <string>Java SE Runtime Environment 7 enables support for running Java-powered applets and applications.</string>
+            <key>display_name</key>
+            <string>Oracle Java 7</string>
             <key>minimum_os_version</key>
             <string>10.7.3</string>
             <key>name</key>
@@ -88,29 +90,7 @@ EOF
             <key>Processor</key>
             <string>EndOfCheckPhase</string>
         </dict>
-        <dict>
-            <key>Arguments</key>
-            <dict>
-                <key>dmg_path</key>
-                <string>%pathname%</string>
-            </dict>
-            <key>Processor</key>
-            <string>OracleJava7Versioner</string>
-        </dict>
-        <dict>
-            <key>Processor</key>
-            <string>MunkiPkginfoMerger</string>
-            <key>Arguments</key>
-            <dict>
-                <key>additional_pkginfo</key>
-                <dict>
-                    <key>display_name</key>
-                    <string>%plugin_displayname%</string>
-                    <key>version</key>
-                    <string>%plugin_cfbundleversion%</string>
-                </dict>
-            </dict>
-        </dict>
+
         <dict>
             <key>Arguments</key>
             <dict>
@@ -160,9 +140,29 @@ EOF
         <dict>
             <key>Processor</key>
             <string>MunkiPkginfoMerger</string>
+        </dict>
+        <dict>
             <key>Arguments</key>
             <dict>
+                <key>input_plist_path</key>
+                <string>%RECIPE_CACHE_DIR%/unpack/root/Library/Internet Plug-Ins/JavaAppletPlugin.plugin/Contents/Enabled.plist</string>
+                <key>plist_version_key</key>
+                <string>CFBundleVersion</string>
             </dict>
+            <key>Processor</key>
+            <string>Versioner</string>
+        </dict>
+        <dict>
+            <key>Arguments</key>
+            <dict>
+                <key>additional_pkginfo</key>
+                <dict>
+                    <key>version</key>
+                    <string>%version%</string>
+                </dict>
+            </dict>
+            <key>Processor</key>
+            <string>MunkiPkginfoMerger</string>
         </dict>
         <dict>
             <key>Arguments</key>
