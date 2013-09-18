@@ -8,16 +8,11 @@
 The package's receipt version is useless, so we make an installs item for
 the prefPane bundle, which has historically had consistent versioning.
 
-The included postinstall_script unloads and removes the Java-Updater
-LaunchAgent/Daemon combination's symlinks so that they aren't re-loaded.
-It also configures a system-wide default deployment.properties to disable
-the applet's own built-in update-checking mechanism.
-
-Additional resources for disabling updates:
-https://jamfnation.jamfsoftware.com/discussion.html?id=6489
-http://macops.ca/everything-youll-wish-you-didnt-know-about-disabling-java-7-updates
-http://www.itninja.com/question/java-7-update-11-insecure-version-prompt-with-upgrade-button
-https://forums.oracle.com/forums/thread.jspa?threadID=2488735&amp;tstart=0</string>
+While this recipe used to include a postinstall script that would 1) unload
+and unlink a LaunchAgent/Daemon combo, and 2) add version-specific warning-
+suppress settings to a properties file, these steps seem to be no longer
+required as of Update 40.
+</string>
     <key>Identifier</key>
     <string>com.github.autopkg.munki.OracleJava7</string>
     <key>Input</key>
@@ -40,31 +35,6 @@ https://forums.oracle.com/forums/thread.jspa?threadID=2488735&amp;tstart=0</stri
             <string>10.7.3</string>
             <key>name</key>
             <string>%NAME%</string>
-            <key>postinstall_script</key>
-            <string>#!/bin/sh
-BUNDLE_PLIST="/Library/Internet Plug-Ins/JavaAppletPlugin.plugin/Contents/Enabled.plist"
-DEPLOY_VERS=$(/bin/cat "$BUNDLE_PLIST" | grep deploy | cut -d\= -f2 | cut -d\&lt; -f1)
-PROPFILE="/Library/Internet Plug-Ins/JavaAppletPlugin.plugin/Contents/Home/lib/deployment.properties"
-cat &gt; "$PROPFILE" &lt;&lt; EOF
-# These three settings will suppress the Sparkle updater from displaying on-demand
-# and should also suppress 'insecure' warnings from within the plugin itself
-deployment.macosx.check.update=false
-deployment.expiration.decision.suppression.$DEPLOY_VERS=true
-deployment.expiration.decision.$DEPLOY_VERS=never
-
-# Extra-draconian settings below
-# deployment.macosx.check.update.locked
-# deployment.expiration.decision.suppression.$DEPLOY_VERS.locked
-# deployment.expiration.decision.$DEPLOY_VERS.locked
-EOF
-
-# Unload the now-System-managed-instead-of-regular-user launchdaemons,
-# remove symlinks so they don't reload on restarts
-/bin/launchctl unload /Library/LaunchDaemons/com.oracle.java.Helper-Tool.plist
-/bin/launchctl unload /Library/LaunchAgents/com.oracle.java.Java-Updater.plist
-/bin/rm -f /Library/LaunchDaemons/com.oracle.java.Helper-Tool.plist
-/bin/rm -f /Library/LaunchAgents/com.oracle.java.Java-Updater.plist
-            </string>
             <key>unattended_install</key>
             <true/>
         </dict>
