@@ -37,15 +37,26 @@ __all__ = ["MSOffice2011UpdateInfoProvider"]
 # Microsoft Error Reporting 2
 # http://www.microsoft.com/mac/autoupdate/0409Merp2.xml
 
-BASE_URL = "http://www.microsoft.com/mac/autoupdate/0409MSOf14.xml"
+# See http://msdn.microsoft.com/en-us/library/ee825488(v=cs.20).aspx
+# for a table of "Culture Codes"
+CULTURE_CODE = "0409"
+BASE_URL = "http://www.microsoft.com/mac/autoupdate/%sMSOf14.xml"
 MUNKI_UPDATE_NAME = "Office2011_update"
 
 class MSOffice2011UpdateInfoProvider(Processor):
     """Provides a download URL for an Office 2011 update."""
     input_variables = {
+        "culture_code": {
+            "required": False,
+            "description": ("See "
+                "http://msdn.microsoft.com/en-us/library/ee825488(v=cs.20).aspx"
+                " for a table of CultureCodes Defaults to 0409, which "
+                "corresponds to en-US (English - United States)"), 
+        },
         "base_url": {
             "required": False,
-            "description": "Default is %s" % BASE_URL,
+            "description": ("Default is %s. If this is given, culture_code "
+                "is ignored." % (BASE_URL % CULTURE_CODE)),
         },
         "version": {
             "required": False,
@@ -163,7 +174,11 @@ class MSOffice2011UpdateInfoProvider(Processor):
 
     def get_mso2011update_info(self):
         """Gets info about an Office 2011 update from MS metadata."""
-        base_url = self.env.get("base_url", BASE_URL)
+        if "base_url" in self.env:
+            base_url = self.env["base_url"]
+        else:
+            culture_code = self.env.get("culture_code", CULTURE_CODE)
+            base_url = BASE_URL % culture_code
         version_str = self.env.get("version")
         if not version_str:
             version_str = "latest"

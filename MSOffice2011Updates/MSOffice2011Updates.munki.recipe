@@ -4,7 +4,9 @@
 <dict>
     <key>Description</key>
     <string>Finds latest Office 2011 update, downloads the disk image and extracts the pkg.
-Set VERSION to a specific version number to download that version instead.</string>
+Set VERSION to a specific version number to download that version instead.
+Set CULTURE_CODE to a different value to get a different localization. See
+http://msdn.microsoft.com/en-us/library/ee825488(v=cs.20).aspx for a table of Culture Codes.</string>
     <key>Identifier</key>
     <string>com.github.autopkg.munki.Office2011Updates</string>
     <key>Input</key>
@@ -15,6 +17,8 @@ Set VERSION to a specific version number to download that version instead.</stri
         <string>apps/Office2011</string>
         <key>VERSION</key>
         <string>latest</string>
+        <key>CULTURE_CODE</key>
+        <string>0409</string>
         <key>pkginfo</key>
         <dict>
             <key>blocking_applications</key>
@@ -64,6 +68,8 @@ Set VERSION to a specific version number to download that version instead.</stri
             <string>MSOffice2011UpdateInfoProvider</string>
             <key>Arguments</key>
             <dict>
+                <key>culture_code</key>
+                <string>%CULTURE_CODE%</string>
                 <key>munki_update_name</key>
                 <string>%NAME%</string>
                 <key>version</key>
