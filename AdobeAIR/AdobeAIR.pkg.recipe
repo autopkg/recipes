@@ -32,6 +32,10 @@ Based on jamesz's work here: https://github.com/jamesez/automunki/tree/master/ad
             </dict>
         </dict>
         <dict>
+            <key>Processor</key>
+            <string>EndOfCheckPhase</string>
+        </dict>
+        <dict>
             <key>Comment</key>
             <string>Create a pkg root; we'll extract things from the disk image here.</string>
             <key>Processor</key>
