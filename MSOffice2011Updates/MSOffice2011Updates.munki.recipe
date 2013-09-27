@@ -24,7 +24,7 @@ http://msdn.microsoft.com/en-us/library/ee825488(v=cs.20).aspx for a table of Cu
             <key>blocking_applications</key>
             <array>
               <string>MSN Messenger</string>
-              <string>Microsoft AutoUpdate</string>
+              <string>Microsoft Lync</string>
               <string>Microsoft Cert Manager</string>
               <string>Microsoft Chart Converter</string>
               <string>Microsoft Clip Gallery</string>
