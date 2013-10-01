@@ -15,25 +15,33 @@
 # limitations under the License.
 
 
-import re
+#import re
 import urllib2
+from xml.etree import ElementTree
 
 from autopkglib import Processor, ProcessorError
 
 
 __all__ = ["AdobeFlashURLProvider"]
 
+UPDATE_XML_URL = ("http://fpdownload2.macromedia.com/"
+    "get/flashplayer/update/current/xml/version_en_mac_pl.xml")
 
-ADOBEFLASH_BASE_URL = "http://get.adobe.com/flashplayer/completion/?installer=Flash_Player_11_for_Mac_OS_X_10.6_-_10.9"
-#re_adobeflash_ver = re.compile(r'Adobe Flash Player \S+ version (?P<version>[\d.]+)', re.I)
-re_adobeflash_dmg = re.compile(r'(?P<url>http://fpdownload.macromedia.com/get/flashplayer/pdc/[\d.]+/install_flash_player_osx.dmg)', re.I)
+DOWNLOAD_TEMPLATE_URL = ("http://fpdownload.macromedia.com/"
+    "get/flashplayer/pdc/%s/install_flash_player_osx.dmg")
 
 class AdobeFlashURLProvider(Processor):
     description = "Provides URL to the latest Adobe Flash Player release."
     input_variables = {
-        "base_url": {
+        "url": {
             "required": False,
-            "description": "Default is '%s'." % ADOBEFLASH_BASE_URL,
+            "description": ("Override URL. If provided, this processor "
+                "just returns without doing anything."),
+        },
+        "version": {
+            "required": False,
+            "description": ("Specific version to download. If not defined, "
+                "defaults to latest version.")
         },
     }
     output_variables = {
@@ -44,32 +52,46 @@ class AdobeFlashURLProvider(Processor):
     
     __doc__ = description
     
-    def get_adobeflash_dmg_url(self, base_url):
-        # Read HTML index.
-        try:
-            f = urllib2.urlopen(base_url)
-            html = f.read()
-            f.close()
-        except BaseException as e:
-            raise ProcessorError("Can't download %s: %s" % (base_url, e))
-        
-        # Search for download link.
-        m = re_adobeflash_dmg.search(html)
-        if not m:
-            raise ProcessorError("Couldn't find Adobe Flash Player download URL in %s" % base_url)
-        
-        # Return URL.
-        return m.group("url")
-        #return "http://fpdownload.macromedia.com/get/flashplayer/pdc/%s/install_flash_player_osx.dmg" % m.group("ver")
-    
-    def main(self):
-        # Determine base_url.
-        if "base_url" in self.env:
-            base_url = self.env.base_url
+    def get_adobeflash_dmg_url(self):
+        version = self.env.get("version")
+        if not version:
+            # Read update XML.
+            try:
+                f = urllib2.urlopen(UPDATE_XML_URL)
+                xml_data = f.read()
+                f.close()
+            except BaseException as e:
+                raise ProcessorError(
+                    "Can't download %s: %s" % (UPDATE_XML_URL, e))
+
+            # parse XML data
+            try:
+                root = ElementTree.fromstring(xml_data)
+            except (OSError, IOError, ElementTree.ParseError), err:
+                raise Exception("Can't read %s: %s" % (xml_data, err))
+
+            # extract version number from the XML
+            version = None
+            if root.tag == "XML":
+                update = root.find("update")
+                if update is not None:
+                    version = update.attrib.get('version')
+
+            if not version:
+                raise ProcessorError("Update XML in unexpected format.")
         else:
-            base_url = ADOBEFLASH_BASE_URL
-        
-        self.env["url"] = self.get_adobeflash_dmg_url(base_url)
+            self.output("Using provided version %s" % version)
+
+        # use version number to build a download URL
+        version = version.replace(",", ".")
+        return DOWNLOAD_TEMPLATE_URL % version
+
+    def main(self):
+        '''Return a download URL for latest Mac Flash Player'''
+        if "url" in self.env:
+            self.output("Using input URL %s" % self.env["url"])
+            return
+        self.env["url"] = self.get_adobeflash_dmg_url()
         self.output("Found URL %s" % self.env["url"])
     
 
