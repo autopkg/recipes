@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
     <key>Description</key>
-    <string>Downloads latest OmniGraffle disk image and imports into Munki.</string>
+    <string>Downloads latest OmniGraffle 5 disk image and imports into Munki.</string>
     <key>Identifier</key>
     <string>com.github.autopkg.munki.omnigraffle</string>
     <key>Input</key>

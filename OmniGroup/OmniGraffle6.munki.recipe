@@ -3,17 +3,17 @@
 <plist version="1.0">
 <dict>
     <key>Description</key>
-    <string>Downloads latest OmniGrafflePro 5 disk image and imports into Munki.</string>
+    <string>Downloads latest OmniGraffle 6 disk image and imports into Munki.</string>
     <key>Identifier</key>
-    <string>com.github.autopkg.munki.omnigrafflepro</string>
+    <string>com.github.autopkg.munki.omnigraffle6</string>
     <key>Input</key>
     <dict>
         <key>NAME</key>
-        <string>OmniGrafflePro</string>
+        <string>OmniGraffle6</string>
         <key>MUNKI_REPO_SUBDIR</key>
         <string>apps</string>
         <key>APPCAST_URL</key>
-        <string>http://update.omnigroup.com/appcast/com.omnigroup.OmniGrafflePro</string>
+        <string>http://update.omnigroup.com/appcast/com.omnigroup.OmniGraffle6</string>
         <key>pkginfo</key>
         <dict>
             <key>catalogs</key>
@@ -23,7 +23,7 @@
             <key>description</key>
             <string>Need a diagram, process chart, quick page-layout, website wireframe or graphic design? OmniGraffle can help you make eye-popping graphic documents quickly by keeping lines connected to shapes even when they're moved, providing powerful styling tools, importing and exporting Microsoft Visio files, and magically organizing diagrams with just one click. Whether you need a quick sketch or an epic technical figure, OmniGraffle keeps it gorgeously understandable.</string>
             <key>display_name</key>
-            <string>OmniGraffle Professional</string>
+            <string>OmniGraffle 6</string>
             <key>name</key>
             <string>%NAME%</string>
             <key>unattended_install</key>

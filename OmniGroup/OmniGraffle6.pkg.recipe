@@ -3,15 +3,15 @@
 <plist version="1.0">
 <dict>
     <key>Description</key>
-    <string>Downloads latest OmniGrafflePro 5 disk image and builds a package.</string>
+    <string>Downloads latest OmniGraffle 6 disk image and builds a package.</string>
     <key>Identifier</key>
-    <string>com.github.autopkg.pkg.omnigrafflepro</string>
+    <string>com.github.autopkg.pkg.omnigraffle6</string>
     <key>Input</key>
     <dict>
         <key>NAME</key>
-        <string>OmniGrafflePro</string>
+        <string>OmniGraffle6</string>
         <key>APPCAST_URL</key>
-        <string>http://update.omnigroup.com/appcast/com.omnigroup.OmniGrafflePro</string>
+        <string>http://update.omnigroup.com/appcast/com.omnigroup.OmniGraffle6</string>
     </dict>
     <key>MinimumVersion</key>
     <string>0.2.0</string>

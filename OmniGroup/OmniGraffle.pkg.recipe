@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
     <key>Description</key>
-    <string>Downloads latest OmniGraffle disk image builds a package.</string>
+    <string>Downloads latest OmniGraffle 5 disk image and builds a package.</string>
     <key>Identifier</key>
     <string>com.github.autopkg.pkg.omnigraffle</string>
     <key>Input</key>
