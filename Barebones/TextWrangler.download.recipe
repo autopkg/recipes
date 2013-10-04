@@ -8,10 +8,6 @@
     <string>com.github.autopkg.download.textwrangler</string>
     <key>Input</key>
     <dict>
-        <key>RELEASE</key>
-        <string>latest</string>
-        <key>LOCALE</key>
-        <string>en_US</string>
         <key>NAME</key>
         <string>TextWrangler</string>
     </dict>
@@ -24,10 +20,6 @@
             <dict>
                 <key>product_name</key>
                 <string>textwrangler</string>
-                <key>release</key>
-                <string>%RELEASE%</string>
-                <key>locale</key>
-                <string>%LOCALE%</string>
             </dict>
             <key>Processor</key>
             <string>BarebonesURLProvider</string>
