@@ -52,30 +52,10 @@ done
     </dict>
     <key>MinimumVersion</key>
     <string>0.2.0</string>
+    <key>ParentRecipe</key>
+    <string>com.github.autopkg.download.bbedit</string>
     <key>Process</key>
     <array>
-        <dict>
-            <key>Arguments</key>
-            <dict>
-                <key>product_name</key>
-                <string>bbedit</string>
-            </dict>
-            <key>Processor</key>
-            <string>BarebonesURLProvider</string>
-        </dict>
-        <dict>
-            <key>Arguments</key>
-            <dict>
-                <key>url</key>
-                <string>%url%</string>
-            </dict>
-            <key>Processor</key>
-            <string>URLDownloader</string>
-        </dict>
-        <dict>
-            <key>Processor</key>
-            <string>EndOfCheckPhase</string>
-        </dict>
         <dict>
             <key>Processor</key>
             <string>MunkiPkginfoMerger</string>
