@@ -59,6 +59,60 @@ exit 0
         <dict>
             <key>Arguments</key>
             <dict>
+                <key>flat_pkg_path</key>
+                <string>%pathname%/*.pkg</string>
+                <key>destination_path</key>
+                <string>%RECIPE_CACHE_DIR%/pkg_unpack</string>
+                <key>purge_destination</key>
+                <true/>
+            </dict>
+            <key>Processor</key>
+            <string>FlatPkgUnpacker</string>
+        </dict>
+        <dict>
+            <key>Arguments</key>
+            <dict>
+                <key>pkgroot</key>
+                <string>%RECIPE_CACHE_DIR%/application_payload/Applications</string>
+                <key>pkgdirs</key>
+                <dict/>
+            </dict>
+            <key>Processor</key>
+            <string>PkgRootCreator</string>
+        </dict>
+        <dict>
+            <key>Arguments</key>
+            <dict>
+                <key>pkg_payload_path</key>
+                <string>%RECIPE_CACHE_DIR%/pkg_unpack/application.pkg/Payload</string>
+                <key>destination_path</key>
+                <string>%RECIPE_CACHE_DIR%/application_payload/Applications</string>
+                <key>purge_destination</key>
+                <true/>
+            </dict>
+            <key>Processor</key>
+            <string>PkgPayloadUnpacker</string>
+        </dict>
+        <dict>
+            <key>Arguments</key>
+            <dict>
+                <key>faux_root</key>
+                <string>%RECIPE_CACHE_DIR%/application_payload</string>
+                <key>installs_item_paths</key>
+                <array>
+                    <string>/Applications/Adobe Reader.app</string>
+                </array>
+            </dict>
+            <key>Processor</key>
+            <string>MunkiInstallsItemsCreator</string>
+        </dict>
+        <dict>
+            <key>Processor</key>
+            <string>MunkiPkginfoMerger</string>
+        </dict>
+        <dict>
+            <key>Arguments</key>
+            <dict>
                 <key>pkg_path</key>
                 <string>%pathname%</string>
                 <key>repo_subdirectory</key>
