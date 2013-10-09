@@ -37,6 +37,17 @@
         <dict>
             <key>Arguments</key>
             <dict>
+                <key>pkgroot</key>
+                <string>%RECIPE_CACHE_DIR%/Flash Plugin</string>
+                <key>pkgdirs</key>
+                <dict/>
+            </dict>
+            <key>Processor</key>
+            <string>PkgRootCreator</string>
+        </dict>
+        <dict>
+            <key>Arguments</key>
+            <dict>
                 <key>source_path</key>
                 <string>%pathname%/Install Adobe Flash Player.app/Contents/Resources/Adobe Flash Player.pkg</string>
                 <key>destination_path</key>
