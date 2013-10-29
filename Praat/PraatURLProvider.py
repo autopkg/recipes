@@ -25,12 +25,18 @@ __all__ = ["PraatURLProvider"]
 
 
 PRAAT_BASE_URL = "http://www.fon.hum.uva.nl/praat/download_mac.html"
-re_praat_dmg = re.compile(r'a href="?(?P<url>praat\d+_mac\.dmg)"?')
+PRAAT_DEFAULT_ARCH = '32'
+PRAAT_DMG_RE = r'a href="?(?P<url>praat\d+_mac{0}\.dmg)"?'
 
 
 class PraatURLProvider(Processor):
     description = "Provides URL to the latest release of Praat."
     input_variables = {
+        "arch_edition": {
+            "required": False,
+            "description": ("Build architecture to retrieve. Can be either '32' or ",
+                            "64. Default is %s" % PRAAT_DEFAULT_ARCH),
+        },
         "base_url": {
             "required": False,
             "description": "Default is '%s'." % PRAAT_BASE_URL,
@@ -45,6 +51,8 @@ class PraatURLProvider(Processor):
     __doc__ = description
     
     def get_praat_dmg_url(self, base_url):
+        arch = self.env.get('arch_edition', '32')
+        re_praat_dmg = re.compile(PRAAT_DMG_RE.format(arch))
         # Read HTML index.
         try:
             f = urllib2.urlopen(base_url)
