@@ -24,7 +24,7 @@ from autopkglib import Processor, ProcessorError
 __all__ = ["MozillaURLProvider"]
 
 
-MOZ_BASE_URL = "http://download-origin.cdn.mozilla.net/pub/mozilla.org/"
+MOZ_BASE_URL = "http://ftp.mozilla.org/pub/mozilla.org/"
                #"firefox/releases")
 re_dmg = re.compile(r'a[^>]* href="(?P<filename>[^"]+\.dmg)"')
 
@@ -106,4 +106,3 @@ class MozillaURLProvider(Processor):
 if __name__ == "__main__":
     processor = MozillaURLProvider()
     processor.execute_shell()
-    
