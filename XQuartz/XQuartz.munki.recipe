@@ -16,7 +16,8 @@
         <dict>
             <key>blocking_applications</key>
             <array>
-              <string>X11</string>
+                <string>X11</string>
+                <string>XQuartz</string>
             </array>
             <key>catalogs</key>
             <array>
