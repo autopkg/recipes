@@ -48,7 +48,7 @@
                 <key>source_path</key>
                 <string>%pathname%/Google Earth.app</string>
                 <key>destination_path</key>
-                <string>%pkgroot%/Applications/</string>
+                <string>%pkgroot%/Applications/Google Earth.app</string>
             </dict>
         </dict>
         <dict>
