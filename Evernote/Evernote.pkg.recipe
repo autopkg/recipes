@@ -11,8 +11,8 @@
     <dict>
         <key>NAME</key>
         <string>Evernote</string>
-		<key>PKG_ID</key>
-		<string>com.evernote.Evernote</string>
+        <key>PKG_ID</key>
+        <string>com.evernote.Evernote</string>
     </dict>
     <key>MinimumVersion</key>
     <string>0.2.0</string>
