@@ -11,6 +11,8 @@
     <dict>
         <key>NAME</key>
         <string>Evernote</string>
+		<key>PKG_ID</key>
+		<string>com.evernote.Evernote</string>
     </dict>
     <key>MinimumVersion</key>
     <string>0.2.0</string>
@@ -18,39 +20,6 @@
 	<string>com.github.autopkg.download.Evernote</string>
     <key>Process</key>
     <array>
-        <dict>
-            <key>Processor</key>
-            <string>Unarchiver</string>
-            <key>Arguments</key>
-            <dict>
-                <key>archive_path</key>
-                <string>%pathname%</string>
-                <key>destination_path</key>
-                <string>%RECIPE_CACHE_DIR%/%NAME%</string>
-                <key>purge_destination</key>
-                <true/>
-            </dict>
-        </dict>
-        <dict>
-            <key>Processor</key>
-            <string>DmgCreator</string>
-            <key>Arguments</key>
-            <dict>
-                <key>dmg_root</key>
-                <string>%RECIPE_CACHE_DIR%/%NAME%</string>
-                <key>dmg_path</key>
-                <string>%RECIPE_CACHE_DIR%/%NAME%.dmg</string>
-            </dict>
-        </dict>
-        <dict>
-            <key>Processor</key>
-            <string>AppDmgVersioner</string>
-            <key>Arguments</key>
-            <dict>
-                <key>dmg_path</key>
-                <string>%RECIPE_CACHE_DIR%/%NAME%.dmg</string>
-            </dict>
-        </dict>
         <dict>
             <key>Processor</key>
             <string>PkgRootCreator</string>
@@ -67,13 +36,24 @@
         </dict>
         <dict>
             <key>Processor</key>
-            <string>Copier</string>
+            <string>Unarchiver</string>
             <key>Arguments</key>
             <dict>
-                <key>source_path</key>
-                <string>%RECIPE_CACHE_DIR%/Evernote.dmg/Evernote.app</string>
+                <key>archive_path</key>
+                <string>%pathname%</string>
                 <key>destination_path</key>
-                <string>%pkgroot%/Applications/Evernote.app</string>
+                <string>%pkgroot%/Applications/</string>
+                <key>purge_destination</key>
+                <true/>
+            </dict>
+        </dict>
+        <dict>
+            <key>Processor</key>
+            <string>Versioner</string>
+            <key>Arguments</key>
+            <dict>
+                <key>input_plist_path</key>
+                <string>%pkgroot%/Applications/Evernote.app/Contents/Info.plist</string>
             </dict>
         </dict>
         <dict>
@@ -88,7 +68,7 @@
                     <key>pkgdir</key>
                     <string>%RECIPE_CACHE_DIR%</string>
                     <key>id</key>
-                    <string>com.evernote.Evernote</string>
+                    <string>%PKG_ID%</string>
                     <key>options</key>
                     <string>purge_ds_store</string>
                     <key>chown</key>
