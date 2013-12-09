@@ -30,25 +30,10 @@
     </dict>
     <key>MinimumVersion</key>
     <string>0.2.0</string>
+    <key>ParentRecipe</key>
+    <string>com.github.autopkg.download.TheUnarchiver</string>
     <key>Process</key>
     <array>
-        <dict>
-            <key>Processor</key>
-            <string>TheUnarchiverURLProvider</string>
-        </dict>
-        <dict>
-            <key>Arguments</key>
-            <dict>
-                <key>filename</key>
-                <string>%NAME%.zip</string>
-            </dict>
-            <key>Processor</key>
-            <string>URLDownloader</string>
-        </dict>
-        <dict>
-            <key>Processor</key>
-            <string>EndOfCheckPhase</string>
-        </dict>
         <dict>
             <key>Arguments</key>
             <dict>

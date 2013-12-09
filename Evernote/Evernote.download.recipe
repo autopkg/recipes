@@ -3,33 +3,34 @@
 <plist version="1.0">
 <dict>
     <key>Description</key>
-    <string>Download recipe for The Unarchiver. Finds and downloads the latest'The Unarchiver' release.</string>
+    <string>Downloads the current release version of Evernote
+
+Alternate Beta URL that can be used for SPARKLE_FEED_URL:
+http://update.evernote.com/prerelease/ENMac/EvernoteMacUpdate.xml
+</string>
     <key>Identifier</key>
-    <string>com.github.autopkg.download.TheUnarchiver</string>
+    <string>com.github.autopkg.download.Evernote</string>
     <key>Input</key>
     <dict>
         <key>NAME</key>
-        <string>TheUnarchiver</string>
+        <string>Evernote</string>
+        <key>SPARKLE_FEED_URL</key>
+        <string>http://update.evernote.com/public/ENMac/EvernoteMacUpdate.xml</string>
     </dict>
     <key>MinimumVersion</key>
     <string>0.2.0</string>
     <key>Process</key>
     <array>
         <dict>
+            <key>Processor</key>
+            <string>SparkleUpdateInfoProvider</string>
             <key>Arguments</key>
             <dict>
-                <key>product_name</key>
-                <string>TheUnarchiver</string>
+                <key>appcast_url</key>
+                <string>%SPARKLE_FEED_URL%</string>
             </dict>
-            <key>Processor</key>
-            <string>TheUnarchiverURLProvider</string>
         </dict>
         <dict>
-            <key>Arguments</key>
-            <dict>
-                <key>filename</key>
-                <string>%NAME%.zip</string>
-            </dict>
             <key>Processor</key>
             <string>URLDownloader</string>
         </dict>

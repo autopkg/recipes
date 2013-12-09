@@ -12,8 +12,6 @@
         <string>GoogleEarth</string>
         <key>MUNKI_REPO_SUBDIR</key>
         <string>apps</string>
-        <key>DOWNLOAD_URL</key>
-        <string>http://dl.google.com/earth/client/advanced/current/GoogleEarthMacNoUpdate-Intel.dmg</string>
         <key>pkginfo</key>
         <dict>
             <key>catalogs</key>
@@ -32,23 +30,10 @@
     </dict>
     <key>MinimumVersion</key>
     <string>0.2.0</string>
+	<key>ParentRecipe</key>
+	<string>com.github.autopkg.download.google-earth</string>
     <key>Process</key>
-    <array>
-        <dict>
-            <key>Processor</key>
-            <string>URLDownloader</string>
-            <key>Arguments</key>
-            <dict>
-                <key>url</key>
-                <string>%DOWNLOAD_URL%</string>
-                <key>filename</key>
-                <string>%NAME%.dmg</string>
-            </dict>
-        </dict>
-        <dict>
-            <key>Processor</key>
-            <string>EndOfCheckPhase</string>
-        </dict>
+	<array>
         <dict>
             <key>Arguments</key>
             <dict>

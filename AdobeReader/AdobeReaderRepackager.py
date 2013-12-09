@@ -151,7 +151,7 @@ class AdobeReaderRepackager(DmgMounter):
         if not os.path.exists(app_pkg):
             raise ProcessorError("application.pkg not found!")
         preinstall_script = os.path.join(app_pkg, "Scripts/preinstall")
-        our_script = os.path.join(self.env["RECIPE_DIR"], 
+        our_script = os.path.join(os.path.dirname(__file__),
             "package_resources/scripts/preinstall")
         if not os.path.exists(our_script):
             raise ProcessorError("%s not found" % our_script)
@@ -159,6 +159,8 @@ class AdobeReaderRepackager(DmgMounter):
             shutil.copy(our_script, preinstall_script)
         except (OSError, IOError), err:
             raise ProcessorError("%s copying %s" % (err, preinstall_script))
+        self.output("Replaced pkg preinstall script with our custom script at %s" %
+            our_script)
 
     def main(self):
         # Mount the image.

@@ -29,11 +29,6 @@ Based on jamesz's work here: https://github.com/jamesez/automunki/tree/master/ad
             <string>%NAME%</string>
             <key>unattended_install</key>
             <true/>
-            <key>update_for</key>
-            <array>
-                <string>foo</string>
-                <string>bar</string>
-            </array>
         </dict>
     </dict>
     <key>MinimumVersion</key>
