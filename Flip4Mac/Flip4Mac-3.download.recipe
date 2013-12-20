@@ -3,11 +3,13 @@
 <plist version="1.0">
 <dict>
     <key>Description</key>
-    <string>Download recipe for Flip4Mac. Finds and downloads the latest Flip4Mac release.</string>
+    <string>Download recipe for Flip4Mac. Finds and downloads the latest Flip4Mac release for OS X 10.7.x and higher.</string>
     <key>Identifier</key>
-    <string>com.github.autopkg.download.flip4mac</string>
+    <string>com.github.autopkg.download.Flip4Mac-3</string>
     <key>Input</key>
     <dict>
+        <key>MAJOR_VERSION</key>
+        <string>3</string>
         <key>NAME</key>
         <string>Flip4Mac</string>
     </dict>
@@ -18,8 +20,8 @@
         <dict>
             <key>Arguments</key>
             <dict>
-                <key>product_name</key>
-                <string>flip4mac</string>
+                <key>major_version</key>
+                <string>%MAJOR_VERSION%</string>
             </dict>
             <key>Processor</key>
             <string>Flip4MacURLProvider</string>
