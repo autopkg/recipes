@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Description</key>
+    <string>Downloads latest Silverlight installer and copies the package to the build directory with an appended version number.</string>
+    <key>Identifier</key>
+    <string>com.github.autopkg.pkg.Silverlight</string>
+    <key>Input</key>
+    <dict>
+        <key>NAME</key>
+        <string>Silverlight</string>
+    </dict>
+    <key>MinimumVersion</key>
+    <string>0.2.0</string>
+	<key>ParentRecipe</key>
+	<string>com.github.autopkg.download.Silverlight</string>
+    <key>Process</key>
+    <array>
+        <dict>
+            <key>Arguments</key>
+            <dict>
+                <key>input_plist_path</key>
+                <string>%pathname%/Silverlight.pkg/Contents/Info.plist</string>
+                <key>plist_version_key</key>
+                <string>CFBundleVersion</string>
+            </dict>
+            <key>Processor</key>
+            <string>Versioner</string>
+        </dict>
+        <dict>
+            <key>Arguments</key>
+            <dict>
+                <key>source_pkg</key>
+                <string>%pathname%/Silverlight.pkg</string>
+                <key>pkg_path</key>
+                <string>%RECIPE_CACHE_DIR%/Silverlight-%version%.pkg</string>
+            </dict>
+            <key>Processor</key>
+            <string>PkgCopier</string>
+        </dict>
+    </array>
+</dict>
+</plist>
