@@ -3,9 +3,11 @@
 <plist version="1.0">
 <dict>
     <key>Description</key>
-    <string>Downloads the latest Oracle Java 7 JRE.</string>
+    <string>Downloads the latest Oracle Java 7 JRE and builds a new package with correct version information.
+	
+All Oracle JRE install packages have a version number of 1, so the actual plugin version is used to replace the installer version.</string>
     <key>Identifier</key>
-    <string>com.github.autopkg.pkg.OracleJava7</string>
+    <string>com.github.autopkg.versioned.pkg.OracleJava7</string>
     <key>Input</key>
     <dict>
         <key>NAME</key>
