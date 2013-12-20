@@ -5,7 +5,7 @@
     <key>Description</key>
     <string>Downloads latest Silverlight installer and copies the package to the build directory with an appended version number.</string>
     <key>Identifier</key>
-    <string>com.github.autopkg.versioned.pkg.Silverlight</string>
+    <string>com.github.autopkg.pkg.Silverlight</string>
     <key>Input</key>
     <dict>
         <key>NAME</key>
