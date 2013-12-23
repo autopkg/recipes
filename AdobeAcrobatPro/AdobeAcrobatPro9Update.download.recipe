@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Description</key>
+    <string>Downloads updates for Adobe Acrobat Pro 9. VERSION can be a specific update version, ie. '9.5.2', or the 
+default, 'latest'.</string>
+    <key>Identifier</key>
+    <string>com.github.autopkg.download.AdobeAcrobatPro9Update</string>
+    <key>Input</key>
+    <dict>
+        <key>NAME</key>
+        <string>AdobeAcrobatPro9_Update</string>
+        <key>VERSION</key>
+        <string>latest</string>
+    </dict>
+    <key>MinimumVersion</key>
+    <string>0.2.0</string>
+    <key>Process</key>
+    <array>
+        <dict>
+            <key>Arguments</key>
+            <dict>
+                <key>major_version</key>
+                <string>9</string>
+                <key>version</key>
+                <string>%VERSION%</string>
+            </dict>
+            <key>Processor</key>
+            <string>AdobeAcrobatProUpdateInfoProvider</string>
+        </dict>
+        <dict>
+            <key>Processor</key>
+            <string>URLDownloader</string>
+        </dict>
+        <dict>
+            <key>Processor</key>
+            <string>EndOfCheckPhase</string>
+        </dict>
+    </array>
+</dict>
+</plist>
