@@ -15,7 +15,7 @@ the default, 'latest'.</string>
         <key>MUNKI_REPO_SUBDIR</key>
         <string>support/Hiera</string>
         <key>NAME</key>
-        <string>Hiera</string>
+        <string>hiera</string>
         <key>VERSION</key>
         <string>latest</string>
         <key>pkginfo</key>
