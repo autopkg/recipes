@@ -9,8 +9,6 @@ and imports into Munki.</string>
     <string>com.github.autopkg.munki.Flip4Mac-2</string>
     <key>Input</key>
     <dict>
-        <key>MAJOR_VERSION</key>
-        <string>2</string>
         <key>MUNKIIMPORT_PKG_NAME</key>
         <string>Flip4Mac WMV.mpkg</string>
         <key>MUNKI_REPO_SUBDIR</key>
@@ -37,30 +35,10 @@ and imports into Munki.</string>
     </dict>
     <key>MinimumVersion</key>
     <string>0.2.0</string>
+    <key>ParentRecipe</key>
+    <string>com.github.autopkg.download.Flip4Mac-2</string>
     <key>Process</key>
     <array>
-        <dict>
-            <key>Arguments</key>
-            <dict>
-                <key>major_version</key>
-                <string>%MAJOR_VERSION%</string>
-            </dict>
-            <key>Processor</key>
-            <string>Flip4MacURLProvider</string>
-        </dict>
-        <dict>
-            <key>Arguments</key>
-            <dict>
-                <key>filename</key>
-                <string>%NAME%.dmg</string>
-            </dict>
-            <key>Processor</key>
-            <string>URLDownloader</string>
-        </dict>
-        <dict>
-            <key>Processor</key>
-            <string>EndOfCheckPhase</string>
-        </dict>
         <dict>
             <key>Arguments</key>
             <dict>
