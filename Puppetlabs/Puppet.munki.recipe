@@ -17,7 +17,7 @@ the default, 'latest'.</string>
         <key>MUNKI_REPO_SUBDIR</key>
         <string>support/Puppet</string>
         <key>NAME</key>
-        <string>Puppet</string>
+        <string>puppet</string>
         <key>VERSION</key>
         <string>latest</string>
         <key>pkginfo</key>
