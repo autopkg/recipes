@@ -49,29 +49,10 @@ default, 'latest'.</string>
     </dict>
     <key>MinimumVersion</key>
     <string>0.2.0</string>
+    <key>ParentRecipe</key>
+    <string>com.github.autopkg.download.AdobeAcrobatPro9Update</string>
     <key>Process</key>
     <array>
-        <dict>
-            <key>Arguments</key>
-            <dict>
-                <key>major_version</key>
-                <string>9</string>
-                <key>munki_update_name</key>
-                <string>%NAME%</string>
-                <key>version</key>
-                <string>%VERSION%</string>
-            </dict>
-            <key>Processor</key>
-            <string>AdobeAcrobatProUpdateInfoProvider</string>
-        </dict>
-        <dict>
-            <key>Processor</key>
-            <string>URLDownloader</string>
-        </dict>
-        <dict>
-            <key>Processor</key>
-            <string>EndOfCheckPhase</string>
-        </dict>
         <dict>
             <key>Processor</key>
             <string>Unarchiver</string>
