@@ -44,6 +44,12 @@ class MakeCatalogsProcessor(Processor):
             "description": "Error output (if any) from makecatalogs.",
         },
     }
+    global_variables = {
+        "MUNKI_REPO": {
+            "description": "Path to a mounted Munki repo.",
+            "required": True
+        },
+    }
 
     description = __doc__
 
