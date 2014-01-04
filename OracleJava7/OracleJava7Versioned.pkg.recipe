@@ -4,7 +4,7 @@
 <dict>
     <key>Description</key>
     <string>Downloads the latest Oracle Java 7 JRE and builds a new package with correct version information.
-	
+
 All Oracle JRE install packages have a version number of 1, so the actual plugin version is used to replace the installer version, taken from the CFBundleVersion of the bundle at /Library/Internet Plug-Ins/JavaAppletPlugin.plugin.</string>
     <key>Identifier</key>
     <string>com.github.autopkg.pkg.OracleJava7Versioned</string>
@@ -12,7 +12,7 @@ All Oracle JRE install packages have a version number of 1, so the actual plugin
     <dict>
         <key>NAME</key>
         <string>OracleJava7</string>
-	    <key>PKG_ID</key>
+        <key>PKG_ID</key>
         <string>com.oracle.jre</string>
     </dict>
     <key>MinimumVersion</key>
