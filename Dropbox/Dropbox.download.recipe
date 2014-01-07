@@ -19,7 +19,7 @@
             <key>Arguments</key>
             <dict>
             	<key>url</key>
-            	<string>https://www.dropbox.com/download?plat=mac</string>
+            	<string>https://www.dropbox.com/download?plat=mac&amp;full=1</string>
                 <key>filename</key>
                 <string>%NAME%.dmg</string>
             </dict>
