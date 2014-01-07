@@ -57,7 +57,7 @@
             <key>Arguments</key>
             <dict>
                 <key>template_path</key>
-                <string>%RECIPE_DIR%/PackageInfoTemplate</string>
+                <string>PackageInfoTemplate</string>
                 <key>infofile</key>
                 <string>%RECIPE_CACHE_DIR%/PackageInfo</string>
                 <key>pkgtype</key>
