@@ -78,7 +78,7 @@
                     <key>id</key>
                     <string>org.videolan.vlc.pkg</string>
                     <key>resources</key>
-                    <string>%RECIPE_DIR%/Resources</string>
+                    <string>Resources</string>
                     <key>options</key>
                     <string>purge_ds_store</string>
                     <key>chown</key>
