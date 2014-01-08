@@ -264,6 +264,16 @@
                             <key>mode</key>
                             <string>0755</string>
                         </dict>
+                        <dict>
+                            <key>path</key>
+                            <string>Library/LaunchDaemons/com.github.autopkg.autopkgserver.plist</string>
+                            <key>user</key>
+                            <string>root</string>
+                            <key>group</key>
+                            <string>wheel</string>
+                            <key>mode</key>
+                            <string>0644</string>
+                        </dict>
                     </array>
                 </dict>
             </dict>
