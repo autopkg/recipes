@@ -237,7 +237,7 @@ Based on jamesz's work here: https://github.com/jamesez/automunki/tree/master/ad
                     <key>infofile</key>
                     <string>%RECIPE_CACHE_DIR%/PackageInfo</string>
                     <key>resources</key>
-                    <string>%RECIPE_DIR%/Resources</string>
+                    <string>Resources</string>
                     <key>options</key>
                     <string>purge_ds_store</string>
                     <key>chown</key>
