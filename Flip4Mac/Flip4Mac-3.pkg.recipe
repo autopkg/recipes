@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Description</key>
+    <string>Downloads the latest 3.x version of Flip4Mac for OS X 10.7+ and
+makes a package.</string>
+    <key>Identifier</key>
+    <string>com.github.autopkg.pkg.Flip4Mac-3</string>
+    <key>Input</key>
+    <dict>
+        <key>PKG_NAME</key>
+        <string>Flip4Mac.pkg</string>
+        <key>NAME</key>
+        <string>Flip4Mac</string>
+    </dict>
+    <key>MinimumVersion</key>
+    <string>0.2.0</string>
+    <key>ParentRecipe</key>
+    <string>com.github.autopkg.download.Flip4Mac-3</string>
+    <key>Process</key>
+    <array>
+        <dict>
+            <key>Arguments</key>
+            <dict>
+                <key>flat_pkg_path</key>
+                <string>%pathname%/%PKG_NAME%</string>
+                <key>destination_path</key>
+                <string>%RECIPE_CACHE_DIR%/Flip4Mac_pkg</string>
+                <key>purge_destination</key>
+                <true/>
+            </dict>
+            <key>Processor</key>
+            <string>FlatPkgUnpacker</string>
+        </dict>
+        <dict>
+            <key>Arguments</key>
+            <dict>
+                <key>pkg_payload_path</key>
+                <string>%RECIPE_CACHE_DIR%/Flip4Mac_pkg/Flip4Mac.pkg/Payload</string>
+                <key>destination_path</key>
+                <string>%RECIPE_CACHE_DIR%/Flip4Mac_pkg_payload</string>
+                <key>purge_destination</key>
+                <true/>
+            </dict>
+            <key>Processor</key>
+            <string>PkgPayloadUnpacker</string>
+        </dict>
+        <dict>
+            <key>Arguments</key>
+            <dict>
+                <key>info_path</key>
+                <string>%RECIPE_CACHE_DIR%/Flip4Mac_pkg_payload/Library/Internet Plug-Ins/Flip4Mac WMV Plugin.plugin/Contents/Info.plist</string>
+				<key>plist_keys</key>
+				<dict>
+					<key>CFBundleVersion</key>
+					<string>version</string>
+				</dict>
+            </dict>
+            <key>Processor</key>
+            <string>PlistReader</string>
+        </dict>
+        <dict>
+            <key>Arguments</key>
+            <dict>
+                <key>source_path</key>
+                <string>%pathname%/%PKG_NAME%</string>
+                <key>destination_path</key>
+                <string>%RECIPE_CACHE_DIR%/Flip4Mac-%version%.pkg</string>
+            </dict>
+            <key>Processor</key>
+            <string>Copier</string>
+        </dict>
+    </array>
+</dict>
+</plist>
