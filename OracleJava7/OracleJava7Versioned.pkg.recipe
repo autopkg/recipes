@@ -86,36 +86,6 @@ All Oracle JRE install packages have a version number of 1, so the actual plugin
                 <string>%RECIPE_CACHE_DIR%/OracleJava7-%version%.pkg</string>
             </dict>
         </dict>
-		<!--
-        <dict>
-            <key>Processor</key>
-            <string>PkgCreator</string>
-            <key>Arguments</key>
-            <dict>
-                <key>pkgname</key>
-                <string>%NAME%-%version%</string>
-                <key>pkg_request</key>
-                <dict>
-                    <key>pkgdir</key>
-                    <string>%RECIPE_CACHE_DIR%</string>
-                    <key>id</key>
-                    <string>%PKG_ID%</string>
-                    <key>options</key>
-                    <string>purge_ds_store</string>
-                    <key>chown</key>
-                    <array>
-                        <dict>
-                            <key>path</key>
-                            <string>Library</string>
-                            <key>user</key>
-                            <string>root</string>
-                            <key>group</key>
-                            <string>wheel</string>
-                        </dict>
-                    </array>
-                </dict>
-            </dict>-->
-        </dict>
     </array>
 </dict>
 </plist>
