@@ -64,14 +64,29 @@ All Oracle JRE install packages have a version number of 1, so the actual plugin
         <dict>
             <key>Arguments</key>
             <dict>
-                <key>input_plist_path</key>
+                <key>info_path</key>
                 <string>%RECIPE_CACHE_DIR%/unpack/root/Library/Internet Plug-Ins/JavaAppletPlugin.plugin/Contents/Enabled.plist</string>
-                <key>plist_version_key</key>
-                <string>CFBundleVersion</string>
+                <key>plist_keys</key>
+				<dict>
+					<key>CFBundleVersion</key>
+					<string>version</string>
+				</dict>
             </dict>
             <key>Processor</key>
-            <string>Versioner</string>
+            <string>PlistReader</string>
         </dict>
+        <dict>
+            <key>Processor</key>
+            <string>Copier</string>
+            <key>Arguments</key>
+            <dict>
+                <key>source_path</key>
+                <string>%pathname%/Java*.pkg</string>
+                <key>destination_path</key>
+                <string>%RECIPE_CACHE_DIR%/OracleJava7-%version%.pkg</string>
+            </dict>
+        </dict>
+		<!--
         <dict>
             <key>Processor</key>
             <string>PkgCreator</string>
@@ -99,7 +114,7 @@ All Oracle JRE install packages have a version number of 1, so the actual plugin
                         </dict>
                     </array>
                 </dict>
-            </dict>
+            </dict>-->
         </dict>
     </array>
 </dict>
