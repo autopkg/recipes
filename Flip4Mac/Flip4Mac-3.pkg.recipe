@@ -15,7 +15,7 @@ makes a package.</string>
         <string>Flip4Mac</string>
     </dict>
     <key>MinimumVersion</key>
-    <string>0.2.0</string>
+    <string>0.2.5</string>
     <key>ParentRecipe</key>
     <string>com.github.autopkg.download.Flip4Mac-3</string>
     <key>Process</key>
