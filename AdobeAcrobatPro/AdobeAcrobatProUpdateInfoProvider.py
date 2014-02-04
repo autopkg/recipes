@@ -147,6 +147,7 @@ class AdobeAcrobatProUpdateInfoProvider(Processor):
         self.env["additional_pkginfo"] = new_pkginfo
 
         self.env["url"] = url
+        self.env["version"] = version
         self.output("Found URL %s" % self.env["url"])
 
 if __name__ == "__main__":
