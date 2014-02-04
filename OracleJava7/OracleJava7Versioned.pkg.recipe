@@ -16,7 +16,7 @@ All Oracle JRE install packages have a version number of 1, so the actual plugin
         <string>com.oracle.jre</string>
     </dict>
     <key>MinimumVersion</key>
-    <string>0.2.5</string>
+    <string>0.2.9</string>
     <key>ParentRecipe</key>
     <string>com.github.autopkg.download.OracleJava7</string>
     <key>Process</key>
@@ -77,12 +77,12 @@ All Oracle JRE install packages have a version number of 1, so the actual plugin
         </dict>
         <dict>
             <key>Processor</key>
-            <string>Copier</string>
+            <string>PkgCopier</string>
             <key>Arguments</key>
             <dict>
-                <key>source_path</key>
+				<key>source_pkg</key>
                 <string>%pathname%/Java*.pkg</string>
-                <key>destination_path</key>
+                <key>pkg_path</key>
                 <string>%RECIPE_CACHE_DIR%/OracleJava7-%version%.pkg</string>
             </dict>
         </dict>
