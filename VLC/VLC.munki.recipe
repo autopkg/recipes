@@ -3,7 +3,11 @@
 <plist version="1.0">
 <dict>
     <key>Description</key>
-    <string>Downloads latest VLC disk image and imports into Munki.</string>
+    <string>Downloads latest VLC disk image and imports into Munki.
+
+Please note that the values for supported_architectures in this
+recipe's pkginfo may be only evaluated accurately for early-generation
+Intel Macs as of Munki tools version 0.9.2.</string>
     <key>Identifier</key>
     <string>com.github.autopkg.munki.VLC</string>
     <key>Input</key>
@@ -28,7 +32,7 @@
             <true/>
             <key>supported_architectures</key>
             <array>
-                    <string>x86_64</string>
+                <string>x86_64</string>
             </array>
         </dict>
     </dict>
