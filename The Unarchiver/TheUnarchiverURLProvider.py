@@ -24,8 +24,8 @@ from autopkglib import Processor, ProcessorError
 __all__ = ["TheUnarchiverURLProvider"]
 
 
-THEUNARCHIVER_BASE_URL = "http://wakaba.c3.cx/s/apps/unarchiver.html"
-re_theunarchiver_zip = re.compile(r'class="download" href="(?P<url>http://theunarchiver.googlecode.com/files/TheUnarchiver[^"]+\.zip)"', re.I)
+THEUNARCHIVER_BASE_URL = "http://unarchiver.c3.cx/unarchiver"
+re_theunarchiver_zip = re.compile(r'href="(?P<url>http://theunarchiver.googlecode.com/files/TheUnarchiver[^"]+\.zip)"', re.I)
 
 
 class TheUnarchiverURLProvider(Processor):
@@ -33,7 +33,7 @@ class TheUnarchiverURLProvider(Processor):
     input_variables = {
         "base_url": {
             "required": False,
-            "description": "Default is 'http://wakaba.c3.cx/s/apps/unarchiver.html'.",
+            "description": "Default is 'http://unarchiver.c3.cx/unarchiver'.",
         },
     }
     output_variables = {
@@ -47,7 +47,12 @@ class TheUnarchiverURLProvider(Processor):
     def get_theunarchiver_zip_url(self, base_url):
         # Read HTML index.
         try:
-            f = urllib2.urlopen(base_url)
+            # Without specifing an Accept, the server returns
+            # Content-Location: unarchiver.css instead of unarchiver.html
+            req = urllib2.Request(base_url)
+            req.add_header("Accept",
+                "text/html,application/xhtml+xml,application/xml")
+            f = urllib2.urlopen(req)
             html = f.read()
             f.close()
         except BaseException as e:
