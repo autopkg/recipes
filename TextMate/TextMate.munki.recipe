@@ -36,21 +36,10 @@ is hardcoded because it's not likely to ever get another update.</string>
     </dict>
     <key>MinimumVersion</key>
     <string>0.2.0</string>
+    <key>ParentRecipe</key>
+    <string>com.github.autopkg.download.TextMate</string>
     <key>Process</key>
     <array>
-        <dict>
-            <key>Processor</key>
-            <string>URLDownloader</string>
-            <key>Arguments</key>
-            <dict>
-                <key>url</key>
-                <string>http://archive.textmate.org/TextMate_1.5.11_r1635.zip</string>
-            </dict>
-        </dict>
-        <dict>
-            <key>Processor</key>
-            <string>EndOfCheckPhase</string>
-        </dict>
         <dict>
             <key>Processor</key>
             <string>Unarchiver</string>

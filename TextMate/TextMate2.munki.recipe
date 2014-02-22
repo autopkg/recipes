@@ -46,25 +46,10 @@ preferences panel.
     </dict>
     <key>MinimumVersion</key>
     <string>0.2.0</string>
+    <key>ParentRecipe</key>
+    <string>com.github.autopkg.download.TextMate2</string>
     <key>Process</key>
     <array>
-        <dict>
-            <key>Processor</key>
-            <string>TextMateURLProvider</string>
-            <key>Arguments</key>
-            <dict>
-                <key>branch</key>
-                <string>%BRANCH%</string>
-            </dict>
-        </dict>
-        <dict>
-            <key>Processor</key>
-            <string>URLDownloader</string>
-        </dict>
-        <dict>
-            <key>Processor</key>
-            <string>EndOfCheckPhase</string>
-        </dict>
         <dict>
             <key>Processor</key>
             <string>Unarchiver</string>
