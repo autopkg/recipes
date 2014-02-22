@@ -28,7 +28,11 @@ is hardcoded because it's not likely to ever get another update.</string>
             <key>postinstall_script</key>
             <string>#!/bin/sh
 [ -d /usr/local/bin ] || mkdir -p /usr/local/bin
-/bin/ln -sf /Applications/TextMate.app/Contents/Resources/mate /usr/local/bin/mate
+/bin/cp -f -p /Applications/TextMate.app/Contents/Resources/mate /usr/local/bin/mate
+</string>
+            <key>postuninstall_script</key>
+            <string>#!/bin/sh
+[ -e /usr/local/bin/mate ] &amp;&amp; rm -f /usr/local/bin/mate
 </string>
             <key>unattended_install</key>
             <true/>
