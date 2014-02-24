@@ -3,9 +3,10 @@
 <plist version="1.0">
 <dict>
     <key>Description</key>
-    <string>Downloads the latest Oracle Java 7 JRE and builds a new package with correct version information.
-
-All Oracle JRE install packages have a version number of 1, so the actual plugin version is used to replace the installer version, taken from the CFBundleVersion of the bundle at /Library/Internet Plug-Ins/JavaAppletPlugin.plugin.</string>
+    <string>Downloads the latest Oracle Java 7 JRE and copies out the flat installer pkg
+within, appending the version number to the filename. (Note the version of the actual
+pkg id for the com.oracle.jre pkg component is still always "1.0".)
+</string>
     <key>Identifier</key>
     <string>com.github.autopkg.pkg.OracleJava7</string>
     <key>Input</key>
