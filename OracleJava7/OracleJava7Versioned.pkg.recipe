@@ -7,7 +7,7 @@
 
 All Oracle JRE install packages have a version number of 1, so the actual plugin version is used to replace the installer version, taken from the CFBundleVersion of the bundle at /Library/Internet Plug-Ins/JavaAppletPlugin.plugin.</string>
     <key>Identifier</key>
-    <string>com.github.autopkg.pkg.OracleJava7Versioned</string>
+    <string>com.github.autopkg.pkg.OracleJava7</string>
     <key>Input</key>
     <dict>
         <key>NAME</key>
