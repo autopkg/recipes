@@ -22,7 +22,7 @@ and imports into Munki.</string>
                 <string>testing</string>
             </array>
             <key>description</key>
-            <string>Windows Media Components for QuickTime.</string>
+            <string>The official Windows Media player on the Mac. Includes Flip Player.</string>
             <key>display_name</key>
             <string>Flip4Mac</string>
             <key>name</key>
