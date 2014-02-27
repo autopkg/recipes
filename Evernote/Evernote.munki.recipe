@@ -25,7 +25,7 @@ http://update.evernote.com/prerelease/ENMac/EvernoteMacUpdate.xml
                 <string>testing</string>
             </array>
             <key>description</key>
-            <string></string>
+            <string>Evernote makes it easy to remember things big and small from your everyday life using your computer, phone, tablet and the web.</string>
             <key>display_name</key>
             <string>Evernote</string>
             <key>name</key>
