@@ -23,7 +23,7 @@
                 <string>testing</string>
             </array>
             <key>description</key>
-            <string>Rich media web plugin.</string>
+            <string>Silverlight is a powerful development tool for creating engaging, interactive user experiences for Web and mobile applications. Silverlight is a free plug-in, powered by the .NET framework and compatible with multiple browsers, devices and operating systems, bringing a new level of interactivity wherever the Web works.</string>
             <key>display_name</key>
             <string>Microsoft Silverlight</string>
             <key>name</key>
