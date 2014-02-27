@@ -19,7 +19,7 @@
                 <string>testing</string>
             </array>
             <key>description</key>
-            <string>Google's web browser.</string>
+            <string>Chrome is a fast, simple, and secure web browser, built for the modern web.</string>
             <key>display_name</key>
             <string>Google Chrome</string>
             <key>name</key>
