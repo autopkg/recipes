@@ -22,7 +22,7 @@ Based on jamesz's work here: https://github.com/jamesez/automunki/tree/master/ad
                 <string>testing</string>
             </array>
             <key>description</key>
-            <string>Adobe AIR</string>
+            <string>The Adobe AIR runtime enables developers to package the same code into native applications and games for Windows and Mac OS desktops as well as iOS and Android devices, reaching over a billion desktop systems and mobile app stores for over 500 million devices.</string>
             <key>display_name</key>
             <string>Adobe® Integrated Runtime</string>
             <key>name</key>
