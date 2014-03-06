@@ -24,10 +24,14 @@ __all__ = ["MunkitoolsURLProvider"]
 
 
 RELEASE_BASE_URL = "http://code.google.com/p/munki/downloads/list"
-MUNKIBUILDS_URL = "http://munkibuilds.org/munkitools-latest.dmg"
-
+MUNKIBUILDS_URLS = ["http://munkibuilds.org/munkitools-latest.dmg",
+                    "https://munkibuilds.org/munkitools-latest.dmg",
+                    "http://munkibuilds.org/munkitools2-latest.pkg",
+                    "https://munkibuilds.org/munkitools2-latest.pkg"]
+DEFAULT_MAJOR_VERSION = "1"
 re_dmg_link = re.compile(r'href="(?P<url>//munki.googlecode.com/files/munkitools-[.0-9]*.dmg)"')
-
+# placeholder for an 're_pkg_link' for Munki 2:
+# re_pkg_link = re.compile(r'href="(?P<url>//munki.googlecode.com/files/munkitools-[.0-9]*.pkg)"')
 
 class MunkitoolsURLProvider(Processor):
     """Provides a download URL for Munki tools."""
@@ -35,6 +39,12 @@ class MunkitoolsURLProvider(Processor):
         "base_url": {
             "required": False,
             "description": "Default is %s" % RELEASE_BASE_URL,
+        },
+        "major_version": {
+            "required": False,
+            "description": ("Major version of Munki tools to download. "
+                            "Either '1' or '2', defaults to %s." %
+                            DEFAULT_MAJOR_VERSION)
         },
     }
     output_variables = {
@@ -44,7 +54,7 @@ class MunkitoolsURLProvider(Processor):
     }
     description = __doc__
 
-    def get_munkitools_dmg_url(self, base_url):
+    def get_munkitools_dmg_url(self, base_url, munki_version):
         # Read HTML index.
         try:
             f = urllib2.urlopen(base_url)
@@ -68,10 +78,16 @@ class MunkitoolsURLProvider(Processor):
     def main(self):
         """Find and return a download URL"""
         base_url = self.env.get("base_url", RELEASE_BASE_URL)
-        if base_url == MUNKIBUILDS_URL:
-            self.env["url"] = MUNKIBUILDS_URL
+        major_version = self.env.get("major_version", DEFAULT_MAJOR_VERSION)
+        if major_version != "1" and base_url == RELEASE_BASE_URL:
+            raise ProcessorError(
+                ("This processor currently only supports a 'major_version' "
+                 "of '1' unless a munkibuilds.org URL is given as a 'base_url'."))
+        if base_url in MUNKIBUILDS_URLS:
+            self.env["url"] = base_url
         else:
-            self.env["url"] = self.get_munkitools_dmg_url(base_url)
+            self.env["url"] = self.get_munkitools_dmg_url(base_url,
+                                                          major_version)
         self.output("Found URL %s" % self.env["url"])
 
 
