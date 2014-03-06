@@ -23,30 +23,30 @@ https://munkibuilds.org/munkitools2-latest.pkg</string>
         <key>MUNKITOOLS_CORE_NAME</key>
         <string>munkitools_core</string>
         <key>MUNKITOOLS_CORE_DISPLAYNAME</key>
-        <string>Managed Software Update core tools</string>
+        <string>Managed Software Center core tools</string>
         <key>MUNKITOOLS_CORE_DESCRIPTION</key>
-        <string>Core command-line tools used by Managed Software Update.</string>
+        <string>Core command-line tools used by Managed Software Center.</string>
         <!--  -->
         <key>MUNKITOOLS_ADMIN_NAME</key>
         <string>munkitools_admin</string>
         <key>MUNKITOOLS_ADMIN_DISPLAYNAME</key>
-        <string>Managed Software Update admin tools</string>
+        <string>Managed Software Center admin tools</string>
         <key>MUNKITOOLS_ADMIN_DESCRIPTION</key>
-        <string>Command-line Managed Software Update admin tools.</string>
+        <string>Command-line Managed Software Center admin tools.</string>
         <!--  -->
         <key>MUNKITOOLS_APP_NAME</key>
         <string>munkitools</string>
         <key>MUNKITOOLS_APP_DISPLAYNAME</key>
-        <string>Managed Software Update</string>
+        <string>Managed Software Center</string>
         <key>MUNKITOOLS_APP_DESCRIPTION</key>
-        <string>Managed Software Update application.</string>
+        <string>Managed Software Center application.</string>
         <!--  -->
         <key>MUNKITOOLS_LAUNCHD_NAME</key>
         <string>munkitools_launchd</string>
         <key>MUNKITOOLS_LAUNCHD_DISPLAYNAME</key>
-        <string>Managed Software Update launchd files</string>
+        <string>Managed Software Center launchd files</string>
         <key>MUNKITOOLS_LAUNCHD_DESCRIPTION</key>
-        <string>launchd configuration files for use by Managed Software Update</string>
+        <string>launchd configuration files for use by Managed Software Center.</string>
     </dict>
     <key>MinimumVersion</key>
     <string>0.2.4</string>
