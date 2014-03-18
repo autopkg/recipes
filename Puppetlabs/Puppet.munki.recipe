@@ -18,8 +18,6 @@ the default, 'latest'.</string>
         <string>support/Puppet</string>
         <key>NAME</key>
         <string>Puppet</string>
-        <key>VERSION</key>
-        <string>latest</string>
         <key>pkginfo</key>
         <dict>
             <key>catalogs</key>
@@ -42,34 +40,10 @@ the default, 'latest'.</string>
     </dict>
     <key>MinimumVersion</key>
     <string>0.2.0</string>
+    <key>ParentRecipe</key>
+    <string>com.github.autopkg.download.puppet</string>
     <key>Process</key>
     <array>
-        <dict>
-            <key>Arguments</key>
-            <dict>
-                <key>get_version</key>
-                <string>%VERSION%</string>
-                <key>product_name</key>
-                <string>puppet</string>
-            </dict>
-            <key>Processor</key>
-            <string>PuppetlabsProductsURLProvider</string>
-        </dict>
-        <dict>
-            <key>Arguments</key>
-            <dict>
-                <key>url</key>
-                <string>%url%</string>
-                <key>filename</key>
-                <string>%NAME%-%version%.dmg</string>
-            </dict>
-            <key>Processor</key>
-            <string>URLDownloader</string>
-        </dict>
-        <dict>
-            <key>Processor</key>
-            <string>EndOfCheckPhase</string>
-        </dict>
         <dict>
             <key>Arguments</key>
             <dict>
