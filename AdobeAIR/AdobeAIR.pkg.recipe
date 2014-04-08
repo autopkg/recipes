@@ -106,6 +106,32 @@ Based on jamesz's work here: https://github.com/jamesez/automunki/tree/master/ad
         </dict>
         <dict>
             <key>Comment</key>
+            <string>Copy AIR Adobe AIR Uninstaller.app as Adobe AIR Updater.app (!) (Yes, this is getting silly.)</string>
+            <key>Processor</key>
+            <string>Copier</string>
+            <key>Arguments</key>
+            <dict>
+                <key>source_path</key>
+                <string>%pkgroot%/Applications/Utilities/Adobe AIR Uninstaller.app</string>
+                <key>destination_path</key>
+                <string>%pkgroot%/Library/Frameworks/Adobe AIR.framework/Versions/Current/Resources/Adobe AIR Updater.app</string>
+            </dict>
+        </dict>
+        <dict>
+            <key>Comment</key>
+            <string>Remove Frameworks directory from Adobe AIR Updater.app</string>
+            <key>Processor</key>
+            <string>PathDeleter</string>
+            <key>Arguments</key>
+            <dict>
+                <key>path_list</key>
+                <array>
+	                <string>%pkgroot%/Library/Frameworks/Adobe AIR.framework/Versions/Current/Resources/Adobe AIR Updater.app/Contents/Frameworks</string>
+                </array>
+            </dict>
+        </dict>
+        <dict>
+            <key>Comment</key>
             <string>Copy embedded Adobe AIR Application Installer.app to /Applications/Utilities</string>
             <key>Processor</key>
             <string>Copier</string>
