@@ -3,18 +3,16 @@
 <plist version="1.0">
 <dict>
 	<key>Description</key>
-	<string>Downloads the latest version of Praat and imports into Munki.
+	<string>Downloads the latest version of Praat.
 
 There are two editions that can be downloaded: 32-bit or 64-bit, which
 can be overridden by setting ARCH_EDITION to either '32' or '64'.</string>
 	<key>Identifier</key>
-	<string>com.github.autopkg.munki.Praat</string>
+	<string>com.github.autopkg.download.Praat</string>
 	<key>Input</key>
 	<dict>
 		<key>ARCH_EDITION</key>
-		<string>32</string>
-		<key>MUNKI_REPO_SUBDIR</key>
-		<string>apps</string>
+		<string>64</string>
 		<key>NAME</key>
 		<string>Praat</string>
 		<key>pkginfo</key>
@@ -35,53 +33,29 @@ can be overridden by setting ARCH_EDITION to either '32' or '64'.</string>
 	</dict>
 	<key>MinimumVersion</key>
 	<string>0.2.0</string>
-	<key>ParentRecipe</key>
-	<string>com.github.autopkg.download.Praat</string>
 	<key>Process</key>
 	<array>
 		<dict>
 			<key>Arguments</key>
 			<dict>
-				<key>destination_path</key>
-				<string>%RECIPE_CACHE_DIR%/%NAME%/%NAME%.app</string>
-				<key>overwrite</key>
-				<true/>
-				<key>source_path</key>
-				<string>%pathname%/%NAME%.app</string>
+				<key>arch_edition</key>
+				<string>%ARCH_EDITION%</string>
 			</dict>
 			<key>Processor</key>
-			<string>Copier</string>
+			<string>PraatURLProvider</string>
 		</dict>
 		<dict>
 			<key>Arguments</key>
 			<dict>
-				<key>app_path</key>
-				<string>%destination_path%</string>
+				<key>filename</key>
+				<string>%NAME%.dmg</string>
 			</dict>
 			<key>Processor</key>
-			<string>PraatVersionFixer</string>
+			<string>URLDownloader</string>
 		</dict>
 		<dict>
-			<key>Arguments</key>
-			<dict>
-				<key>dmg_path</key>
-				<string>%RECIPE_CACHE_DIR%/%NAME%-%version%.dmg</string>
-				<key>dmg_root</key>
-				<string>%RECIPE_CACHE_DIR%/%NAME%</string>
-			</dict>
 			<key>Processor</key>
-			<string>DmgCreator</string>
-		</dict>
-		<dict>
-			<key>Arguments</key>
-			<dict>
-				<key>pkg_path</key>
-				<string>%dmg_path%</string>
-				<key>repo_subdirectory</key>
-				<string>%MUNKI_REPO_SUBDIR%</string>
-			</dict>
-			<key>Processor</key>
-			<string>MunkiImporter</string>
+			<string>EndOfCheckPhase</string>
 		</dict>
 	</array>
 </dict>
