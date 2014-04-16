@@ -12,24 +12,9 @@ can be overridden by setting ARCH_EDITION to either '32' or '64'.</string>
 	<key>Input</key>
 	<dict>
 		<key>ARCH_EDITION</key>
-		<string>64</string>
+		<string>32</string>
 		<key>NAME</key>
 		<string>Praat</string>
-		<key>pkginfo</key>
-		<dict>
-			<key>catalogs</key>
-			<array>
-				<string>testing</string>
-			</array>
-			<key>description</key>
-			<string>Praat is a program for speech analysis and synthesis.</string>
-			<key>display_name</key>
-			<string>Praat</string>
-			<key>name</key>
-			<string>%NAME%</string>
-			<key>unattended_install</key>
-			<true/>
-		</dict>
 	</dict>
 	<key>MinimumVersion</key>
 	<string>0.2.0</string>
