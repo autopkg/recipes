@@ -59,6 +59,8 @@ preferences panel.
             <string>Unarchiver</string>
             <key>Arguments</key>
             <dict>
+                <key>archive_format</key>
+                <string>tar_bzip2</string>
                 <key>archive_path</key>
                 <string>%pathname%</string>
                 <key>destination_path</key>
