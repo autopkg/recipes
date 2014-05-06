@@ -52,23 +52,10 @@ which packages are installed, and therefore the receipts array.</string>
     </dict>
     <key>MinimumVersion</key>
     <string>0.2.0</string>
+    <key>ParentRecipe</key>
+    <string>com.github.autopkg.download.sassafras-k2client</string>
     <key>Process</key>
     <array>
-        <dict>
-            <key>Arguments</key>
-            <dict>
-                <key>url</key>
-                <string>http://www.sassafras.com/links/K2Client-Config.dmg</string>
-                <key>filename</key>
-                <string>K2Client-Config.dmg</string>
-            </dict>
-            <key>Processor</key>
-            <string>URLDownloader</string>
-        </dict>
-        <dict>
-            <key>Processor</key>
-            <string>EndOfCheckPhase</string>
-        </dict>
         <dict>
             <key>Arguments</key>
             <dict>
