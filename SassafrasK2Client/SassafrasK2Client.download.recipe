@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Description</key>
+    <string>Fetches the latest Sassafras KeyClient Mac installer. 
+We fetch the legacy bundle-style installer because it has support for
+a customized installation tool, 'k2clientconfig'.</string>
+    <key>Identifier</key>
+    <string>com.github.autopkg.download.sassafras-k2client</string>
+    <key>Input</key>
+    <dict>
+        <key>NAME</key>
+        <string>K2Client</string>
+    </dict>
+    <key>MinimumVersion</key>
+    <string>0.2.0</string>
+    <key>Process</key>
+    <array>
+        <dict>
+            <key>Arguments</key>
+            <dict>
+                <key>url</key>
+                <string>http://www.sassafras.com/links/K2Client-Config.dmg</string>
+                <key>filename</key>
+                <string>K2Client-Config.dmg</string>
+            </dict>
+            <key>Processor</key>
+            <string>URLDownloader</string>
+        </dict>
+        <dict>
+            <key>Processor</key>
+            <string>EndOfCheckPhase</string>
+        </dict>
+    </array>
+</dict>
+</plist>
