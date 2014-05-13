@@ -33,6 +33,7 @@ the default, 'latest'.</string>
             <key>requires</key>
             <array>
                 <string>Facter</string>
+                <string>Hiera</string>
             </array>
             <key>unattended_install</key>
             <true/>
