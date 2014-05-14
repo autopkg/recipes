@@ -4,8 +4,8 @@
 <dict>
     <key>Description</key>
     <string>Downloads updates for Adobe Acrobat Pro X or XI. MAJOR_VERSION can be '10', '11', corresponding to Pro X, Pro XI, 
-etc. Multiple overrides for the multiple X-era versions should 
-be able to share this recipe and manage multiple major versions.
+etc. You can override this recipe multiple times for different
+values of MAJOR_VERSION.
 
 VERSION can be a specific update version, ie. '10.1.6', or the 
 default, 'latest'.</string>
