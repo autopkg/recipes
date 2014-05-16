@@ -37,6 +37,16 @@ the default, 'latest'.</string>
             </array>
             <key>unattended_install</key>
             <true/>
+            <key>installcheck_script</key>
+            <string>#!/usr/bin/ruby
+# Check that Ruby "json" gem is installed (abort to prevent install if not)
+abort_msg = "[Info] Munki installcheck script: Skipping installation of %NAME% (versions &gt;= 3.5 require 'json' gem which is not included on system ruby for OS X &lt; 10.9)"
+begin
+    require "json"
+rescue LoadError 
+    abort abort_msg
+end
+</string>
         </dict>
     </dict>
     <key>MinimumVersion</key>
