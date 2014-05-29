@@ -12,8 +12,8 @@ and makepkginfo will handle requiring a logout for these. Acrobat
 Pro 9 uses a separate recipe from X/XI as its download is provided
 as a zip file, which must be re-packed to a .dmg.
 
-The value(s) for update_for in the pkginfo should be set to that 
-of your base Adobe Acrobat Pro 9 installer item.
+The name(s) in update_for in the pkginfo should be set to the name
+of your base Adobe Acrobat Pro 9 item in your Munki repo.
 
 VERSION can be a specific update version, ie. '9.5.2', or the 
 default, 'latest'.</string>
