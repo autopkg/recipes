@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Description</key>
+    <string>Downloads the latest Oracle Java 7 JRE and copies out the flat installer pkg
+within, appending the version number to the filename. (Note the version of the actual
+pkg id for the com.oracle.jre pkg component is still always "1.0".)
+
+To use this recipe, you must accept the Oracle Binary Code License Agreement for Java SE.
+http://www.oracle.com/technetwork/java/javase/terms/license/index.html
+</string>
+    <key>Identifier</key>
+    <string>com.github.autopkg.pkg.OracleJava7</string>
+    <key>Input</key>
+    <dict>
+        <key>NAME</key>
+        <string>OracleJava7</string>
+        <key>PKG_ID</key>
+        <string>com.oracle.jre</string>
+    </dict>
+    <key>MinimumVersion</key>
+    <string>0.2.9</string>
+    <key>ParentRecipe</key>
+    <string>com.github.autopkg.download.OracleJava7</string>
+    <key>Process</key>
+    <array>
+        <dict>
+            <key>Arguments</key>
+            <dict>
+                <key>flat_pkg_path</key>
+                <string>%pathname%/*.pkg</string>
+                <key>destination_path</key>
+                <string>%RECIPE_CACHE_DIR%/unpack</string>
+            </dict>
+            <key>Processor</key>
+            <string>FlatPkgUnpacker</string>
+        </dict>
+        <dict>
+            <key>Arguments</key>
+            <dict>
+                <key>pkgroot</key>
+                <string>%RECIPE_CACHE_DIR%/unpack/root</string>
+                <key>pkgdirs</key>
+				<dict>
+					<key>Library</key>
+					<string>0755</string>
+					<key>Library/Internet Plug-Ins</key>
+					<string>0755</string>
+					<key>Library/Internet Plug-Ins/JavaAppletPlugin.plugin</key>
+					<string>0755</string>
+				</dict>
+            </dict>
+            <key>Processor</key>
+            <string>PkgRootCreator</string>
+        </dict>
+        <dict>
+            <key>Arguments</key>
+            <dict>
+                <key>pkg_payload_path</key>
+                <string>%RECIPE_CACHE_DIR%/unpack/javaappletplugin.pkg/Payload</string>
+                <key>destination_path</key>
+                <string>%RECIPE_CACHE_DIR%/unpack/root/Library/Internet Plug-Ins/JavaAppletPlugin.plugin</string>
+            </dict>
+            <key>Processor</key>
+            <string>PkgPayloadUnpacker</string>
+        </dict>
+        <dict>
+            <key>Arguments</key>
+            <dict>
+                <key>info_path</key>
+                <string>%RECIPE_CACHE_DIR%/unpack/root/Library/Internet Plug-Ins/JavaAppletPlugin.plugin/Contents/Enabled.plist</string>
+                <key>plist_keys</key>
+				<dict>
+					<key>CFBundleVersion</key>
+					<string>version</string>
+				</dict>
+            </dict>
+            <key>Processor</key>
+            <string>PlistReader</string>
+        </dict>
+        <dict>
+            <key>Processor</key>
+            <string>PkgCopier</string>
+            <key>Arguments</key>
+            <dict>
+				<key>source_pkg</key>
+                <string>%pathname%/Java*.pkg</string>
+                <key>pkg_path</key>
+                <string>%RECIPE_CACHE_DIR%/OracleJava7-%version%.pkg</string>
+            </dict>
+        </dict>
+    </array>
+</dict>
+</plist>
