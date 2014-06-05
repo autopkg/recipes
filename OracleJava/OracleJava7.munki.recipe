@@ -5,13 +5,11 @@
     <key>Description</key>
     <string>Downloads the latest Oracle Java 7 JRE and imports into Munki.
 
+To use this recipe, you must accept the Oracle Binary Code License Agreement for Java SE.
+http://www.oracle.com/technetwork/java/javase/terms/license/index.html
+
 The package's receipt version is useless, so we make an installs item for
 the prefPane bundle, which has historically had consistent versioning.
-
-While this recipe used to include a postinstall script that would 1) unload
-and unlink a LaunchAgent/Daemon combo, and 2) add version-specific warning-
-suppress settings to a properties file, these steps seem to be no longer
-required as of Update 40.
 </string>
     <key>Identifier</key>
     <string>com.github.autopkg.munki.OracleJava7</string>
@@ -37,10 +35,20 @@ required as of Update 40.
             <string>%NAME%</string>
             <key>unattended_install</key>
             <true/>
+            <key>uninstallable</key>
+            <true/>
+            <key>uninstall_method</key>
+            <string>uninstall_script</string>
+            <key>uninstall_script</key>
+            <string>#!/bin/sh
+            # From http://www.java.com/en/download/help/mac_uninstall_java.xml
+            rm -fr /Library/Internet\ Plug-Ins/JavaAppletPlugin.plugin
+            pkgutil --forget com.oracle.jre
+            </string>
         </dict>
     </dict>
     <key>MinimumVersion</key>
-    <string>0.2.0</string>
+    <string>0.2.9</string>
     <key>ParentRecipe</key>
     <string>com.github.autopkg.download.OracleJava7</string>
     <key>Process</key>
@@ -87,6 +95,8 @@ required as of Update 40.
                 </array>
                 <key>faux_root</key>
                 <string>%RECIPE_CACHE_DIR%/unpack/root</string>
+                <key>version_comparison_key</key>
+                <string>CFBundleVersion</string>
             </dict>
             <key>Processor</key>
             <string>MunkiInstallsItemsCreator</string>

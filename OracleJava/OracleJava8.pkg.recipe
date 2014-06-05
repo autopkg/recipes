@@ -3,23 +3,26 @@
 <plist version="1.0">
 <dict>
     <key>Description</key>
-    <string>Downloads the latest Oracle Java 7 JRE and copies out the flat installer pkg
+    <string>Downloads the latest Oracle Java 8 JRE and copies out the flat installer pkg
 within, appending the version number to the filename. (Note the version of the actual
 pkg id for the com.oracle.jre pkg component is still always "1.0".)
+
+To use this recipe, you must accept the Oracle Binary Code License Agreement for Java SE.
+http://www.oracle.com/technetwork/java/javase/terms/license/index.html
 </string>
     <key>Identifier</key>
-    <string>com.github.autopkg.pkg.OracleJava7</string>
+    <string>com.github.autopkg.pkg.OracleJava8</string>
     <key>Input</key>
     <dict>
         <key>NAME</key>
-        <string>OracleJava7</string>
+        <string>OracleJava8</string>
         <key>PKG_ID</key>
         <string>com.oracle.jre</string>
     </dict>
     <key>MinimumVersion</key>
     <string>0.2.9</string>
     <key>ParentRecipe</key>
-    <string>com.github.autopkg.download.OracleJava7</string>
+    <string>com.github.autopkg.download.OracleJava8</string>
     <key>Process</key>
     <array>
         <dict>
@@ -84,7 +87,7 @@ pkg id for the com.oracle.jre pkg component is still always "1.0".)
 				<key>source_pkg</key>
                 <string>%pathname%/Java*.pkg</string>
                 <key>pkg_path</key>
-                <string>%RECIPE_CACHE_DIR%/OracleJava7-%version%.pkg</string>
+                <string>%RECIPE_CACHE_DIR%/OracleJava8-%version%.pkg</string>
             </dict>
         </dict>
     </array>
