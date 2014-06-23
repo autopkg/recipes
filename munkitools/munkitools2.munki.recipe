@@ -12,7 +12,7 @@ https://munkibuilds.org/munkitools2-latest.pkg</string>
     <key>Input</key>
     <dict>
         <key>NAME</key>
-        <string>munkitools</string>
+        <string>munkitools2</string>
         <key>DOWNLOAD_URL</key>
         <string>https://munkibuilds.org/munkitools2-latest.pkg</string>
         <key>MUNKI_CATALOG</key>
