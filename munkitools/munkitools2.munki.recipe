@@ -4,8 +4,8 @@
 <dict>
     <key>Description</key>
     <string>Downloads and imports version 2 of the Munki tools.
-As long as there is not yet an official release of version 2, please override
-DOWNLOAD_URL to that of the latest auto-build:
+As long as there is not yet an official release of version 2, DOWNLOAD_URL
+simply points to that of the latest auto-build:
 https://munkibuilds.org/munkitools2-latest.pkg</string>
     <key>Identifier</key>
     <string>com.github.autopkg.munki.munkitools2</string>
@@ -14,7 +14,7 @@ https://munkibuilds.org/munkitools2-latest.pkg</string>
         <key>NAME</key>
         <string>munkitools</string>
         <key>DOWNLOAD_URL</key>
-        <string>http://code.google.com/p/munki/downloads/list</string>
+        <string>https://munkibuilds.org/munkitools2-latest.pkg</string>
         <key>MUNKI_CATALOG</key>
         <string>development</string>
         <key>MUNKI_REPO_SUBDIR</key>
@@ -54,20 +54,11 @@ https://munkibuilds.org/munkitools2-latest.pkg</string>
     <array>
         <dict>
             <key>Processor</key>
-            <string>MunkitoolsURLProvider</string>
-            <key>Arguments</key>
-            <dict>
-                <key>base_url</key>
-                <string>%DOWNLOAD_URL%</string>
-                <key>major_version</key>
-                <string>2</string>
-            </dict>
-        </dict>
-        <dict>
-            <key>Processor</key>
             <string>URLDownloader</string>
             <key>Arguments</key>
             <dict>
+                <key>url</key>
+                <string>%DOWNLOAD_URL%</string>
             </dict>
         </dict>
         <dict>
