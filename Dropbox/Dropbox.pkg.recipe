@@ -23,7 +23,7 @@
             <key>Arguments</key>
             <dict>
                 <key>info_path</key>
-                <string>%pathname%</string>
+                <string>%pathname%/Dropbox.app</string>
                 <key>plist_keys</key>
                 <dict>
                     <key>CFBundleVersion</key>
