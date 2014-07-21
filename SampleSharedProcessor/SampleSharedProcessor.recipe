@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Description</key>
+    <string>Stub recipe that can be referenced to use the SampleSharedProcessor 
+processor located in this recipe's directory. Instead of setting the
+'Processor' key to 'SampleSharedProcessor', we set it like:
+
+com.github.autopkg.recipes.SampleSharedProcessor/SampleSharedProcessor
+
+..assuming that this recipe is in one of AutoPkg's search dirs.
+    </string>
+    <key>Identifier</key>
+    <string>com.github.autopkg.recipes.SampleSharedProcessor</string>
+    <key>Input</key>
+    <dict/>
+    <key>MinimumVersion</key>
+    <string>0.4.0</string>
+    <key>Process</key>
+    <dict/>
+</dict>
+</plist>
