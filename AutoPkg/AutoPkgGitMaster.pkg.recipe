@@ -7,7 +7,7 @@
 This is not used to obtain the latest released version.
 </string>
     <key>Identifier</key>
-    <string>com.github.autopkg.autopkg</string>
+    <string>com.github.autopkg.AutoPkgGitMaster</string>
     <key>Input</key>
     <dict>
         <key>NAME</key>
