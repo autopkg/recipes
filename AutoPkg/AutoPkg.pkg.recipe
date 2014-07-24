@@ -3,7 +3,9 @@
 <plist version="1.0">
 <dict>
     <key>Description</key>
-    <string>Package the current Git commit of autopkg</string>
+    <string>Package the current Git commit of the master branch of autopkg.
+This is not used to obtain the latest released version.
+</string>
     <key>Identifier</key>
     <string>com.github.autopkg.autopkg</string>
     <key>Input</key>
