@@ -32,6 +32,11 @@ preferences panel.
             </dict>
         </dict>
         <dict>
+            <key>Arguments</key>
+            <dict>
+                <key>filename</key>
+                <string>TextMate2.tar.bz2</string>
+            </dict>
             <key>Processor</key>
             <string>URLDownloader</string>
         </dict>
