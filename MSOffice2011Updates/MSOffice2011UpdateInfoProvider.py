@@ -13,7 +13,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
+"""See docstring for MSOffice2011UpdateInfoProvider class"""
 
 import plistlib
 import urllib2
@@ -45,18 +45,22 @@ MUNKI_UPDATE_NAME = "Office2011_update"
 
 class MSOffice2011UpdateInfoProvider(Processor):
     """Provides a download URL for an Office 2011 update."""
+    description = __doc__
+
     input_variables = {
         "culture_code": {
             "required": False,
-            "description": ("See "
+            "description": (
+                "See "
                 "http://msdn.microsoft.com/en-us/library/ee825488(v=cs.20).aspx"
                 " for a table of CultureCodes Defaults to 0409, which "
-                "corresponds to en-US (English - United States)"), 
+                "corresponds to en-US (English - United States)"),
         },
         "base_url": {
             "required": False,
-            "description": ("Default is %s. If this is given, culture_code "
-                "is ignored." % (BASE_URL % CULTURE_CODE)),
+            "description": (
+                "Default is %s. If this is given, culture_code is ignored."
+                % (BASE_URL % CULTURE_CODE)),
         },
         "version": {
             "required": False,
@@ -64,9 +68,9 @@ class MSOffice2011UpdateInfoProvider(Processor):
         },
         "munki_update_name": {
             "required": False,
-            "description": 
-                ("Name for the update in Munki repo. Defaults to "
-                 "'%s'" % MUNKI_UPDATE_NAME),
+            "description": (
+                "Name for the update in Munki repo. Defaults to '%s'"
+                % MUNKI_UPDATE_NAME),
         },
     }
     output_variables = {
@@ -75,35 +79,35 @@ class MSOffice2011UpdateInfoProvider(Processor):
         },
         "pkg_name": {
             "description": "Name of the package within the disk image.",
-        }, 
+        },
         "additional_pkginfo": {
-            "description": 
+            "description":
                 "Some pkginfo fields extracted from the Microsoft metadata.",
         },
     }
-    description = __doc__
-    
-    def sanityCheckExpectedTriggers(self, item):
+
+    def sanity_check_expected_triggers(self, item):
         """Raises an exeception if the Trigger Condition or
         Triggers for an update don't match what we expect.
         Protects us if these change in the future."""
+        #pylint: disable=no-self-use
         if not item.get("Trigger Condition") == ["and", "MCP"]:
             raise ProcessorError(
-                "Unexpected Trigger Condition in item %s: %s" 
+                "Unexpected Trigger Condition in item %s: %s"
                 % (item["Title"], item["Trigger Condition"]))
         if not "MCP" in item.get("Triggers", {}):
             raise ProcessorError(
                 "Missing expected MCP Trigger in item %s" % item["Title"])
-    
-    def getRequiresFromUpdateItem(self, item):
+
+    def get_requires_from_update(self, item):
         """Attempts to determine what earlier updates are
         required by this update"""
-        
-        def compare_versions(a, b):
+
+        def compare_versions(this, that):
             """Internal comparison function for use with sorting"""
-            return cmp(LooseVersion(a), LooseVersion(b))
-        
-        self.sanityCheckExpectedTriggers(item)
+            return cmp(LooseVersion(this), LooseVersion(that))
+
+        self.sanity_check_expected_triggers(item)
         munki_update_name = self.env.get("munki_update_name", MUNKI_UPDATE_NAME)
         mcp_versions = item.get(
             "Triggers", {}).get("MCP", {}).get("Versions", [])
@@ -116,17 +120,17 @@ class MSOffice2011UpdateInfoProvider(Processor):
             # works with original Office release, so no requires array
             return None
         return ["%s-%s" % (munki_update_name, mcp_versions[0])]
-    
-    def getInstallsItemsFromUpdateItem(self, item):
+
+    def get_installs_item_from_update(self, item):
         """Attempts to parse the Triggers to create an installs item"""
-        self.sanityCheckExpectedTriggers(item)
+        self.sanity_check_expected_triggers(item)
         triggers = item.get("Triggers", {})
         paths = [triggers[key].get("File") for key in triggers.keys()]
         if "Office/MicrosoftComponentPlugin.framework" in paths:
             # use MicrosoftComponentPlugin.framework as installs item
             installs_item = {
-                "CFBundleShortVersionString": self.getVersion(item),
-                "CFBundleVersion": self.getVersion(item),
+                "CFBundleShortVersionString": self.get_version(item),
+                "CFBundleVersion": self.get_version(item),
                 "path": ("/Applications/Microsoft Office 2011/"
                          "Office/MicrosoftComponentPlugin.framework"),
                 "type": "bundle",
@@ -134,19 +138,21 @@ class MSOffice2011UpdateInfoProvider(Processor):
             }
             return [installs_item]
         return None
-    
-    def getVersion(self, item):
+
+    def get_version(self, item):
         """Extracts the version of the update item."""
         # currently relies on the item having a title in the format
         # "Office 2011 x.y.z Update"
-        TITLE_START = "Office 2011 "
-        TITLE_END = " Update"
+        #pylint: disable=no-self-use
+        title_start = "Office 2011 "
+        title_end = " Update"
         title = item.get("Title", "")
-        version_str = title.replace(TITLE_START, "").replace(TITLE_END, "")
+        version_str = title.replace(title_start, "").replace(title_end, "")
         return version_str
-    
-    def valueToOSVersionString(self, value):
+
+    def value_to_os_version_string(self, value):
         """Converts a value to an OS X version number"""
+        #pylint: disable=no-self-use
         if isinstance(value, int):
             version_str = hex(value)[2:]
         elif isinstance(value, basestring):
@@ -184,12 +190,12 @@ class MSOffice2011UpdateInfoProvider(Processor):
             version_str = "latest"
         # Get metadata URL
         try:
-            f = urllib2.urlopen(base_url)
-            data = f.read()
-            f.close()
+            fref = urllib2.urlopen(base_url)
+            data = fref.read()
+            fref.close()
         except BaseException as err:
             raise ProcessorError("Can't download %s: %s" % (base_url, err))
-        
+
         metadata = plistlib.readPlistFromString(data)
         if version_str == "latest":
             # Office 2011 update metadata is a list of dicts.
@@ -200,20 +206,20 @@ class MSOffice2011UpdateInfoProvider(Processor):
         else:
             # we've been told to find a specific version. Unfortunately, the
             # Office2011 update metadata items don't have a version attibute.
-            # The version is only in text in the update's Title. So we look for 
+            # The version is only in text in the update's Title. So we look for
             # that...
             # Titles are in the format "Office 2011 x.y.z Update"
             padded_version_str = " " + version_str + " "
-            matched_items = [item for item in metadata 
-                            if padded_version_str in item["Title"]]
+            matched_items = [item for item in metadata
+                             if padded_version_str in item["Title"]]
             if len(matched_items) != 1:
                 raise ProcessorError(
                     "Could not find version %s in update metadata. "
-                    "Updates that are available: %s" 
-                    % (version_str, ", ".join(["'%s'" % item["Title"] 
+                    "Updates that are available: %s"
+                    % (version_str, ", ".join(["'%s'" % item["Title"]
                                                for item in metadata])))
             item = matched_items[0]
-        
+
         self.env["url"] = item["Location"]
         self.env["pkg_name"] = item["Payload"]
         self.output("Found URL %s" % self.env["url"])
@@ -223,20 +229,20 @@ class MSOffice2011UpdateInfoProvider(Processor):
         pkginfo = {}
         pkginfo["description"] = "<html>%s</html>" % item["Short Description"]
         pkginfo["display_name"] = item["Title"]
-        max_os = self.valueToOSVersionString(item['Max OS'])
-        min_os = self.valueToOSVersionString(item['Min OS'])
+        max_os = self.value_to_os_version_string(item['Max OS'])
+        min_os = self.value_to_os_version_string(item['Min OS'])
         if max_os != "0.0.0":
             pkginfo["maximum_os_version"] = max_os
         if min_os != "0.0.0":
             pkginfo["minimum_os_version"] = min_os
-        installs_items = self.getInstallsItemsFromUpdateItem(item)
+        installs_items = self.get_installs_item_from_update(item)
         if installs_items:
             pkginfo["installs"] = installs_items
-        requires = self.getRequiresFromUpdateItem(item)
+        requires = self.get_requires_from_update(item)
         if requires:
             pkginfo["requires"] = requires
             self.output(
-                "Update requires previous update version %s" 
+                "Update requires previous update version %s"
                 % requires[0].split("-")[1])
 
         pkginfo['name'] = self.env.get("munki_update_name", MUNKI_UPDATE_NAME)
@@ -249,5 +255,5 @@ class MSOffice2011UpdateInfoProvider(Processor):
 
 
 if __name__ == "__main__":
-    processor = MSOffice2011UpdateInfoProvider()
-    processor.execute_shell()
+    PROCESSOR = MSOffice2011UpdateInfoProvider()
+    PROCESSOR.execute_shell()
