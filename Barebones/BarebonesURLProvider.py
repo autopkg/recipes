@@ -13,6 +13,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+"""See docstring for BarebonesURLProvider class"""
 
 import urllib2
 import plistlib
@@ -24,15 +25,16 @@ from autopkglib import Processor, ProcessorError
 __all__ = ["BarebonesURLProvider"]
 
 URLS = {"textwrangler": "http://versioncheck.barebones.com/TextWrangler.xml",
-        "bbedit": "http://versioncheck.barebones.com/BBEdit.xml"
-        }
+        "bbedit": "http://versioncheck.barebones.com/BBEdit.xml"}
 
 class BarebonesURLProvider(Processor):
-    description = "Provides a version and dmg download for the Barebones product given."
+    """Provides a version and dmg download for the Barebones product given."""
+    description = __doc__
     input_variables = {
         "product_name": {
             "required": True,
-            "description": "Product to fetch URL for. One of 'textwrangler', 'bbedit'.",
+            "description":
+                "Product to fetch URL for. One of 'textwrangler', 'bbedit'.",
         },
     }
     output_variables = {
@@ -43,40 +45,46 @@ class BarebonesURLProvider(Processor):
             "description": "Download URL.",
         },
         "minimum_os_version": {
-            "description": "Minimum OS version supported according to product metadata."
+            "description":
+                "Minimum OS version supported according to product metadata."
         }
     }
 
-    __doc__ = description
-
     def main(self):
+        '''Find the download URL'''
 
-        def compare_version(a, b):
-            return cmp(LooseVersion(a), LooseVersion(b))
+        def compare_version(this, that):
+            '''compare LooseVersions'''
+            return cmp(LooseVersion(this), LooseVersion(that))
 
         valid_prods = URLS.keys()
         prod = self.env.get("product_name")
         if prod not in valid_prods:
-            raise ProcessorError("product_name %s is invalid; it must be one of: %s" % (
-                                prod, valid_prods))
+            raise ProcessorError(
+                "product_name %s is invalid; it must be one of: %s"
+                % (prod, valid_prods))
         url = URLS[prod]
         try:
             manifest_str = urllib2.urlopen(url).read()
-        except BaseException as e:
-            raise ProcessorError("Unexpected error retrieving product manifest: '%s'" % e)
+        except BaseException as err:
+            raise ProcessorError(
+                "Unexpected error retrieving product manifest: '%s'" % err)
 
         try:
             plist = plistlib.readPlistFromString(manifest_str)
-        except BaseException as e:
-            raise ProcessorError("Unexpected error parsing manifest as a plist: '%s'" % e)
+        except BaseException as err:
+            raise ProcessorError(
+                "Unexpected error parsing manifest as a plist: '%s'" % err)
 
         entries = plist.get("SUFeedEntries")
         if not entries:
-            raise ProcessorError("Expected 'SUFeedEntries' manifest key wasn't found.")
+            raise ProcessorError(
+                "Expected 'SUFeedEntries' manifest key wasn't found.")
 
-        sorted_entries = sorted(entries,
-                            key=itemgetter("SUFeedEntryShortVersionString"),
-                            cmp=compare_version)
+        sorted_entries = sorted(
+            entries,
+            key=itemgetter("SUFeedEntryShortVersionString"),
+            cmp=compare_version)
         metadata = sorted_entries[-1]
         url = metadata["SUFeedEntryDownloadURL"]
         min_os_version = metadata["SUFeedEntryMinimumSystemVersion"]
@@ -88,5 +96,5 @@ class BarebonesURLProvider(Processor):
         self.output("Found URL %s" % self.env["url"])
 
 if __name__ == "__main__":
-    processor = BarebonesURLProvider()
-    processor.execute_shell()
+    PROCESSOR = BarebonesURLProvider()
+    PROCESSOR.execute_shell()
