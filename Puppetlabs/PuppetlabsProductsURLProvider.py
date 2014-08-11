@@ -13,6 +13,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+"""See docstring for PuppetlabsProductsURLProvider class"""
 
 import urllib2
 import re
@@ -26,18 +27,19 @@ DL_INDEX = "https://downloads.puppetlabs.com/mac"
 DEFAULT_VERSION = "latest"
 
 class PuppetlabsProductsURLProvider(Processor):
-    description = "Extracts a ."
+    """Extracts a URL for a Puppet Labs item."""
+    description = __doc__
     input_variables = {
         "product_name": {
             "required": True,
-            "description": 
+            "description":
                 "Product to fetch URL for. One of 'puppet', 'facter', 'hiera'.",
         },
         "get_version": {
             "required": False,
-            "description": 
+            "description":
                 ("Specific version to request. Defaults to '%s', which "
-                 "automatically finds the highest available release version." 
+                 "automatically finds the highest available release version."
                  % (DEFAULT_VERSION)),
         },
     }
@@ -50,26 +52,27 @@ class PuppetlabsProductsURLProvider(Processor):
         },
     }
 
-    __doc__ = description
-
     def main(self):
-
+        """Return a download URL for a PuppetLabs item"""
         # look for "product-1.2.3.dmg"
         # skip anything with a '-' following the version no. ('rc', etc.)
         version_re = self.env.get("get_version")
         if not version_re or version_re == DEFAULT_VERSION:
-            version_re = "\d+[\.\d]+"
-        RE_DOWNLOAD = "href=\"(%s-(%s)+.dmg)\"" % (self.env["product_name"].lower(), version_re)
+            version_re = r"\d+[\.\d]+"
+        re_download = ("href=\"(%s-(%s)+.dmg)\""
+                       % (self.env["product_name"].lower(), version_re))
 
         try:
             data = urllib2.urlopen(DL_INDEX).read()
-        except BaseException as e:
-            raise ProcessorError("Unexpected error retrieving download index: '%s'" % e)
+        except BaseException as err:
+            raise ProcessorError(
+                "Unexpected error retrieving download index: '%s'" % err)
 
         # (dmg, version)
-        candidates = re.findall(RE_DOWNLOAD, data)
+        candidates = re.findall(re_download, data)
         if not candidates:
-            raise ProcessorError("Unable to parse any products from download index.")
+            raise ProcessorError(
+                "Unable to parse any products from download index.")
 
         # sort to get the highest version
         highest = candidates[0]
@@ -83,6 +86,7 @@ class PuppetlabsProductsURLProvider(Processor):
         self.env["url"] = url
         self.output("Found URL %s" % self.env["url"])
 
+
 if __name__ == "__main__":
-    processor = PuppetlabsProductsURLProvider()
-    processor.execute_shell()
+    PROCESSOR = PuppetlabsProductsURLProvider()
+    PROCESSOR.execute_shell()
