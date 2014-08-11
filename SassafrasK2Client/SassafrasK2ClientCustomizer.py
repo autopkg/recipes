@@ -13,6 +13,8 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+"""See docstring for SassafrasK2ClientCustomizer class"""
+
 
 import os
 import subprocess
@@ -22,39 +24,41 @@ from autopkglib import Processor, ProcessorError
 
 __all__ = ["SassafrasK2ClientCustomizer"]
 
+
 CONFIG_SCRIPT_PATH = 'Contents/Resources/k2clientconfig'
 
 class SassafrasK2ClientCustomizer(Processor):
-    description = ("Provides URL to the latest bundle-style K2Client package "
-                   "designed for customization.")
+    """Provides URL to the latest bundle-style K2Client package designed for
+    customization."""
+    description = __doc__
     input_variables = {
         "base_mpkg_path": {
             "required": True,
-            "description": "Path to the root of an mpkg-bundle K2Client-Config package. "
-                           "Path must be writable."
+            "description":
+                "Path to the root of an mpkg-bundle K2Client-Config package. "
+                "Path must be writable."
         },
         "k2clientconfig_options": {
             "required": True,
-            "description": "Array of command arguments to be passed to k2clientconfig."
+            "description":
+                "Array of command arguments to be passed to k2clientconfig."
         }
     }
     output_variables = {
     }
 
-    __doc__ = description
-
     def main(self):
         script = os.path.join(self.env["base_mpkg_path"],
                               "Contents/Resources/k2clientconfig")
         cmd = [script] + [n for n in self.env["k2clientconfig_options"].split()]
-        p = subprocess.Popen(cmd,
-                             stdout=subprocess.PIPE,
-                             stderr=subprocess.PIPE)
-        out, err = p.communicate()
+        proc = subprocess.Popen(cmd,
+                                stdout=subprocess.PIPE,
+                                stderr=subprocess.PIPE)
+        _, err = proc.communicate()
         if err:
             raise ProcessorError("k2clientconfig returned errors:\n%s" % err)
 
 
 if __name__ == "__main__":
-    processor = SassafrasK2ClientCustomizer()
-    processor.execute_shell()
+    PROCESSOR = SassafrasK2ClientCustomizer()
+    PROCESSOR.execute_shell()
