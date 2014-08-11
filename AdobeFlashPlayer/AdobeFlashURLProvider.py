@@ -13,9 +13,9 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+"""See docstring for AdobeFlashURLProvider class"""
 
 
-#import re
 import urllib2
 from xml.etree import ElementTree
 
@@ -25,23 +25,24 @@ from autopkglib import Processor, ProcessorError
 __all__ = ["AdobeFlashURLProvider"]
 
 UPDATE_XML_URL = ("http://fpdownload2.macromedia.com/"
-    "get/flashplayer/update/current/xml/version_en_mac_pl.xml")
+                  "get/flashplayer/update/current/xml/version_en_mac_pl.xml")
 
 DOWNLOAD_TEMPLATE_URL = ("http://fpdownload.macromedia.com/"
-    "get/flashplayer/pdc/%s/install_flash_player_osx.dmg")
+                         "get/flashplayer/pdc/%s/install_flash_player_osx.dmg")
 
 class AdobeFlashURLProvider(Processor):
-    description = "Provides URL to the latest Adobe Flash Player release."
+    """Provides URL to the latest Adobe Flash Player release."""
+    description = __doc__
     input_variables = {
         "url": {
             "required": False,
             "description": ("Override URL. If provided, this processor "
-                "just returns without doing anything."),
+                            "just returns without doing anything."),
         },
         "version": {
             "required": False,
             "description": ("Specific version to download. If not defined, "
-                "defaults to latest version.")
+                            "defaults to latest version.")
         },
     }
     output_variables = {
@@ -49,20 +50,19 @@ class AdobeFlashURLProvider(Processor):
             "description": "URL to the latest Adobe Flash Player release.",
         },
     }
-    
-    __doc__ = description
-    
+
     def get_adobeflash_dmg_url(self):
+        '''Return the URL for the Adobe Flash DMG'''
         version = self.env.get("version")
         if not version:
             # Read update XML.
             try:
-                f = urllib2.urlopen(UPDATE_XML_URL)
-                xml_data = f.read()
-                f.close()
-            except BaseException as e:
+                fref = urllib2.urlopen(UPDATE_XML_URL)
+                xml_data = fref.read()
+                fref.close()
+            except BaseException as err:
                 raise ProcessorError(
-                    "Can't download %s: %s" % (UPDATE_XML_URL, e))
+                    "Can't download %s: %s" % (UPDATE_XML_URL, err))
 
             # parse XML data
             try:
@@ -93,10 +93,8 @@ class AdobeFlashURLProvider(Processor):
             return
         self.env["url"] = self.get_adobeflash_dmg_url()
         self.output("Found URL %s" % self.env["url"])
-    
+
 
 if __name__ == '__main__':
-    processor = AdobeFlashURLProvider()
-    processor.execute_shell()
-    
-
+    PROCESSOR = AdobeFlashURLProvider()
+    PROCESSOR.execute_shell()
