@@ -13,13 +13,13 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
+"""See docstring for MunkitoolsPkgsFinder class"""
 
 import os
 import glob
 
 from autopkglib.DmgMounter import DmgMounter
-from autopkglib import Processor, ProcessorError
+from autopkglib import ProcessorError
 
 
 __all__ = ["MunkitoolsPkgsFinder"]
@@ -53,15 +53,16 @@ class MunkitoolsPkgsFinder(DmgMounter):
         },
     }
     description = __doc__
-    
+
     def find_match(self, mount_point, match_string):
         """Finds a file using shell globbing"""
+        #pylint: disable=no-self-use
         matches = glob.glob(os.path.join(mount_point, match_string))
         if matches:
             return matches[0][len(mount_point) + 1:]
         else:
             return ""
-    
+
     def main(self):
         # Mount the image.
         mount_point = self.mount(self.env["dmg_path"])
@@ -81,8 +82,8 @@ class MunkitoolsPkgsFinder(DmgMounter):
             raise ProcessorError(err)
         finally:
             self.unmount(self.env["dmg_path"])
-        
-        
+
+
 if __name__ == "__main__":
-    processor = MunkitoolsPkgsFinder()
-    processor.execute_shell()
+    PROCESSOR = MunkitoolsPkgsFinder()
+    PROCESSOR.execute_shell()
