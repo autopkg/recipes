@@ -13,6 +13,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+"""See docstring for OracleJava7URLProvider class"""
 
 import re
 import urllib2
@@ -25,13 +26,18 @@ __all__ = ["OracleJava7URLProvider"]
 
 BASE_URL = "http://java.com/en/download/manual.jsp?locale=en"
 
-#<a title="Download Java software for Mac OS X" href="http://javadl.sun.com/webapps/download/AutoDL?BundleId=76905" onclick="var s=s_gi('sunjava'); s.tl(this,'d','Mac en JRE');">
-jre_download_link = re.compile(
-    r'<a title=" *Download Java software for Mac OS X" *href="(?P<url>http://javadl.sun.com/webapps/download/AutoDL\?BundleId=[0-9]+)"')
+#<a title="Download Java software for Mac OS X" href=
+#"http://javadl.sun.com/webapps/download/AutoDL?BundleId=76905"
+# onclick="var s=s_gi('sunjava'); s.tl(this,'d','Mac en JRE');">
+JRE_DOWNLOAD_LINK = re.compile(
+    r'<a title=" *Download Java software for Mac OS X" *href='
+    + r'"(?P<url>http://javadl.sun.com/webapps/download/AutoDL\?'
+    + r'BundleId=[0-9]+)"')
 
 
 class OracleJava7URLProvider(Processor):
     """Provides a download URL for the latest Oracle Java 7 JRE release."""
+    description = __doc__
     input_variables = {
         "base_url": {
             "required": False,
@@ -43,25 +49,25 @@ class OracleJava7URLProvider(Processor):
             "description": "URL to the latest Oracle Java 7 JRE release.",
         },
     }
-    description = __doc__
 
     def get_java_dmg_url(self, base_url):
         """Finds a download URL for latest Oracle Java 7 release."""
+        #pylint: disable=no-self-use
         # Read HTML from base URL.
         try:
-            f = urllib2.urlopen(base_url)
-            html = f.read()
-            f.close()
+            fref = urllib2.urlopen(base_url)
+            html = fref.read()
+            fref.close()
         except BaseException as err:
             raise ProcessorError("Can't download %s: %s" % (base_url, err))
-        
+
         # Search for JRE downlaods link
-        m = jre_download_link.search(html)
-        if not m:
+        match = JRE_DOWNLOAD_LINK.search(html)
+        if not match:
             raise ProcessorError(
                 "Couldn't find JRE download link in %s" % base_url)
-        return m.group("url")
-        
+        return match.group("url")
+
     def main(self):
         """Find and return a download URL"""
         base_url = self.env.get("base_url", BASE_URL)
@@ -69,5 +75,5 @@ class OracleJava7URLProvider(Processor):
         self.output("Found URL %s" % self.env["url"])
 
 if __name__ == "__main__":
-    processor = OracleJava7URLProvider()
-    processor.execute_shell()
+    PROCESSOR = OracleJava7URLProvider()
+    PROCESSOR.execute_shell()
