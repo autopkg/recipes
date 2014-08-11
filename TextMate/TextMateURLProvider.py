@@ -13,7 +13,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
+"""See docstring for TextMateURLProvider processor"""
 
 from subprocess import Popen, PIPE
 from autopkglib import Processor, ProcessorError
@@ -32,12 +32,14 @@ __all__ = ["TextMateURLProvider"]
 class TextMateURLProvider(Processor):
     """Provides a download URL for a TextMate 2 update.
     TextMate 1 is not supported."""
+    description = __doc__
     input_variables = {
         "branch": {
             "required": False,
-            "description": ("The update branch. One of 'release', 'beta', or 'nightly'. "
-                            "In the TM GUI, 'Normal' corresponds to 'release', 'Nightly' = "
-                            "'beta'. Defaults to %s" % DEFAULT_BRANCH)
+            "description": (
+                "The update branch. One of 'release', 'beta', or 'nightly'. "
+                "In the TM GUI, 'Normal' corresponds to 'release', 'Nightly' = "
+                "'beta'. Defaults to %s" % DEFAULT_BRANCH)
         }
     }
     output_variables = {
@@ -45,7 +47,6 @@ class TextMateURLProvider(Processor):
             "description": "URL to the latest TextMate 2 tbz.",
         }
     }
-    description = __doc__
 
     def main(self):
         url = BASE_URL + self.env.get("branch", DEFAULT_BRANCH)
@@ -54,8 +55,8 @@ class TextMateURLProvider(Processor):
         # TextMate's SSL hostnames don't seem to match the SSL cert name,
         # depending on the CA bundle being used. This can be verified
         # using the 'requests' Python library.
-        p = Popen(['/usr/bin/curl', '-ILs', url], stdout=PIPE, stderr=PIPE)
-        out, err = p.communicate()
+        proc = Popen(['/usr/bin/curl', '-ILs', url], stdout=PIPE, stderr=PIPE)
+        out, err = proc.communicate()
         parsed_url = None
         if err:
             print err
@@ -64,12 +65,12 @@ class TextMateURLProvider(Processor):
             if line.startswith("Location"):
                 parsed_url = line.split()[1]
         if not parsed_url:
-            raise ProcessorError("curl didn't find a resolved 'Location' header "
-                                "we can use. Full curl output:\n %s"
-                                % "\n".join(out.splitlines()))
+            raise ProcessorError(
+                "curl didn't find a resolved 'Location' header we can use. "
+                "Full curl output:\n %s" % "\n".join(out.splitlines()))
 
         self.env["url"] = parsed_url
 
 if __name__ == "__main__":
-    processor = TextMateURLProvider()
-    processor.execute_shell()
+    PROCESSOR = TextMateURLProvider()
+    PROCESSOR.execute_shell()
