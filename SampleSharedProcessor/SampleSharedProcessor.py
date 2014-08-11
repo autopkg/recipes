@@ -13,21 +13,23 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+"""See docstring for SampleSharedProcessor class"""
 
 import os
-
 from autopkglib import Processor, ProcessorError
 
 __all__ = ["SampleSharedProcessor"]
 
 
 class SampleSharedProcessor(Processor):
-    description = ("This processor doesn't do anything useful. It is a demonstration "
-                   "of using a shared processor via a recipe repo.")
+    """This processor doesn't do anything useful. It is a demonstration of using
+    a shared processor via a recipe repo."""
+    description = __doc__
     input_variables = {
         "shared_processor_input_var": {
             "required": True,
-            "description": "Test the use of an input variable in a shared processor."
+            "description":
+                "Test the use of an input variable in a shared processor."
         }
     }
     output_variables = {
@@ -36,16 +38,18 @@ class SampleSharedProcessor(Processor):
         }
     }
 
-    __doc__ = description
-
-
     def main(self):
-        module_file_path = os.path.abspath(__file__)
-        self.output("The input variable data '%s' was given to this Processor." %
-            self.env["shared_processor_input_var"])
-        self.output("This shared processor is located at %s" % module_file_path)
-        self.env["module_file_path"] = module_file_path
+        try:
+            module_file_path = os.path.abspath(__file__)
+            self.output("The input variable data '%s' was given to this "
+                        "Processor." % self.env["shared_processor_input_var"])
+            self.output(
+                "This shared processor is located at %s" % module_file_path)
+            self.env["module_file_path"] = module_file_path
+        except BaseException as err:
+            # handle unexpected errors here
+            raise ProcessorError(err)
 
 if __name__ == "__main__":
-    processor = SampleSharedProcessor()
-    processor.execute_shell()
+    PROCESSOR = SampleSharedProcessor()
+    PROCESSOR.execute_shell()
