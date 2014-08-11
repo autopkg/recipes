@@ -106,9 +106,8 @@ class AdobeAcrobatProUpdateInfoProvider(Processor):
 
         return manifest_data
 
-    def get_acrobat_metadata(self, major_version, get_version):
+    def get_acrobat_metadata(self, get_version):
         '''Returns a tuple: (url, version, previous_required_version)'''
-        # FIXME: major_version parameter is not currently used.
         template_url = self.process_url_vars(MANIFEST_URL_TEMPLATE)
         template_response = self.get_url_response(template_url)
 
@@ -148,8 +147,7 @@ class AdobeAcrobatProUpdateInfoProvider(Processor):
         munki_update_name = self.env.get("munki_update_name", "")
         if not munki_update_name:
             munki_update_name = self.process_url_vars(MUNKI_UPDATE_NAME_DEFAULT)
-        (url, version, prev_version) = self.get_acrobat_metadata(
-            major_version, get_version=get_version)
+        (url, version, prev_version) = self.get_acrobat_metadata(get_version)
 
         new_pkginfo = {}
         # if our required version is something other than a base version
