@@ -13,7 +13,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
+"""See docstring for AutoPkgSourceFinder class"""
 
 import os
 import glob
@@ -24,9 +24,10 @@ from autopkglib import Processor, ProcessorError
 __all__ = ["AutoPkgSourceFinder"]
 
 
-
 class AutoPkgSourceFinder(Processor):
-    """Finds the root autopkg-autopkg-foo folder from the expanded autopkg zip archive"""
+    """Finds the root autopkg-autopkg-foo folder from the expanded autopkg zip
+    archive"""
+    description = __doc__
     input_variables = {
         "input_path": {
             "required": True,
@@ -38,16 +39,16 @@ class AutoPkgSourceFinder(Processor):
             "description": "Root path of expanded autopkg archive.",
         },
     }
-    description = __doc__
-    
+
     def find_match(self, root_dir, match_string):
         """Finds a file or directory using shell globbing"""
+        #pylint: disable=no-self-use
         matches = glob.glob(os.path.join(root_dir, match_string))
         if matches:
             return matches[0][len(root_dir) + 1:]
         else:
             return ""
-    
+
     def main(self):
         # Get root dir
         root_dir = self.env["input_path"]
@@ -57,8 +58,8 @@ class AutoPkgSourceFinder(Processor):
             self.output("Found %s" % self.env["autopkg_path"])
         except BaseException as err:
             raise ProcessorError(err)
-        
-        
+
+
 if __name__ == "__main__":
-    processor = AutoPkgSourceFinder()
-    processor.execute_shell()
+    PROCESSOR = AutoPkgSourceFinder()
+    PROCESSOR.execute_shell()
