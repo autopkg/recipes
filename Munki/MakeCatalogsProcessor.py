@@ -32,7 +32,7 @@ class MakeCatalogsProcessor(Processor):
         },
         "force_rebuild": {
             "required": False,
-            "description": 
+            "description":
                 "If not false or empty or undefined, force a makecatalogs run.",
         },
     }
@@ -49,18 +49,18 @@ class MakeCatalogsProcessor(Processor):
 
     def main(self):
         '''Rebuild Munki catalogs in repo_path'''
-        
+
         cache_dir = get_pref("CACHE_DIR") or os.path.expanduser(
-                    "~/Library/AutoPkg/Cache")
+            "~/Library/AutoPkg/Cache")
         current_run_results_plist = os.path.join(
-                                        cache_dir, "autopkg_results.plist")
+            cache_dir, "autopkg_results.plist")
         try:
             run_results = plistlib.readPlist(current_run_results_plist)
         except IOError:
             run_results = []
-        
+
         something_imported = False
-        # run_results is an array of autopackager.results, 
+        # run_results is an array of autopackager.results,
         # which is itself an array.
         # look through all the results for evidence that
         # something was imported
@@ -79,14 +79,14 @@ class MakeCatalogsProcessor(Processor):
             self.env["makecatalogs_stderr"] = ""
         else:
             # Generate arguments for makecatalogs.
-            args = ["/usr/local/munki/makecatalogs", 
+            args = ["/usr/local/munki/makecatalogs",
                     self.env["munki_repo_path"]]
 
             # Call makecatalogs.
             try:
                 proc = subprocess.Popen(
                     args, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-                (unused_output, err_out) = proc.communicate()
+                (_, err_out) = proc.communicate()
             except OSError as err:
                 raise ProcessorError(
                     "makecatalog execution failed with error code %d: %s"
@@ -101,6 +101,6 @@ class MakeCatalogsProcessor(Processor):
 
 
 if __name__ == "__main__":
-    processor = MakeCatalogsProcessor()
-    processor.execute_shell()
+    PROCESSOR = MakeCatalogsProcessor()
+    PROCESSOR.execute_shell()
 
