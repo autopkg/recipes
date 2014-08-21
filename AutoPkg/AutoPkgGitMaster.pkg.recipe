@@ -174,7 +174,7 @@ This is not used to obtain the latest released version.
         </dict>
         <dict>
             <key>Comment</key>
-            <string>Copy launchd plist</string>
+            <string>Copy autopkgserver launchd plist</string>
             <key>Processor</key>
             <string>Copier</string>
             <key>Arguments</key>
@@ -187,7 +187,20 @@ This is not used to obtain the latest released version.
         </dict>
         <dict>
             <key>Comment</key>
-            <string>Remove source launchd plist</string>
+            <string>Copy autopkginstalld launchd plist</string>
+            <key>Processor</key>
+            <string>Copier</string>
+            <key>Arguments</key>
+            <dict>
+                <key>source_path</key>
+                <string>%autopkg_path%/Code/autopkgserver/autopkginstalld.plist</string>
+                <key>destination_path</key>
+                <string>%pkgroot%/Library/LaunchDaemons/com.github.autopkg.autopkginstalld.plist</string>
+            </dict>
+        </dict>
+        <dict>
+            <key>Comment</key>
+            <string>Remove source launchd plists</string>
             <key>Processor</key>
             <string>PathDeleter</string>
             <key>Arguments</key>
@@ -195,6 +208,7 @@ This is not used to obtain the latest released version.
                 <key>path_list</key>
                 <array>
                     <string>%pkgroot%/Library/AutoPkg/autopkgserver/autopkgserver.plist</string>
+                    <string>%pkgroot%/Library/AutoPkg/autopkgserver/autopkginstalld.plist</string>
                 </array>
             </dict>
         </dict>
