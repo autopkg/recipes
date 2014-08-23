@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Description</key>
+    <string>Downloads latest Google Chrome disk image and installs Google Chrome.</string>
+    <key>Identifier</key>
+    <string>com.github.autopkg.install.googlechrome</string>
+    <key>Input</key>
+    <dict>
+        <key>DOWNLOAD_URL</key>
+        <string>https://dl.google.com/chrome/mac/stable/GGRO/googlechrome.dmg</string>
+    </dict>
+    <key>MinimumVersion</key>
+    <string>0.4.0</string>
+    <key>ParentRecipe</key>
+    <string>com.github.autopkg.download.googlechrome</string>
+    <key>Process</key>
+    <array>
+        <dict>
+            <key>Processor</key>
+            <string>InstallFromDMG</string>
+            <key>Arguments</key>
+            <dict>
+                <key>dmg_path</key>
+                <string>%pathname%</string>
+                <key>items_to_copy</key>
+                <array>
+                    <dict>
+                        <key>source_item</key>
+                        <string>Google Chrome.app</string>
+                        <key>destination_path</key>
+                        <string>/Applications/</string>
+                    </dict>
+                </array>
+            </dict>
+        </dict>
+    </array>
+</dict>
+</plist>
