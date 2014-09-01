@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Description</key>
+	<string>Downloads the latest update for Adobe Reader and imports into Munki.
+This recipe is based on com.github.autopkg.munki.AdobeReader with a customized URLProvider to respect the problem, that only English versions are delivered as full applications. Other languages need to update the application.
+</string>
+	<key>Identifier</key>
+	<string>com.github.autopkg.munki.AdobeReaderMultilanguage</string>
+	<key>Input</key>
+	<dict>
+		<key>MUNKI_REPO_SUBDIR</key>
+		<string>apps/Adobe</string>
+		<key>NAME</key>
+		<string>AdobeReader</string>
+		<key>pkginfo</key>
+		<dict>
+			<key>blocking_applications</key>
+			<array>
+				<string>Adobe Reader.app</string>
+				<string>Adobe Acrobat Pro.app</string>
+			</array>
+			<key>catalogs</key>
+			<array>
+				<string>testing</string>
+			</array>
+			<key>description</key>
+			<string>Adobe® Reader® is the global standard for reliably viewing, printing, and commenting on PDF documents. It's the only PDF file viewer that can open and interact with all types of PDF content, including forms and multimedia.</string>
+			<key>display_name</key>
+			<string>Adobe Reader</string>
+			<key>minimum_os_version</key>
+			<string>10.6.4</string>
+			<key>name</key>
+			<string>%NAME%</string>
+			<key>requires</key>
+			<array>
+				<string>AdobeReader</string>
+			</array>
+			<key>unattended_install</key>
+			<true/>
+			<key>update_for</key>
+			<array>
+				<string>AdobeReader</string>
+			</array>
+		</dict>
+	</dict>
+	<key>ParentRecipe</key>
+	<string>com.github.wycomco.download.AdobeReaderMultilanguage</string>
+	<key>Process</key>
+	<array>
+		<dict>
+			<key>Arguments</key>
+			<dict>
+				<key>additional_pkginfo</key>
+				<dict>
+					<key>installs</key>
+					<array>
+						<dict>
+							<key>CFBundleIdentifier</key>
+							<string>com.adobe.Reader</string>
+							<key>CFBundleName</key>
+							<string>Adobe Reader</string>
+							<key>CFBundleShortVersionString</key>
+							<string>%version%</string>
+							<key>CFBundleVersion</key>
+							<string>%version%</string>
+							<key>path</key>
+							<string>/Applications/Adobe Reader.app</string>
+							<key>type</key>
+							<string>application</string>
+							<key>version_comparison_key</key>
+							<string>CFBundleShortVersionString</string>
+						</dict>
+					</array>
+					<key>requires</key>
+					<array>
+						<string>AdobeReader-%MAJOR_VERSION%.0.0</string>
+					</array>
+				</dict>
+			</dict>
+			<key>Processor</key>
+			<string>MunkiPkginfoMerger</string>
+		</dict>
+		<dict>
+			<key>Arguments</key>
+			<dict>
+				<key>pkg_path</key>
+				<string>%pathname%</string>
+				<key>repo_subdirectory</key>
+				<string>%MUNKI_REPO_SUBDIR%</string>
+			</dict>
+			<key>Processor</key>
+			<string>MunkiImporter</string>
+		</dict>
+	</array>
+</dict>
+</plist>
