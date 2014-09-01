@@ -1,6 +1,6 @@
 #!/usr/bin/python
 #
-# Copyright 2014 wycomco GmbH (choules@wycomco.de)
+# Copyright 2010 Per Olofsson, modified 2014 wycomco GmbH (choules@wycomco.de)
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -148,6 +148,7 @@ class AdobeReaderURLProvider(Processor):
 
         self.env["url"] = url
         self.env["version"] = version
+        
         self.output("Found URL %s" % self.env["url"])
 
 
