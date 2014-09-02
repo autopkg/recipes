@@ -38,10 +38,6 @@ MAJOR_VERSION_MATCH_STR = "adobe/reader/mac/%s"
 
 MULTILANGUAGE_UPDATER = "false"
 
-AR_FTP_HOST = "ftp.adobe.com"
-
-AR_FTP_PATH = "/pub/adobe/reader/mac"
-
 AR_UPDATER_DOWNLOAD_URL = (
     "http://download.adobe.com/"
     "pub/adobe/reader/mac/%s.x/%s/misc/AdbeRdrUpd%s.dmg")
