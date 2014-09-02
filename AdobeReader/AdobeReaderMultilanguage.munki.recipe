@@ -13,7 +13,7 @@ This recipe is based on com.github.autopkg.munki.AdobeReader with a customized U
 		<key>MUNKI_REPO_SUBDIR</key>
 		<string>apps/Adobe</string>
 		<key>NAME</key>
-		<string>AdobeReader</string>
+		<string>AdobeReaderUpdate</string>
 		<key>pkginfo</key>
 		<dict>
 			<key>blocking_applications</key>

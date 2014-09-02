@@ -1,6 +1,7 @@
 #!/usr/bin/python
 #
-# Copyright 2010 Per Olofsson, modified 2014 wycomco GmbH (choules@wycomco.de)
+# Copyright 2010 Per Olofsson
+# Additions copyright 2014 wycomco GmbH (choules@wycomco.de)
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -18,7 +19,6 @@
 
 import json
 import urllib2
-import ftplib
 
 from autopkglib import Processor, ProcessorError
 
@@ -42,7 +42,15 @@ AR_FTP_HOST = "ftp.adobe.com"
 
 AR_FTP_PATH = "/pub/adobe/reader/mac"
 
-AR_UPDATER_DOWNLOAD_URL = ("http://download.adobe.com/pub/adobe/reader/mac/%s.x/%s/misc/AdbeRdrUpd%s.dmg")
+AR_UPDATER_DOWNLOAD_URL = (
+    "http://download.adobe.com/"
+    "pub/adobe/reader/mac/%s.x/%s/misc/AdbeRdrUpd%s.dmg")
+
+AR_UPDATER_BASE_URL = "https://armmf.adobe.com/arm-manifests/mac"
+
+AR_URL_TEMPLATE = "/%s/current_version_url_template.txt"
+
+AR_MAJREV_IDENTIFIER = "{MAJREV}"
 
 class AdobeReaderURLProvider(Processor):
     """Provides URL to the latest Adobe Reader release."""
@@ -65,7 +73,9 @@ class AdobeReaderURLProvider(Processor):
         },
         "multilanguage_updater": {
             "required": False,
-            "description": ("Full version (English only) or updater (multilanguage). Examples: 'true', 'false'. Defaults to "
+            "description": ("Full version (English only) or updater "
+                            "(multilanguage). "
+                            "Examples: 'true', 'false'. Defaults to "
                             "%s" % MULTILANGUAGE_UPDATER)
         },
     }
@@ -108,28 +118,41 @@ class AdobeReaderURLProvider(Processor):
             version = matches[0]
         except IndexError:
             raise ProcessorError(
-                "Can't find version information on Adobe Reader download URL for %s, version %s"
+                "Can't find version information on Adobe Reader download URL"
+                " for %s, version %s"
                 % (language, major_version))
 
         return (url, version)
 
-    def get_reader_updater_dmg_url(self, language, major_version):
-        # Determine URL of multilanguage updater by browsing Adobe's public FTP server
+    def get_reader_updater_dmg_url(self, major_version):
         '''Returns download URL for Adobe Reader Updater DMG'''
-        
-        try:
-            link=ftplib.FTP(AR_FTP_HOST)
-            link.login()
-            link.cwd("%s/%s.x" % (AR_FTP_PATH, major_version))
-            t=link.nlst()
-            link.quit()
-            version=t[-1]
-        except IndexError:
-            raise ProcessorError("Could not retrieve current version from FTP server")
 
-        versioncode = version.replace('.','')
+        request = urllib2.Request(
+            AR_UPDATER_BASE_URL + AR_URL_TEMPLATE % major_version)
+
+        try:
+            url_handle = urllib2.urlopen(request)
+            version_string = url_handle.read()
+            url_handle.close()
+        except BaseException as err:
+            raise ProcessorError("Can't open URL template: %s" % (err))
+
+        version_string = version_string.replace(
+            AR_MAJREV_IDENTIFIER, major_version)
+
+        request = urllib2.Request(
+            AR_UPDATER_BASE_URL + version_string)
+
+        try:
+            url_handle = urllib2.urlopen(request)
+            version = url_handle.read()
+            url_handle.close()
+        except BaseException as err:
+            raise ProcessorError("Can't get version string: %s" % (err))
+
+        versioncode = version.replace('.', '')
         url = AR_UPDATER_DOWNLOAD_URL % (major_version, version, versioncode)
-        
+
         return (url, version)
 
     def main(self):
@@ -137,18 +160,19 @@ class AdobeReaderURLProvider(Processor):
         base_url = self.env.get("base_url", AR_BASE_URL)
         language = self.env.get("language", LANGUAGE_DEFAULT)
         major_version = self.env.get("major_version", MAJOR_VERSION_DEFAULT)
-        multilanguage_updater = self.env.get("multilanguage_updater", MULTILANGUAGE_UPDATER)
+        multilanguage_updater = self.env.get(
+            "multilanguage_updater", MULTILANGUAGE_UPDATER)
 
         if multilanguage_updater == "true":
             (url, version) = self.get_reader_updater_dmg_url(
-                language, major_version)
+                major_version)
         else:
             (url, version) = self.get_reader_dmg_url(
                 base_url, language, major_version)
 
         self.env["url"] = url
         self.env["version"] = version
-        
+
         self.output("Found URL %s" % self.env["url"])
 
 
