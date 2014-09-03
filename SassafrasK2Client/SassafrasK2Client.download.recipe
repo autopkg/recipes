@@ -3,13 +3,21 @@
 <plist version="1.0">
 <dict>
     <key>Description</key>
-    <string>Fetches the latest Sassafras KeyClient Mac installer. 
-We fetch the legacy bundle-style installer because it has support for
-a customized installation tool, 'k2clientconfig'.</string>
+    <string>Fetches the latest Sassafras KeyClient Mac installer.
+
+REVISION is the major version without a decimal, for example:
+7.0: 70
+7.1: 71
+7.2: 72
+
+This recipe supports only a REVISION of 70 and up.
+</string>
     <key>Identifier</key>
     <string>com.github.autopkg.download.sassafras-k2client</string>
     <key>Input</key>
     <dict>
+        <key>REVISION</key>
+        <string>72</string>
         <key>NAME</key>
         <string>K2Client</string>
     </dict>
@@ -21,9 +29,7 @@ a customized installation tool, 'k2clientconfig'.</string>
             <key>Arguments</key>
             <dict>
                 <key>url</key>
-                <string>http://www.sassafras.com/links/K2Client-Config.dmg</string>
-                <key>filename</key>
-                <string>K2Client-Config.dmg</string>
+                <string>http://www.sassafras.com/k2/revisions%REVISION%/current/Installers/Macintosh%20Installers/Client/K2Client.pkg</string>
             </dict>
             <key>Processor</key>
             <string>URLDownloader</string>
