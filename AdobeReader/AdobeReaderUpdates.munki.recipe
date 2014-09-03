@@ -7,7 +7,7 @@
 This recipe is based on com.github.autopkg.munki.AdobeReader with a customized URLProvider to respect the problem, that only English versions are delivered as full applications. Other languages need to update the application.
 </string>
 	<key>Identifier</key>
-	<string>com.github.autopkg.munki.AdobeReaderMultilanguage</string>
+	<string>com.github.autopkg.munki.AdobeReaderUpdates</string>
 	<key>Input</key>
 	<dict>
 		<key>MUNKI_REPO_SUBDIR</key>
@@ -46,7 +46,7 @@ This recipe is based on com.github.autopkg.munki.AdobeReader with a customized U
 		</dict>
 	</dict>
 	<key>ParentRecipe</key>
-	<string>com.github.autopkg.download.AdobeReaderMultilanguage</string>
+	<string>com.github.autopkg.download.AdobeReaderUpdates</string>
 	<key>Process</key>
 	<array>
 		<dict>

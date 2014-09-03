@@ -7,7 +7,7 @@
 Set MAJOR_VERSION to "10" to get the latest/last version of Adobe Reader 10 instead of 11.
 </string>
 	<key>Identifier</key>
-	<string>com.github.autopkg.download.AdobeReaderMultilanguage</string>
+	<string>com.github.autopkg.download.AdobeReaderUpdates</string>
 	<key>Input</key>
 	<dict>
 		<key>LANGUAGE</key>
