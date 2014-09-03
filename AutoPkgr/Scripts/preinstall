@@ -1,0 +1,8 @@
+#!/bin/sh
+
+# Remove previous version of AutoPkgr from /Applications
+
+if [ -d "$3/Applications/AutoPkgr.app" ]; then
+   rm -rf "$3/Applications/AutoPkgr.app"
+fi
+

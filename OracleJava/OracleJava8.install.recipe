@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Description</key>
+    <string>Downloads the latest Oracle Java 8 JRE, builds a package and installs it. (Note the version of the actual
+pkg id for the com.oracle.jre pkg component is still always "1.0".)
+
+To use this recipe, you must accept the Oracle Binary Code License Agreement for Java SE.
+http://www.oracle.com/technetwork/java/javase/terms/license/index.html</string>
+    <key>Identifier</key>
+    <string>com.github.autopkg.install.OracleJava8</string>
+    <key>Input</key>
+    <dict>
+        <key>NAME</key>
+        <string>OracleJava8</string>
+    </dict>
+    <key>MinimumVersion</key>
+    <string>0.4.0</string>
+    <key>ParentRecipe</key>
+    <string>com.github.autopkg.pkg.OracleJava8</string>
+    <key>Process</key>
+    <array>
+        <dict>
+            <key>Processor</key>
+            <string>Installer</string>
+        </dict>
+    </array>
+</dict>
+</plist>
