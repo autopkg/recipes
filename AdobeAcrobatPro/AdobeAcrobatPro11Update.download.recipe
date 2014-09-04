@@ -14,7 +14,7 @@ default, 'latest'.</string>
     <key>Input</key>
     <dict>
         <key>MAJOR_VERSION</key>
-        <string>10</string>
+        <string>11</string>
         <key>NAME</key>
         <string>AdobeAcrobatProX_Update</string>
         <key>VERSION</key>
