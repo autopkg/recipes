@@ -28,29 +28,44 @@ __all__ = ["SassafrasK2ClientCustomizer"]
 CONFIG_SCRIPT_PATH = 'Contents/Resources/k2clientconfig'
 
 class SassafrasK2ClientCustomizer(Processor):
-    """Provides URL to the latest bundle-style K2Client package designed for
-    customization."""
+    """Given a flat pkg K2Client installer and the k2clientconfig
+    script, run the k2clientconfig script with customizable options."""
     description = __doc__
     input_variables = {
-        "base_mpkg_path": {
+        "base_pkg_path": {
             "required": True,
             "description":
-                "Path to the root of an mpkg-bundle K2Client-Config package. "
-                "Path must be writable."
+                "Path to a K2Client.pkg installer to be modified."
         },
         "k2clientconfig_options": {
             "required": True,
             "description":
-                "Array of command arguments to be passed to k2clientconfig."
+                "String of command arguments to be passed to k2clientconfig."
+        },
+        "k2clientconfig_path": {
+            "required": True,
+            "description":
+                ("Full path to a k2clientconfig that's written for modifying "
+                 "flat packages.")
         }
     }
     output_variables = {
     }
 
     def main(self):
-        script = os.path.join(self.env["base_mpkg_path"],
-                              "Contents/Resources/k2clientconfig")
+        script = self.env["k2clientconfig_path"]
+        pkg = self.env["base_pkg_path"]
+        if not os.path.exists(script):
+            raise ProcessorError("No file exists at k2clientconfig_path: "
+                                 "%s" % script)
+        if not os.access(script, os.X_OK):
+            os.chmod(script, 0755)
+        if not os.path.exists(pkg):
+            raise ProcessorError("No K2Client pkg exists at "
+                                 "base_pkg_path: %s" % pkg)
+
         cmd = [script] + [n for n in self.env["k2clientconfig_options"].split()]
+        cmd.append(pkg)
         proc = subprocess.Popen(cmd,
                                 stdout=subprocess.PIPE,
                                 stderr=subprocess.PIPE)
