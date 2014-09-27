@@ -3,10 +3,15 @@
 <plist version="1.0">
 <dict>
     <key>Description</key>
-    <string>Downloads and imports version 2 of the Munki tools.
-As long as there is not yet an official release of version 2, DOWNLOAD_URL
-simply points to that of the latest auto-build:
-https://munkibuilds.org/munkitools2-latest.pkg</string>
+    <string>Downloads and imports version 2 of the Munki tools via
+the official releases listing on GitHub. Note that this
+will likely include preview releases.
+
+For an alternate (possibly unstable) release, override
+DOWNLOAD_URL to a direct pkg download URL, such as:
+
+https://munkibuilds.org/munkitools2-latest.pkg
+</string>
     <key>Identifier</key>
     <string>com.github.autopkg.munki.munkitools2</string>
     <key>Input</key>
@@ -14,7 +19,7 @@ https://munkibuilds.org/munkitools2-latest.pkg</string>
         <key>NAME</key>
         <string>munkitools2</string>
         <key>DOWNLOAD_URL</key>
-        <string>https://munkibuilds.org/munkitools2-latest.pkg</string>
+        <string>https://github.com/munki/munki/releases</string>
         <key>MUNKI_CATALOG</key>
         <string>development</string>
         <key>MUNKI_REPO_SUBDIR</key>
@@ -54,12 +59,16 @@ https://munkibuilds.org/munkitools2-latest.pkg</string>
     <array>
         <dict>
             <key>Processor</key>
-            <string>URLDownloader</string>
+            <string>Munkitools2URLProvider</string>
             <key>Arguments</key>
             <dict>
-                <key>url</key>
+                <key>base_url</key>
                 <string>%DOWNLOAD_URL%</string>
             </dict>
+        </dict>
+        <dict>
+            <key>Processor</key>
+            <string>URLDownloader</string>
         </dict>
         <dict>
             <key>Processor</key>
