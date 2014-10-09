@@ -64,10 +64,8 @@ class Munkitools2URLProvider(Processor):
                 "Couldn't find munkitools download URL in %s" % base_url)
 
         link = urllib2.quote(match.group("url"), safe=":/%")
-        print link
         if link.startswith("/"):
             link = "https://github.com" + link
-        print link
         return link
 
     def main(self):
