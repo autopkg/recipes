@@ -16,25 +16,10 @@ Based on jamesz's work here: https://github.com/jamesez/automunki/tree/master/ad
     </dict>
     <key>MinimumVersion</key>
     <string>0.2.0</string>
+    <key>ParentRecipe</key>
+    <string>com.github.autopkg.download.AdobeAIR</string>
     <key>Process</key>
     <array>
-        <dict>
-            <key>Comment</key>
-            <string>Download latest Adobe AIR disk image</string>
-            <key>Processor</key>
-            <string>URLDownloader</string>
-            <key>Arguments</key>
-            <dict>
-                <key>url</key>
-                <string>%URL%</string>
-                <key>filename</key>
-                <string>%NAME%.dmg</string>
-            </dict>
-        </dict>
-        <dict>
-            <key>Processor</key>
-            <string>EndOfCheckPhase</string>
-        </dict>
         <dict>
             <key>Comment</key>
             <string>Create a pkg root; we'll extract things from the disk image here.</string>
