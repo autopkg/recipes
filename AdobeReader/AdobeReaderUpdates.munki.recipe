@@ -4,12 +4,14 @@
 <dict>
 	<key>Description</key>
 	<string>Downloads the latest update for Adobe Reader and imports into Munki.
-This recipe is based on com.github.autopkg.munki.AdobeReader with a customized URLProvider to respect the problem, that only English versions are delivered as full applications. Other languages need to update the application.
+This recipe is based on com.github.autopkg.munki.AdobeReader with a customized URLProvider to respect the problem, that only English versions are delivered as full applications. Other languages need to update the application. You may need to adjust the BASENAME input variable to reflect the name of the base installer of Adobe Reader.
 </string>
 	<key>Identifier</key>
 	<string>com.github.autopkg.munki.AdobeReaderUpdates</string>
 	<key>Input</key>
 	<dict>
+		<key>BASENAME</key>
+		<string>AdobeReader</string>
 		<key>MUNKI_REPO_SUBDIR</key>
 		<string>apps/Adobe</string>
 		<key>NAME</key>
@@ -33,15 +35,11 @@ This recipe is based on com.github.autopkg.munki.AdobeReader with a customized U
 			<string>10.6.4</string>
 			<key>name</key>
 			<string>%NAME%</string>
-			<key>requires</key>
-			<array>
-				<string>AdobeReader-%MAJOR_VERSION%.0.0</string>
-			</array>
 			<key>unattended_install</key>
 			<true/>
 			<key>update_for</key>
 			<array>
-				<string>AdobeReader</string>
+				<string>%BASENAME%</string>
 			</array>
 		</dict>
 	</dict>
