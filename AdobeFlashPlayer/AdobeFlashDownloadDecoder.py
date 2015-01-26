@@ -42,7 +42,9 @@ class AdobeFlashDownloadDecoder(Processor):
         "pathname": {
             "description": ("Path to the decoded DMG file. Note that this is "
                             "the same variable name as output by "
-                            "URLDownloader, since we have ."),
+                            "URLDownloader, since we have no other use in "
+                            "child recipes or processors for the original "
+                            "encoded file."),
         },
     }
 
