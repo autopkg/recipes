@@ -20,8 +20,6 @@
             <string>URLDownloader</string>
             <key>Arguments</key>
             <dict>
-                <key>filename</key>
-                <string>%NAME%.dmg</string>
                 <key>url</key>
                 <string>http://fpdownload2.macromedia.com/get/flashplayer/update/current/install/install_all_mac_pl_sgn.z</string>
             </dict>

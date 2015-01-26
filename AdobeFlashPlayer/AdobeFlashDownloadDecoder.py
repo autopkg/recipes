@@ -50,8 +50,9 @@ class AdobeFlashDownloadDecoder(Processor):
         '''Decode the file specified at encoded_path to a new file stored
         in the pathname variable.'''
         inpath = self.env["encoded_path"]
-        outpath = os.path.join(self.env["RECIPE_CACHE_DIR"],
-                               "flash_decoded.dmg")
+        outname = self.env.get("NAME", "AdobeFlashPlayer") + ".dmg"
+        outpath = os.path.join(self.env["RECIPE_CACHE_DIR"], outname)
+
         sec_cmd = ["/usr/bin/security", "cms", "-D",
                    "-i", inpath,
                    "-o", outpath]
