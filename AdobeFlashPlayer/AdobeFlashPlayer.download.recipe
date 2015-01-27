@@ -26,16 +26,16 @@
         </dict>
         <dict>
             <key>Processor</key>
+            <string>EndOfCheckPhase</string>
+        </dict>
+        <dict>
+            <key>Processor</key>
             <string>AdobeFlashDownloadDecoder</string>
             <key>Arguments</key>
             <dict>
                 <key>encoded_path</key>
                 <string>%pathname%</string>
             </dict>
-        </dict>
-        <dict>
-            <key>Processor</key>
-            <string>EndOfCheckPhase</string>
         </dict>
     </array>
 </dict>
