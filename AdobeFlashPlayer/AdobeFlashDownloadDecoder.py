@@ -18,6 +18,8 @@
 import os
 import subprocess
 
+from tempfile import mkstemp
+
 from autopkglib import Processor, ProcessorError
 
 
@@ -51,28 +53,39 @@ class AdobeFlashDownloadDecoder(Processor):
     def main(self):
         '''Decode the file specified at encoded_path to a new file stored
         in the pathname variable.'''
+        sec_bin = "/usr/bin/security"
         inpath = self.env["encoded_path"]
         outname = self.env.get("NAME", "AdobeFlashPlayer") + ".dmg"
         outpath = os.path.join(self.env["RECIPE_CACHE_DIR"], outname)
 
-        sec_cmd = ["/usr/bin/security", "cms", "-D",
+        # set up a temporary keychain path
+        keychain_file = mkstemp(prefix="autopkg-fp-keychain-")[1]
+        os.remove(keychain_file)
+
+        try:
+            subprocess.check_call([sec_bin, "create-keychain",
+                                   "-p", "", keychain_file])
+        except Exception as exp:
+            raise ProcessorError("Error creating temporary keychain at path "
+                                 "%s: %s" % (keychain_file, exp))
+
+        sec_cmd = [sec_bin, "cms", "-D",
+                   "-k", keychain_file,
                    "-i", inpath,
                    "-o", outpath]
-        # wrap our call around a general exception in case of unexpected
-        # issues calling `security`
-        try:
-            proc = subprocess.Popen(sec_cmd,
-                                    stdout=subprocess.PIPE,
-                                    stderr=subprocess.PIPE)
-            _, err = proc.communicate()
-            # we expect no output on success, so raise an error in case
-            # of any non-zero return code or stderr output
-            if proc.returncode or err:
-                raise ProcessorError("`security` error: %s, return code: %s"
-                                     % (err, proc.returncode))
-        except Exception as exp:
-            raise ProcessorError("Unexpected exception in running `security` "
-                                 "command: %s" % exp)
+        proc = subprocess.Popen(sec_cmd,
+                                stdout=subprocess.PIPE,
+                                stderr=subprocess.PIPE)
+        _, err = proc.communicate()
+        # we expect no output on success, so raise an error in case
+        # of any non-zero return code or stderr output
+        if proc.returncode or err:
+            raise ProcessorError("Unexpected `security` error (%s): %s "
+                                 "keychain path: %s" % (
+                                     proc.returncode, err, keychain_file))
+
+        # remove our temporary keychain
+        os.remove(keychain_file)
         self.env["pathname"] = outpath
 
 
