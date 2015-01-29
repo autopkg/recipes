@@ -15,7 +15,6 @@
 # limitations under the License.
 """See docstring for MozillaURLProvider class"""
 
-import os
 import re
 import urllib2
 
@@ -70,8 +69,8 @@ class MozillaURLProvider(Processor):
         # Construct download directory URL.
         release_dir = release.lower()
 
-        index_url = os.path.join(
-            base_url, product_name, "releases", release_dir, "mac", locale)
+        index_url = "/".join(
+            (base_url, product_name, "releases", release_dir, "mac", locale))
         #print >>sys.stderr, index_url
 
         # Read HTML index.
@@ -90,9 +89,9 @@ class MozillaURLProvider(Processor):
                 % (product_name, index_url))
 
         # Return URL.
-        return os.path.join(
-            base_url, product_name, "releases", release_dir, "mac", locale,
-            match.group("filename"))
+        return "/".join(
+            (base_url, product_name, "releases", release_dir, "mac", locale,
+            match.group("filename")))
 
     def main(self):
         """Provide a Mozilla download URL"""
