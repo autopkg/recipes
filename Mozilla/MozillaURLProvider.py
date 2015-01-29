@@ -24,7 +24,7 @@ from autopkglib import Processor, ProcessorError
 __all__ = ["MozillaURLProvider"]
 
 
-MOZ_BASE_URL = "http://ftp.mozilla.org/pub/mozilla.org/"
+MOZ_BASE_URL = "http://ftp.mozilla.org/pub/mozilla.org"
                #"firefox/releases")
 RE_DMG = re.compile(r'a[^>]* href="(?P<filename>[^"]+\.dmg)"')
 
@@ -91,7 +91,7 @@ class MozillaURLProvider(Processor):
         # Return URL.
         return "/".join(
             (base_url, product_name, "releases", release_dir, "mac", locale,
-            match.group("filename")))
+             match.group("filename")))
 
     def main(self):
         """Provide a Mozilla download URL"""
