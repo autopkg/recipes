@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Description</key>
+    <string>Finds latest Office 2011 update, downloads the disk image and extracts the pkg.
+Neuters the all_quit package and repackages.
+Set VERSION to a specific version number to download that version instead.
+Set CULTURE_CODE to a different value to get a different localization. See
+http://msdn.microsoft.com/en-us/library/ee825488(v=cs.20).aspx for a table of Culture Codes.</string>
+    <key>Identifier</key>
+    <string>com.github.autopkg.pkg.Office2011UpdatesDisabledAllQuit</string>
+    <key>Input</key>
+    <dict>
+        <key>NAME</key>
+        <string>Office2011_update</string>
+        <key>VERSION</key>
+        <string>latest</string>
+        <key>CULTURE_CODE</key>
+        <string>0409</string>
+    </dict>
+    <key>MinimumVersion</key>
+    <string>0.2.0</string>
+    <key>Process</key>
+    <array>
+        <dict>
+            <key>Processor</key>
+            <string>MSOffice2011UpdateInfoProvider</string>
+            <key>Arguments</key>
+            <dict>
+                <key>culture_code</key>
+                <string>%CULTURE_CODE%</string>
+                <key>version</key>
+                <string>%VERSION%</string>
+            </dict>
+        </dict>
+        <dict>
+            <key>Processor</key>
+            <string>URLDownloader</string>
+        </dict>
+        <dict>
+            <key>Processor</key>
+            <string>EndOfCheckPhase</string>
+        </dict>
+        <dict>
+            <key>Processor</key>
+            <string>FlatPkgUnpacker</string>
+            <key>Arguments</key>
+            <dict>
+                <key>flat_pkg_path</key>
+                <string>%pathname%/%pkg_name%</string>
+                <key>destination_path</key>
+                <string>%RECIPE_CACHE_DIR%/unpacked</string>
+            </dict>
+        </dict>
+        <dict>
+            <key>Processor</key>
+            <string>MSOffice2011DisableAllQuit</string>
+            <key>Arguments</key>
+            <dict>
+                <key>unpacked_pkg_path</key>
+                <string>%RECIPE_CACHE_DIR%/unpacked</string>
+            </dict>
+        </dict>
+        <dict>
+            <key>Processor</key>
+            <string>FlatPkgPacker</string>
+            <key>Arguments</key>
+            <dict>
+                <key>destination_pkg</key>
+                <string>%RECIPE_CACHE_DIR%/%pkg_name%</string>
+                <key>source_flatpkg_dir</key>
+                <string>%RECIPE_CACHE_DIR%/unpacked</string>
+            </dict>
+        </dict>
+    </array>
+</dict>
+</plist>
