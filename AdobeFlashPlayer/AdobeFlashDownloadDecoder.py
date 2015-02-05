@@ -83,7 +83,7 @@ class AdobeFlashDownloadDecoder(Processor):
             raise ProcessorError("Unexpected `security` error (%s): %s "
                                  "keychain path: %s" % (
                                      proc.returncode, err, keychain_file))
-
+        self.output("Decoded auto-update Flash DMG to %s." % outpath)
         # remove our temporary keychain
         os.remove(keychain_file)
         self.env["pathname"] = outpath
