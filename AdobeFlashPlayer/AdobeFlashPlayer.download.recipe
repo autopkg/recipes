@@ -21,7 +21,7 @@
             <key>Arguments</key>
             <dict>
                 <key>url</key>
-                <string>http://fpdownload2.macromedia.com/get/flashplayer/update/current/install/install_all_mac_pl_sgn.z</string>
+                <string>https://fpdownload.macromedia.com/pub/flashplayer/update/current/sau/11/install/install_all_mac_pl_sgn.z</string>
             </dict>
         </dict>
         <dict>
