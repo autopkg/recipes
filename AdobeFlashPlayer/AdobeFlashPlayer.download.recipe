@@ -17,20 +17,15 @@
     <array>
         <dict>
             <key>Processor</key>
-            <string>URLDownloader</string>
-            <key>Arguments</key>
-            <dict>
-                <key>url</key>
-                <string>http://fpdownload2.macromedia.com/get/flashplayer/update/current/install/install_all_mac_pl_sgn.z</string>
-            </dict>
+            <string>AdobeFlashURLProvider</string>
         </dict>
         <dict>
             <key>Processor</key>
-            <string>AdobeFlashDownloadDecoder</string>
+            <string>URLDownloader</string>
             <key>Arguments</key>
             <dict>
-                <key>encoded_path</key>
-                <string>%pathname%</string>
+                <key>filename</key>
+                <string>%NAME%.dmg</string>
             </dict>
         </dict>
         <dict>
