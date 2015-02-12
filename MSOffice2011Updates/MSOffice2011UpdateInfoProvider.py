@@ -189,8 +189,14 @@ class MSOffice2011UpdateInfoProvider(Processor):
         if not version_str:
             version_str = "latest"
         # Get metadata URL
+        req = urllib2.Request(base_url)
+        # Add the MAU User-Agent, since MAU feed server seems to explicitly block
+        # a User-Agent of 'Python-urllib/2.7' - even a blank User-Agent string
+        # passes.
+        req.add_header("User-Agent",
+            "Microsoft%20AutoUpdate/3.0.2 CFNetwork/720.2.4 Darwin/14.1.0 (x86_64)")        
         try:
-            fref = urllib2.urlopen(base_url)
+            fref = urllib2.urlopen(req)
             data = fref.read()
             fref.close()
         except BaseException as err:
