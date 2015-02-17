@@ -195,6 +195,8 @@ https://munkibuilds.org/munkitools2-latest.pkg
                     <string>%MUNKITOOLS_CORE_DESCRIPTION%</string>
                     <key>display_name</key>
                     <string>%MUNKITOOLS_CORE_DISPLAYNAME%</string>
+                    <key>minimum_os_version</key>
+                    <string>10.6.0</string>
                     <key>name</key>
                     <string>%MUNKITOOLS_CORE_NAME%</string>
                     <key>requires</key>
@@ -225,6 +227,8 @@ https://munkibuilds.org/munkitools2-latest.pkg
                     <string>%MUNKITOOLS_ADMIN_DESCRIPTION%</string>
                     <key>display_name</key>
                     <string>%MUNKITOOLS_ADMIN_DISPLAYNAME%</string>
+                    <key>minimum_os_version</key>
+                    <string>10.6.0</string>
                     <key>name</key>
                     <string>%MUNKITOOLS_ADMIN_NAME%</string>
                     <key>unattended_install</key>
@@ -255,6 +259,8 @@ https://munkibuilds.org/munkitools2-latest.pkg
                     <string>%MUNKITOOLS_APP_DESCRIPTION%</string>
                     <key>display_name</key>
                     <string>%MUNKITOOLS_APP_DISPLAYNAME%</string>
+                    <key>minimum_os_version</key>
+                    <string>10.6.0</string>
                     <key>name</key>
                     <string>%MUNKITOOLS_APP_NAME%</string>
                     <key>requires</key>
@@ -286,6 +292,8 @@ https://munkibuilds.org/munkitools2-latest.pkg
                     <string>%MUNKITOOLS_LAUNCHD_DESCRIPTION%</string>
                     <key>display_name</key>
                     <string>%MUNKITOOLS_LAUNCHD_DISPLAYNAME%</string>
+                    <key>minimum_os_version</key>
+                    <string>10.6.0</string>
                     <key>name</key>
                     <string>%MUNKITOOLS_LAUNCHD_NAME%</string>
                 </dict>
