@@ -4,8 +4,10 @@
 <dict>
     <key>Description</key>
     <string>Downloads the latest Oracle Java 8 JRE and imports into Munki.
+The flat installer pkg within the installer app is copied out and imported.
 
-To use this recipe, you must accept the Oracle Binary Code License Agreement for Java SE.
+To use this recipe, you must accept the Oracle Binary Code License Agreement
+for Java SE.
 http://www.oracle.com/technetwork/java/javase/terms/license/index.html
 
 The package's receipt version is useless, so we make an installs item for
