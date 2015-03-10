@@ -11,7 +11,7 @@
         <key>NAME</key>
         <string>Handbrake</string>
         <key>SU_FEED_URL</key>
-        <string>http://handbrake.fr/appcast.x86_64.xml</string>
+        <string>https://handbrake.fr/appcast.x86_64.xml</string>
     </dict>
     <key>MinimumVersion</key>
     <string>0.2.0</string>
