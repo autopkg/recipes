@@ -14,7 +14,12 @@ This recipe cannot be overridden to pull a download from an
 alternate location such as munkibuilds.org - it will only download the
 official releases. For this, use the munkitools2-autobuild.munki
 recipe. Assuming you are overriding this recipe, you can copy your
-existing override for use with the autobuild recipe.</string>
+existing override for use with the autobuild recipe.
+
+The GitHubReleasesInfoProvider processor used by this recipe also
+respects an input variable: 'sort_by_highest_tag_names', which
+if set, will ignore the post dates of the releases and instead sort
+descending by tag names according to LooseVersion semantics.</string>
     <key>Identifier</key>
     <string>com.github.autopkg.munki.munkitools2</string>
     <key>Input</key>

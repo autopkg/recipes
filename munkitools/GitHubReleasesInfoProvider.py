@@ -47,6 +47,14 @@ class GitHubReleasesInfoProvider(Processor):
             "description": ("If set to True or a non-empty value, include "
                             "prereleases.")
         },
+        "sort_by_highest_tag_names": {
+            "required": False,
+            "description": ("Set this to have releases sorted by highest "
+                            "to lowest tag version. By default, releases "
+                            "are sorted descending by date posted. This "
+                            "changes this behavior for cases where an 'older' "
+                            "release may be posted later.")
+        },
     }
     output_variables = {
         "release_notes": {
@@ -146,6 +154,17 @@ class GitHubReleasesInfoProvider(Processor):
     def main(self):
         # Get our list of releases
         releases = self.get_releases(self.env["github_repo"])
+        if self.env.get("sort_by_highest_tag_names"):
+            from operator import itemgetter
+
+            def loose_compare(this, that):
+                from distutils.version import LooseVersion
+                return cmp(LooseVersion(this), LooseVersion(that))
+
+            releases = sorted(releases,
+                              key=itemgetter("tag_name"),
+                              cmp=loose_compare,
+                              reverse=True)
 
         # Store the first eligible asset
         self.select_asset(releases, self.env.get("asset_regex"))
