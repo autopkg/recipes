@@ -5,7 +5,9 @@
     <key>Description</key>
     <string>Downloads and imports a pre-built Munki 2 from
 https://munkibuilds.org. DOWNLOAD_URL can be overridden to
-an alternate URL.</string>
+an alternate URL, from either your own server or an alternate
+package version, ie.
+https://munkibuilds.org/2.2.2.2416/munkitools-2.2.2.2416.pkg</string>
     <key>Identifier</key>
     <string>com.github.autopkg.munki.munkitools2-autobuild</string>
     <key>Input</key>
