@@ -71,7 +71,7 @@ descending by tag names according to LooseVersion semantics.</string>
             <key>Arguments</key>
             <dict>
                 <key>asset_regex</key>
-                <string>^.*?pkg$</string>
+                <string>^munkitools-2.*?pkg$</string>
                 <key>github_repo</key>
                 <string>munki/munki</string>
                 <key>include_prereleases</key>
