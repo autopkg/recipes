@@ -61,7 +61,7 @@ the prefPane bundle, which has historically had consistent versioning.
                 <key>source_path</key>
                 <string>%pathname%/Java 8 Update*.app/Contents/Resources/JavaAppletPlugin.pkg</string>
                 <key>destination_path</key>
-                <string>%RECIPE_CACHE_DIR%/JavaAppletPlugin.pkg</string>
+                <string>%RECIPE_CACHE_DIR%/%NAME%.pkg</string>
             </dict>
             <key>Processor</key>
             <string>Copier</string>
@@ -70,7 +70,7 @@ the prefPane bundle, which has historically had consistent versioning.
             <key>Arguments</key>
             <dict>
                 <key>flat_pkg_path</key>
-                <string>%RECIPE_CACHE_DIR%/JavaAppletPlugin.pkg</string>
+                <string>%RECIPE_CACHE_DIR%/%NAME%.pkg</string>
                 <key>destination_path</key>
                 <string>%RECIPE_CACHE_DIR%/unpack</string>
             </dict>
@@ -156,7 +156,7 @@ the prefPane bundle, which has historically had consistent versioning.
             <key>Arguments</key>
             <dict>
                 <key>pkg_path</key>
-                <string>%RECIPE_CACHE_DIR%/JavaAppletPlugin.pkg</string>
+                <string>%RECIPE_CACHE_DIR%/%NAME%.pkg</string>
                 <key>repo_subdirectory</key>
                 <string>%MUNKI_REPO_SUBDIR%</string>
             </dict>
