@@ -6,7 +6,13 @@
     <string>Finds latest Office 2011 update, downloads the disk image and extracts the pkg.
 Set VERSION to a specific version number to download that version instead.
 Set CULTURE_CODE to a different value to get a different localization. See
-http://msdn.microsoft.com/en-us/library/ee825488(v=cs.20).aspx for a table of Culture Codes.</string>
+http://msdn.microsoft.com/en-us/library/ee825488(v=cs.20).aspx for a table of Culture Codes.
+
+`autopkg run MSOffice2011Updates.munki -k VERSION=14.1.0` will download and import the
+14.1.0 update; most of the later Office updates declare they require this update, so save
+yourself some headaches by adding this update to your repo even if you don't technically
+require it because your base installer is 14.1.0 or higher.
+</string>
     <key>Identifier</key>
     <string>com.github.autopkg.munki.Office2011Updates</string>
     <key>Input</key>
