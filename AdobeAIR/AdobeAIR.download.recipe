@@ -3,35 +3,32 @@
 <plist version="1.0">
 <dict>
     <key>Description</key>
-    <string>Download recipe for TextWrangler. Finds and downloads the latest TextWrangler release.</string>
+    <string>Downloads the latest Adobe AIR installer</string>
     <key>Identifier</key>
-    <string>com.github.autopkg.download.textwrangler</string>
+    <string>com.github.autopkg.download.AdobeAIR</string>
     <key>Input</key>
     <dict>
         <key>NAME</key>
-        <string>TextWrangler</string>
+        <string>AdobeAIR</string>
+        <key>URL</key>
+        <string>http://airdownload.adobe.com/air/mac/download/latest/AdobeAIR.dmg</string>
     </dict>
     <key>MinimumVersion</key>
     <string>0.4.0</string>
     <key>Process</key>
     <array>
         <dict>
-            <key>Arguments</key>
-            <dict>
-                <key>product_name</key>
-                <string>textwrangler</string>
-            </dict>
+            <key>Comment</key>
+            <string>Download latest Adobe AIR disk image</string>
             <key>Processor</key>
-            <string>BarebonesURLProvider</string>
-        </dict>
-        <dict>
+            <string>URLDownloader</string>
             <key>Arguments</key>
             <dict>
+                <key>url</key>
+                <string>%URL%</string>
                 <key>filename</key>
                 <string>%NAME%.dmg</string>
             </dict>
-            <key>Processor</key>
-            <string>URLDownloader</string>
         </dict>
         <dict>
             <key>Processor</key>
@@ -43,9 +40,9 @@
             <key>Arguments</key>
             <dict>
                 <key>input_path</key>
-                <string>%pathname%/TextWrangler.app</string>
+                <string>%pathname%/Adobe AIR Installer.app</string>
                 <key>requirement</key>
-                <string>anchor apple generic and identifier "com.barebones.textwrangler" and (certificate leaf[field.1.2.840.113635.100.6.1.9] /* exists */ or certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = W52GZAXT98)</string>
+                <string>identifier "com.adobe.air.Installer" and anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = JQ525L2MZD</string>
             </dict>
         </dict>
     </array>
