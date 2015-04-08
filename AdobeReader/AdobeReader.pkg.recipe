@@ -8,7 +8,7 @@ and enabling installation on non-boot volumes. Setting MAJOR_VERSION to "10" wil
 latest/last version of Adobe Reader 10, but the repackager is unlikely to operate properly with that version.
 </string>
     <key>Identifier</key>
-    <string>com.googlecode.autopkg.pkg.AdobeReader</string>
+    <string>com.github.autopkg.pkg.AdobeReader</string>
     <key>Input</key>
     <dict>
         <key>NAME</key>
