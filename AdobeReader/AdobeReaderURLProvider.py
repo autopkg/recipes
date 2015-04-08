@@ -28,10 +28,11 @@ __all__ = ["AdobeReaderURLProvider"]
 AR_BASE_URL = (
     "http://get.adobe.com/reader/webservices/json/standalone/"
     "?platform_type=Macintosh&platform_dist=OSX&platform_arch=x86-32"
-    "&platform_misc=10.8.0&language=%s&eventname=readerotherversions")
+    "&platform_misc=%s&language=%s&eventname=readerotherversions")
 
 LANGUAGE_DEFAULT = "English"
 MAJOR_VERSION_DEFAULT = "11"
+OS_VERSION_DEFAULT = '10.8.0'
 
 MAJOR_VERSION_MATCH_STR = "adobe/reader/mac/%s"
 
@@ -45,10 +46,15 @@ class AdobeReaderURLProvider(Processor):
                             "'German', 'Japanese', 'Swedish'. Default is %s."
                             % LANGUAGE_DEFAULT),
         },
+        "os_version": {
+            "required": False,
+            "description": ("OS X version to use in URL search. Defaults to %s."
+                            " Reader DC requires '10.9.0'" % OS_VERSION_DEFAULT)
+        },
         "major_version": {
             "required": False,
-            "description": ("Major version. Examples: '10', '11'. Defaults to "
-                            "%s" % MAJOR_VERSION_DEFAULT)
+            "description": ("Major version. Examples: '10', '11', 'AcrobatDC'. "
+                            "Defaults to %s" % MAJOR_VERSION_DEFAULT)
         },
         "base_url": {
             "required": False,
@@ -61,10 +67,11 @@ class AdobeReaderURLProvider(Processor):
         },
     }
 
-    def get_reader_dmg_url(self, base_url, language, major_version):
+    def get_reader_dmg_url(self, base_url, language, major_version, os_version):
         '''Returns download URL for Adobe Reader DMG'''
         #pylint: disable=no-self-use
-        request = urllib2.Request(base_url % language)
+        request_url = base_url % (os_version, language)
+        request = urllib2.Request(request_url)
         request.add_header("x-requested-with", "XMLHttpRequest")
         try:
             url_handle = urllib2.urlopen(request)
@@ -72,7 +79,6 @@ class AdobeReaderURLProvider(Processor):
             url_handle.close()
         except BaseException as err:
             raise ProcessorError("Can't open %s: %s" % (base_url, err))
-
         reader_info = json.loads(json_response)
         major_version_string = MAJOR_VERSION_MATCH_STR % major_version
         matches = [item["download_url"] for item in reader_info
@@ -89,9 +95,10 @@ class AdobeReaderURLProvider(Processor):
         base_url = self.env.get("base_url", AR_BASE_URL)
         language = self.env.get("language", LANGUAGE_DEFAULT)
         major_version = self.env.get("major_version", MAJOR_VERSION_DEFAULT)
+        os_version = self.env.get("os_version", OS_VERSION_DEFAULT)
 
         self.env["url"] = self.get_reader_dmg_url(
-            base_url, language, major_version)
+            base_url, language, major_version, os_version)
         self.output("Found URL %s" % self.env["url"])
 
 
