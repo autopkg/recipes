@@ -38,9 +38,6 @@
 			<string>%NAME%</string>
 			<key>preinstall_script</key>
 			<string>#!/bin/sh
-if [ -e "/Applications/Adobe Reader.app" ]; then
-rm -r "/Applications/Adobe Reader.app"
-fi
 if [ -e "/Applications/Adobe Acrobat Reader DC.app" ]; then
 rm -r "/Applications/Adobe Acrobat Reader DC.app"
 fi
