@@ -19,65 +19,44 @@
     <array>
         <dict>
             <key>Processor</key>
-            <string>AppDmgVersioner</string>
+            <string>FlatPkgUnpacker</string>
             <key>Arguments</key>
             <dict>
-                <key>dmg_path</key>
-                <string>%pathname%</string>
-            </dict>
-        </dict>
-        <dict>
-            <key>Processor</key>
-            <string>PkgRootCreator</string>
-            <key>Arguments</key>
-            <dict>
-                <key>pkgroot</key>
-                <string>%RECIPE_CACHE_DIR%/%NAME%</string>
-                <key>pkgdirs</key>
-                <dict>
-                    <key>Applications</key>
-                    <string>0775</string>
-                </dict>
-            </dict>
-        </dict>
-        <dict>
-            <key>Processor</key>
-            <string>Copier</string>
-            <key>Arguments</key>
-            <dict>
-                <key>source_path</key>
-                <string>%pathname%/Google Earth.app</string>
                 <key>destination_path</key>
-                <string>%pkgroot%/Applications/Google Earth.app</string>
+                <string>%RECIPE_CACHE_DIR%/expanded</string>
+                <key>flat_pkg_path</key>
+                <string>%pathname%/Install Google Earth.pkg</string>
             </dict>
         </dict>
         <dict>
             <key>Processor</key>
-            <string>PkgCreator</string>
+            <string>PkgPayloadUnpacker</string>
             <key>Arguments</key>
             <dict>
-                <key>pkgname</key>
-                <string>%NAME%-%version%</string>
-                <key>pkg_request</key>
-                <dict>
-                    <key>pkgdir</key>
-                    <string>%RECIPE_CACHE_DIR%</string>
-                    <key>id</key>
-                    <string>%bundleid%</string>
-                    <key>options</key>
-                    <string>purge_ds_store</string>
-                    <key>chown</key>
-                    <array>
-                        <dict>
-                            <key>path</key>
-                            <string>Applications</string>
-                            <key>user</key>
-                            <string>root</string>
-                            <key>group</key>
-                            <string>admin</string>
-                        </dict>
-                    </array>
-                </dict>
+                <key>destination_path</key>
+                <string>%RECIPE_CACHE_DIR%/unpack</string>
+                <key>pkg_payload_path</key>
+                <string>%RECIPE_CACHE_DIR%/expanded/Google_Earth.pkg/Payload</string>
+            </dict>
+        </dict>
+        <dict>
+            <key>Processor</key>
+            <string>Versioner</string>
+            <key>Arguments</key>
+            <dict>
+                <key>input_plist_path</key>
+                <string>%RECIPE_CACHE_DIR%/unpack/Google Earth.app/Contents/Info.plist</string>
+                <key>plist_version_key</key>
+                <string>CFBundleVersion</string>
+            </dict>
+        </dict>
+        <dict>
+            <key>Processor</key>
+            <string>PkgCopier</string>
+            <key>Arguments</key>
+            <dict>
+                <key>source_pkg</key>
+                <string>%pathname%/Install Google Earth.pkg</string>
             </dict>
         </dict>
     </array>
