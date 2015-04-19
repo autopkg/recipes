@@ -17,7 +17,7 @@ version 2.1.0. For this reason, the appcast_url variable is now hardcoded in the
         <string>VLC</string>
     </dict>
     <key>MinimumVersion</key>
-    <string>0.2.0</string>
+    <string>0.4.0</string>
     <key>Process</key>
     <array>
         <dict>
