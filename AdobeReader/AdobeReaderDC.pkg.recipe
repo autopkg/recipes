@@ -3,29 +3,35 @@
 <plist version="1.0">
 <dict>
     <key>Description</key>
-    <string>Downloads the current Adobe Acrobat Reader DC pkg and installs it.</string>
+    <string>Downloads the current Adobe Acrobat Reader DC pkg and repackages, replacing a problematic preinstall script, 
+and enabling installation on non-boot volumes.</string>
     <key>Identifier</key>
-    <string>com.github.autopkg.install.AdobeReaderDC</string>
+    <string>com.github.autopkg.pkg.AdobeReaderDC</string>
     <key>Input</key>
     <dict>
-        <key>NAME</key>
-        <string>AdobeReader</string>
         <key>LANGUAGE</key>
         <string>English</string>
         <key>MAJOR_VERSION</key>
         <string>AcrobatDC</string>
         <key>OS_VERSION</key>
         <string>10.9.0</string>
+        <key>NAME</key>
+        <string>AdobeReaderDC</string>
     </dict>
     <key>MinimumVersion</key>
     <string>0.4.0</string>
     <key>ParentRecipe</key>
-    <string>com.github.autopkg.pkg.AdobeReaderDC</string>
+    <string>com.github.autopkg.download.AdobeReaderDC</string>
     <key>Process</key>
     <array>
         <dict>
             <key>Processor</key>
-            <string>Installer</string>
+            <string>AdobeReaderRepackager</string>
+            <key>Arguments</key>
+            <dict>
+                <key>dmg_path</key>
+                <string>%pathname%</string>
+            </dict>
         </dict>
     </array>
 </dict>
