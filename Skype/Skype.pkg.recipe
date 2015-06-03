@@ -18,13 +18,20 @@
     <key>Process</key>
     <array>
         <dict>
-            <key>Processor</key>
-            <string>AppDmgVersioner</string>
             <key>Arguments</key>
             <dict>
-                <key>dmg_path</key>
-                <string>%pathname%</string>
+                <key>info_path</key>
+                <string>%pathname%/Skype.app/Contents/Info.plist</string>
+                <key>plist_keys</key>
+                <dict>
+                    <key>CFBundleVersion</key>
+                    <string>version</string>
+                    <key>CFBundleIdentifier</key>
+                    <string>bundleid</string>
+                </dict>
             </dict>
+            <key>Processor</key>
+            <string>PlistReader</string>
         </dict>
         <dict>
             <key>Processor</key>
@@ -46,9 +53,9 @@
             <key>Arguments</key>
             <dict>
                 <key>source_path</key>
-                <string>%pathname%/%app_name%</string>
+                <string>%pathname%/Skype.app</string>
                 <key>destination_path</key>
-                <string>%pkgroot%/Applications/%app_name%</string>
+                <string>%pkgroot%/Applications/Skype.app</string>
             </dict>
         </dict>
         <dict>
