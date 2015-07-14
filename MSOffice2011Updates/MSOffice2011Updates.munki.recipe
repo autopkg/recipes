@@ -11,7 +11,10 @@ http://msdn.microsoft.com/en-us/library/ee825488(v=cs.20).aspx for a table of Cu
 `autopkg run MSOffice2011Updates.munki -k VERSION=14.1.0 -k DISABLE_CODE_SIGNATURE_VERIFICATION=true`
 will download and import the 14.1.0 update; most of the later Office updates declare they require
 this update, so save yourself some headaches by adding this update to your repo even if you don't
-technically require it because your base installer is 14.1.0 or higher.
+technically require it because your base installer is 14.1.0 or higher. The
+DISABLE_CODE_SIGNATURE_VERIFICATION flag is required for 14.1.0 because the installer certificate name
+in the download recipe (for current versions) doesn't match that of the 14.1.0 update. The installer
+certificate for the downloaded update can still be manually verified, however.
 </string>
     <key>Identifier</key>
     <string>com.github.autopkg.munki.Office2011Updates</string>
