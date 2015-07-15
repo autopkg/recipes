@@ -26,7 +26,7 @@ __all__ = ["AdobeAcrobatProUpdateInfoProvider"]
 
 MUNKI_UPDATE_NAME_DEFAULT = "AdobeAcrobatPro{MAJREV}_Update"
 VERSION_DEFAULT = "latest"
-
+TARGET_DEFAULT = "10.8"
 META_BASE_URL = "https://armmf.adobe.com/arm-manifests/mac"
 MANIFEST_URL_TEMPLATE = META_BASE_URL + "/{MAJREV}/manifest_url_template.txt"
 DL_BASE_URL = "http://armdl.adobe.com"
@@ -41,6 +41,11 @@ class AdobeAcrobatProUpdateInfoProvider(Processor):
     """Provides URL to the latest Adobe Acrobat Pro release."""
     description = __doc__
     input_variables = {
+            "target_os": {
+            "required": False,
+            "description": ("OS X version. Defaults to %s"
+                            % TARGET_DEFAULT)
+            },
         "major_version": {
             "required": True,
             "description": ("Major version. Currently supports: %s"
@@ -69,6 +74,35 @@ class AdobeAcrobatProUpdateInfoProvider(Processor):
                 "A pkginfo possibly containing additional 'requires' items."
         }
     }
+
+    def process_target_os(self, os_version):
+        '''Returns a tuple of major and minor versions'''
+        #pylint: disable=no-self-use
+        major_and_minor_versions = os_version.split('.')
+        try:
+            major_vers = major_and_minor_versions[0]
+            minor_vers = major_and_minor_versions[1]
+            if (major_vers != "10"):
+                raise ProcessorError(
+                    "Major OS Version %s is not supported" % major_vers)
+            if (int(minor_vers) < 6):
+                raise ProcessorError(
+                    "Minor OS Version %s is not supported" % minor_vers)
+        except (TypeError, ValueError) as err:
+                raise ProcessorError(
+                    "OS X Version %s not recognised" % os_version)
+        return (major_vers, minor_vers)
+
+    def process_version(self, version):
+        '''Returns a tuple of major, minor and patch versions'''
+        all_versions = version.split('.')
+        for v in all_versions:
+            try:
+                int(v)
+            except (TypeError, ValueError) as err:
+                    raise ProcessorError(
+                            "Version %s not recognised" % version)
+        return tuple(all_versions)
 
     def process_url_vars(self, url):
         '''Substitute keys in URL templates with actual values'''
@@ -134,30 +168,39 @@ class AdobeAcrobatProUpdateInfoProvider(Processor):
 
     def main(self):
         '''Do our processor task!'''
+        target_os = self.env.get("target_os", TARGET_DEFAULT)
         major_version = self.env["major_version"]
         get_version = self.env.get("version", VERSION_DEFAULT)
         if major_version not in SUPPORTED_VERS:
             raise ProcessorError(
                 "major_version %s not one of those supported: %s"
                 % (major_version, ", ".join(SUPPORTED_VERS)))
-
+       
+        # Adobe require a target OS X version to be passed to the URL on more recent updates
+        target_os_parsed = self.process_target_os(target_os)
         #global _URL_VARS global statement not needed to modify a key/value pair
         _URL_VARS["MAJREV"] = major_version
+        _URL_VARS["OS_VER_MAJ"] = target_os_parsed[0]
+        _URL_VARS["OS_VER_MIN"] = target_os_parsed[1]
 
         munki_update_name = self.env.get("munki_update_name", "")
         if not munki_update_name:
             munki_update_name = self.process_url_vars(MUNKI_UPDATE_NAME_DEFAULT)
         (url, version, prev_version) = self.get_acrobat_metadata(get_version)
 
+        version_parsed = self.process_version(version)
+
         new_pkginfo = {}
+
         # if our required version is something other than a base version
         # should match a version ending in '.0.0', '.00.0', '.00.00', etc.
         if not re.search(r"\.[0]+\.[0]+", prev_version):
             new_pkginfo["requires"] = ["%s-%s"
                                        % (munki_update_name, prev_version)]
             self.output("Update requires previous version: %s" % prev_version)
+        new_pkginfo["minimum_os_version"] = "%s.0" % target_os
+        new_pkginfo["version"] = version
         self.env["additional_pkginfo"] = new_pkginfo
-
         self.env["url"] = url
         self.env["version"] = version
         self.output("Found URL %s" % self.env["url"])
