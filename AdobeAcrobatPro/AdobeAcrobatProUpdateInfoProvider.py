@@ -17,6 +17,7 @@
 
 import urllib2
 import re
+import platform
 
 from autopkglib import Processor, ProcessorError
 from plistlib import readPlistFromString
@@ -33,7 +34,9 @@ DL_BASE_URL = "http://armdl.adobe.com"
 
 _URL_VARS = {
     "PROD": "com_adobe_Acrobat_Pro",
-    "PROD_ARCH": "univ"
+    "PROD_ARCH": "univ",
+    "OS_VER_MAJ": platform.mac_ver()[0].split('.')[0],
+    "OS_VER_MIN": platform.mac_ver()[0].split('.')[1]
 }
 SUPPORTED_VERS = ['9', '10', '11']
 
@@ -112,8 +115,8 @@ class AdobeAcrobatProUpdateInfoProvider(Processor):
         template_response = self.get_url_response(template_url)
 
         if get_version != "latest":
-            # /{MAJREV}/latest/{PROD}_{PROD_ARCH}.plist -->
-            # /{MAJREV}/get_version/{PROD}_{PROD_ARCH}.plist
+            # /{MAJREV}/latest/{OS_VER_MAJ}.{OS_VER_MIN}/{PROD}_{PROD_ARCH}.plist -->
+            # /{MAJREV}/get_version/{OS_VER_MAJ}.{OS_VER_MIN}/{PROD}_{PROD_ARCH}.plist
             template_response = re.sub(
                 r"\d+\.\d+\.\d+", get_version, template_response)
 
