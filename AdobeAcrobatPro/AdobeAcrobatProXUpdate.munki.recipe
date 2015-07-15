@@ -29,7 +29,7 @@ default, 'latest'.</string>
         <key>NAME</key>
         <string>AdobeAcrobatProX_Update</string>
         <key>VERSION</key>
-        <string>10.1.6</string>
+        <string>latest</string>
         <key>pkginfo</key>
         <dict>
             <key>blocking_applications</key>
@@ -63,14 +63,14 @@ default, 'latest'.</string>
         <dict>
             <key>Processor</key>
             <string>MunkiPkginfoMerger</string>
-<!--            <key>Arguments</key>
+            <key>Arguments</key>
             <dict>
                 <key>additional_pkginfo</key>
                 <dict>
                     <key>version</key>
                     <string>%version%</string>
                 </dict>
-            </dict> -->
+            </dict>
         </dict>
         <dict>
             <key>Arguments</key>
