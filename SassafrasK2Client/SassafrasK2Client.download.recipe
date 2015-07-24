@@ -9,15 +9,17 @@ REVISION is the major version without a decimal, for example:
 7.0: 70
 7.1: 71
 7.2: 72
+7.3: 73
 
-This recipe supports only a REVISION of 70 and up.
+This recipe supports only a REVISION of 70 and up. If REVISION
+is set to an empty string, the latest version will be retrieved.
 </string>
     <key>Identifier</key>
     <string>com.github.autopkg.download.sassafras-k2client</string>
     <key>Input</key>
     <dict>
         <key>REVISION</key>
-        <string>72</string>
+        <string>73</string>
         <key>NAME</key>
         <string>K2Client</string>
     </dict>
