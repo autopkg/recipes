@@ -14,7 +14,7 @@ the default, '10.10'.</string>
 		<key>MUNKI_REPO_SUBDIR</key>
 		<string>support/Puppet</string>
 		<key>NAME</key>
-		<string>Puppet-Agent</string>
+		<string>Puppet-Agent-%OS_VERSION%</string>
 		<key>pkginfo</key>
 		<dict>
 			<key>catalogs</key>

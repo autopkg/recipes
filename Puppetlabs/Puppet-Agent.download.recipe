@@ -14,8 +14,10 @@ the default, '10.10'.</string>
 	<dict>
 		<key>NAME</key>
 		<string>Puppet-Agent</string>
-		<key>VERSION</key>
+		<key>OS_VERSION</key>
 		<string>10.10</string>
+		<key>product_name</key>
+		<string>agent</string>
 	</dict>
 	<key>MinimumVersion</key>
 	<string>0.4.1</string>
@@ -25,16 +27,16 @@ the default, '10.10'.</string>
 			<key>Arguments</key>
 			<dict>
 				<key>get_os_version</key>
-				<string>%VERSION%</string>
+				<string>%OS_VERSION%</string>
 			</dict>
 			<key>Processor</key>
-			<string>PuppetlabsCollectionsURLProvider</string>
+			<string>PuppetlabsProductsURLProvider</string>
 		</dict>
 		<dict>
 			<key>Arguments</key>
 			<dict>
 				<key>filename</key>
-				<string>%NAME%-%version%.dmg</string>
+				<string>%NAME%-%OS_VERSION%-%version%.dmg</string>
 				<key>url</key>
 				<string>%url%</string>
 			</dict>
