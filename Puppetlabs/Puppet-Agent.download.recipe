@@ -6,8 +6,7 @@
 	<string>Downloads the latest Puppet-Agent in the Collections format from
 downloads.puppetlabs.com/mac/PC1. Bundles vendored Ruby, Facter, Hiera, Augeas, Puppet and MCollective.
 
-OS VERSION can be overridden, or left to
-the default, '10.10'.</string>
+OS_VERSION can be overridden, or left to the default, '10.10'.</string>
 	<key>Identifier</key>
 	<string>com.github.autopkg.download.puppet-agent</string>
 	<key>Input</key>

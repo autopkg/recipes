@@ -7,7 +7,7 @@
 
 OS_VERSION can be overridden for the specific package, or left to the current
 latest OS. As some of the vendored contents (like ruby and libraries) are compiled
-specifically for each OS, we're setting the minimum and 'maximum_os_version' keys.</string>
+specifically for each OS, we're setting the 'minimum_os_version' and 'maximum_os_version' keys.</string>
 	<key>Identifier</key>
 	<string>com.github.autopkg.munki.puppet-agent</string>
 	<key>Input</key>
