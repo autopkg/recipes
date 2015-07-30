@@ -5,10 +5,8 @@
 	<key>Description</key>
 	<string>Downloads the latest PuppetAgent and imports into Munki.
 
-OS_VERSION can be overridden for a specific OS package, or left to
-the default, '10.10'. As some of the vendored contents (like ruby and libraries)
-are compliled for each platform, you may want to add/modify the 'minimum_os_version'
-and max keys accordingly.</string>
+VERSION can be overridden with a specific os version number, or left to
+the default, '10.10'.</string>
 	<key>Identifier</key>
 	<string>com.github.autopkg.munki.puppet-agent</string>
 	<key>Input</key>
@@ -17,8 +15,6 @@ and max keys accordingly.</string>
 		<string>support/Puppet</string>
 		<key>NAME</key>
 		<string>Puppet-Agent</string>
-		<key>OS_VERSION</key>
-		<string>10.10</string>
 		<key>pkginfo</key>
 		<dict>
 			<key>catalogs</key>
@@ -28,9 +24,9 @@ and max keys accordingly.</string>
 			<key>description</key>
 			<string>Puppet is a configuration management solution that allows you to define the state of your IT infrastructure, and then automatically enforces the desired state</string>
 			<key>display_name</key>
-			<string>Puppet Agent</string>
+			<string>%NAME%</string>
 			<key>name</key>
-			<string>PuppetAgent</string>
+			<string>%NAME%%OS_VERSION%</string>
 			<key>minimum_os_version</key>
 			<string>%OS_VERSION%</string>
 			<key>developer</key>
