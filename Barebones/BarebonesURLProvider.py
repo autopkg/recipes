@@ -14,6 +14,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 """See docstring for BarebonesURLProvider class"""
+# suppress 'missing class member env'
+#pylint: disable=e1101
 
 import urllib2
 import plistlib
@@ -52,7 +54,6 @@ class BarebonesURLProvider(Processor):
 
     def main(self):
         '''Find the download URL'''
-
         def compare_version(this, that):
             '''compare LooseVersions'''
             return cmp(LooseVersion(this), LooseVersion(that))

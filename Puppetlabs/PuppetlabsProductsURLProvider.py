@@ -34,7 +34,8 @@ class PuppetlabsProductsURLProvider(Processor):
         "product_name": {
             "required": True,
             "description":
-                "Product to fetch URL for. One of 'puppet', 'facter', 'hiera', or 'agent'.",
+                "Product to fetch URL for. One of 'puppet', 'facter', 'hiera',"
+                "or 'agent'.",
         },
         "get_version": {
             "required": False,
@@ -46,8 +47,9 @@ class PuppetlabsProductsURLProvider(Processor):
         "get_os_version": {
             "required": False,
             "description":
-                ("When fetching the puppet-agent, collection-style pkg, designates OS. Defaults to '%s'."
-                 "Currently only 10.9 or 10.10 packages are available."
+                ("When fetching the puppet-agent, collection-style pkg, "
+                 "designates OS. Defaults to '%s'. Currently only 10.9 "
+                 "or 10.10 packages are available."
                  % (OS_VERSION)),
         },
     }
