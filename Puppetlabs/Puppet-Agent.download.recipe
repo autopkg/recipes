@@ -16,8 +16,6 @@ the default, '10.10'.</string>
 		<string>Puppet-Agent</string>
 		<key>OS_VERSION</key>
 		<string>10.10</string>
-		<key>product_name</key>
-		<string>agent</string>
 	</dict>
 	<key>MinimumVersion</key>
 	<string>0.4.1</string>
@@ -28,6 +26,8 @@ the default, '10.10'.</string>
 			<dict>
 				<key>get_os_version</key>
 				<string>%OS_VERSION%</string>
+				<key>product_name</key>
+				<string>agent</string>
 			</dict>
 			<key>Processor</key>
 			<string>PuppetlabsProductsURLProvider</string>
