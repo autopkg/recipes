@@ -35,6 +35,8 @@ the default, '10.10'.</string>
 		<dict>
 			<key>Arguments</key>
 			<dict>
+				<key>filename</key>
+				<string>%NAME%-%OS_VERSION%-%version%.dmg</string>
 				<key>url</key>
 				<string>%url%</string>
 			</dict>
