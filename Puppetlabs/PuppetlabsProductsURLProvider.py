@@ -1,6 +1,6 @@
 #!/usr/bin/python
 #
-# Copyright 2013 Timothy Sutton
+# Copyright 2015 Timothy Sutton, w/ insignificant contributions by Allister Banks
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -25,6 +25,7 @@ __all__ = ["PuppetlabsProductsURLProvider"]
 
 DL_INDEX = "https://downloads.puppetlabs.com/mac"
 DEFAULT_VERSION = "latest"
+OS_VERSION = "10.10"
 
 class PuppetlabsProductsURLProvider(Processor):
     """Extracts a URL for a Puppet Labs item."""
@@ -33,7 +34,7 @@ class PuppetlabsProductsURLProvider(Processor):
         "product_name": {
             "required": True,
             "description":
-                "Product to fetch URL for. One of 'puppet', 'facter', 'hiera'.",
+                "Product to fetch URL for. One of 'puppet', 'facter', 'hiera', or 'agent'.",
         },
         "get_version": {
             "required": False,
@@ -41,6 +42,13 @@ class PuppetlabsProductsURLProvider(Processor):
                 ("Specific version to request. Defaults to '%s', which "
                  "automatically finds the highest available release version."
                  % (DEFAULT_VERSION)),
+        },
+        "get_os_version": {
+            "required": False,
+            "description":
+                ("When fetching the puppet-agent, collection-style pkg, designates OS. Defaults to '%s'."
+                 "Currently only 10.9 or 10.10 packages are available."
+                 % (OS_VERSION)),
         },
     }
     output_variables = {
@@ -54,16 +62,24 @@ class PuppetlabsProductsURLProvider(Processor):
 
     def main(self):
         """Return a download URL for a PuppetLabs item"""
-        # look for "product-1.2.3.dmg"
-        # skip anything with a '-' following the version no. ('rc', etc.)
-        version_re = self.env.get("get_version")
-        if not version_re or version_re == DEFAULT_VERSION:
-            version_re = r"\d+[\.\d]+"
-        re_download = ("href=\"(%s-(%s)+.dmg)\""
-                       % (self.env["product_name"].lower(), version_re))
+        download_url = DL_INDEX
+        prod = self.env["product_name"]
+        if prod == 'agent':
+            os_version = self.env.get("get_os_version", OS_VERSION)
+            version_re = r"\d+\.\d+\.\d+" # e.g.: puppet-agent-1.2.0-osx-10.9-x86_64.dmg
+            re_download = ("href=\"(puppet-agent-(%s)-osx-(%s)-x86_64.dmg)\"" % (version_re, os_version))
+            download_url += "/PC1"
+        else:
+            # look for "product-1.2.3.dmg"
+            # skip anything with a '-' following the version no. ('rc', etc.)
+            version_re = self.env.get("get_version")
+            if not version_re or version_re == DEFAULT_VERSION:
+                version_re = r"\d+[\.\d]+"
+            re_download = ("href=\"(%s-(%s)+.dmg)\""
+                           % (self.env["product_name"].lower(), version_re))
 
         try:
-            data = urllib2.urlopen(DL_INDEX).read()
+            data = urllib2.urlopen(download_url).read()
         except BaseException as err:
             raise ProcessorError(
                 "Unexpected error retrieving download index: '%s'" % err)
@@ -81,7 +97,7 @@ class PuppetlabsProductsURLProvider(Processor):
                 if LooseVersion(prod[1]) > LooseVersion(highest[1]):
                     highest = prod
 
-        ver, url = highest[1], "%s/%s" % (DL_INDEX, highest[0])
+        ver, url = highest[1], "%s/%s" % (download_url, highest[0])
         self.env["version"] = ver
         self.env["url"] = url
         self.output("Found URL %s" % self.env["url"])
