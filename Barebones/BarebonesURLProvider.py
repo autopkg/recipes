@@ -26,8 +26,8 @@ from autopkglib import Processor, ProcessorError
 
 __all__ = ["BarebonesURLProvider"]
 
-URLS = {"textwrangler": "http://versioncheck.barebones.com/TextWrangler.xml",
-        "bbedit": "http://versioncheck.barebones.com/BBEdit.xml"}
+URLS = {"textwrangler": "https://versioncheck.barebones.com/TextWrangler.xml",
+        "bbedit": "https://versioncheck.barebones.com/BBEdit.xml"}
 
 class BarebonesURLProvider(Processor):
     """Provides a version and dmg download for the Barebones product given."""
