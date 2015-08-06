@@ -27,7 +27,19 @@ from autopkglib import Processor, ProcessorError
 __all__ = ["BarebonesURLProvider"]
 
 URLS = {"textwrangler": "https://versioncheck.barebones.com/TextWrangler.xml",
-        "bbedit": "https://versioncheck.barebones.com/BBEdit.xml"}
+       "bbedit": "https://versioncheck.barebones.com/BBEdit.xml"}
+
+# http://stackoverflow.com/a/24175862
+import ssl
+from functools import wraps
+def sslwrap(func):
+   @wraps(func)
+   def bar(*args, **kw):
+       kw['ssl_version'] = ssl.PROTOCOL_TLSv1
+       return func(*args, **kw)
+   return bar
+
+ssl.wrap_socket = sslwrap(ssl.wrap_socket)
 
 class BarebonesURLProvider(Processor):
     """Provides a version and dmg download for the Barebones product given."""
