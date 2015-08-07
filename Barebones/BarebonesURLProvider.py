@@ -29,6 +29,19 @@ __all__ = ["BarebonesURLProvider"]
 URLS = {"textwrangler": "https://versioncheck.barebones.com/TextWrangler.xml",
         "bbedit": "https://versioncheck.barebones.com/BBEdit.xml"}
 
+import ssl
+from functools import wraps
+def sslwrap(func):
+    """http://stackoverflow.com/a/24175862"""
+    @wraps(func)
+    def wraps_sslwrap(*args, **kw):
+        """Monkey-patch for sslwrap to force TLSv1"""
+        kw['ssl_version'] = ssl.PROTOCOL_TLSv1
+        return func(*args, **kw)
+    return wraps_sslwrap
+
+ssl.wrap_socket = sslwrap(ssl.wrap_socket)
+
 class BarebonesURLProvider(Processor):
     """Provides a version and dmg download for the Barebones product given."""
     description = __doc__
