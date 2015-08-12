@@ -3,37 +3,17 @@
 <plist version="1.0">
 <dict>
     <key>Description</key>
-    <string>Downloads latest OmniFocus disk image and imports into Munki.</string>
+    <string>Downloads latest OmniFocus2 disk image and imports into Munki.</string>
     <key>Identifier</key>
     <string>com.github.autopkg.download.omnifocus2</string>
     <key>Input</key>
     <dict>
         <key>NAME</key>
-        <string>OmniFocus</string>
-        <key>APPCAST_URL</key>
-        <string>http://update.omnigroup.com/appcast/com.omnigroup.OmniFocus2</string>
+        <string>OmniFocus2</string>
     </dict>
     <key>MinimumVersion</key>
     <string>0.2.0</string>
-    <key>Process</key>
-    <array>
-        <dict>
-            <key>Processor</key>
-            <string>SparkleUpdateInfoProvider</string>
-            <key>Arguments</key>
-            <dict>
-                <key>appcast_url</key>
-                <string>%APPCAST_URL%</string>
-            </dict>
-        </dict>
-        <dict>
-            <key>Processor</key>
-            <string>URLDownloader</string>
-        </dict>
-        <dict>
-            <key>Processor</key>
-            <string>EndOfCheckPhase</string>
-        </dict>
-    </array>
+    <key>ParentRecipe</key>
+    <string>com.github.autopkg.download.omnigroupproduct</string>
 </dict>
 </plist>

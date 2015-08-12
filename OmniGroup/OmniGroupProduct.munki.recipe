@@ -3,13 +3,13 @@
 <plist version="1.0">
 <dict>
     <key>Description</key>
-    <string>Downloads latest OmniFocus2 disk image and imports into Munki.</string>
+    <string>Downloads latest OmniGroupProduct disk image and imports into Munki. This is an abstract base recipe intended to be overridden.</string>
     <key>Identifier</key>
-    <string>com.github.autopkg.munki.omnifocus2</string>
+    <string>com.github.autopkg.munki.omnigroupproduct</string>
     <key>Input</key>
     <dict>
         <key>NAME</key>
-        <string>OmniFocus2</string>
+        <string>OmniGroupProduct</string>
         <key>MUNKI_REPO_SUBDIR</key>
         <string>apps</string>
         <key>pkginfo</key>
@@ -19,9 +19,9 @@
                 <string>testing</string>
             </array>
             <key>description</key>
-            <string>OmniFocus is designed to quickly capture your thoughts and allow you to store, manage, and process them into actionable to-do items. Perfect for the Getting Things Done® system, but flexible enough for any task management style, OmniFocus helps you work smarter by giving you powerful tools for staying on top of all the things you need to do.</string>
+            <string>Add description here</string>
             <key>display_name</key>
-            <string>OmniFocus</string>
+            <string>OmniGroupProduct</string>
             <key>name</key>
             <string>%NAME%</string>
             <key>unattended_install</key>
@@ -31,6 +31,20 @@
     <key>MinimumVersion</key>
     <string>0.2.0</string>
     <key>ParentRecipe</key>
-    <string>com.github.autopkg.munki.omnigroupproduct</string>
+    <string>com.github.autopkg.download.omnigroupproduct</string>
+    <key>Process</key>
+    <array>
+        <dict>
+            <key>Arguments</key>
+            <dict>
+                <key>pkg_path</key>
+                <string>%pathname%</string>
+                <key>repo_subdirectory</key>
+                <string>%MUNKI_REPO_SUBDIR%</string>
+            </dict>
+            <key>Processor</key>
+            <string>MunkiImporter</string>
+        </dict>
+    </array>
 </dict>
 </plist>
