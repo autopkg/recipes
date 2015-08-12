@@ -5,7 +5,7 @@
     <key>Description</key>
     <string>Downloads latest OmniFocus disk image builds a package.</string>
     <key>Identifier</key>
-    <string>com.github.autopkg.pkg.omnifocus</string>
+    <string>com.github.autopkg.pkg.omnifocus2</string>
     <key>Input</key>
     <dict>
         <key>NAME</key>
@@ -14,7 +14,7 @@
     <key>MinimumVersion</key>
     <string>0.2.0</string>
     <key>ParentRecipe</key>
-    <string>com.github.autopkg.download.omnifocus</string>
+    <string>com.github.autopkg.download.omnifocus2</string>
     <key>Process</key>
     <array>
         <dict>
