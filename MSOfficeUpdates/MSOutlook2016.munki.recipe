@@ -17,7 +17,7 @@ for more information about locale IDs.
 
 VERSION currently only supports 'latest'.</string>
     <key>Identifier</key>
-    <string>com.github.autopkg.munki.OutlookInstaller</string>
+    <string>com.github.autopkg.munki.MSOutlook2016</string>
     <key>MinimumVersion</key>
     <string>0.4.2</string>
     <key>Input</key>
@@ -45,7 +45,7 @@ VERSION currently only supports 'latest'.</string>
         </dict>
     </dict>
     <key>ParentRecipe</key>
-    <string>com.github.autopkg.download.OutlookInstaller</string>
+    <string>com.github.autopkg.download.MSOutlook2016</string>
     <key>Process</key>
     <array>
         <dict>
