@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Description</key>
+    <string>Downloads an update for a Microsoft Office 2016 application.
+This recipe is not for a specific application, and must be overridden.
+
+</string>
+    <key>Identifier</key>
+    <string>com.github.autopkg.download.MSOffice2016App</string>
+    <key>MinimumVersion</key>
+    <string>0.3.1</string>
+    <key>Input</key>
+    <dict>
+        <key>LOCALE_ID</key>
+        <string>1033</string>
+        <key>NAME</key>
+        <string>MSOffice2016ProductChangeMe</string>
+        <key>PRODUCT</key>
+        <string>Oneof: Excel OneNote Outlook PowerPoint Word</string>
+        <key>VERSION</key>
+        <string>latest</string>
+    </dict>
+    <key>Process</key>
+    <array>
+        <dict>
+            <key>Processor</key>
+            <string>MSOffice2016URLandUpdateInfoProvider</string>
+            <key>Arguments</key>
+            <dict>
+                <key>locale_id</key>
+                <string>%LOCALE_ID%</string>
+                <key>product</key>
+                <string>%PRODUCT%</string>
+                <key>version</key>
+                <string>%VERSION%</string>
+            </dict>
+        </dict>
+        <dict>
+            <key>Processor</key>
+            <string>URLDownloader</string>
+            <key>Arguments</key>
+            <dict>
+                <key>filename</key>
+                <string>%NAME%-%version%.pkg</string>
+            </dict>
+        </dict>
+        <dict>
+            <key>Processor</key>
+            <string>EndOfCheckPhase</string>
+        </dict>
+        <dict>
+            <key>Processor</key>
+            <string>CodeSignatureVerifier</string>
+            <key>Arguments</key>
+            <dict>
+                <key>input_path</key>
+                <string>%pathname%</string>
+                <key>expected_authority_names</key>
+                <array>
+                    <string>Developer ID Installer: Microsoft Corporation (UBF8T346G9)</string>
+                    <string>Developer ID Certification Authority</string>
+                    <string>Apple Root CA</string>
+                </array>
+            </dict>
+        </dict>
+    </array>
+</dict>
+</plist>
