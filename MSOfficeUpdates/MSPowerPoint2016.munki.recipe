@@ -23,7 +23,7 @@ VERSION currently only supports 'latest'.</string>
     <key>Input</key>
     <dict>
         <key>NAME</key>
-        <string>MSPointPoint2016</string>
+        <string>MSPowerPoint2016</string>
         <key>MUNKI_REPO_SUBDIR</key>
         <string>apps</string>
         <key>pkginfo</key>
