@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 launchd_load()
 {
@@ -11,7 +11,7 @@ launchd_load()
 
 
 # load the LaunchDaemons only if we're installing to the currently-booted volume
-if [[ "$3" == "/" ]]; then
+if [ "$3" = "/" ]; then
     echo "Installation is to the currently-booted volume."
     launchd_load "/Library/LaunchDaemons/com.github.autopkg.autopkgserver.plist"
     launchd_load "/Library/LaunchDaemons/com.github.autopkg.autopkginstalld.plist"
