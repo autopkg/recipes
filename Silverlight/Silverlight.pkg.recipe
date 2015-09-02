@@ -43,7 +43,7 @@
             <key>Arguments</key>
             <dict>
                 <key>input_plist_path</key>
-                <string>%RECIPE_CACHE_DIR%/unpack/Library/Internet Plug-Ins/Silverlight.plugin/Contents/Info.plist</string>
+                <string>%RECIPE_CACHE_DIR%/unpack/Internet Plug-Ins/Silverlight.plugin/Contents/Info.plist</string>
                 <key>plist_version_key</key>
                 <string>CFBundleVersion</string>
             </dict>
