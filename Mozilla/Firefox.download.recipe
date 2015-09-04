@@ -20,6 +20,8 @@ combination is offered.</string>
         <string>en_US</string>
         <key>NAME</key>
         <string>Firefox</string>
+        <key>DISABLE_CODE_SIGNATURE_VERIFICATION</key>
+        <string>False</string>
     </dict>
     <key>MinimumVersion</key>
     <string>0.4.1</string>
