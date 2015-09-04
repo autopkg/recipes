@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
     <key>Description</key>
-    <string>Downloads latest OmniFocus disk image and builds a package.</string>
+    <string>Downloads latest OmniFocus disk image.</string>
     <key>Identifier</key>
-    <string>com.github.autopkg.pkg.omnifocus</string>
+    <string>com.github.autopkg.download.omnifocus</string>
     <key>Input</key>
     <dict>
         <key>NAME</key>
@@ -14,6 +14,6 @@
     <key>MinimumVersion</key>
     <string>0.2.0</string>
     <key>ParentRecipe</key>
-    <string>com.github.autopkg.pkg.omnigroupproduct</string>
+    <string>com.github.autopkg.download.omnigroupproduct</string>
 </dict>
 </plist>

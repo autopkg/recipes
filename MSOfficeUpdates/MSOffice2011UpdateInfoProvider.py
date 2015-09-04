@@ -84,6 +84,11 @@ class MSOffice2011UpdateInfoProvider(Processor):
             "description":
                 "Some pkginfo fields extracted from the Microsoft metadata.",
         },
+        "version": {
+            "description":
+                ("The version of the update as extracted from the Microsoft "
+                 "metadata.")
+        },
     }
 
     def sanity_check_expected_triggers(self, item):
@@ -228,6 +233,7 @@ class MSOffice2011UpdateInfoProvider(Processor):
 
         self.env["url"] = item["Location"]
         self.env["pkg_name"] = item["Payload"]
+        self.env["version"] = self.get_version(item)
         self.output("Found URL %s" % self.env["url"])
         self.output("Got update: '%s'" % item["Title"])
         # now extract useful info from the rest of the metadata that could

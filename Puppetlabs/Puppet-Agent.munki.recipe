@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Description</key>
+	<string>Downloads the latest PuppetAgent and imports into Munki.
+
+OS_VERSION can be overridden for the specific package, or left to the current
+latest OS. As some of the vendored contents (like ruby and libraries) are compiled
+specifically for each OS, we're setting the 'minimum_os_version' and 'maximum_os_version' keys.</string>
+	<key>Identifier</key>
+	<string>com.github.autopkg.munki.puppet-agent</string>
+	<key>Input</key>
+	<dict>
+		<key>MUNKI_REPO_SUBDIR</key>
+		<string>support/Puppet</string>
+		<key>NAME</key>
+		<string>Puppet-Agent</string>
+		<key>OS_VERSION</key>
+		<string>10.10</string>
+		<key>pkginfo</key>
+		<dict>
+			<key>catalogs</key>
+			<array>
+				<string>testing</string>
+			</array>
+			<key>description</key>
+			<string>Puppet is a configuration management solution that allows you to define the state of your IT infrastructure, and then automatically enforces the desired state</string>
+			<key>display_name</key>
+			<string>Puppet Agent</string>
+			<key>name</key>
+			<string>PuppetAgent</string>
+			<key>minimum_os_version</key>
+			<string>%OS_VERSION%.0</string>
+			<key>maximum_os_version</key>
+			<string>%OS_VERSION%.99</string>
+			<key>developer</key>
+			<string>Puppetlabs</string>
+			<key>unattended_install</key>
+			<true/>
+		</dict>
+	</dict>
+	<key>MinimumVersion</key>
+	<string>0.4.1</string>
+	<key>ParentRecipe</key>
+	<string>com.github.autopkg.download.puppet-agent</string>
+	<key>Process</key>
+	<array>
+		<dict>
+			<key>Arguments</key>
+			<dict>
+				<key>pkg_path</key>
+				<string>%pathname%</string>
+				<key>repo_subdirectory</key>
+				<string>%MUNKI_REPO_SUBDIR%</string>
+			</dict>
+			<key>Processor</key>
+			<string>MunkiImporter</string>
+		</dict>
+	</array>
+</dict>
+</plist>

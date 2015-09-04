@@ -3,17 +3,15 @@
 <plist version="1.0">
 <dict>
     <key>Description</key>
-    <string>Downloads the latest Spotify and imports into Munki.</string>
+    <string>Downloads latest OmniGroupProduct disk image and imports into Munki. This is an abstract base recipe intended to be overridden.</string>
     <key>Identifier</key>
-    <string>com.github.autopkg.munki.Spotify</string>
+    <string>com.github.autopkg.munki.omnigroupproduct</string>
     <key>Input</key>
     <dict>
         <key>NAME</key>
-        <string>Spotify</string>
+        <string>OmniGroupProduct</string>
         <key>MUNKI_REPO_SUBDIR</key>
         <string>apps</string>
-        <key>DOWNLOAD_URL</key>
-        <string>http://www.spotify.com/download/Spotify.dmg</string>
         <key>pkginfo</key>
         <dict>
             <key>catalogs</key>
@@ -21,21 +19,19 @@
                 <string>testing</string>
             </array>
             <key>description</key>
-            <string>Spotify is a music streaming service offering unlimited streaming of selected music from a range of major and independent record labels.</string>
+            <string>Add description here</string>
             <key>display_name</key>
-            <string>Spotify</string>
+            <string>OmniGroupProduct</string>
             <key>name</key>
             <string>%NAME%</string>
             <key>unattended_install</key>
             <true/>
-            <key>minimum_os_version</key>
-            <string>10.6</string>
         </dict>
     </dict>
     <key>MinimumVersion</key>
     <string>0.2.0</string>
     <key>ParentRecipe</key>
-    <string>com.github.autopkg.download.Spotify</string>
+    <string>com.github.autopkg.download.omnigroupproduct</string>
     <key>Process</key>
     <array>
         <dict>

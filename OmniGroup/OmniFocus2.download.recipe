@@ -3,17 +3,17 @@
 <plist version="1.0">
 <dict>
     <key>Description</key>
-    <string>Downloads latest OmniFocus disk image and builds a package.</string>
+    <string>Downloads latest OmniFocus2 disk image and imports into Munki.</string>
     <key>Identifier</key>
-    <string>com.github.autopkg.pkg.omnifocus</string>
+    <string>com.github.autopkg.download.omnifocus2</string>
     <key>Input</key>
     <dict>
         <key>NAME</key>
-        <string>OmniFocus</string>
+        <string>OmniFocus2</string>
     </dict>
     <key>MinimumVersion</key>
     <string>0.2.0</string>
     <key>ParentRecipe</key>
-    <string>com.github.autopkg.pkg.omnigroupproduct</string>
+    <string>com.github.autopkg.download.omnigroupproduct</string>
 </dict>
 </plist>
