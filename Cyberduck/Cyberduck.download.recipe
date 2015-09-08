@@ -6,8 +6,8 @@
     <string>Downloads the current release version of Cyberduck.
 
 Alternate URLs that can be used for SPARKLE_FEED_URL:
-- beta: https://version.cyberduck.ch/beta/changelog.rss
-- nightly: https://version.cyberduck.ch/nightly/changelog.rss
+- beta: https://version.cyberduck.io/beta/changelog.rss
+- nightly: https://version.cyberduck.io/nightly/changelog.rss
 </string>
     <key>Identifier</key>
     <string>com.github.autopkg.download.Cyberduck</string>
@@ -16,7 +16,7 @@ Alternate URLs that can be used for SPARKLE_FEED_URL:
         <key>NAME</key>
         <string>Cyberduck</string>
         <key>SPARKLE_FEED_URL</key>
-        <string>https://version.cyberduck.ch/changelog.rss</string>
+        <string>https://version.cyberduck.io/changelog.rss</string>
     </dict>
     <key>MinimumVersion</key>
     <string>0.4.0</string>
