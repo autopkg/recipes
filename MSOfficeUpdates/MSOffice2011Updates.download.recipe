@@ -52,7 +52,7 @@ http://msdn.microsoft.com/en-us/library/ee825488(v=cs.20).aspx for a table of Cu
                 <string>%pathname%/Office*.*pkg</string>
                 <key>expected_authority_names</key>
                 <array>
-                    <string>Developer ID Installer: Microsoft Corporation (UBF8T346G9)</string>
+                    <string>Developer ID Installer: Microsoft Corporation</string>
                     <string>Developer ID Certification Authority</string>
                     <string>Apple Root CA</string>
                 </array>
