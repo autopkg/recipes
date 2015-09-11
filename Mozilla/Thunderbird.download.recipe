@@ -21,7 +21,7 @@ combination is offered.</string>
         <key>NAME</key>
         <string>Thunderbird</string>
         <key>DISABLE_CODE_SIGNATURE_VERIFICATION</key>
-        <string>True</string>
+        <true />
     </dict>
     <key>MinimumVersion</key>
     <string>0.4.1</string>
