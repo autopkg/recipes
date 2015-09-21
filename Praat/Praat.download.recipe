@@ -6,13 +6,16 @@
 	<string>Downloads the latest version of Praat.
 
 There are two editions that can be downloaded: 32-bit or 64-bit, which
-can be overridden by setting ARCH_EDITION to either '32' or '64'.</string>
+can be overridden by setting ARCH_EDITION to either '32' or '64'.
+
+Note that the 32-bit edition may not have a valid code signature,
+causing the CodeSignatureVerifier step to fail and print a warning.</string>
 	<key>Identifier</key>
 	<string>com.github.autopkg.download.Praat</string>
 	<key>Input</key>
 	<dict>
 		<key>ARCH_EDITION</key>
-		<string>32</string>
+		<string>64</string>
 		<key>NAME</key>
 		<string>Praat</string>
 	</dict>
