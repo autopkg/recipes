@@ -3,7 +3,12 @@
 <plist version="1.0">
 <dict>
     <key>Description</key>
-    <string>Downloads the latest 'The Unarchiver' and imports into Munki.</string>
+    <string>Downloads the latest 'The Unarchiver' and imports into Munki.
+
+The application's LSMinimumSystemVersion is currently inaccurate, but the
+sparkle:minimumSystemVersion element is correct, so we use MunkiPkginfoMerger
+to merge the minimum_os_version that is output from SparkleUpdateInfoProvider
+in the .download ParentRecipe.</string>
     <key>Identifier</key>
     <string>com.github.autopkg.munki.TheUnarchiver</string>
     <key>Input</key>
@@ -27,6 +32,10 @@
             <key>unattended_install</key>
             <true/>
         </dict>
+        <key>pkginfo_keys_to_copy_from_sparkle_feed</key>
+        <array>
+            <string>minimum_os_version</string>
+        </array>
     </dict>
     <key>MinimumVersion</key>
     <string>0.2.0</string>
@@ -57,6 +66,10 @@
             </dict>
             <key>Processor</key>
             <string>DmgCreator</string>
+        </dict>
+        <dict>
+            <key>Processor</key>
+            <string>MunkiPkginfoMerger</string>
         </dict>
         <dict>
             <key>Arguments</key>
