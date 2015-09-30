@@ -82,6 +82,11 @@ class MSOffice2016URLandUpdateInfoProvider(Processor):
                 ("The version of the update as extracted from the Microsoft "
                  "metadata.")
         },
+        "minimum_os_version": {
+            "description":
+                ("The minimum os version required by the update as extracted "
+                 "from the Microsoft metadata.")
+        },
         "url": {
             "description": "URL to the latest installer.",
         },
@@ -216,6 +221,7 @@ class MSOffice2016URLandUpdateInfoProvider(Processor):
             pkginfo["installs"] = installs_items
 
         self.env["version"] = self.get_version(item)
+        self.env["minimum_os_version"] = min_os
         self.env["additional_pkginfo"] = pkginfo
         self.env["url"] = item["Location"]
         self.output("Additional pkginfo: %s" % self.env["additional_pkginfo"])
