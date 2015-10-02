@@ -68,9 +68,7 @@ class PuppetlabsProductsURLProvider(Processor):
         prod = self.env["product_name"]
         if prod == 'agent':
             os_version = self.env.get("get_os_version", OS_VERSION)
-            version_re = r"\d+\.\d+\.\d+" # e.g.: puppet-agent-1.2.0-osx-10.9-x86_64.dmg
-            re_download = ("href=\"(puppet-agent-(%s)-osx-(%s)-x86_64.dmg)\"" % (version_re, os_version))
-            download_url += "/PC1"
+            download_url += str('/' + os_version + "/PC1/x86_64")
         else:
             # look for "product-1.2.3.dmg"
             # skip anything with a '-' following the version no. ('rc', etc.)
