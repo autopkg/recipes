@@ -16,6 +16,7 @@
 """See docstring for MozillaURLProvider class"""
 
 import re
+import urllib
 import urllib2
 import urlparse
 from distutils.version import LooseVersion
@@ -88,7 +89,19 @@ class MozillaURLProvider(Processor):
         if len(matches):
             def compare_version(this, that):
                 """Compare loose versions"""
-                return cmp(LooseVersion(this), LooseVersion(that))
+                return cmp(
+                    LooseVersion(parse_version_from_path(this)),
+                    LooseVersion(parse_version_from_path(that))
+                )
+            def parse_version_from_path(path):
+                path = urllib.unquote(path)
+                name = path.split('/')[-1]
+                version = re.search('[0-9]([0-9a-zA-Z_-]*)(\.[0-9][0-9a-zA-Z_-]*)*', name)
+                if version:
+                    return version.group(0)
+                # if no version found, just return filename
+                return name
+
             sorted_items = sorted(matches, cmp=compare_version)
             filepath = sorted_items[-1]
         else:
