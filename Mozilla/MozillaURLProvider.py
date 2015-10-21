@@ -17,6 +17,7 @@
 
 import re
 import urllib2
+import urlparse
 
 from autopkglib import Processor, ProcessorError
 
@@ -26,7 +27,7 @@ __all__ = ["MozillaURLProvider"]
 
 MOZ_BASE_URL = "http://ftp.mozilla.org/pub/mozilla.org"
                #"firefox/releases")
-RE_DMG = re.compile(r'a[^>]* href="(?P<filename>[^"]+\.dmg)"')
+RE_DMG = re.compile(r'a[^>]* href="(?P<filepath>[^"]+\.dmg)"')
 
 
 class MozillaURLProvider(Processor):
@@ -70,7 +71,7 @@ class MozillaURLProvider(Processor):
         release_dir = release.lower()
 
         index_url = "/".join(
-            (base_url, product_name, "releases", release_dir, "mac", locale))
+            (base_url, product_name, "releases", release_dir, "mac", locale)) + '/'
         #print >>sys.stderr, index_url
 
         # Read HTML index.
@@ -82,16 +83,24 @@ class MozillaURLProvider(Processor):
             raise ProcessorError("Can't download %s: %s" % (index_url, err))
 
         # Search for download link.
-        match = RE_DMG.search(html)
-        if not match:
+        matches = RE_DMG.findall(html)
+        if len(matches):
+            filepath = matches[-1]
+        else:
+            filepath = None
+        if not filepath:
             raise ProcessorError(
                 "Couldn't find %s download URL in %s"
                 % (product_name, index_url))
 
         # Return URL.
-        return "/".join(
-            (base_url, product_name, "releases", release_dir, "mac", locale,
-             match.group("filename")))
+        if '/' == filepath[0]:
+            # absolute link URL
+            return urlparse.urljoin(base_url, filepath)
+        else:
+            return "/".join(
+                (base_url, product_name, "releases", release_dir, "mac", locale,
+                 filepath))
 
     def main(self):
         """Provide a Mozilla download URL"""
