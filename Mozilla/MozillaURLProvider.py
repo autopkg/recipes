@@ -24,9 +24,9 @@ from autopkglib import Processor, ProcessorError
 __all__ = ["MozillaURLProvider"]
 
 
-MOZ_BASE_URL = "http://ftp.mozilla.org/pub/mozilla.org"
+MOZ_BASE_URL = "https://ftp.mozilla.org/pub"
                #"firefox/releases")
-RE_DMG = re.compile(r'a[^>]* href="(?P<filename>[^"]+\.dmg)"')
+RE_DMG = re.compile(r'a[^>]* href="/.+/(?P<filename>[^"]+\.dmg)"')
 
 
 class MozillaURLProvider(Processor):
@@ -70,7 +70,7 @@ class MozillaURLProvider(Processor):
         release_dir = release.lower()
 
         index_url = "/".join(
-            (base_url, product_name, "releases", release_dir, "mac", locale))
+            (base_url, product_name, "releases", release_dir, "mac", locale, ""))
         #print >>sys.stderr, index_url
 
         # Read HTML index.
@@ -109,4 +109,3 @@ class MozillaURLProvider(Processor):
 if __name__ == "__main__":
     PROCESSOR = MozillaURLProvider()
     PROCESSOR.execute_shell()
-
