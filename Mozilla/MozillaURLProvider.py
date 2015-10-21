@@ -18,6 +18,7 @@
 import re
 import urllib2
 import urlparse
+from distutils.version import LooseVersion
 
 from autopkglib import Processor, ProcessorError
 
@@ -85,7 +86,11 @@ class MozillaURLProvider(Processor):
         # Search for download link.
         matches = RE_DMG.findall(html)
         if len(matches):
-            filepath = matches[-1]
+            def compare_version(this, that):
+                """Compare loose versions"""
+                return cmp(LooseVersion(this), LooseVersion(that))
+            sorted_items = sorted(matches, cmp=compare_version)
+            filepath = sorted_items[-1]
         else:
             filepath = None
         if not filepath:
