@@ -47,7 +47,7 @@ VERSION currently only supports 'latest'.
             <key>Arguments</key>
             <dict>
                 <key>filename</key>
-                <string>%NAME%-%version%.pkg</string>
+                <string>%NAME%.pkg</string>
             </dict>
         </dict>
         <dict>
