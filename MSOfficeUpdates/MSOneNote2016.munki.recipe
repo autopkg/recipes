@@ -40,6 +40,10 @@ VERSION currently only supports 'latest'.</string>
             </array>
             <key>name</key>
             <string>%NAME%</string>
+            <key>category</key>
+            <string>Productivity</string>
+            <key>developer</key>
+            <string>Microsoft</string>
             <key>unattended_install</key>
             <true/>
         </dict>
