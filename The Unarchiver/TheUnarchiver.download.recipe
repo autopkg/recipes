@@ -22,13 +22,19 @@
             <string>SparkleUpdateInfoProvider</string>
             <key>Arguments</key>
             <dict>
+                <key>appcast_request_headers</key>
+                <dict>
+                    <!-- Didn't seem to like urllib as a UA -->
+                    <key>User-Agent</key>
+                    <string>curl/7.43.0</string>
+                </dict>
                 <key>appcast_url</key>
                 <string>%SPARKLE_FEED_URL%</string>
             </dict>
         </dict>
 		<dict>
 			<key>Processor</key>
-			<string>URLDownloader</string>
+			<string>CURLDownloader</string>
 		</dict>
 		<dict>
 			<key>Processor</key>
