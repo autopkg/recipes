@@ -3,8 +3,11 @@
 <plist version="1.0">
 <dict>
     <key>Description</key>
-    <string>Downloads the latest Oracle Java 8 JRE and imports into Munki.
+    <string>Downloads the latest Oracle Java 8 JRE CPU release and imports into Munki.
 The flat installer pkg within the installer app is copied out and imported.
+
+Read more about CPU and PSU releases here:
+    http://www.oracle.com/technetwork/java/javase/downloads/cpu-psu-explained-2331472.html
 
 To use this recipe, you must accept the Oracle Binary Code License Agreement
 for Java SE.
