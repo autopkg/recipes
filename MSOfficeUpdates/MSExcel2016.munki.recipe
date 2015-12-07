@@ -25,10 +25,12 @@ version to which this delta can be applied. It will also have a 'requires'
 item set to this minimum update version, whose name can be set explicitly
 with 'munki_required_update_name'. If left blank, NAME will be used.
 
-Note that this recipe doesn't currently support a workflow where _both_
+PLEASE NOTE: This recipe doesn't currently support a workflow where _both_
 full and delta updates can be imported and clients will automatically select
 only the correct update. It only tries to add as much "safety" as possible
-when importing a delta update.</string>
+when importing a delta update. Choosing to import delta updates will likely
+require additional work on the part of the admin (for example, using an
+installcheck_script).</string>
     <key>Identifier</key>
     <string>com.github.autopkg.munki.MSExcel2016</string>
     <key>MinimumVersion</key>
