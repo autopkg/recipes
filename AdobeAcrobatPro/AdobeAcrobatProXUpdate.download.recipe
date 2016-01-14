@@ -3,11 +3,10 @@
 <plist version="1.0">
 <dict>
     <key>Description</key>
-    <string>Downloads updates for Adobe Acrobat Pro X or XI. MAJOR_VERSION can be '10', '11', corresponding to Pro X, Pro XI, 
-etc. You can override this recipe multiple times for different
-values of MAJOR_VERSION.
+    <string>Downloads updates for Adobe Acrobat Pro X or XI. MAJOR_VERSION can be '10', '11', corresponding to Pro X,
+    Pro XI, etc. You can override this recipe multiple times for different values of MAJOR_VERSION.
 
-VERSION can be a specific update version, ie. '10.1.6', or the 
+VERSION can be a specific update version, ie. '10.1.6', or the
 default, 'latest'.</string>
     <key>Identifier</key>
     <string>com.github.autopkg.download.AdobeAcrobatProXUpdate</string>
@@ -17,6 +16,8 @@ default, 'latest'.</string>
         <string>10</string>
         <key>NAME</key>
         <string>AdobeAcrobatProX_Update</string>
+        <key>TARGET_OS</key>
+        <string>10.9</string>
         <key>VERSION</key>
         <string>latest</string>
     </dict>
@@ -29,6 +30,8 @@ default, 'latest'.</string>
             <dict>
                 <key>major_version</key>
                 <string>%MAJOR_VERSION%</string>
+                <key>target_os</key>
+                <string>%TARGET_OS%</string>
                 <key>version</key>
                 <string>%VERSION%</string>
             </dict>

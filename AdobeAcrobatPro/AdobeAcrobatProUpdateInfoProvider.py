@@ -26,7 +26,7 @@ __all__ = ["AdobeAcrobatProUpdateInfoProvider"]
 
 MUNKI_UPDATE_NAME_DEFAULT = "AdobeAcrobatPro{MAJREV}_Update"
 VERSION_DEFAULT = "latest"
-TARGET_DEFAULT = "10.8"
+TARGET_DEFAULT = "10.9"
 META_BASE_URL = "https://armmf.adobe.com/arm-manifests/mac"
 MANIFEST_URL_TEMPLATE = META_BASE_URL + "/{MAJREV}/manifest_url_template.txt"
 DL_BASE_URL = "http://armdl.adobe.com"
@@ -41,7 +41,7 @@ class AdobeAcrobatProUpdateInfoProvider(Processor):
     """Provides URL to the latest Adobe Acrobat Pro release."""
     description = __doc__
     input_variables = {
-            "target_os": {
+        "target_os": {
             "required": False,
             "description": ("OS X version. Defaults to %s"
                             % TARGET_DEFAULT)
@@ -175,7 +175,7 @@ class AdobeAcrobatProUpdateInfoProvider(Processor):
             raise ProcessorError(
                 "major_version %s not one of those supported: %s"
                 % (major_version, ", ".join(SUPPORTED_VERS)))
-       
+
         # Adobe require a target OS X version to be passed to the URL on more recent updates
         target_os_parsed = self.process_target_os(target_os)
         #global _URL_VARS global statement not needed to modify a key/value pair
