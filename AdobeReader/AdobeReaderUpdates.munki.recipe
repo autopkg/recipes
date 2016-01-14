@@ -41,7 +41,7 @@ https://github.com/autopkg/recipes/pull/61.
             <key>display_name</key>
             <string>Adobe Reader Update</string>
             <key>minimum_os_version</key>
-            <string>10.8.0</string>
+            <string>%OS_VERSION%</string>
             <key>name</key>
             <string>%NAME%</string>
             <key>unattended_install</key>

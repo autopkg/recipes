@@ -8,8 +8,8 @@ installer for Adobe Reader as is provided by AdobeReader.download, but recent ve
 have not been made available as integrated installers. These updates are also multilingual, and provide
 updates for languages that aren't available in full installers.
 
-Set MAJOR_VERSION to either '10' or '11'. OS_VERSION defaults to 10.8 because the most recent
-updates, (10.1.15, 11.0.12) are offered only to OS X 10.8 and up, but this can be set to try requesting the
+Set MAJOR_VERSION to either '10' or '11'. OS_VERSION defaults to 10.9 because the most recent
+updates, (10.1.14, 11.0.12) are offered only to OS X 10.9 and up, but this can be set to try requesting the
 update for different client OS X versions if newer versions are offered exclusively to higher OS X versions
 in the future.
 
@@ -27,7 +27,7 @@ https://github.com/autopkg/recipes/pull/61.
         <key>NAME</key>
         <string>AdobeReader</string>
         <key>OS_VERSION</key>
-        <string>10.8</string>
+        <string>10.9</string>
     </dict>
     <key>MinimumVersion</key>
     <string>0.2.0</string>
