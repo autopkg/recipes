@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
     <key>Description</key>
-    <string>Downloads the current Adobe Acrobat Reader DC pkg and repackages, replacing a problematic preinstall script, 
+    <string>Downloads the current Adobe Acrobat Reader DC pkg and repackages, replacing a problematic preinstall script,
 and enabling installation on non-boot volumes.</string>
     <key>Identifier</key>
     <string>com.github.autopkg.pkg.AdobeReaderDC</string>
@@ -31,6 +31,46 @@ and enabling installation on non-boot volumes.</string>
             <dict>
                 <key>dmg_path</key>
                 <string>%pathname%</string>
+            </dict>
+        </dict>
+        <dict>
+            <key>Processor</key>
+            <string>FileFinder</string>
+            <key>Arguments</key>
+            <dict>
+                <key>pattern</key>
+                <string>%RECIPE_CACHE_DIR%/*/application.pkg</string>
+            </dict>
+        </dict>
+        <dict>
+            <key>Processor</key>
+            <string>PkgPayloadUnpacker</string>
+            <key>Arguments</key>
+            <dict>
+                <key>destination_path</key>
+                <string>%RECIPE_CACHE_DIR%</string>
+                <key>pkg_payload_path</key>
+                <string>%found_filename%/Payload</string>
+            </dict>
+        </dict>
+        <dict>
+            <key>Processor</key>
+            <string>Versioner</string>
+            <key>Arguments</key>
+            <dict>
+                <key>input_plist_path</key>
+                <string>%RECIPE_CACHE_DIR%/Adobe Acrobat Reader DC.app/Contents/Info.plist</string>
+            </dict>
+        </dict>
+        <dict>
+            <key>Processor</key>
+            <string>PathDeleter</string>
+            <key>Arguments</key>
+            <dict>
+                <key>path_list</key>
+                <array>
+                    <string>%RECIPE_CACHE_DIR%/Adobe Acrobat Reader DC.app</string>
+                </array>
             </dict>
         </dict>
     </array>
