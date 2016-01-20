@@ -39,7 +39,7 @@ PROD_DICT = {
     'Word':'MSWD',
 }
 LOCALE_ID_INFO_URL = "https://msdn.microsoft.com/en-us/goglobal/bb964664.aspx"
-SUPPORTED_VERSIONS = ["latest", "latest-delta"]
+SUPPORTED_VERSIONS = ["latest", "latest-delta", "latest-standalone"]
 DEFAULT_VERSION = "latest"
 
 class MSOffice2016URLandUpdateInfoProvider(Processor):
@@ -206,7 +206,7 @@ class MSOffice2016URLandUpdateInfoProvider(Processor):
         # have two items: a full and a delta. Delta updates will have a
         # 'FullUpdaterLocation' key, so filter by the array according to
         # which item has that key.
-        if self.env["version"] == "latest":
+        if self.env["version"] == "latest" or self.env["version"] == "latest-standalone":
             item = [u for u in metadata if not u.get("FullUpdaterLocation")]
         elif self.env["version"] == "latest-delta":
             item = [u for u in metadata if u.get("FullUpdaterLocation")]
@@ -215,9 +215,17 @@ class MSOffice2016URLandUpdateInfoProvider(Processor):
                                  "update metadata.")
         item = item[0]
 
+        if self.env["version"] == "latest-standalone":
+            p = re.compile(ur'^[a-zA-Z0-9:/.-]*_[a-zA-Z]*')
+            url = item["Location"]
+            item["Location"] = re.search(p, url).group() + "_2016_Installer.pkg"
+
         self.env["url"] = item["Location"]
         self.output("Found URL %s" % self.env["url"])
-        self.output("Got update: '%s'" % item["Title"])
+
+        if self.env["version"] == "latest" or self.env["version"] == "latest-delta":
+            self.output("Got update: '%s'" % item["Title"])
+
         # now extract useful info from the rest of the metadata that could
         # be used in a pkginfo
         pkginfo = {}
