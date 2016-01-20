@@ -29,27 +29,16 @@
             <string>FlatPkgUnpacker</string>
         </dict>
         <dict>
+            <key>Processor</key>
+            <string>URLTextSearcher</string>
             <key>Arguments</key>
             <dict>
-                <key>pkg_payload_path</key>
-                <string>%RECIPE_CACHE_DIR%/expand/silverlight_plugin.pkg/Payload</string>
-                <key>destination_path</key>
-                <string>%RECIPE_CACHE_DIR%/unpack</string>
+                <key>url</key>
+                <string>file:////%RECIPE_CACHE_DIR%/expand/Distribution</string>
+                <key>re_pattern</key>
+                <string>product id="com.microsoft.silverlight" version="(?P&lt;version&gt;.*?)"</string>
             </dict>
-            <key>Processor</key>
-            <string>PkgPayloadUnpacker</string>
-        </dict>
-        <dict>
-            <key>Arguments</key>
-            <dict>
-                <key>input_plist_path</key>
-                <string>%RECIPE_CACHE_DIR%/unpack/Internet Plug-Ins/Silverlight.plugin/Contents/Info.plist</string>
-                <key>plist_version_key</key>
-                <string>CFBundleVersion</string>
-            </dict>
-            <key>Processor</key>
-            <string>Versioner</string>
-        </dict>
+	</dict>
         <dict>
             <key>Arguments</key>
             <dict>
