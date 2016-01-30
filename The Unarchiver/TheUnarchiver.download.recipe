@@ -3,12 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>Description</key>
-	<string>Download recipe for The Unarchiver. Finds and downloads the latest &apos;The Unarchiver&apos; release.
-
-Note: this recipe has issues with repeated runs due to a bug in curl starting
-with OS X 10.10.5. This has been fixed for the next version of AutoPkg, but not
-yet in a released version. It should still download and unzip properly if is it is the first run, without an already-downloaded file.
-</string>
+	<string>Download recipe for The Unarchiver. Finds and downloads the latest &apos;The Unarchiver&apos; release.</string>
 	<key>Identifier</key>
 	<string>com.github.autopkg.download.TheUnarchiver</string>
 	<key>Input</key>
