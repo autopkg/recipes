@@ -26,7 +26,7 @@ Override BRANCH with either 'beta' or 'release' for the applicable Sparkle feed.
             <key>Arguments</key>
             <dict>
                 <key>appcast_url</key>
-                <string>http://xquartz.macosforge.org/downloads/sparkle/%BRANCH%.xml</string>
+                <string>https://xquartz.macosforge.org/downloads/sparkle/%BRANCH%.xml</string>
             </dict>
         </dict>
         <dict>

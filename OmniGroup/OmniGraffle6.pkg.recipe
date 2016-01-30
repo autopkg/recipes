@@ -11,7 +11,7 @@
         <key>NAME</key>
         <string>OmniGraffle6</string>
         <key>APPCAST_URL</key>
-        <string>http://update.omnigroup.com/appcast/com.omnigroup.OmniGraffle6</string>
+        <string>https://update.omnigroup.com/appcast/com.omnigroup.OmniGraffle6</string>
     </dict>
     <key>MinimumVersion</key>
     <string>0.2.0</string>

@@ -17,7 +17,7 @@ http://update.evernote.com/prerelease/ENMac/EvernoteMacUpdate.xml
         <key>MUNKI_REPO_SUBDIR</key>
         <string>apps/Evernote</string>
         <key>SPARKLE_FEED_URL</key>
-        <string>http://update.evernote.com/public/ENMac/EvernoteMacUpdate.xml</string>
+        <string>https://update.evernote.com/public/ENMac/EvernoteMacUpdate.xml</string>
         <key>pkginfo</key>
         <dict>
             <key>catalogs</key>

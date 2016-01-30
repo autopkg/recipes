@@ -13,7 +13,7 @@
         <key>MUNKI_REPO_SUBDIR</key>
         <string>apps</string>
         <key>APPCAST_URL</key>
-        <string>http://update.omnigroup.com/appcast/com.omnigroup.OmniOutlinerPro3</string>
+        <string>https://update.omnigroup.com/appcast/com.omnigroup.OmniOutlinerPro3</string>
         <key>pkginfo</key>
         <dict>
             <key>catalogs</key>
