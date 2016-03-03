@@ -1,6 +1,6 @@
 #!/usr/bin/python
 #
-# Copyright 2013 Greg Neagle
+# Copyright 2010 Per Olofsson
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -13,208 +13,96 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-"""See docstring for AdobeReaderRepackager class"""
-
-import os
-import shutil
-import subprocess
-from xml.etree import ElementTree
-
-from autopkglib.DmgMounter import DmgMounter
-from autopkglib import ProcessorError
+"""See docstring for AdobeReaderURLProvider class"""
 
 
-__all__ = ["AdobeReaderRepackager"]
+import json
+import urllib2
+
+from autopkglib import Processor, ProcessorError
 
 
-class AdobeReaderRepackager(DmgMounter):
+__all__ = ["AdobeReaderURLProvider"]
 
-    # Modifies the Adobe Reader installer pkg so that:
-    #
-    # 1) preinstall script does not interfere with installation when installed
-    #    by root (for example, with Munki) -- the included preinstall script has
-    #    a bunch of unneeded stuff in it and attempts to move any currently
-    #    installed copy of Adobe Reader into the current user's trash before
-    #    install. We replace this with a simple script that just does an
-    #    rm -r $install_location/Adobe Reader.app
-    #
-    # 2) Modifies the Distribution script to enable installation on any volume;
-    #    this should allow use of this package in InstaDMG/System Image Utility/
-    #    Filewave Lightning imaging workflows, and with Deploy Studio as a
-    #    non-postponed install.
-    #
-    #    The postinstall script decompresses several files inside the
-    #    Adobe Reader.app application bundle. In the past, this was another
-    #    thing preventing install on non-boot volumes. But testing with the
-    #    11.0.3 installer pkg seems to indicate that the postinstall script and
-    #    decompress utility does the right thing on non-boot volumes, so nothing
-    #    special needs to be done with this.
-    #
-    #    One could argue that it would make for a "neater" package to eliminate
-    #    the postinstall script and the decompress bit; I'm taking the position
-    #    of doing the minimum required to make the package work in the required
-    #    scenarios.
-    #
-    # The basic set of operations:
-    #
-    # 1) Expand the pkg with pkgutil --expand
-    # 2) Modify the Distribution file to allow install anywhere by removing
-    #    the <domains> element if it exists.
-    # 3) Replace the preinstall in application.pkg with our own
-    # 4) Reflatten the pkg with pkgutil --flatten
-    #
-    # Note that this will remove any signing that is present. This is actually
-    # OK; it should not prevent any distribution system (Munki, Casper, etc)
-    # from installing this package.
-    #
-    # Though the AdobeReaderURLProvider can get Reader 10 as well as 11, it
-    # is unlikely that this provider can properly repackage Reader 10.
-    #
-    """Mounts an Adobe Reader XI install dmg and repackages the AdobeReader.pkg
-    for automated deployment."""
+
+AR_BASE_URL = (
+    "http://get.adobe.com/reader/webservices/json/standalone/"
+    "?platform_type=Macintosh&platform_dist=OSX&platform_arch=x86-32"
+    "&platform_misc=%s&language=%s&eventname=readerotherversions")
+
+LANGUAGE_DEFAULT = "English"
+MAJOR_VERSION_DEFAULT = "11"
+OS_VERSION_DEFAULT = '10.8.0'
+
+MAJOR_VERSION_MATCH_STR = "adobe/reader/mac/%s"
+
+class AdobeReaderURLProvider(Processor):
+    """Provides URL to the latest Adobe Reader release."""
     description = __doc__
     input_variables = {
-        "dmg_path": {
-            "required": True,
-            "description":
-                "Path to a dmg containing the Adobe Reader installer.",
+        "language": {
+            "required": False,
+            "description": ("Which language to download. Examples: 'English', "
+                            "'German', 'Japanese', 'Swedish'. Default is %s."
+                            % LANGUAGE_DEFAULT),
+        },
+        "os_version": {
+            "required": False,
+            "description": ("OS X version to use in URL search. Defaults to %s."
+                            " Reader DC requires '10.9.0'" % OS_VERSION_DEFAULT)
+        },
+        "major_version": {
+            "required": False,
+            "description": ("Major version. Examples: '10', '11', 'AcrobatDC'. "
+                            "Defaults to %s" % MAJOR_VERSION_DEFAULT)
+        },
+        "base_url": {
+            "required": False,
+            "description": "Default is %s" % AR_BASE_URL,
         },
     }
     output_variables = {
-        "pkg_path": "Path to the repackaged package.",
-        "version": "The version number of Adobe Reader."
+        "url": {
+            "description": "URL to the latest Adobe Reader release.",
+        },
     }
 
-    def find_pkg(self, dir_path):
-        '''Return path to the first package in dir_path'''
+    def get_reader_dmg_url(self, base_url, language, major_version, os_version):
+        '''Returns download URL for Adobe Reader DMG'''
         #pylint: disable=no-self-use
-        for item in os.listdir(dir_path):
-            if item.endswith(".pkg"):
-                return os.path.join(dir_path, item)
-        raise ProcessorError(
-            "No package found in %s" % dir_path)
-
-    def expand(self, pkg, expand_dir):
-        '''Uses pkgutil to expand a flat package.'''
-        #pylint: disable=no-self-use
-        if os.path.isdir(expand_dir):
-            try:
-                shutil.rmtree(expand_dir)
-            except (OSError, IOError), err:
-                raise ProcessorError(
-                    "Can't remove %s: %s" % (expand_dir, err))
+        request_url = base_url % (os_version, language)
+        request = urllib2.Request(request_url)
+        request.add_header("x-requested-with", "XMLHttpRequest")
         try:
-            subprocess.check_call(
-                ['/usr/sbin/pkgutil', '--expand', pkg, expand_dir])
-        except subprocess.CalledProcessError, err:
-            raise ProcessorError("%s expanding %s" % (err, pkg))
-        return expand_dir
-
-    def flatten(self, expanded_pkg, destination):
-        '''Flatten an expanded flat pkg'''
-        #pylint: disable=no-self-use
-        if os.path.exists(destination):
-            try:
-                os.unlink(destination)
-            except OSError, err:
-                raise ProcessorError(
-                    "Can't remove %s: %s" % (destination, err))
+            url_handle = urllib2.urlopen(request)
+            json_response = url_handle.read()
+            url_handle.close()
+        except BaseException as err:
+            raise ProcessorError("Can't open %s: %s" % (base_url, err))
+        reader_info = json.loads(json_response)
+        major_version_string = MAJOR_VERSION_MATCH_STR % major_version
+        matches = [item["download_url"] for item in reader_info
+                   if major_version_string in item["download_url"]]
         try:
-            subprocess.check_call(
-                ['/usr/sbin/pkgutil', '--flatten', expanded_pkg, destination])
-        except subprocess.CalledProcessError, err:
+            return matches[0]
+        except IndexError:
             raise ProcessorError(
-                "%s flattening %s" % (err, expanded_pkg))
-
-    def modify_distribution(self, expanded_pkg):
-        '''Modify the package Distribution file so that installation is allowed
-        on non-boot volumes.'''
-        #pylint: disable=no-self-use
-        dist_file = os.path.join(expanded_pkg, "Distribution")
-        if not os.path.exists(dist_file):
-            raise ProcessorError("%s not found")
-        try:
-            dist = ElementTree.parse(dist_file)
-        except (OSError, IOError, ElementTree.ParseError), err:
-            raise ProcessorError("Can't read %s: %s" % (dist_file, err))
-
-        dist_root = dist.getroot()
-        if not dist_root.tag in ["installer-script", "installer-gui-script"]:
-            raise ProcessorError(
-                "Distribution file is not in the expected format.")
-        domains = dist_root.find("domains")
-        if domains is not None:
-            dist_root.remove(domains)
-            try:
-                dist.write(dist_file)
-            except (OSError, IOError), err:
-                raise ProcessorError(
-                    "Could not write %s: %s" % (dist_file, err))
-
-    def replace_app_preinstall(self, expanded_pkg):
-        '''Replace the preinstall script in application.pkg with our own'''
-        pkg_name = os.path.basename(expanded_pkg)
-        app_pkg = os.path.join(expanded_pkg, "application.pkg")
-        if not os.path.exists(app_pkg):
-            raise ProcessorError("application.pkg not found!")
-        preinstall_script = os.path.join(app_pkg, "Scripts/preinstall")
-        if pkg_name.startswith("AcroRdrDC"):
-            our_script = os.path.join(
-                os.path.dirname(__file__),
-                "package_resources/scripts/readerdc_preinstall")
-        else:
-            our_script = os.path.join(
-                os.path.dirname(__file__),
-                "package_resources/scripts/reader_preinstall")
-        if not os.path.exists(our_script):
-            raise ProcessorError("%s not found" % our_script)
-        try:
-            os.unlink(preinstall_script)
-        except (OSError, IOError), err:
-            raise ProcessorError("%s removing %s" % (err, preinstall_script))
-        try:
-            shutil.copy(our_script, preinstall_script)
-        except (OSError, IOError), err:
-            raise ProcessorError(
-                "%s copying %s to %s" % (err, our_script, preinstall_script))
-        self.output(
-            "Replaced pkg preinstall script with our custom script at %s"
-            % our_script)
+                "Can't find Adobe Reader download URL for %s, version %s"
+                % (language, major_version))
 
     def main(self):
-        # Mount the image.
-        mount_point = self.mount(self.env["dmg_path"])
-        # Wrap all other actions in a try/finally so the image is always
-        # unmounted.
-        try:
-            pkg = self.find_pkg(mount_point)
-            pkg_name = os.path.splitext(os.path.basename(pkg))[0]
-            expand_dir = os.path.join(
-                self.env["RECIPE_CACHE_DIR"], pkg_name)
-            modified_pkg = os.path.join(
-                self.env["RECIPE_CACHE_DIR"], os.path.basename(pkg))
-            expanded_pkg = self.expand(pkg, expand_dir)
-            self.modify_distribution(expanded_pkg)
-            self.replace_app_preinstall(expanded_pkg)
-            
-            #get the version number and add it to modified_pkg before flattening
-            with open(os.path.join(expand_dir, 'Distribution'), 'r') as f:
-            	root = ElementTree.fromstring(f.read())
-            	version_string = root.find('pkg-ref').attrib['version']
-            	self.env['version'] = version_string
-            pkg_path_components = list(os.path.splitext(modified_pkg))
-            pkg_path_components.insert(1,' %s' % (version_string))
-            modified_pkg = ''.join(pkg_path_components)
-            
-            self.flatten(expanded_pkg, modified_pkg)
-            self.env["pkg_path"] = modified_pkg
+        # Determine base_url, language and major_version.
+        base_url = self.env.get("base_url", AR_BASE_URL)
+        language = self.env.get("language", LANGUAGE_DEFAULT)
+        major_version = self.env.get("major_version", MAJOR_VERSION_DEFAULT)
+        os_version = self.env.get("os_version", OS_VERSION_DEFAULT)
 
-        except BaseException, err:
-            raise ProcessorError(err)
-        finally:
-            self.unmount(self.env["dmg_path"])
+        self.env["url"] = self.get_reader_dmg_url(
+            base_url, language, major_version, os_version)
+        self.output("Found URL %s" % self.env["url"])
 
 
-if __name__ == '__main__':
-    PROCESSOR = AdobeReaderRepackager()
+if __name__ == "__main__":
+    PROCESSOR = AdobeReaderURLProvider()
     PROCESSOR.execute_shell()
+
