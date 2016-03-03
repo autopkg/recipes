@@ -81,7 +81,8 @@ class AdobeReaderRepackager(DmgMounter):
         },
     }
     output_variables = {
-        "pkg_path": "Path to the repackaged package."
+        "pkg_path": "Path to the repackaged package.",
+        "version": "The version number of Adobe Reader."
     }
 
     def find_pkg(self, dir_path):
@@ -202,7 +203,7 @@ class AdobeReaderRepackager(DmgMounter):
             	version_string = root.find('pkg-ref').attrib['version']
             	self.env['version'] = version_string
             pkg_path_components = list(os.path.splitext(modified_pkg))
-            pkg_path_components.insert(1,' %s' % (version_string))
+            pkg_path_components.insert(1,'-%s' % (version_string))
             modified_pkg = ''.join(pkg_path_components)
             
             self.flatten(expanded_pkg, modified_pkg)
