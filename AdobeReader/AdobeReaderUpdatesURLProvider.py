@@ -20,6 +20,7 @@
 #pylint: disable=e1101
 
 import urllib2
+import plistlib
 
 from autopkglib import Processor, ProcessorError
 
@@ -33,12 +34,19 @@ MAJOR_VERSION_MATCH_STR = "adobe/reader/mac/%s"
 AR_UPDATER_DOWNLOAD_URL = (
     "http://download.adobe.com/"
     "pub/adobe/reader/mac/%s.x/%s/misc/AdbeRdrUpd%s.dmg")
+AR_UPDATER_DOWNLOAD_URL2 = "http://ardownload.adobe.com"
+
 
 AR_UPDATER_BASE_URL = "https://armmf.adobe.com/arm-manifests/mac"
 AR_URL_TEMPLATE = "/%s/current_version_url_template.txt"
+AR_MANIFEST_TEMPLATE = "/%s/manifest_url_template.txt"
 AR_MAJREV_IDENTIFIER = "{MAJREV}"
 OSX_MAJREV_IDENTIFIER = "{OS_VER_MAJ}"
 OSX_MINREV_IDENTIFIER = "{OS_VER_MIN}"
+AR_PROD_IDENTIFIER = '{PROD}'
+AR_PROD_ARCH_IDENTIFIER = '{PROD_ARCH}'
+AR_PROD = 'com_adobe_Reader'
+AR_PROD_ARCH = 'univ'
 
 class AdobeReaderUpdatesURLProvider(Processor):
     """Provides URL to the latest Adobe Reader release."""
@@ -64,6 +72,37 @@ class AdobeReaderUpdatesURLProvider(Processor):
             "description": "Version for this update.",
         },
     }
+
+    def get_reader_updater_pkg_url(self, major_version):
+        '''Returns download URL for Adobe Reader Updater DMG'''
+
+        request = urllib2.Request(
+            AR_UPDATER_BASE_URL + AR_MANIFEST_TEMPLATE % major_version)
+        try:
+            url_handle = urllib2.urlopen(request)
+            version_string = url_handle.read()
+            url_handle.close()
+        except BaseException as err:
+            raise ProcessorError("Can't open manifest template: %s" % (err))
+        os_maj, os_min = self.env["os_version"].split(".")
+        version_string = version_string.replace(
+            AR_MAJREV_IDENTIFIER, major_version)
+        version_string = version_string.replace(OSX_MAJREV_IDENTIFIER, os_maj)
+        version_string = version_string.replace(OSX_MINREV_IDENTIFIER, os_min)
+        version_string = version_string.replace(AR_PROD_IDENTIFIER, AR_PROD)
+        version_string = version_string.replace(AR_PROD_ARCH_IDENTIFIER, AR_PROD_ARCH)
+
+        request = urllib2.Request(
+            AR_UPDATER_BASE_URL + version_string)
+        try:
+            url_handle = urllib2.urlopen(request)
+            plist = plistlib.readPlistFromString(url_handle.read())
+            url_handle.close()
+        except BaseException as err:
+            raise ProcessorError("Can't get or read manifest: %s" % (err))
+
+        url = AR_UPDATER_DOWNLOAD_URL2 + plist['PatchURL']
+        return url
 
     def get_reader_updater_dmg_url(self, major_version):
         '''Returns download URL for Adobe Reader Updater DMG'''
@@ -100,6 +139,8 @@ class AdobeReaderUpdatesURLProvider(Processor):
         major_version = self.env.get("major_version", MAJOR_VERSION_DEFAULT)
 
         (url, version) = self.get_reader_updater_dmg_url(major_version)
+        # only need the version, getting the URL from the manifest now
+        url = self.get_reader_updater_pkg_url(major_version)
 
         self.env["url"] = url
         self.env["version"] = version
