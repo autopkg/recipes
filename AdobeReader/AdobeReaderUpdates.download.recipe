@@ -48,7 +48,7 @@ https://github.com/autopkg/recipes/pull/61.
             <key>Arguments</key>
             <dict>
                 <key>filename</key>
-                <string>%NAME%.dmg</string>
+                <string>%NAME%.pkg</string>
             </dict>
             <key>Processor</key>
             <string>URLDownloader</string>
