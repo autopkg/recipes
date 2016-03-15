@@ -13,6 +13,8 @@ version 2.1.0. For this reason, the appcast_url variable is now hardcoded in the
     <string>com.github.autopkg.download.VLC</string>
     <key>Input</key>
     <dict>
+        <key>CHECK_FILESIZE_ONLY</key>
+        <true/>
         <key>NAME</key>
         <string>VLC</string>
     </dict>
