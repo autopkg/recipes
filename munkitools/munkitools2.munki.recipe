@@ -62,7 +62,7 @@ descending by tag names according to LooseVersion semantics.</string>
         <string>launchd configuration files for use by Managed Software Center.</string>
     </dict>
     <key>MinimumVersion</key>
-    <string>0.2.4</string>
+    <string>0.5.0</string>
     <key>Process</key>
     <array>
         <dict>
