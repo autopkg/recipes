@@ -8,8 +8,6 @@
     <string>com.github.autopkg.munki.XLD</string>
     <key>Input</key>
     <dict>
-        <key>CHECK_FILESIZE_ONLY</key>
-        <true/>
         <key>NAME</key>
         <string>XLD</string>
         <key>MUNKI_REPO_SUBDIR</key>
