@@ -2,21 +2,21 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>Description</key>
-	<string>Download recipe for The Unarchiver. Finds and downloads the latest &apos;The Unarchiver&apos; release.</string>
-	<key>Identifier</key>
-	<string>com.github.autopkg.download.TheUnarchiver</string>
-	<key>Input</key>
-	<dict>
-		<key>NAME</key>
-		<string>TheUnarchiver</string>
-		<key>SPARKLE_FEED_URL</key>
-		<string>http://unarchiver.c3.cx/updates.rss</string>
-	</dict>
-	<key>MinimumVersion</key>
-	<string>0.2.9</string>
-	<key>Process</key>
-	<array>
+    <key>Description</key>
+    <string>Download recipe for The Unarchiver. Finds and downloads the latest &apos;The Unarchiver&apos; release.</string>
+    <key>Identifier</key>
+    <string>com.github.autopkg.download.TheUnarchiver</string>
+    <key>Input</key>
+    <dict>
+        <key>NAME</key>
+        <string>TheUnarchiver</string>
+        <key>SPARKLE_FEED_URL</key>
+        <string>http://unarchiver.c3.cx/updates.rss</string>
+    </dict>
+    <key>MinimumVersion</key>
+    <string>0.6.1</string>
+    <key>Process</key>
+    <array>
         <dict>
             <key>Processor</key>
             <string>SparkleUpdateInfoProvider</string>
@@ -32,14 +32,38 @@
                 <string>%SPARKLE_FEED_URL%</string>
             </dict>
         </dict>
-		<dict>
-			<key>Processor</key>
-			<string>CURLDownloader</string>
-		</dict>
-		<dict>
-			<key>Processor</key>
-			<string>EndOfCheckPhase</string>
-		</dict>
-	</array>
+        <dict>
+            <key>Processor</key>
+            <string>CURLDownloader</string>
+        </dict>
+        <dict>
+            <key>Processor</key>
+            <string>EndOfCheckPhase</string>
+        </dict>
+        <dict>
+            <key>Processor</key>
+            <string>Unarchiver</string>
+            <key>Arguments</key>
+            <dict>
+                <key>archive_path</key>
+                <string>%pathname%</string>
+                <key>destination_path</key>
+                <string>%RECIPE_CACHE_DIR%/%NAME%</string>
+                <key>purge_destination</key>
+                <true/>
+            </dict>
+        </dict>
+        <dict>
+            <key>Processor</key>
+            <string>CodeSignatureVerifier</string>
+            <key>Arguments</key>
+            <dict>
+                <key>input_path</key>
+                <string>%RECIPE_CACHE_DIR%/%NAME%/The Unarchiver.app</string>
+                <key>requirement</key>
+                <string>anchor apple generic and identifier "cx.c3.theunarchiver" and (certificate leaf[field.1.2.840.113635.100.6.1.9] /* exists */ or certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = M9KXCWYWYR)</string>
+            </dict>
+        </dict>
+    </array>
 </dict>
 </plist>
