@@ -56,7 +56,7 @@ Override BRANCH with either 'beta' or 'release' for the applicable Sparkle feed.
                 <string>%pathname%/XQuartz.pkg</string>
                 <key>expected_authority_names</key>
                 <array>
-                    <string>Developer ID Installer: Apple Inc. - XQuartz</string>
+                    <string>Developer ID Installer: Apple Inc. - XQuartz (NA574AWV7E)</string>
                     <string>Developer ID Certification Authority</string>
                     <string>Apple Root CA</string>
                 </array>
