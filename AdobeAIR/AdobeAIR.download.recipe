@@ -11,7 +11,7 @@
         <key>NAME</key>
         <string>AdobeAIR</string>
         <key>URL</key>
-        <string>http://airdownload.adobe.com/air/mac/download/latest/AdobeAIR.dmg</string>
+        <string>https://airdownload.adobe.com/air/mac/download/latest/AdobeAIR.dmg</string>
     </dict>
     <key>MinimumVersion</key>
     <string>0.4.0</string>
