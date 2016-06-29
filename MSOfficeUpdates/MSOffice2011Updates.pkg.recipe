@@ -19,7 +19,7 @@ http://msdn.microsoft.com/en-us/library/ee825488(v=cs.20).aspx for a table of Cu
         <string>0409</string>
     </dict>
     <key>MinimumVersion</key>
-    <string>0.2.0</string>
+    <string>0.6.0</string>
     <key>ParentRecipe</key>
     <string>com.github.autopkg.download.Office2011Updates</string>
     <key>Process</key>
