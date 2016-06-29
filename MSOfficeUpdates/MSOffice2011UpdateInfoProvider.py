@@ -20,6 +20,7 @@ import urllib2
 
 from distutils.version import LooseVersion
 from operator import itemgetter
+from urlparse import urlparse, urlunparse
 
 from autopkglib import Processor, ProcessorError
 
@@ -231,7 +232,14 @@ class MSOffice2011UpdateInfoProvider(Processor):
                                                for item in metadata])))
             item = matched_items[0]
 
-        self.env["url"] = item["Location"]
+        # Try to use https even though url is http
+        try:
+            pkg_url = item["Location"]
+            https_url = list(urlparse(pkg_url))
+            https_url[0] = 'https'
+            self.env["url"] = urlunparse(https_url)
+        except ValueError:
+            self.env["url"] = item["Location"]
         self.env["pkg_name"] = item["Payload"]
         self.env["version"] = self.get_version(item)
         self.output("Found URL %s" % self.env["url"])
