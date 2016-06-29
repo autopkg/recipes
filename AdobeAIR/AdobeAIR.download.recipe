@@ -14,7 +14,7 @@
         <string>https://airdownload.adobe.com/air/mac/download/latest/AdobeAIR.dmg</string>
     </dict>
     <key>MinimumVersion</key>
-    <string>0.4.0</string>
+    <string>0.6.0</string>
     <key>Process</key>
     <array>
         <dict>
