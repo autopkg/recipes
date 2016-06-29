@@ -69,7 +69,7 @@ certificate for the downloaded update can still be manually verified, however.
         </dict>
     </dict>
     <key>MinimumVersion</key>
-    <string>0.2.0</string>
+    <string>0.6.0</string>
     <key>ParentRecipe</key>
     <string>com.github.autopkg.download.Office2011Updates</string>
     <key>Process</key>
