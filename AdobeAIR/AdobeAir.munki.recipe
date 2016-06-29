@@ -32,7 +32,7 @@ Based on jamesz's work here: https://github.com/jamesez/automunki/tree/master/ad
         </dict>
     </dict>
     <key>MinimumVersion</key>
-    <string>0.2.0</string>
+    <string>0.6.0</string>
     <key>ParentRecipe</key>
     <string>com.github.autopkg.pkg.AdobeAIR</string>
     <key>Process</key>
