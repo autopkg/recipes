@@ -12,7 +12,7 @@
         <string>Skype</string>
     </dict>
     <key>MinimumVersion</key>
-    <string>0.2.0</string>
+    <string>0.6.0</string>
     <key>ParentRecipe</key>
     <string>com.github.autopkg.download.Skype</string>
     <key>Process</key>
