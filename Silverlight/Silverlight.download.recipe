@@ -11,12 +11,12 @@
         <key>NAME</key>
         <string>Silverlight</string>
         <key>DOWNLOAD_URL</key>
-        <string>http://www.microsoft.com/getsilverlight/handlers/getsilverlight.ashx</string>
+        <string>https://www.microsoft.com/getsilverlight/handlers/getsilverlight.ashx</string>
         <key>USER_AGENT</key>
         <string>Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_3) AppleWebKit/536.28.10 (KHTML, like Gecko) Version/6.0.3 Safari/536.28.10</string>
     </dict>
     <key>MinimumVersion</key>
-    <string>0.2.0</string>
+    <string>0.6.0</string>
     <key>Process</key>
     <array>
         <dict>
@@ -38,6 +38,21 @@
         <dict>
             <key>Processor</key>
             <string>EndOfCheckPhase</string>
+        </dict>
+        <dict>
+          <key>Processor</key>
+          <string>CodeSignatureVerifier</string>
+          <key>Arguments</key>
+          <dict>
+            <key>input_path</key>
+            <string>%pathname%/silverlight*.*pkg</string>
+            <key>expected_authority_names</key>
+            <array>
+              <string>Developer ID Installer: Microsoft Corporation</string>
+              <string>Developer ID Certification Authority</string>
+              <string>Apple Root CA</string>
+            </array>
+          </dict>
         </dict>
     </array>
 </dict>
