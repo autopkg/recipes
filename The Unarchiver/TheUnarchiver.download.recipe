@@ -11,7 +11,7 @@
         <key>NAME</key>
         <string>TheUnarchiver</string>
         <key>SPARKLE_FEED_URL</key>
-        <string>http://unarchiver.c3.cx/updates.rss</string>
+        <string>https://unarchiver.c3.cx/updates.rss</string>
     </dict>
     <key>MinimumVersion</key>
     <string>0.6.1</string>
