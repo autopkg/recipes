@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
     <key>Description</key>
-    <string>Downloads latest OmniPlan disk image builds a package.</string>
+    <string>Downloads latest OmniPlan 2 disk image builds a package.</string>
     <key>Identifier</key>
     <string>com.github.autopkg.pkg.omniplan</string>
     <key>Input</key>
