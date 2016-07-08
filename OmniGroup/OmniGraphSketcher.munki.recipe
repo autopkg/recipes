@@ -42,7 +42,7 @@
                 <key>appcast_url</key>
                 <string>%APPCAST_URL%</string>
                 <key>alternate_xmlns_url</key>
-                <string>http://www.omnigroup.com/namespace/omniappcast/v1</string>
+                <string>https://www.omnigroup.com/namespace/omniappcast/v1</string>
             </dict>
         </dict>
         <dict>
