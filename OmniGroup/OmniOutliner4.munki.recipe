@@ -3,13 +3,13 @@
 <plist version="1.0">
 <dict>
     <key>Description</key>
-    <string>Downloads latest OmniOutliner 3 disk image and imports into Munki.</string>
+    <string>Downloads latest OmniOutliner 4 disk image and imports into Munki.</string>
     <key>Identifier</key>
-    <string>com.github.autopkg.munki.omnioutliner</string>
+    <string>com.github.autopkg.munki.omnioutliner4</string>
     <key>Input</key>
     <dict>
         <key>NAME</key>
-        <string>OmniOutliner</string>
+        <string>OmniOutliner4</string>
         <key>MUNKI_REPO_SUBDIR</key>
         <string>apps</string>
         <key>pkginfo</key>
@@ -19,9 +19,9 @@
                 <string>testing</string>
             </array>
             <key>description</key>
-            <string>Welcome to OmniOutliner 3, an amazingly flexible program for creating, collecting, and organizing information. Use OmniOutliner's document structure to brainstorm new ideas, drill out specifics, and line up the steps needed to get everything done. It's more than just an outlining tool—you've got multiple columns, smart checkboxes, customizable popup lists, and an über-innovative styles system at your disposal. Use OmniOutliner to draft to-do lists, create agendas, manage tasks, track expenses, take notes, plan events, write screenplays . . . and just about anything else you can think of. </string>
+            <string>OmniOutliner is a start-to-finish writing app. Perfect for collecting information, outlining Big Ideas, adding structure to any sort of writing, and much more. From grocery lists to email drafts to long-form composition.</string>
             <key>display_name</key>
-            <string>OmniOutliner</string>
+            <string>OmniOutliner 4</string>
             <key>name</key>
             <string>%NAME%</string>
             <key>unattended_install</key>
@@ -31,7 +31,7 @@
     <key>MinimumVersion</key>
     <string>0.2.0</string>
     <key>ParentRecipe</key>
-    <string>com.github.autopkg.download.omnioutliner</string>
+    <string>com.github.autopkg.download.omnioutliner4</string>
     <key>Process</key>
     <array>
         <dict>

@@ -3,18 +3,18 @@
 <plist version="1.0">
 <dict>
     <key>Description</key>
-    <string>Downloads latest OmniOutliner 3 disk image builds a package.</string>
+    <string>Downloads latest OmniOutliner 4 disk image builds a package.</string>
     <key>Identifier</key>
-    <string>com.github.autopkg.pkg.omnioutliner</string>
+    <string>com.github.autopkg.pkg.omnioutliner4</string>
     <key>Input</key>
     <dict>
         <key>NAME</key>
-        <string>OmniOutliner</string>
+        <string>OmniOutliner4</string>
     </dict>
     <key>MinimumVersion</key>
     <string>0.2.0</string>
     <key>ParentRecipe</key>
-    <string>com.github.autopkg.download.omnioutliner</string>
+    <string>com.github.autopkg.download.omnioutliner4</string>
     <key>Process</key>
     <array>
         <dict>
