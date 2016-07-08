@@ -32,27 +32,10 @@
     </dict>
     <key>MinimumVersion</key>
     <string>0.2.0</string>
+    <key>ParentRecipe</key>
+    <string>com.github.autopkg.download.omnioutlinerpro</string>
     <key>Process</key>
     <array>
-        <dict>
-            <key>Processor</key>
-            <string>SparkleUpdateInfoProvider</string>
-            <key>Arguments</key>
-            <dict>
-                <key>appcast_url</key>
-                <string>%APPCAST_URL%</string>
-                <key>alternate_xmlns_url</key>
-                <string>https://www.omnigroup.com/namespace/omniappcast/v1</string>
-            </dict>
-        </dict>
-        <dict>
-            <key>Processor</key>
-            <string>URLDownloader</string>
-        </dict>
-        <dict>
-            <key>Processor</key>
-            <string>EndOfCheckPhase</string>
-        </dict>
         <dict>
             <key>Arguments</key>
             <dict>
