@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
     <key>Description</key>
-    <string>Downloads latest OmniPlan disk image and imports into Munki.</string>
+    <string>Downloads latest OmniPlan 2 disk image and imports into Munki.</string>
     <key>Identifier</key>
     <string>com.github.autopkg.munki.omniplan</string>
     <key>Input</key>
@@ -12,8 +12,6 @@
         <string>OmniPlan</string>
         <key>MUNKI_REPO_SUBDIR</key>
         <string>apps</string>
-        <key>APPCAST_URL</key>
-        <string>https://update.omnigroup.com/appcast/com.omnigroup.OmniPlan2</string>
         <key>pkginfo</key>
         <dict>
             <key>catalogs</key>
@@ -32,27 +30,10 @@
     </dict>
     <key>MinimumVersion</key>
     <string>0.2.0</string>
+    <key>ParentRecipe</key>
+    <string>com.github.autopkg.download.omniplan</string>
     <key>Process</key>
     <array>
-        <dict>
-            <key>Processor</key>
-            <string>SparkleUpdateInfoProvider</string>
-            <key>Arguments</key>
-            <dict>
-                <key>appcast_url</key>
-                <string>%APPCAST_URL%</string>
-                <key>alternate_xmlns_url</key>
-                <string>https://www.omnigroup.com/namespace/omniappcast/v1</string>
-            </dict>
-        </dict>
-        <dict>
-            <key>Processor</key>
-            <string>URLDownloader</string>
-        </dict>
-        <dict>
-            <key>Processor</key>
-            <string>EndOfCheckPhase</string>
-        </dict>
         <dict>
             <key>Arguments</key>
             <dict>
