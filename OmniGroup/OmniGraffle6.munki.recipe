@@ -12,8 +12,6 @@
         <string>OmniGraffle6</string>
         <key>MUNKI_REPO_SUBDIR</key>
         <string>apps</string>
-        <key>APPCAST_URL</key>
-        <string>https://update.omnigroup.com/appcast/com.omnigroup.OmniGraffle6</string>
         <key>pkginfo</key>
         <dict>
             <key>catalogs</key>
