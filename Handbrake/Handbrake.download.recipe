@@ -3,7 +3,8 @@
 <plist version="1.0">
 <dict>
     <key>Description</key>
-    <string>Downloads the latest Handbrake disk image.</string>
+    <string>Downloads the latest Handbrake disk image.
+    Note: The code signature verification for Handbrake cannot be done at this time.</string>
     <key>Identifier</key>
     <string>com.github.autopkg.download.Handbrake</string>
     <key>Input</key>
