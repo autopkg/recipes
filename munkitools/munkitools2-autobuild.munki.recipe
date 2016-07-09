@@ -30,7 +30,7 @@ MUNKI_ICON should be overridden with your icon name.
         <key>MUNKI_DEVELOPER</key>
         <string>The Munki Project</string>
         <key>MUNKI_ICON</key>
-        <string>munkitools.png</string>
+        <string></string>
         <key>MUNKI_REPO_SUBDIR</key>
         <string>munkitools</string>
         <!--  -->

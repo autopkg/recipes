@@ -6,7 +6,7 @@
     <string>Note: munkitools does not include a code signature. If your
 organization requires code signature, it is recommend to internally sign
 the application.
-    
+
 Downloads and imports version 2 of the Munki tools via
 the official releases listing on GitHub.
 
@@ -42,7 +42,7 @@ MUNKI_ICON should be overridden with your icon name.
         <key>MUNKI_DEVELOPER</key>
         <string>The Munki Project</string>
         <key>MUNKI_ICON</key>
-        <string>munkitools.png</string>
+        <string></string>
         <key>MUNKI_REPO_SUBDIR</key>
         <string>munkitools</string>
         <!--  -->
