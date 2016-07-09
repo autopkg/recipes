@@ -43,6 +43,7 @@ __all__ = ["MSOffice2011UpdateInfoProvider"]
 CULTURE_CODE = "0409"
 BASE_URL = "http://www.microsoft.com/mac/autoupdate/%sMSOf14.xml"
 MUNKI_UPDATE_NAME = "Office2011_update"
+URL_DL = "http"
 
 class MSOffice2011UpdateInfoProvider(Processor):
     """Provides a download URL for an Office 2011 update."""
@@ -62,6 +63,12 @@ class MSOffice2011UpdateInfoProvider(Processor):
             "description": (
                 "Default is %s. If this is given, culture_code is ignored."
                 % (BASE_URL % CULTURE_CODE)),
+        },
+        "url_dl": {
+            "required": False,
+            "description": (
+                "Use undocumented HTTPS download url. Defaults to '%s'"
+                % URL_DL),
         },
         "version": {
             "required": False,
@@ -233,13 +240,17 @@ class MSOffice2011UpdateInfoProvider(Processor):
             item = matched_items[0]
 
         # Try to use https even though url is http
-        try:
-            pkg_url = item["Location"]
-            https_url = list(urlparse(pkg_url))
-            https_url[0] = 'https'
-            self.env["url"] = urlunparse(https_url)
-        except ValueError:
-            self.env["url"] = item["Location"]
+        url_dl = self.env.get("url_dl", URL_DL)
+        if url_dl == "https":
+        	try:
+        		pkg_url = item["Location"]
+        		https_url = list(urlparse(pkg_url))
+        		https_url[0] = 'https'
+        		self.env["url"] = urlunparse(https_url)
+        	except ValueError:
+        		self.env["url"] = item["Location"]
+        else:
+        	self.env["url"] = item["Location"]
         self.env["pkg_name"] = item["Payload"]
         self.env["version"] = self.get_version(item)
         self.output("Found URL %s" % self.env["url"])

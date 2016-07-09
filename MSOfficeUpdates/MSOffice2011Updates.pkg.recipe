@@ -6,7 +6,10 @@
     <string>Finds latest Office 2011 update, downloads the disk image and extracts the pkg.
 Set VERSION to a specific version number to download that version instead.
 Set CULTURE_CODE to a different value to get a different localization. See
-http://msdn.microsoft.com/en-us/library/ee825488(v=cs.20).aspx for a table of Culture Codes.</string>
+http://msdn.microsoft.com/en-us/library/ee825488(v=cs.20).aspx for a table of Culture Codes.
+
+If you would like to use an undocumented HTTPS download, set URL_DL to https.
+</string>
     <key>Identifier</key>
     <string>com.github.autopkg.pkg.Office2011Updates</string>
     <key>Input</key>
@@ -17,6 +20,8 @@ http://msdn.microsoft.com/en-us/library/ee825488(v=cs.20).aspx for a table of Cu
         <string>latest</string>
         <key>CULTURE_CODE</key>
         <string>0409</string>
+        <key>URL_DL</key>
+        <string>http</string>
     </dict>
     <key>MinimumVersion</key>
     <string>0.6.0</string>
