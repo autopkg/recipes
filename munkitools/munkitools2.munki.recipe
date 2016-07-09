@@ -3,7 +3,11 @@
 <plist version="1.0">
 <dict>
     <key>Description</key>
-    <string>Downloads and imports version 2 of the Munki tools via
+    <string>Note: munkitools does not include a code signature. If your
+organization requires code signature, it is recommend to internally sign
+the application.
+    
+Downloads and imports version 2 of the Munki tools via
 the official releases listing on GitHub.
 
 By default only "final" releases are included. Set INCLUDE_PRERELEASES

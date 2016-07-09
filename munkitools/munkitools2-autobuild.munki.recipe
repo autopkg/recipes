@@ -3,7 +3,11 @@
 <plist version="1.0">
 <dict>
     <key>Description</key>
-    <string>Downloads and imports a pre-built Munki 2 from
+    <string>Note: munkitools does not include a code signature. If your
+organization requires code signature, it is recommend to internally sign
+the application.
+
+Downloads and imports a pre-built Munki 2 from
 https://munkibuilds.org. DOWNLOAD_URL can be overridden to
 an alternate URL, from either your own server or an alternate
 package version, ie.
