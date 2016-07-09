@@ -19,7 +19,10 @@ existing override for use with the autobuild recipe.
 The GitHubReleasesInfoProvider processor used by this recipe also
 respects an input variable: 'sort_by_highest_tag_names', which
 if set, will ignore the post dates of the releases and instead sort
-descending by tag names according to LooseVersion semantics.</string>
+descending by tag names according to LooseVersion semantics.
+
+MUNKI_ICON should be overridden with your icon name.
+</string>
     <key>Identifier</key>
     <string>com.github.autopkg.munki.munkitools2</string>
     <key>Input</key>
