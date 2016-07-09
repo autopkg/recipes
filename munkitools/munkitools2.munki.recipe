@@ -3,7 +3,11 @@
 <plist version="1.0">
 <dict>
     <key>Description</key>
-    <string>Downloads and imports version 2 of the Munki tools via
+    <string>Note: munkitools does not include a code signature. If your
+organization requires code signature, it is recommend to internally sign
+the application.
+
+Downloads and imports version 2 of the Munki tools via
 the official releases listing on GitHub.
 
 By default only "final" releases are included. Set INCLUDE_PRERELEASES
@@ -19,7 +23,10 @@ existing override for use with the autobuild recipe.
 The GitHubReleasesInfoProvider processor used by this recipe also
 respects an input variable: 'sort_by_highest_tag_names', which
 if set, will ignore the post dates of the releases and instead sort
-descending by tag names according to LooseVersion semantics.</string>
+descending by tag names according to LooseVersion semantics.
+
+MUNKI_ICON should be overridden with your icon name.
+</string>
     <key>Identifier</key>
     <string>com.github.autopkg.munki.munkitools2</string>
     <key>Input</key>
@@ -30,6 +37,12 @@ descending by tag names according to LooseVersion semantics.</string>
         <string>munkitools2</string>
         <key>MUNKI_CATALOG</key>
         <string>development</string>
+        <key>MUNKI_CATEGORY</key>
+        <string>munkitools</string>
+        <key>MUNKI_DEVELOPER</key>
+        <string>The Munki Project</string>
+        <key>MUNKI_ICON</key>
+        <string></string>
         <key>MUNKI_REPO_SUBDIR</key>
         <string>munkitools</string>
         <!--  -->
@@ -203,10 +216,16 @@ descending by tag names according to LooseVersion semantics.</string>
                     <array>
                         <string>%MUNKI_CATALOG%</string>
                     </array>
+                    <key>category</key>
+                    <string>%MUNKI_CATEGORY%</string>
                     <key>description</key>
                     <string>%MUNKITOOLS_CORE_DESCRIPTION%</string>
+                    <key>developer</key>
+                    <string>%MUNKI_DEVELOPER%</string>
                     <key>display_name</key>
                     <string>%MUNKITOOLS_CORE_DISPLAYNAME%</string>
+                    <key>icon_name</key>
+                    <string>%MUNKI_ICON%</string>
                     <key>minimum_os_version</key>
                     <string>10.6.0</string>
                     <key>name</key>
@@ -235,10 +254,16 @@ descending by tag names according to LooseVersion semantics.</string>
                     <array>
                         <string>%MUNKI_CATALOG%</string>
                     </array>
+                    <key>category</key>
+                    <string>%MUNKI_CATEGORY%</string>
                     <key>description</key>
                     <string>%MUNKITOOLS_ADMIN_DESCRIPTION%</string>
+                    <key>developer</key>
+                    <string>%MUNKI_DEVELOPER%</string>
                     <key>display_name</key>
                     <string>%MUNKITOOLS_ADMIN_DISPLAYNAME%</string>
+                    <key>icon_name</key>
+                    <string>%MUNKI_ICON%</string>
                     <key>minimum_os_version</key>
                     <string>10.6.0</string>
                     <key>name</key>
@@ -267,10 +292,16 @@ descending by tag names according to LooseVersion semantics.</string>
                     <array>
                         <string>%MUNKI_CATALOG%</string>
                     </array>
+                    <key>category</key>
+                    <string>%MUNKI_CATEGORY%</string>
                     <key>description</key>
                     <string>%MUNKITOOLS_APP_DESCRIPTION%</string>
+                    <key>developer</key>
+                    <string>%MUNKI_DEVELOPER%</string>
                     <key>display_name</key>
                     <string>%MUNKITOOLS_APP_DISPLAYNAME%</string>
+                    <key>icon_name</key>
+                    <string>%MUNKI_ICON%</string>
                     <key>minimum_os_version</key>
                     <string>10.6.0</string>
                     <key>name</key>
@@ -300,10 +331,16 @@ descending by tag names according to LooseVersion semantics.</string>
                     <array>
                         <string>%MUNKI_CATALOG%</string>
                     </array>
+                    <key>category</key>
+                    <string>%MUNKI_CATEGORY%</string>
                     <key>description</key>
                     <string>%MUNKITOOLS_LAUNCHD_DESCRIPTION%</string>
+                    <key>developer</key>
+                    <string>%MUNKI_DEVELOPER%</string>
                     <key>display_name</key>
                     <string>%MUNKITOOLS_LAUNCHD_DISPLAYNAME%</string>
+                    <key>icon_name</key>
+                    <string>%MUNKI_ICON%</string>
                     <key>minimum_os_version</key>
                     <string>10.6.0</string>
                     <key>name</key>
