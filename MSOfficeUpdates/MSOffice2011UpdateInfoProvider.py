@@ -41,9 +41,9 @@ __all__ = ["MSOffice2011UpdateInfoProvider"]
 # See http://msdn.microsoft.com/en-us/library/ee825488(v=cs.20).aspx
 # for a table of "Culture Codes"
 CULTURE_CODE = "0409"
-BASE_URL = "http://www.microsoft.com/mac/autoupdate/%sMSOf14.xml"
 MUNKI_UPDATE_NAME = "Office2011_update"
 DOWNLOAD_URL_SCHEME = "http"
+BASE_URL = DOWNLOAD_URL_SCHEME + "://www.microsoft.com/mac/autoupdate/%sMSOf14.xml"
 
 class MSOffice2011UpdateInfoProvider(Processor):
     """Provides a download URL for an Office 2011 update."""
