@@ -21,7 +21,7 @@ https://munkibuilds.org/2.2.2.2416/munkitools-2.2.2.2416.pkg</string>
         <key>MUNKI_CATEGORY</key>
         <string>munkitools</string>
         <key>MUNKI_DEVELOPER</key>
-        <string>Greg Neagle</string>
+        <string>The Munki Project</string>
         <key>MUNKI_ICON</key>
         <string>munkitools.png</string>
         <key>MUNKI_REPO_SUBDIR</key>

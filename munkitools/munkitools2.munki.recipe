@@ -33,7 +33,7 @@ descending by tag names according to LooseVersion semantics.</string>
         <key>MUNKI_CATEGORY</key>
         <string>munkitools</string>
         <key>MUNKI_DEVELOPER</key>
-        <string>Greg Neagle</string>
+        <string>The Munki Project</string>
         <key>MUNKI_ICON</key>
         <string>munkitools.png</string>
         <key>MUNKI_REPO_SUBDIR</key>
