@@ -4,7 +4,7 @@
 <dict>
     <key>Description</key>
     <string>Downloads the latest Handbrake disk image.
-    Note: The code signature verification for Handbrake cannot be done at this time.</string>
+    Note: Code signature verification for Handbrake cannot be done at this time, as the application is not currently signed.</string>
     <key>Identifier</key>
     <string>com.github.autopkg.download.Handbrake</string>
     <key>Input</key>
