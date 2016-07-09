@@ -8,7 +8,7 @@ Set VERSION to a specific version number to download that version instead.
 Set CULTURE_CODE to a different value to get a different localization. See
 http://msdn.microsoft.com/en-us/library/ee825488(v=cs.20).aspx for a table of Culture Codes.
 
-If you would like to use an undocumented HTTPS download, set URL_DL to https.
+If you would like to use an undocumented HTTPS download, set DOWNLOAD_URL_SCHEME to https.
 
 `autopkg run MSOffice2011Updates.munki -k VERSION=14.1.0 -k DISABLE_CODE_SIGNATURE_VERIFICATION=true`
 will download and import the 14.1.0 update; most of the later Office updates declare they require
@@ -30,7 +30,7 @@ certificate for the downloaded update can still be manually verified, however.
         <string>latest</string>
         <key>CULTURE_CODE</key>
         <string>0409</string>
-        <key>URL_DL</key>
+        <key>DOWNLOAD_URL_SCHEME</key>
         <string>http</string>
         <key>pkginfo</key>
         <dict>

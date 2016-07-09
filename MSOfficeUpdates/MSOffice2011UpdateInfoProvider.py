@@ -43,7 +43,7 @@ __all__ = ["MSOffice2011UpdateInfoProvider"]
 CULTURE_CODE = "0409"
 BASE_URL = "http://www.microsoft.com/mac/autoupdate/%sMSOf14.xml"
 MUNKI_UPDATE_NAME = "Office2011_update"
-URL_DL = "http"
+DOWNLOAD_URL_SCHEME = "http"
 
 class MSOffice2011UpdateInfoProvider(Processor):
     """Provides a download URL for an Office 2011 update."""
@@ -64,11 +64,11 @@ class MSOffice2011UpdateInfoProvider(Processor):
                 "Default is %s. If this is given, culture_code is ignored."
                 % (BASE_URL % CULTURE_CODE)),
         },
-        "url_dl": {
+        "download_url_scheme": {
             "required": False,
             "description": (
-                "Use undocumented HTTPS download url. Defaults to '%s'"
-                % URL_DL),
+                "A value of https will use an undocumented download. Defaults to '%s'"
+                % DOWNLOAD_URL_SCHEME),
         },
         "version": {
             "required": False,
@@ -240,7 +240,7 @@ class MSOffice2011UpdateInfoProvider(Processor):
             item = matched_items[0]
 
         # Try to use https even though url is http
-        url_dl = self.env.get("url_dl", URL_DL)
+        download_url_scheme = self.env.get("download_url_scheme", DOWNLOAD_URL_SCHEME)
         if url_dl == "https":
         	try:
         		pkg_url = item["Location"]
