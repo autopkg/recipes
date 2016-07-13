@@ -241,7 +241,7 @@ class MSOffice2011UpdateInfoProvider(Processor):
 
         # Try to use https even though url is http
         download_url_scheme = self.env.get("download_url_scheme", DOWNLOAD_URL_SCHEME)
-        if url_dl == "https":
+        if DOWNLOAD_URL_SCHEME == "https":
         	try:
         		pkg_url = item["Location"]
         		https_url = list(urlparse(pkg_url))
