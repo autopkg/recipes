@@ -30,7 +30,7 @@ __all__ = ["MSOffice2016URLandUpdateInfoProvider"]
 # CULTURE_CODE defaulting to 'en-US' as the installers and updates seem to be
 # multilingual.
 CULTURE_CODE = "0409"
-BASE_URL = "http://www.microsoft.com/mac/autoupdate/%s15.xml"
+BASE_URL = "https://officecdn.microsoft.com/pr/%s/OfficeMac/%s15.xml"
 PROD_DICT = {
     'Excel':'XCEL',
     'OneNote':'ONMC',
@@ -41,6 +41,12 @@ PROD_DICT = {
 LOCALE_ID_INFO_URL = "https://msdn.microsoft.com/en-us/goglobal/bb964664.aspx"
 SUPPORTED_VERSIONS = ["latest", "latest-delta"]
 DEFAULT_VERSION = "latest"
+CHANNELS = {
+    'Production': 'C1297A47-86C4-4C1F-97FA-950631F94777',
+    'InsiderSlow': '1ac37578-5a24-40fb-892e-b89d85b6dfaa',
+    'InsiderFast': '4B2D7701-0A4F-49C8-B4CB-0C2D4043F51F',
+}
+DEFAULT_CHANNEL = "Production"
 
 class MSOffice2016URLandUpdateInfoProvider(Processor):
     """Provides a download URL for the most recent version of MS Office 2016."""
@@ -76,6 +82,16 @@ class MSOffice2016URLandUpdateInfoProvider(Processor):
                  "metadata. If this key is set, this name will be used "
                  "for the required item. If unset, NAME will be used.")
         },
+        "channel": {
+            "required": False,
+            "default": DEFAULT_CHANNEL,
+            "description":
+                ("Update feed channel that will be checked for updates. "
+                 "Defaults to %s, acceptable values are either a custom "
+                 "UUID or one of: %s" % (
+                    DEFAULT_CHANNEL,
+                    ", ".join(CHANNELS.keys())))
+        }
     }
     output_variables = {
         "additional_pkginfo": {
@@ -132,8 +148,10 @@ class MSOffice2016URLandUpdateInfoProvider(Processor):
         CFBundleShortVersionString are equal."""
         self.sanity_check_expected_triggers(item)
         version = self.get_version(item)
+        # Skipping CFBundleShortVersionString because it doesn't contain
+        # anything more specific than major.minor (no build versions
+        # distinguishing Insider builds for example)
         installs_item = {
-            "CFBundleShortVersionString": version,
             "CFBundleVersion": version,
             "path": ("/Applications/Microsoft %s.app" % self.env["product"]),
             "type": "application",
@@ -142,7 +160,18 @@ class MSOffice2016URLandUpdateInfoProvider(Processor):
 
     def get_version(self, item):
         """Extracts the version of the update item."""
-        # We currently expect the version at the end of the Title key,
+        # If the 'Update Version' key exists we pull the "full" version string
+        # easily from this
+        if item.get("Update Version"):
+            self.output(
+                "Extracting version %s from metadata 'Update Version' key" %
+                item["Update Version"])
+            return item["Update Version"]
+
+        # If it's not, fall back to legacy version detection that predates the
+        # existence of the 'Update Version' key
+        #
+        # We expect the version at the end of the Title key,
         # e.g.: "Microsoft Excel Update 15.10.0"
         # Work backwards from the end and break on the first thing
         # that looks like a version
@@ -155,6 +184,8 @@ class MSOffice2016URLandUpdateInfoProvider(Processor):
                 "Error validating Office 2016 version extracted "
                 "from Title manifest value: '%s'" % item["Title"])
         version = match.group(0)
+        self.output(
+            "Extracting version %s from metadata 'Title' key" % version)
         return version
 
     def value_to_os_version_string(self, value):
@@ -184,14 +215,29 @@ class MSOffice2016URLandUpdateInfoProvider(Processor):
 
     def get_installer_info(self):
         """Gets info about an installer from MS metadata."""
-        base_url = BASE_URL % (CULTURE_CODE + PROD_DICT[self.env["product"]])
+        # Get the channel UUID, matching against a custom UUID if one is given
+        channel_input = self.env.get("channel", DEFAULT_CHANNEL)
+        rex = r"^([0-9a-fA-F]{8}-([0-9a-fA-F]{4}-){3}[0-9a-fA-F]{12})$"
+        match_uuid = re.match(rex, channel_input)
+        if not match_uuid and channel_input not in CHANNELS.keys():
+            raise ProcessorError(
+                "'channel' input variable must be one of: %s or a custom "
+                "uuid" % (", ".join(CHANNELS.keys())))
+        if match_uuid:
+            channel = match_uuid.groups()[0]
+        else:
+            channel = CHANNELS[channel_input]
+        base_url = BASE_URL % (channel,
+                               CULTURE_CODE + PROD_DICT[self.env["product"]])
+
         # Get metadata URL
         req = urllib2.Request(base_url)
         # Add the MAU User-Agent, since MAU feed server seems to explicitly
         # block a User-Agent of 'Python-urllib/2.7' - even a blank User-Agent
         # string passes.
-        req.add_header("User-Agent",
-                       "Microsoft%20AutoUpdate/3.0.6 CFNetwork/720.2.4 Darwin/14.4.0 (x86_64)")
+        req.add_header(
+            "User-Agent",
+            "Microsoft%20AutoUpdate/3.6.16080300 CFNetwork/760.6.3 Darwin/15.6.0 (x86_64)")
 
         try:
             fdesc = urllib2.urlopen(req)
