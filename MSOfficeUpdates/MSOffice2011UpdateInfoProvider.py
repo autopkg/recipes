@@ -20,6 +20,7 @@ import urllib2
 
 from distutils.version import LooseVersion
 from operator import itemgetter
+from urlparse import urlparse, urlunparse
 
 from autopkglib import Processor, ProcessorError
 
@@ -40,8 +41,9 @@ __all__ = ["MSOffice2011UpdateInfoProvider"]
 # See http://msdn.microsoft.com/en-us/library/ee825488(v=cs.20).aspx
 # for a table of "Culture Codes"
 CULTURE_CODE = "0409"
-BASE_URL = "http://www.microsoft.com/mac/autoupdate/%sMSOf14.xml"
 MUNKI_UPDATE_NAME = "Office2011_update"
+DOWNLOAD_URL_SCHEME = "http"
+BASE_URL = DOWNLOAD_URL_SCHEME + "://www.microsoft.com/mac/autoupdate/%sMSOf14.xml"
 
 class MSOffice2011UpdateInfoProvider(Processor):
     """Provides a download URL for an Office 2011 update."""
@@ -61,6 +63,12 @@ class MSOffice2011UpdateInfoProvider(Processor):
             "description": (
                 "Default is %s. If this is given, culture_code is ignored."
                 % (BASE_URL % CULTURE_CODE)),
+        },
+        "download_url_scheme": {
+            "required": False,
+            "description": (
+                "A value of https will use an undocumented download. Defaults to '%s'"
+                % DOWNLOAD_URL_SCHEME),
         },
         "version": {
             "required": False,
@@ -231,7 +239,18 @@ class MSOffice2011UpdateInfoProvider(Processor):
                                                for item in metadata])))
             item = matched_items[0]
 
-        self.env["url"] = item["Location"]
+        # Try to use https even though url is http
+        download_url_scheme = self.env.get("download_url_scheme", DOWNLOAD_URL_SCHEME)
+        if DOWNLOAD_URL_SCHEME == "https":
+        	try:
+        		pkg_url = item["Location"]
+        		https_url = list(urlparse(pkg_url))
+        		https_url[0] = 'https'
+        		self.env["url"] = urlunparse(https_url)
+        	except ValueError:
+        		self.env["url"] = item["Location"]
+        else:
+        	self.env["url"] = item["Location"]
         self.env["pkg_name"] = item["Payload"]
         self.env["version"] = self.get_version(item)
         self.output("Found URL %s" % self.env["url"])
