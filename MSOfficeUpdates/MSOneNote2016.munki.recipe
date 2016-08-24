@@ -61,6 +61,8 @@ installcheck_script).</string>
             <array>
                 <string>testing</string>
             </array>
+            <key>display_name</key>
+            <string>Microsoft OneNote for Mac</string>
             <key>name</key>
             <string>%NAME%</string>
             <key>unattended_install</key>
