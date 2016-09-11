@@ -15,7 +15,7 @@ http://update.evernote.com/prerelease/ENMac/EvernoteMacUpdate.xml
         <key>NAME</key>
         <string>Evernote</string>
         <key>SPARKLE_FEED_URL</key>
-        <string>https://update.evernote.com/public/ENMac/EvernoteMacUpdate.xml</string>
+        <string>https://update.evernote.com/public/ENMacSMD/EvernoteMacUpdate.xml</string>
     </dict>
     <key>MinimumVersion</key>
     <string>0.4.0</string>
