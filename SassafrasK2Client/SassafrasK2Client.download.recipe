@@ -19,7 +19,7 @@ is set to an empty string, the latest version will be retrieved.
     <key>Input</key>
     <dict>
         <key>REVISION</key>
-        <string>73</string>
+        <string>74</string>
         <key>NAME</key>
         <string>K2Client</string>
     </dict>
