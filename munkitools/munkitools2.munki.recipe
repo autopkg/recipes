@@ -3,25 +3,46 @@
 <plist version="1.0">
 <dict>
     <key>Description</key>
-    <string>Downloads and imports version 2 of the Munki tools via
-the official releases listing on GitHub. Note that this
-will likely include preview releases.
+    <string>Note: munkitools does not include a code signature. If your
+organization requires code signature, it is recommend to internally sign
+the application.
 
-For an alternate (possibly unstable) release, override
-DOWNLOAD_URL to a direct pkg download URL, such as:
+Downloads and imports version 2 of the Munki tools via
+the official releases listing on GitHub.
 
-https://munkibuilds.org/munkitools2-latest.pkg
+By default only "final" releases are included. Set INCLUDE_PRERELEASES
+to a non-empty value to include releases on GitHub marked as
+"prereleases."
+
+This recipe cannot be overridden to pull a download from an
+alternate location such as munkibuilds.org - it will only download the
+official releases. For this, use the munkitools2-autobuild.munki
+recipe. Assuming you are overriding this recipe, you can copy your
+existing override for use with the autobuild recipe.
+
+The GitHubReleasesInfoProvider processor used by this recipe also
+respects an input variable: 'sort_by_highest_tag_names', which
+if set, will ignore the post dates of the releases and instead sort
+descending by tag names according to LooseVersion semantics.
+
+MUNKI_ICON should be overridden with your icon name.
 </string>
     <key>Identifier</key>
     <string>com.github.autopkg.munki.munkitools2</string>
     <key>Input</key>
     <dict>
+        <key>INCLUDE_PRERELEASES</key>
+        <string></string>
         <key>NAME</key>
         <string>munkitools2</string>
-        <key>DOWNLOAD_URL</key>
-        <string>https://github.com/munki/munki/releases</string>
         <key>MUNKI_CATALOG</key>
         <string>development</string>
+        <key>MUNKI_CATEGORY</key>
+        <string>munkitools</string>
+        <key>MUNKI_DEVELOPER</key>
+        <string>The Munki Project</string>
+        <key>MUNKI_ICON</key>
+        <string></string>
         <key>MUNKI_REPO_SUBDIR</key>
         <string>munkitools</string>
         <!--  -->
@@ -54,16 +75,20 @@ https://munkibuilds.org/munkitools2-latest.pkg
         <string>launchd configuration files for use by Managed Software Center.</string>
     </dict>
     <key>MinimumVersion</key>
-    <string>0.2.4</string>
+    <string>0.5.0</string>
     <key>Process</key>
     <array>
         <dict>
             <key>Processor</key>
-            <string>Munkitools2URLProvider</string>
+            <string>GitHubReleasesInfoProvider</string>
             <key>Arguments</key>
             <dict>
-                <key>base_url</key>
-                <string>%DOWNLOAD_URL%</string>
+                <key>asset_regex</key>
+                <string>^munkitools-2.*?pkg$</string>
+                <key>github_repo</key>
+                <string>munki/munki</string>
+                <key>include_prereleases</key>
+                <string>%INCLUDE_PRERELEASES%</string>
             </dict>
         </dict>
         <dict>
@@ -191,10 +216,18 @@ https://munkibuilds.org/munkitools2-latest.pkg
                     <array>
                         <string>%MUNKI_CATALOG%</string>
                     </array>
+                    <key>category</key>
+                    <string>%MUNKI_CATEGORY%</string>
                     <key>description</key>
                     <string>%MUNKITOOLS_CORE_DESCRIPTION%</string>
+                    <key>developer</key>
+                    <string>%MUNKI_DEVELOPER%</string>
                     <key>display_name</key>
                     <string>%MUNKITOOLS_CORE_DISPLAYNAME%</string>
+                    <key>icon_name</key>
+                    <string>%MUNKI_ICON%</string>
+                    <key>minimum_os_version</key>
+                    <string>10.6.0</string>
                     <key>name</key>
                     <string>%MUNKITOOLS_CORE_NAME%</string>
                     <key>requires</key>
@@ -221,10 +254,18 @@ https://munkibuilds.org/munkitools2-latest.pkg
                     <array>
                         <string>%MUNKI_CATALOG%</string>
                     </array>
+                    <key>category</key>
+                    <string>%MUNKI_CATEGORY%</string>
                     <key>description</key>
                     <string>%MUNKITOOLS_ADMIN_DESCRIPTION%</string>
+                    <key>developer</key>
+                    <string>%MUNKI_DEVELOPER%</string>
                     <key>display_name</key>
                     <string>%MUNKITOOLS_ADMIN_DISPLAYNAME%</string>
+                    <key>icon_name</key>
+                    <string>%MUNKI_ICON%</string>
+                    <key>minimum_os_version</key>
+                    <string>10.6.0</string>
                     <key>name</key>
                     <string>%MUNKITOOLS_ADMIN_NAME%</string>
                     <key>unattended_install</key>
@@ -251,10 +292,18 @@ https://munkibuilds.org/munkitools2-latest.pkg
                     <array>
                         <string>%MUNKI_CATALOG%</string>
                     </array>
+                    <key>category</key>
+                    <string>%MUNKI_CATEGORY%</string>
                     <key>description</key>
                     <string>%MUNKITOOLS_APP_DESCRIPTION%</string>
+                    <key>developer</key>
+                    <string>%MUNKI_DEVELOPER%</string>
                     <key>display_name</key>
                     <string>%MUNKITOOLS_APP_DISPLAYNAME%</string>
+                    <key>icon_name</key>
+                    <string>%MUNKI_ICON%</string>
+                    <key>minimum_os_version</key>
+                    <string>10.6.0</string>
                     <key>name</key>
                     <string>%MUNKITOOLS_APP_NAME%</string>
                     <key>requires</key>
@@ -282,10 +331,18 @@ https://munkibuilds.org/munkitools2-latest.pkg
                     <array>
                         <string>%MUNKI_CATALOG%</string>
                     </array>
+                    <key>category</key>
+                    <string>%MUNKI_CATEGORY%</string>
                     <key>description</key>
                     <string>%MUNKITOOLS_LAUNCHD_DESCRIPTION%</string>
+                    <key>developer</key>
+                    <string>%MUNKI_DEVELOPER%</string>
                     <key>display_name</key>
                     <string>%MUNKITOOLS_LAUNCHD_DISPLAYNAME%</string>
+                    <key>icon_name</key>
+                    <string>%MUNKI_ICON%</string>
+                    <key>minimum_os_version</key>
+                    <string>10.6.0</string>
                     <key>name</key>
                     <string>%MUNKITOOLS_LAUNCHD_NAME%</string>
                 </dict>

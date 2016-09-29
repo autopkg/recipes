@@ -11,7 +11,7 @@
         <key>NAME</key>
         <string>GoogleEarth</string>
         <key>DOWNLOAD_URL</key>
-        <string>http://dl.google.com/earth/client/advanced/current/GoogleEarthMacNoUpdate-Intel.dmg</string>
+        <string>https://dl.google.com/earth/client/advanced/current/GoogleEarthMacNoUpdate-Intel.dmg</string>
     </dict>
     <key>MinimumVersion</key>
     <string>0.2.0</string>
@@ -31,6 +31,21 @@
         <dict>
             <key>Processor</key>
             <string>EndOfCheckPhase</string>
+        </dict>
+        <dict>   
+            <key>Processor</key>   
+            <string>CodeSignatureVerifier</string>   
+            <key>Arguments</key>   
+            <dict>   
+                <key>input_path</key>   
+                <string>%pathname%/Install Google Earth.*pkg</string>
+                <key>expected_authority_names</key>
+                <array>
+                    <string>Developer ID Installer: Google Inc.</string>
+                    <string>Developer ID Certification Authority</string>
+                    <string>Apple Root CA</string>
+                </array>
+            </dict>
         </dict>
     </array>
 </dict>

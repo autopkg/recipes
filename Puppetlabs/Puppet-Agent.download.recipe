@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Description</key>
+	<string>Downloads the latest Puppet-Agent in the Collections format from
+downloads.puppetlabs.com/mac/PC1. Bundles vendored Ruby, Facter, Hiera, Augeas, Puppet and MCollective.
+
+OS_VERSION can be overridden, or left to the default, '10.10'.</string>
+	<key>Identifier</key>
+	<string>com.github.autopkg.download.puppet-agent</string>
+	<key>Input</key>
+	<dict>
+		<key>NAME</key>
+		<string>Puppet-Agent</string>
+		<key>OS_VERSION</key>
+		<string>10.10</string>
+	</dict>
+	<key>MinimumVersion</key>
+	<string>0.4.1</string>
+	<key>Process</key>
+	<array>
+		<dict>
+			<key>Arguments</key>
+			<dict>
+				<key>get_os_version</key>
+				<string>%OS_VERSION%</string>
+				<key>product_name</key>
+				<string>agent</string>
+			</dict>
+			<key>Processor</key>
+			<string>PuppetlabsProductsURLProvider</string>
+		</dict>
+		<dict>
+			<key>Arguments</key>
+			<dict>
+				<key>filename</key>
+				<string>puppetagent%OS_VERSION%.dmg</string>
+				<key>url</key>
+				<string>%url%</string>
+			</dict>
+			<key>Processor</key>
+			<string>URLDownloader</string>
+		</dict>
+		<dict>
+			<key>Processor</key>
+			<string>EndOfCheckPhase</string>
+		</dict>
+		<dict>
+			<key>Processor</key>
+			<string>CodeSignatureVerifier</string>
+			<key>Arguments</key>
+			<dict>
+				<key>input_path</key>
+				<string>%pathname%/*.pkg</string>
+				<key>expected_authority_names</key>
+				<array>
+					<string>Developer ID Installer: PUPPET LABS, INC. (VKGLGN2B6Y)</string>
+					<string>Developer ID Certification Authority</string>
+					<string>Apple Root CA</string>
+				</array>
+			</dict>
+		</dict>
+	</array>
+</dict>
+</plist>

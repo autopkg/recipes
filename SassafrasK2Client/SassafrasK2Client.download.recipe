@@ -9,20 +9,22 @@ REVISION is the major version without a decimal, for example:
 7.0: 70
 7.1: 71
 7.2: 72
+7.3: 73
 
-This recipe supports only a REVISION of 70 and up.
+This recipe supports only a REVISION of 70 and up. If REVISION
+is set to an empty string, the latest version will be retrieved.
 </string>
     <key>Identifier</key>
     <string>com.github.autopkg.download.sassafras-k2client</string>
     <key>Input</key>
     <dict>
         <key>REVISION</key>
-        <string>72</string>
+        <string>74</string>
         <key>NAME</key>
         <string>K2Client</string>
     </dict>
     <key>MinimumVersion</key>
-    <string>0.2.0</string>
+    <string>0.3.1</string>
     <key>Process</key>
     <array>
         <dict>
@@ -37,6 +39,21 @@ This recipe supports only a REVISION of 70 and up.
         <dict>
             <key>Processor</key>
             <string>EndOfCheckPhase</string>
+        </dict>
+        <dict>
+            <key>Processor</key>
+            <string>CodeSignatureVerifier</string>
+            <key>Arguments</key>
+            <dict>
+                <key>input_path</key>
+                <string>%pathname%</string>
+                <key>expected_authority_names</key>
+                <array>
+                    <string>Developer ID Installer: Sassafras Software, Inc.</string>
+                    <string>Developer ID Certification Authority</string>
+                    <string>Apple Root CA</string>
+                </array>
+            </dict>
         </dict>
     </array>
 </dict>

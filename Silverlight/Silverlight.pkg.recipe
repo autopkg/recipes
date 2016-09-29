@@ -12,7 +12,7 @@
         <string>Silverlight</string>
     </dict>
     <key>MinimumVersion</key>
-    <string>0.2.0</string>
+    <string>0.6.0</string>
 	<key>ParentRecipe</key>
 	<string>com.github.autopkg.download.Silverlight</string>
     <key>Process</key>
@@ -20,14 +20,25 @@
         <dict>
             <key>Arguments</key>
             <dict>
-                <key>input_plist_path</key>
-                <string>%pathname%/Silverlight.pkg/Contents/Info.plist</string>
-                <key>plist_version_key</key>
-                <string>CFBundleVersion</string>
+                <key>flat_pkg_path</key>
+                <string>%pathname%/Silverlight.pkg</string>
+                <key>destination_path</key>
+                <string>%RECIPE_CACHE_DIR%/expand</string>
             </dict>
             <key>Processor</key>
-            <string>Versioner</string>
+            <string>FlatPkgUnpacker</string>
         </dict>
+        <dict>
+            <key>Processor</key>
+            <string>URLTextSearcher</string>
+            <key>Arguments</key>
+            <dict>
+                <key>url</key>
+                <string>file:////%RECIPE_CACHE_DIR%/expand/Distribution</string>
+                <key>re_pattern</key>
+                <string>product id="com.microsoft.silverlight" version="(?P&lt;version&gt;.*?)"</string>
+            </dict>
+	</dict>
         <dict>
             <key>Arguments</key>
             <dict>

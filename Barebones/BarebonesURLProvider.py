@@ -14,6 +14,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 """See docstring for BarebonesURLProvider class"""
+# suppress 'missing class member env'
+#pylint: disable=e1101
 
 import urllib2
 import plistlib
@@ -24,8 +26,21 @@ from autopkglib import Processor, ProcessorError
 
 __all__ = ["BarebonesURLProvider"]
 
-URLS = {"textwrangler": "http://versioncheck.barebones.com/TextWrangler.xml",
-        "bbedit": "http://versioncheck.barebones.com/BBEdit.xml"}
+URLS = {"textwrangler": "https://versioncheck.barebones.com/TextWrangler.xml",
+        "bbedit": "https://versioncheck.barebones.com/BBEdit.xml"}
+
+import ssl
+from functools import wraps
+def sslwrap(func):
+    """http://stackoverflow.com/a/24175862"""
+    @wraps(func)
+    def wraps_sslwrap(*args, **kw):
+        """Monkey-patch for sslwrap to force TLSv1"""
+        kw['ssl_version'] = ssl.PROTOCOL_TLSv1
+        return func(*args, **kw)
+    return wraps_sslwrap
+
+ssl.wrap_socket = sslwrap(ssl.wrap_socket)
 
 class BarebonesURLProvider(Processor):
     """Provides a version and dmg download for the Barebones product given."""
@@ -52,7 +67,6 @@ class BarebonesURLProvider(Processor):
 
     def main(self):
         '''Find the download URL'''
-
         def compare_version(this, that):
             '''compare LooseVersions'''
             return cmp(LooseVersion(this), LooseVersion(that))

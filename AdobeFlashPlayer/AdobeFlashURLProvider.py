@@ -27,7 +27,7 @@ __all__ = ["AdobeFlashURLProvider"]
 UPDATE_XML_URL = ("http://fpdownload2.macromedia.com/"
                   "get/flashplayer/update/current/xml/version_en_mac_pl.xml")
 
-DOWNLOAD_TEMPLATE_URL = ("http://fpdownload.macromedia.com/"
+DOWNLOAD_TEMPLATE_URL = ("https://fpdownload.macromedia.com/"
                          "get/flashplayer/pdc/%s/install_flash_player_osx.dmg")
 
 class AdobeFlashURLProvider(Processor):

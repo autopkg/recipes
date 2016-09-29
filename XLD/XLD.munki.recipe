@@ -13,7 +13,7 @@
         <key>MUNKI_REPO_SUBDIR</key>
         <string>apps/XLD</string>
         <key>SU_FEED_URL</key>
-        <string>http://xld.googlecode.com/svn/appcast/xld-appcast_e.xml</string>
+        <string>https://svn.code.sf.net/p/xld/code/appcast/xld-appcast_e.xml</string>
         <key>pkginfo</key>
         <dict>
             <key>catalogs</key>

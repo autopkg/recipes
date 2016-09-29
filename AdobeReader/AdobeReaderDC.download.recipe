@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Identifier</key>
+	<string>com.github.autopkg.download.AdobeReaderDC</string>
+	<key>Input</key>
+	<dict>
+        <key>LANGUAGE</key>
+        <string>English</string>
+        <key>MAJOR_VERSION</key>
+        <string>AcrobatDC</string>
+        <key>OS_VERSION</key>
+        <string>10.9.0</string>
+		<key>NAME</key>
+		<string>AdobeReaderDC</string>
+	</dict>
+	<key>ParentRecipe</key>
+	<string>com.github.autopkg.download.AdobeReader</string>
+</dict>
+</plist>

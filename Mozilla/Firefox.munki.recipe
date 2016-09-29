@@ -4,12 +4,13 @@
 <dict>
     <key>Description</key>
     <string>Downloads Firefox disk image and imports into Munki.
-Values for RELEASE correspond to directories here: http://download-origin.cdn.mozilla.net/pub/mozilla.org/firefox/releases/
-Some useful values are: 'latest', 'latest-10.0esr', 'latest-esr', 'latest-3.6', 'latest-beta'
-LOCALE corresponds to directories at http://download-origin.cdn.mozilla.net/pub/mozilla.org/firefox/releases/$RELEASE/mac/
-Examples include 'en-US', 'de', 'ja-JP-mac', 'sv-SE', and 'zh-TW'
-No idea if all Firefox builds are available in all the same localizations, so you may need to verify that any particular
-combination is offered.</string>
+Some useful values for RELEASE are: 'latest', 'esr-latest', 'beta-latest'.
+LOCALE controls the language localization to be downloded.
+Examples include 'en-US', 'de', 'sv-SE', and 'zh-TW'
+See the following URLs for more info:
+    http://ftp.mozilla.org/pub/firefox/releases/latest/README.txt
+    http://ftp.mozilla.org/pub/firefox/releases/latest-esr/README.txt
+    http://ftp.mozilla.org/pub/firefox/releases/latest-beta/README.txt</string>
     <key>Identifier</key>
     <string>com.github.autopkg.munki.firefox-rc-en_US</string>
     <key>Input</key>

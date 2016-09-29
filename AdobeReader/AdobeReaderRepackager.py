@@ -152,19 +152,30 @@ class AdobeReaderRepackager(DmgMounter):
 
     def replace_app_preinstall(self, expanded_pkg):
         '''Replace the preinstall script in application.pkg with our own'''
+        pkg_name = os.path.basename(expanded_pkg)
         app_pkg = os.path.join(expanded_pkg, "application.pkg")
         if not os.path.exists(app_pkg):
             raise ProcessorError("application.pkg not found!")
         preinstall_script = os.path.join(app_pkg, "Scripts/preinstall")
-        our_script = os.path.join(
-            os.path.dirname(__file__),
-            "package_resources/scripts/preinstall")
+        if pkg_name.startswith("AcroRdrDC"):
+            our_script = os.path.join(
+                os.path.dirname(__file__),
+                "package_resources/scripts/readerdc_preinstall")
+        else:
+            our_script = os.path.join(
+                os.path.dirname(__file__),
+                "package_resources/scripts/reader_preinstall")
         if not os.path.exists(our_script):
             raise ProcessorError("%s not found" % our_script)
         try:
+            os.unlink(preinstall_script)
+        except (OSError, IOError), err:
+            raise ProcessorError("%s removing %s" % (err, preinstall_script))
+        try:
             shutil.copy(our_script, preinstall_script)
         except (OSError, IOError), err:
-            raise ProcessorError("%s copying %s" % (err, preinstall_script))
+            raise ProcessorError(
+                "%s copying %s to %s" % (err, our_script, preinstall_script))
         self.output(
             "Replaced pkg preinstall script with our custom script at %s"
             % our_script)
@@ -176,8 +187,9 @@ class AdobeReaderRepackager(DmgMounter):
         # unmounted.
         try:
             pkg = self.find_pkg(mount_point)
+            pkg_name = os.path.splitext(os.path.basename(pkg))[0]
             expand_dir = os.path.join(
-                self.env["RECIPE_CACHE_DIR"], "AdobeReaderPkg")
+                self.env["RECIPE_CACHE_DIR"], pkg_name)
             modified_pkg = os.path.join(
                 self.env["RECIPE_CACHE_DIR"], os.path.basename(pkg))
             expanded_pkg = self.expand(pkg, expand_dir)

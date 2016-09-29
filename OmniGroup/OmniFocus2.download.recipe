@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Description</key>
+    <string>Downloads latest OmniFocus2 disk image and imports into Munki.</string>
+    <key>Identifier</key>
+    <string>com.github.autopkg.download.omnifocus2</string>
+    <key>Input</key>
+    <dict>
+        <key>NAME</key>
+        <string>OmniFocus2</string>
+    </dict>
+    <key>MinimumVersion</key>
+    <string>0.6.1</string>
+    <key>ParentRecipe</key>
+    <string>com.github.autopkg.download.omnigroupproduct</string>
+    <key>Process</key>
+    <array>
+        <dict>
+            <key>Processor</key>
+            <string>CodeSignatureVerifier</string>
+            <key>Arguments</key>
+            <dict>
+                <key>input_path</key>
+                <string>%pathname%/OmniFocus.app</string>
+                <key>requirement</key>
+                <string>anchor apple generic and certificate leaf = H"26fe998f5ff3bad1beeac952a233231d4e5ad523" and identifier "com.omnigroup.OmniFocus2"</string>
+            </dict>
+        </dict>
+    </array>
+</dict>
+</plist>
