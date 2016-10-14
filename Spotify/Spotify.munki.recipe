@@ -12,8 +12,6 @@
         <string>Spotify</string>
         <key>MUNKI_REPO_SUBDIR</key>
         <string>apps</string>
-        <key>DOWNLOAD_URL</key>
-        <string>http://www.spotify.com/download/Spotify.dmg</string>
         <key>pkginfo</key>
         <dict>
             <key>catalogs</key>
