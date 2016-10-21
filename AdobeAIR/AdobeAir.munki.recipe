@@ -11,8 +11,6 @@ Based on jamesz's work here: https://github.com/jamesez/automunki/tree/master/ad
     <dict>
         <key>NAME</key>
         <string>AdobeAIR</string>
-        <key>URL</key>
-        <string>http://airdownload.adobe.com/air/mac/download/latest/AdobeAIR.dmg</string>
         <key>MUNKI_REPO_SUBDIR</key>
         <string>apps/adobe</string>
         <key>pkginfo</key>
