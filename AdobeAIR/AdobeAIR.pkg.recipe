@@ -11,8 +11,6 @@ Based on jamesz's work here: https://github.com/jamesez/automunki/tree/master/ad
     <dict>
         <key>NAME</key>
         <string>AdobeAIR</string>
-        <key>URL</key>
-        <string>http://airdownload.adobe.com/air/mac/download/latest/AdobeAIR.dmg</string>
     </dict>
     <key>MinimumVersion</key>
     <string>0.6.0</string>
