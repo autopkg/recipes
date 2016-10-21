@@ -11,7 +11,7 @@
         <key>NAME</key>
         <string>Spotify</string>
         <key>DOWNLOAD_URL</key>
-        <string>http://www.spotify.com/download/Spotify.dmg</string>
+        <string>https://www.spotify.com/download/Spotify.dmg</string>
     </dict>
     <key>MinimumVersion</key>
     <string>0.4.0</string>
