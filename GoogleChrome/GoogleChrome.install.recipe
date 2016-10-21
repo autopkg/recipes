@@ -7,10 +7,7 @@
     <key>Identifier</key>
     <string>com.github.autopkg.install.googlechrome</string>
     <key>Input</key>
-    <dict>
-        <key>DOWNLOAD_URL</key>
-        <string>https://dl.google.com/chrome/mac/stable/GGRO/googlechrome.dmg</string>
-    </dict>
+    <dict/>
     <key>MinimumVersion</key>
     <string>0.4.0</string>
     <key>ParentRecipe</key>
