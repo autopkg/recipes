@@ -17,12 +17,8 @@ extracted from the Microsoft update metadata. See
 https://msdn.microsoft.com/en-us/goglobal/bb964664.aspx
 for more information about locale IDs.
 
-VERSION supports two values: 'latest', and 'latest-delta', defaulting to
-'latest'. If 'latest-delta' is selected, the delta update will be selected
-instead of the full update. An additional output variable will be made
-available: 'minimum_version_for_delta', which is the minimum required
-version of the application required for the delta update, which can be
-used by other processors in a child recipe.
+VERSION currently only supports one value: 'latest', which will download
+the latest full update for the given CHANNEL.
 </string>
     <key>Identifier</key>
     <string>com.github.autopkg.download.MSOutlook2016</string>
