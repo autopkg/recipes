@@ -137,10 +137,6 @@ class MSOffice2016URLandUpdateInfoProvider(Processor):
             raise ProcessorError(
                 "Unexpected Trigger Condition in item %s: %s"
                 % (item["Title"], item["Trigger Condition"]))
-        if not "Registered File" in item.get("Triggers", {}):
-            raise ProcessorError(
-                "Missing expected 'and Registered File' Trigger in item "
-                "%s" % item["Title"])
 
     def get_installs_items(self, item):
         """Attempts to parse the Triggers to create an installs item using
