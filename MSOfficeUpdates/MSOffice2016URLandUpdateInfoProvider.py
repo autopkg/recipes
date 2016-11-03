@@ -168,26 +168,6 @@ class MSOffice2016URLandUpdateInfoProvider(Processor):
                 item["Update Version"])
             return item["Update Version"]
 
-        # If it's not, fall back to legacy version detection that predates the
-        # existence of the 'Update Version' key
-        #
-        # We expect the version at the end of the Title key,
-        # e.g.: "Microsoft Excel Update 15.10.0"
-        # Work backwards from the end and break on the first thing
-        # that looks like a version
-        for element in reversed(item["Title"].split()):
-            match = re.match(r"(\d+\.\d+(\.\d)*)", element)
-            if match:
-                break
-        if not match:
-            raise ProcessorError(
-                "Error validating Office 2016 version extracted "
-                "from Title manifest value: '%s'" % item["Title"])
-        version = match.group(0)
-        self.output(
-            "Extracting version %s from metadata 'Title' key" % version)
-        return version
-
     def value_to_os_version_string(self, value):
         """Converts a value to an OS X version number"""
         if isinstance(value, int):
