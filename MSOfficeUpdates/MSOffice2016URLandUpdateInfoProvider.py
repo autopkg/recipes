@@ -168,31 +168,6 @@ class MSOffice2016URLandUpdateInfoProvider(Processor):
                 item["Update Version"])
             return item["Update Version"]
 
-    def value_to_os_version_string(self, value):
-        """Converts a value to an OS X version number"""
-        if isinstance(value, int):
-            version_str = hex(value)[2:]
-        elif isinstance(value, basestring):
-            if value.startswith('0x'):
-                version_str = value[2:]
-        # OS versions are encoded as hex:
-        # 4184 = 0x1058 = 10.5.8
-        major = 0
-        minor = 0
-        patch = 0
-        try:
-            if len(version_str) == 1:
-                major = int(version_str[0])
-            if len(version_str) > 1:
-                major = int(version_str[0:2])
-            if len(version_str) > 2:
-                minor = int(version_str[2], 16)
-            if len(version_str) > 3:
-                patch = int(version_str[3], 16)
-        except ValueError:
-            raise ProcessorError("Unexpected value in version: %s" % value)
-        return "%s.%s.%s" % (major, minor, patch)
-
     def get_installer_info(self):
         """Gets info about an installer from MS metadata."""
         # Get the channel UUID, matching against a custom UUID if one is given
@@ -263,12 +238,9 @@ class MSOffice2016URLandUpdateInfoProvider(Processor):
         pkginfo["description"] = "<html>%s</html>" % manifest_description
         self.env["description"] = manifest_description
 
-        max_os = self.value_to_os_version_string(item['Max OS'])
-        min_os = self.value_to_os_version_string(item['Min OS'])
-        if max_os != "0.0.0":
-            pkginfo["maximum_os_version"] = max_os
-        if min_os != "0.0.0":
-            pkginfo["minimum_os_version"] = min_os
+        # Minimum OS version key should exist always, but default to the current
+        # minimum as of 16/11/03
+        pkginfo["minimum_os_version"] = item.get('Minimum OS', '10.10.5')
         installs_items = self.get_installs_items(item)
         if installs_items:
             pkginfo["installs"] = installs_items
@@ -302,7 +274,7 @@ class MSOffice2016URLandUpdateInfoProvider(Processor):
                                               self.min_delta_version)]
 
         self.env["version"] = self.get_version(item)
-        self.env["minimum_os_version"] = min_os
+        self.env["minimum_os_version"] = pkginfo["minimum_os_version"]
         self.env["minimum_version_for_delta"] = self.min_delta_version
         self.env["additional_pkginfo"] = pkginfo
         self.env["url"] = item["Location"]
