@@ -71,35 +71,14 @@ fi
     <key>Process</key>
     <array>
         <dict>
-            <key>Processor</key>
-            <string>MunkiPkginfoMerger</string>
-            <key>Arguments</key>
-            <dict>
-                <key>additional_pkginfo</key>
-                <dict>
-                    <key>installs</key>
-                    <array>
-                        <dict>
-                            <key>CFBundleIdentifier</key>
-                            <string>com.getdropbox.dropbox</string>
-                            <key>CFBundleName</key>
-                            <string>Dropbox</string>
-                            <key>path</key>
-                            <string>/Applications/Dropbox.app</string>
-                            <key>type</key>
-                            <string>file</string>
-                        </dict>
-                    </array>
-                </dict>
-            </dict>
-        </dict>
-        <dict>
             <key>Arguments</key>
             <dict>
                 <key>pkg_path</key>
                 <string>%pathname%</string>
                 <key>repo_subdirectory</key>
                 <string>%MUNKI_REPO_SUBDIR%</string>
+                <key>version_comparison_key</key>
+		        <string>CFBundleVersion</string>
             </dict>
             <key>Processor</key>
             <string>MunkiImporter</string>
