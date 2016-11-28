@@ -38,13 +38,16 @@ BASE_URL = "https://officecdn.microsoft.com/pr/%s/OfficeMac/%s.xml"
 # Note that Skype, 'MSFB' has a '16' after it, AutoUpdate has a '03' after it while all the other products have '15'
 
 PROD_DICT = {
-    'Excel':'XCEL15',
-    'OneNote':'ONMC15',
-    'Outlook':'OPIM15',
-    'PowerPoint':'PPT315',
-    'Word':'MSWD15',
-    'Skype':'MSFB16',
-    'AutoUpdate':'MSau03'
+    'Excel': {'id': 'XCEL15', 'path': '/Applications/Microsoft Excel.app'},
+    'OneNote': {'id': 'ONMC15', 'path': '/Applications/Microsoft OneNote.app'},
+    'Outlook': {'id': 'OPIM15', 'path': '/Applications/Microsoft Outlook.app'},
+    'PowerPoint': {'id': 'PPT315', 'path': '/Applications/Microsoft PowerPoint.app'},
+    'Word': {'id': 'MSWD15', 'path': '/Applications/Microsoft Word.app'},
+    'SkypeForBusiness': {'id': 'MSFB16', 'path': '/Applications/Skype for Business.app'},
+    'AutoUpdate': {
+        'id': 'MSau03',
+        'path': '/Library/Application Support/Microsoft/MAU2.0/Microsoft AutoUpdate.app'
+    }
 }
 LOCALE_ID_INFO_URL = "https://msdn.microsoft.com/en-us/goglobal/bb964664.aspx"
 SUPPORTED_VERSIONS = ["latest", "latest-delta"]
@@ -150,14 +153,14 @@ class MSOffice2016URLandUpdateInfoProvider(Processor):
         """Attempts to parse the Triggers to create an installs item using
         only manifest data, making the assumption that CFBundleVersion and
         CFBundleShortVersionString are equal."""
-        self.sanity_check_expected_triggers(item)
+        #self.sanity_check_expected_triggers(item)
         version = self.get_version(item)
         # Skipping CFBundleShortVersionString because it doesn't contain
         # anything more specific than major.minor (no build versions
         # distinguishing Insider builds for example)
         installs_item = {
             "CFBundleVersion": version,
-            "path": ("/Applications/Microsoft %s.app" % self.env["product"]),
+            "path": PROD_DICT[self.env["product"]]['path'],
             "type": "application",
         }
         return [installs_item]
@@ -187,9 +190,10 @@ class MSOffice2016URLandUpdateInfoProvider(Processor):
         else:
             channel = CHANNELS[channel_input]
         base_url = BASE_URL % (channel,
-                               CULTURE_CODE + PROD_DICT[self.env["product"]])
+                               CULTURE_CODE + PROD_DICT[self.env["product"]]['id'])
 
         # Get metadata URL
+        self.output("Requesting xml: %s" % base_url)
         req = urllib2.Request(base_url)
         # Add the MAU User-Agent, since MAU feed server seems to explicitly
         # block a User-Agent of 'Python-urllib/2.7' - even a blank User-Agent
