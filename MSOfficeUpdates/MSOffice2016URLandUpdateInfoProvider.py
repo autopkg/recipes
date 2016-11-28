@@ -152,8 +152,10 @@ class MSOffice2016URLandUpdateInfoProvider(Processor):
     def get_installs_items(self, item):
         """Attempts to parse the Triggers to create an installs item using
         only manifest data, making the assumption that CFBundleVersion and
-        CFBundleShortVersionString are equal."""
-        #self.sanity_check_expected_triggers(item)
+        CFBundleShortVersionString are equal. Skip SkypeForBusiness as its
+        xml does not contain a 'Trigger Condition'"""
+        if self.env["product"] != 'SkypeForBusiness':
+            self.sanity_check_expected_triggers(item)
         version = self.get_version(item)
         # Skipping CFBundleShortVersionString because it doesn't contain
         # anything more specific than major.minor (no build versions
