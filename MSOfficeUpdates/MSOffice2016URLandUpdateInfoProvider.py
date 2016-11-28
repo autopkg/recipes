@@ -30,13 +30,21 @@ __all__ = ["MSOffice2016URLandUpdateInfoProvider"]
 # CULTURE_CODE defaulting to 'en-US' as the installers and updates seem to be
 # multilingual.
 CULTURE_CODE = "0409"
-BASE_URL = "https://officecdn.microsoft.com/pr/%s/OfficeMac/%s15.xml"
+BASE_URL = "https://officecdn.microsoft.com/pr/%s/OfficeMac/%s.xml"
+
+# These can be easily be found as "Application ID" in ~/Library/Preferences/com.microsoft.autoupdate2.plist on a 
+# machine that has Microsoft AutoUpdate.app installed on it.
+#
+# Note that Skype, 'MSFB' has a '16' after it, AutoUpdate has a '03' after it while all the other products have '15'
+
 PROD_DICT = {
-    'Excel':'XCEL',
-    'OneNote':'ONMC',
-    'Outlook':'OPIM',
-    'PowerPoint':'PPT3',
-    'Word':'MSWD',
+    'Excel':'XCEL15',
+    'OneNote':'ONMC15',
+    'Outlook':'OPIM15',
+    'PowerPoint':'PPT315',
+    'Word':'MSWD15',
+    'Skype':'MSFB16',
+    'AutoUpdate':'MSau03'
 }
 LOCALE_ID_INFO_URL = "https://msdn.microsoft.com/en-us/goglobal/bb964664.aspx"
 SUPPORTED_VERSIONS = ["latest", "latest-delta"]
