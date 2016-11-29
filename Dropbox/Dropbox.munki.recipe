@@ -7,18 +7,7 @@
 
 Postinstall script extracts the DropboxHelperInstaller and sets the setuid 
 bit so that it can perform its setup tasks as root without asking for admin 
-privileges.
-
-Dropbox will attempt to update periodically, and if it does not have permission to 
-overwrite the bundle at /Applications/Dropbox.app, it will instead download 
-the updated version to ~/Library/Dropbox, and run this version as long as it 
-is more recent than the copy in /Applications.
-
-This recipe assumes the user cannot write to the installed version at
-/Applications/Dropbox.app, and therefore merges an installs key with a versionless
-Dropbox file item, so that if a newer version of Dropbox is ever imported
-into the repo, it will not trigger updates on clients whose newer version is only
-located in their user's home folder.</string>
+privileges.</string>
     <key>Identifier</key>
     <string>com.github.autopkg.munki.dropbox</string>
     <key>Input</key>
@@ -55,8 +44,8 @@ HELPER_DST_PATH="$HELPER_DST_DIR/DropboxHelperInstaller"
 if [ -e "$HELPER_SRC_PATH" ]; then
   [ -d "$HELPER_DST_DIR" ] || mkdir "$HELPER_DST_DIR"
   /usr/bin/tar -C "$HELPER_DST_DIR" -xz -f "$HELPER_SRC_PATH"
+  /usr/sbin/chown root:wheel "$HELPER_DST_PATH" "$HELPER_DST_DIR"
   /bin/chmod 04511 "$HELPER_DST_PATH"
-  /usr/sbin/chown root:wheel "$HELPER_DST_PATH"
 else
   echo "Expected $HELPER_SRC_PATH, but it was not present in the Dropbox dmg."
   exit 1
@@ -70,29 +59,6 @@ fi
     <string>com.github.autopkg.download.dropbox</string>
     <key>Process</key>
     <array>
-        <dict>
-            <key>Processor</key>
-            <string>MunkiPkginfoMerger</string>
-            <key>Arguments</key>
-            <dict>
-                <key>additional_pkginfo</key>
-                <dict>
-                    <key>installs</key>
-                    <array>
-                        <dict>
-                            <key>CFBundleIdentifier</key>
-                            <string>com.getdropbox.dropbox</string>
-                            <key>CFBundleName</key>
-                            <string>Dropbox</string>
-                            <key>path</key>
-                            <string>/Applications/Dropbox.app</string>
-                            <key>type</key>
-                            <string>file</string>
-                        </dict>
-                    </array>
-                </dict>
-            </dict>
-        </dict>
         <dict>
             <key>Arguments</key>
             <dict>
