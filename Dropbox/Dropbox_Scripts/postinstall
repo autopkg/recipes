@@ -12,8 +12,8 @@ HELPER_DST_PATH="$HELPER_DST_DIR/DropboxHelperInstaller"
 if [ -e "$HELPER_SRC_PATH" ]; then
   [ -d "$HELPER_DST_DIR" ] || mkdir "$HELPER_DST_DIR"
   /usr/bin/tar -C "$HELPER_DST_DIR" -xz -f "$HELPER_SRC_PATH"
+  /usr/sbin/chown root:wheel "$HELPER_DST_PATH" "$HELPER_DST_DIR"
   /bin/chmod 04511 "$HELPER_DST_PATH"
-  /usr/sbin/chown root:wheel "$HELPER_DST_PATH"
 else
   echo "Expected $HELPER_SRC_PATH, but it was not present in the Dropbox dmg."
   exit 1
