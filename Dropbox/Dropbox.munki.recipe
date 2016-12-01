@@ -5,12 +5,12 @@
     <key>Description</key>
     <string>Downloads the current release version of Dropbox and imports into Munki.
 
-Postinstall script extracts the DropboxHelperInstaller and sets the setuid 
-bit so that it can perform its setup tasks as root without asking for admin 
+Postinstall script extracts the DropboxHelperInstaller and sets the setuid
+bit so that it can perform its setup tasks as root without asking for admin
 privileges.
 
-Dropbox will attempt to update periodically, and if it does not have permission to 
-overwrite the bundle at /Applications/Dropbox.app, it will instead download 
+Dropbox will attempt to update periodically, and if it does not have permission to
+overwrite the bundle at /Applications/Dropbox.app, it will instead download
 the updated version to ~/Library/Application Support/Dropbox, and run this version
 as long as it is more recent than the copy in /Applications.
 
@@ -44,7 +44,7 @@ to quit Dropbox.</string>
 # https://groups.google.com/group/munki-dev/browse_thread/thread/a2813e7f62535f13/63d127534541f863
 # modifications:
 # - always extract the helper tool with each install instead of skipping if it exists
-# - remove xattr com.apple.quarantine removal, as Munki will have already done this upon 
+# - remove xattr com.apple.quarantine removal, as Munki will have already done this upon
 #   installation; normal autopkg runs also won't quarantine the download to begin with
 
 HELPER_SRC_PATH=/Applications/Dropbox.app/Contents/Resources/DropboxHelperInstaller.tgz
