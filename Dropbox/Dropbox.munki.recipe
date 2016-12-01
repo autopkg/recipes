@@ -60,6 +60,20 @@ fi
     <key>Process</key>
     <array>
         <dict>
+            <key>Processor</key>
+            <string>MunkiPkginfoMerger</string>
+            <key>Arguments</key>
+            <dict>
+                <key>additional_pkginfo</key>
+                <dict>
+                    <key>blocking_applications</key>
+                    <array>
+                        <string>/Applications/Dropbox.app/Contents/MacOS/Dropbox</string>
+                    </array>
+                </dict>
+            </dict>
+        </dict>
+        <dict>
             <key>Arguments</key>
             <dict>
                 <key>pkg_path</key>
