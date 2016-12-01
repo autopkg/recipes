@@ -61,6 +61,8 @@ else
   exit 1
 fi
 </string>
+            <key>unattended_install</key>
+            <true/>
         </dict>
     </dict>
     <key>MinimumVersion</key>
