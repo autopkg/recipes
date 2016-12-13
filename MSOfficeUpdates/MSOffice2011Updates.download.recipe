@@ -57,7 +57,7 @@ If you would like to use an undocumented HTTPS download, set DOWNLOAD_URL_SCHEME
                 <string>%pathname%/Office*.*pkg</string>
                 <key>expected_authority_names</key>
                 <array>
-                    <string>Developer ID Installer: Microsoft Corporation</string>
+                    <string>Developer ID Installer: Microsoft Corporation (UBF8T346G9)</string>
                     <string>Developer ID Certification Authority</string>
                     <string>Apple Root CA</string>
                 </array>
