@@ -74,7 +74,7 @@ the latest full update for the given CHANNEL.
                 <string>%pathname%</string>
                 <key>expected_authority_names</key>
                 <array>
-                    <string>Developer ID Installer: Microsoft Corporation</string>
+                    <string>Developer ID Installer: Microsoft Corporation (UBF8T346G9)</string>
                     <string>Developer ID Certification Authority</string>
                     <string>Apple Root CA</string>
                 </array>
