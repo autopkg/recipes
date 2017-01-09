@@ -35,7 +35,7 @@
                 <key>filename</key>
                 <string>%NAME%.dmg</string>
                 <key>url</key>
-                <string>https:/handbrake.fr/%match%</string>
+                <string>https://handbrake.fr/%match%</string>
             </dict>
         </dict>
         <dict>
