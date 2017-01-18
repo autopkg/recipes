@@ -36,12 +36,12 @@
             <key>Processor</key>   
             <string>CodeSignatureVerifier</string>   
             <key>Arguments</key>   
-            <dict>   
+			<dict>   
                 <key>input_path</key>   
-                <string>%pathname%/Install Google Earth.*pkg</string>
+                <string>%pathname%/Install Google Earth Free*_m.pkg</string>
                 <key>expected_authority_names</key>
                 <array>
-                    <string>Developer ID Installer: Google Inc.</string>
+                    <string>Developer ID Installer: Google, Inc. (EQHXZ8M8AV)</string>
                     <string>Developer ID Certification Authority</string>
                     <string>Apple Root CA</string>
                 </array>
