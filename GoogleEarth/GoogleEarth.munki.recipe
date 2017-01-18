@@ -62,7 +62,7 @@
                 <key>destination_path</key>
                 <string>%RECIPE_CACHE_DIR%/expanded</string>
                 <key>flat_pkg_path</key>
-                <string>%pathname%/Install Google Earth.pkg</string>
+                <string>%pathname%/Install Google Earth*.pkg</string>
             </dict>
         </dict>
         <dict>
@@ -76,17 +76,6 @@
                 <string>%RECIPE_CACHE_DIR%/expanded/Google_Earth.pkg/Payload</string>
             </dict>
         </dict>
-        <dict>
-            <key>Processor</key>
-            <string>PkgPayloadUnpacker</string>
-            <key>Arguments</key>
-            <dict>
-                <key>destination_path</key>
-                <string>%RECIPE_CACHE_DIR%/unpack/root/Library/Internet Plug-Ins</string>
-                <key>pkg_payload_path</key>
-                <string>%RECIPE_CACHE_DIR%/expanded/Google_Earth_Web_Plug-In.pkg/Payload</string>
-            </dict>
-        </dict>
         <!-- Make and merge Munki installs items -->
         <dict>
             <key>Arguments</key>
@@ -94,7 +83,6 @@
                 <key>installs_item_paths</key>
                 <array>
                     <string>/Applications/Google Earth.app</string>
-                    <string>/Library/Internet Plug-Ins/Google Earth Web Plug-in.plugin</string>
                 </array>
                 <key>faux_root</key>
                 <string>%RECIPE_CACHE_DIR%/unpack/root</string>
