@@ -14,7 +14,7 @@ OS_VERSION can be overridden, or left to the default, '10.10'.</string>
 		<key>NAME</key>
 		<string>Puppet-Agent</string>
 		<key>OS_VERSION</key>
-		<string>10.10</string>
+		<string>10.12</string>
 	</dict>
 	<key>MinimumVersion</key>
 	<string>0.4.1</string>
