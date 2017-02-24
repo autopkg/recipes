@@ -55,6 +55,13 @@ MUNKI_ICON should be overridden with your icon name.
         <key>MUNKITOOLS_APP_DESCRIPTION</key>
         <string>Managed Software Center application.</string>
         <!--  -->
+        <key>MUNKITOOLS_APP_USAGE_NAME</key>
+        <string>munkitools_app_usage</string>
+        <key>MUNKITOOLS_APP_USAGE_DISPLAYNAME</key>
+        <string>Managed Software Center app usage tools</string>
+        <key>MUNKITOOLS_APP_USAGE_DESCRIPTION</key>
+        <string>Application usage monitoring tools.</string>
+        <!--  -->
         <key>MUNKITOOLS_LAUNCHD_NAME</key>
         <string>munkitools_launchd</string>
         <key>MUNKITOOLS_LAUNCHD_DISPLAYNAME</key>
@@ -147,7 +154,7 @@ MUNKI_ICON should be overridden with your icon name.
             <key>Arguments</key>
             <dict>
                 <key>pattern</key>
-                <string>%RECIPE_CACHE_DIR%/unpack/munkitools_app*</string>
+                <string>%RECIPE_CACHE_DIR%/unpack/munkitools_app-*</string>
             </dict>
         </dict>
         <dict>
@@ -161,7 +168,27 @@ MUNKI_ICON should be overridden with your icon name.
                 <string>%RECIPE_CACHE_DIR%/repack/munkitools_app.pkg</string>
             </dict>
         </dict>
+         <dict>
+            <key>Processor</key>
+            <string>FileFinder</string>
+            <key>Arguments</key>
+            <dict>
+                <key>pattern</key>
+                <string>%RECIPE_CACHE_DIR%/unpack/munkitools_app_usage*</string>
+            </dict>
+        </dict>
         <dict>
+            <key>Processor</key>
+            <string>FlatPkgPacker</string>
+            <key>Arguments</key>
+            <dict>
+                <key>source_flatpkg_dir</key>
+                <string>%found_filename%</string>
+                <key>destination_pkg</key>
+                <string>%RECIPE_CACHE_DIR%/repack/munkitools_app_usage.pkg</string>
+            </dict>
+        </dict>
+       <dict>
             <key>Processor</key>
             <string>FileFinder</string>
             <key>Arguments</key>
@@ -286,6 +313,45 @@ MUNKI_ICON should be overridden with your icon name.
                     <string>10.6.0</string>
                     <key>name</key>
                     <string>%MUNKITOOLS_APP_NAME%</string>
+                    <key>requires</key>
+                    <array>
+                        <string>%MUNKITOOLS_CORE_NAME%</string>
+                        <string>%MUNKITOOLS_LAUNCHD_NAME%</string>
+                    </array>
+                    <key>unattended_install</key>
+                    <true/>
+                </dict>
+            </dict>
+        </dict>
+        <dict>
+            <key>Processor</key>
+            <string>MunkiImporter</string>
+            <key>Arguments</key>
+            <dict>
+                <key>repo_subdirectory</key>
+                <string>%MUNKI_REPO_SUBDIR%</string>
+                <key>pkg_path</key>
+                <string>%RECIPE_CACHE_DIR%/repack/munkitools_app_usage.pkg</string>
+                <key>pkginfo</key>
+                <dict>
+                    <key>catalogs</key>
+                    <array>
+                        <string>%MUNKI_CATALOG%</string>
+                    </array>
+                    <key>category</key>
+                    <string>%MUNKI_CATEGORY%</string>
+                    <key>description</key>
+                    <string>%MUNKITOOLS_APP_USAGE_DESCRIPTION%</string>
+                    <key>developer</key>
+                    <string>%MUNKI_DEVELOPER%</string>
+                    <key>display_name</key>
+                    <string>%MUNKITOOLS_APP_USAGE_DISPLAYNAME%</string>
+                    <key>icon_name</key>
+                    <string>%MUNKI_ICON%</string>
+                    <key>minimum_os_version</key>
+                    <string>10.6.0</string>
+                    <key>name</key>
+                    <string>%MUNKITOOLS_APP_USAGE_NAME%</string>
                     <key>requires</key>
                     <array>
                         <string>%MUNKITOOLS_CORE_NAME%</string>
