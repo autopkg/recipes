@@ -58,7 +58,7 @@ Set MAJOR_VERSION to "10" to get the latest/last version of Adobe Reader 10 inst
                 <string>%pathname%/*.pkg</string>
                 <key>expected_authority_names</key>
                 <array>
-                    <string>Developer ID Installer: Adobe Systems, Inc.</string>
+                    <string>Developer ID Installer: Adobe Systems, Inc. (JQ525L2MZD)</string>
                     <string>Developer ID Certification Authority</string>
                     <string>Apple Root CA</string>
                 </array>
