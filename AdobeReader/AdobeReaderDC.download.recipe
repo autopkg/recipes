@@ -2,6 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+    <key>Description</key>
+    <string>Downloads the latest Adobe Reader DC.</string>
 	<key>Identifier</key>
 	<string>com.github.autopkg.download.AdobeReaderDC</string>
 	<key>Input</key>
@@ -15,7 +17,49 @@
 		<key>NAME</key>
 		<string>AdobeReaderDC</string>
 	</dict>
-	<key>ParentRecipe</key>
-	<string>com.github.autopkg.download.AdobeReader</string>
+    <key>Process</key>
+    <array>
+        <dict>
+            <key>Arguments</key>
+            <dict>
+                <key>language</key>
+                <string>%LANGUAGE%</string>
+                <key>major_version</key>
+                <string>%MAJOR_VERSION%</string>
+                <key>os_version</key>
+                <string>%OS_VERSION%</string>
+            </dict>
+            <key>Processor</key>
+            <string>AdobeReaderURLProvider</string>
+        </dict>
+        <dict>
+            <key>Arguments</key>
+            <dict>
+                <key>filename</key>
+                <string>%NAME%.dmg</string>
+            </dict>
+            <key>Processor</key>
+            <string>URLDownloader</string>
+        </dict>
+        <dict>
+            <key>Processor</key>
+            <string>EndOfCheckPhase</string>
+        </dict>
+        <dict>
+            <key>Processor</key>
+            <string>CodeSignatureVerifier</string>
+            <key>Arguments</key>
+            <dict>
+                <key>input_path</key>
+                <string>%pathname%/*.pkg</string>
+                <key>expected_authority_names</key>
+                <array>
+                    <string>Developer ID Installer: Adobe Systems, Inc.</string>
+                    <string>Developer ID Certification Authority</string>
+                    <string>Apple Root CA</string>
+                </array>
+            </dict>
+        </dict>
+    </array>
 </dict>
 </plist>
