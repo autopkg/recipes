@@ -3,7 +3,15 @@
 <plist version="1.0">
 <dict>
     <key>Description</key>
-    <string>Downloads the latest Spotify and imports into Munki.</string>
+    <string>Downloads the latest Spotify and imports into Munki.
+
+Note: the 1.0.50 version of Spotify has mode 744 for its executables,
+causing the app to not launch for any user except the user who installed
+it, root in the case of Munki.
+
+See this GitHub issue for discussion and a workaround:
+https://github.com/autopkg/recipes/issues/196
+</string>
     <key>Identifier</key>
     <string>com.github.autopkg.munki.Spotify</string>
     <key>Input</key>
