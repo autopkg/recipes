@@ -81,7 +81,8 @@ class AdobeReaderRepackager(DmgMounter):
         },
     }
     output_variables = {
-        "pkg_path": "Path to the repackaged package."
+        "pkg_path": "Path to the repackaged package.",
+        "version": "The version number of Adobe Reader."
     }
 
     def find_pkg(self, dir_path):
@@ -195,6 +196,16 @@ class AdobeReaderRepackager(DmgMounter):
             expanded_pkg = self.expand(pkg, expand_dir)
             self.modify_distribution(expanded_pkg)
             self.replace_app_preinstall(expanded_pkg)
+            
+            #get the version number and add it to modified_pkg before flattening
+            with open(os.path.join(expand_dir, 'Distribution'), 'r') as f:
+            	root = ElementTree.fromstring(f.read())
+            	version_string = root.find('pkg-ref').attrib['version']
+            	self.env['version'] = version_string
+            pkg_path_components = list(os.path.splitext(modified_pkg))
+            pkg_path_components.insert(1,'-%s' % (version_string))
+            modified_pkg = ''.join(pkg_path_components)
+            
             self.flatten(expanded_pkg, modified_pkg)
             self.env["pkg_path"] = modified_pkg
 
