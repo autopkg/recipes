@@ -5,11 +5,12 @@
     <key>Description</key>
     <string>Downloads the latest Spotify and imports into Munki.
 
-Note: the 1.0.50 version of Spotify has mode 744 for its executables,
+Note: 1.0.50 and 1.0.51 versions of Spotify has mode 744 for its executables,
 causing the app to not launch for any user except the user who installed
-it, root in the case of Munki.
+it, root in the case of Munki. Currently a postinstall_script fixes this issue
+by adding group and owner +x to these files.
 
-See this GitHub issue for discussion and a workaround:
+Related GitHub issue:
 https://github.com/autopkg/recipes/issues/196
 </string>
     <key>Identifier</key>
@@ -32,6 +33,17 @@ https://github.com/autopkg/recipes/issues/196
             <string>Spotify</string>
             <key>name</key>
             <string>%NAME%</string>
+            <key>postinstall_script</key>
+            <string>#!/bin/bash
+                # Explicitly setting all binaries to be group and world executable, as the
+                # source dmg may have them set as 744.
+                /bin/chmod go+x \
+                '/Applications/Spotify.app/Contents/Frameworks/Chromium Embedded Framework.framework/Chromium Embedded Framework' \
+                '/Applications/Spotify.app/Contents/Frameworks/Spotify Helper.app/Contents/MacOS/Spotify Helper' \
+                /Applications/Spotify.app/Contents/MacOS/Spotify \
+                /Applications/Spotify.app/Contents/MacOS/SpotifyWebHelper \
+                /Applications/Spotify.app/Contents/MacOS/sp_relauncher
+            </string>
             <key>unattended_install</key>
             <true/>
             <key>minimum_os_version</key>
