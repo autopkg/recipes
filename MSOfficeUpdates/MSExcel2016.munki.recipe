@@ -52,6 +52,10 @@ the latest full update for the given CHANNEL.
             <string>Microsoft Excel for Mac</string>
             <key>name</key>
             <string>%NAME%</string>
+            <key>category</key>
+            <string>Productivity</string>
+            <key>developer</key>
+            <string>Microsoft</string>
             <key>unattended_install</key>
             <true/>
         </dict>

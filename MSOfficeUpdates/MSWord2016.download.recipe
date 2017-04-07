@@ -58,7 +58,7 @@ the latest full update for the given CHANNEL.
             <key>Arguments</key>
             <dict>
                 <key>filename</key>
-                <string>%NAME%-%version%.pkg</string>
+                <string>%NAME%.pkg</string>
             </dict>
         </dict>
         <dict>
