@@ -54,7 +54,7 @@
                 <string>%pathname%/*.pkg</string>
                 <key>expected_authority_names</key>
                 <array>
-                    <string>Developer ID Installer: Adobe Systems, Inc.</string>
+                    <string>Developer ID Installer: Adobe Systems, Inc. (JQ525L2MZD)</string>
                     <string>Developer ID Certification Authority</string>
                     <string>Apple Root CA</string>
                 </array>
