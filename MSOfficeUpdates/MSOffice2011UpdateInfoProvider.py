@@ -43,7 +43,7 @@ __all__ = ["MSOffice2011UpdateInfoProvider"]
 CULTURE_CODE = "0409"
 MUNKI_UPDATE_NAME = "Office2011_update"
 DOWNLOAD_URL_SCHEME = "http"
-BASE_URL = DOWNLOAD_URL_SCHEME + "://www.microsoft.com/mac/autoupdate/%sMSOf14.xml"
+BASE_URL = DOWNLOAD_URL_SCHEME + "://officecdn.microsoft.com/pr/C1297A47-86C4-4C1F-97FA-950631F94777/OfficeMac/%sMSOf14.xml"
 
 class MSOffice2011UpdateInfoProvider(Processor):
     """Provides a download URL for an Office 2011 update."""
@@ -207,7 +207,7 @@ class MSOffice2011UpdateInfoProvider(Processor):
         # a User-Agent of 'Python-urllib/2.7' - even a blank User-Agent string
         # passes.
         req.add_header("User-Agent",
-            "Microsoft%20AutoUpdate/3.0.2 CFNetwork/720.2.4 Darwin/14.1.0 (x86_64)")        
+            "Microsoft%20AutoUpdate/3.9.17050900 CFNetwork/811.5.4 Darwin/16.7.0 (x86_64)")
         try:
             fref = urllib2.urlopen(req)
             data = fref.read()
