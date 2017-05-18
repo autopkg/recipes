@@ -29,6 +29,17 @@
         </dict>
         <dict>
             <key>Processor</key>
+            <string>URLTextSearcher</string>
+            <key>Arguments</key>
+            <dict>
+                <key>url</key>
+                <string>https://handbrake.fr/%match%</string>
+                <key>re_pattern</key>
+                <string>(mirror.*?\.dmg)</string>
+            </dict>
+        </dict>
+        <dict>
+            <key>Processor</key>
             <string>URLDownloader</string>
             <key>Arguments</key>
             <dict>
