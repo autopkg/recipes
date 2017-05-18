@@ -31,7 +31,7 @@ is set to an empty string, the latest version will be retrieved.
             <key>Arguments</key>
             <dict>
                 <key>url</key>
-                <string>http://www.sassafras.com/k2/revisions%REVISION%/current/Installers/Macintosh%20Installers/Client/K2Client.pkg</string>
+                <string>https://www.sassafras.com/k2/revisions%REVISION%/current/Installers/Macintosh%20Installers/Client/K2Client.pkg</string>
             </dict>
             <key>Processor</key>
             <string>URLDownloader</string>
