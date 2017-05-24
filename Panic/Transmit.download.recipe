@@ -26,6 +26,13 @@
                 <dict>
                     <key>appName</key>
                     <string>Transmit</string>
+                    <key>appVersion</key>
+                    <string>4.4.12</string>
+                </dict>
+                <key>appcast_request_headers</key>
+                <dict>
+                    <key>User-Agent</key>
+                    <string>Transmit/4.4.12 Sparkle/1.5</string>
                 </dict>
             </dict>
         </dict>

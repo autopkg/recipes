@@ -26,6 +26,13 @@
                 <dict>
                     <key>appName</key>
                     <string>Coda 2</string>
+                    <key>appVersion</key>
+                    <string>2.6</string>
+                </dict>
+                <key>appcast_request_headers</key>
+                <dict>
+                    <key>User-Agent</key>
+                    <string>Coda 2/2.6 Sparkle/1.10.1</string>
                 </dict>
             </dict>
         </dict>
