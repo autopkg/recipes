@@ -51,6 +51,28 @@
         </dict>
         <dict>
             <key>Processor</key>
+            <string>URLTextSearcher</string>
+            <key>Arguments</key>
+            <dict>
+                <key>url</key>
+                <string>https://github.com/HandBrake/HandBrake/wiki/Checksums</string>
+                <key>re_pattern</key>
+                <string>(?&lt;=dmg&lt;/td&gt;\n&lt;td&gt;\d\d.\d\d&lt;/td&gt;\n&lt;td&gt;[a-z,0-9]{40}&lt;/td&gt;\n&lt;td&gt;)([a-z,0-9]*)(?=&lt;/t)</string>
+            </dict>
+        </dict>
+        <dict>
+            <key>Processor</key>
+            <string>io.github.hjuutilainen.SharedProcessors/ChecksumVerifier</string>
+            <key>Arguments</key>
+            <dict>
+                <key>algorithm</key>
+                <string>SHA256</string>
+                <key>checksum</key>
+                <string>%match%</string>
+            </dict>
+        </dict>
+        <dict>
+            <key>Processor</key>
             <string>EndOfCheckPhase</string>
         </dict>
     </array>
