@@ -8,9 +8,8 @@ organization requires code signature, it is recommend to internally sign
 the application.
 
 Downloads and imports version 3 of the Munki tools via
-the official releases listing on GitHub. While Munki 3 is in prerelease,
-this recipe sets INCLUDE_PRERELEASES, and this will set to off by default
-when there is an official release.
+the official releases listing on GitHub. You can set INCLUDE_PRERELEASES
+to any value to have this recipe pull prerelease versions.
 
 Note that Munki 3 includes an additional component pkg, munkitools_app_usage.
 This recipe imports this to the Munki with the appropriate 'requires' key,
@@ -36,7 +35,7 @@ MUNKI_ICON should be overridden with your icon name.
     <key>Input</key>
     <dict>
         <key>INCLUDE_PRERELEASES</key>
-        <string>True</string>
+        <string></string>
         <key>NAME</key>
         <string>munkitools3</string>
         <key>MUNKI_CATALOG</key>
