@@ -61,7 +61,7 @@ http://www.oracle.com/technetwork/java/javase/terms/license/index.html
                 <string>%pathname%/Java 8 Update*.app/Contents/Resources/JavaAppletPlugin.pkg</string>
                 <key>expected_authority_names</key>
                 <array>
-                    <string>Developer ID Installer: Oracle America, Inc.</string>
+                    <string>Developer ID Installer: Oracle America, Inc. (VB5E2TV963)</string>
                     <string>Developer ID Certification Authority</string>
                     <string>Apple Root CA</string>
                 </array>
