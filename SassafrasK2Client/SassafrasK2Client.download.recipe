@@ -49,7 +49,7 @@ is set to an empty string, the latest version will be retrieved.
                 <string>%pathname%</string>
                 <key>expected_authority_names</key>
                 <array>
-                    <string>Developer ID Installer: Sassafras Software, Inc.</string>
+                    <string>Developer ID Installer: Sassafras Software, Inc. (7Z2KSDFMVY)</string>
                     <string>Developer ID Certification Authority</string>
                     <string>Apple Root CA</string>
                 </array>
