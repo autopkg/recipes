@@ -242,7 +242,11 @@ class MSOffice2016URLandUpdateInfoProvider(Processor):
                     lcid,
                     ", ".join(all_localizations.keys()),
                     LOCALE_ID_INFO_URL))
-        manifest_description = all_localizations[lcid]['Short Description']
+        try:
+            manifest_description = self.env["pkginfo"]["description"]
+        except:
+            manifest_description = all_localizations[lcid]['Short Description']
+
         # Store the description in a separate output variable and in our pkginfo
         # directly.
         pkginfo["description"] = "<html>%s</html>" % manifest_description
