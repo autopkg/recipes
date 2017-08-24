@@ -59,8 +59,10 @@ See the following URLs for more info:
             <string>CodeSignatureVerifier</string>
             <key>Arguments</key>
             <dict>
+                <key>comment</key>
+                <string>Use wildcard matching for the app so it will also match FirefoxDeveloperEdition.app and FirefoxNightly.app</string>
                 <key>input_path</key>
-                <string>%pathname%/Firefox.app</string>
+                <string>%pathname%/Firefox*.app</string>
                 <key>requirement</key>
                 <string>anchor apple generic and certificate leaf[field.1.2.840.113635.100.6.1.9] /* exists */ or anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = "43AQ936H96"</string>
             </dict>
