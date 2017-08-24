@@ -59,6 +59,8 @@ See the following URLs for more info:
             <string>CodeSignatureVerifier</string>
             <key>Arguments</key>
             <dict>
+                <key>comment</key>
+                <string>Use wildcard matching for the app so it will also match FirefoxDeveloperEdition.app and FirefoxNightly.app</string>
                 <key>input_path</key>
                 <string>%pathname%/Firefox*.app</string>
                 <key>requirement</key>
