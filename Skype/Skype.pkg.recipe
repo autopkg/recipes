@@ -24,7 +24,7 @@
                 <string>%pathname%/Skype.app/Contents/Info.plist</string>
                 <key>plist_keys</key>
                 <dict>
-                    <key>CFBundleVersion</key>
+                    <key>CFBundleShortVersionString</key>
                     <string>version</string>
                     <key>CFBundleIdentifier</key>
                     <string>bundleid</string>
