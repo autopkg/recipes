@@ -31,7 +31,7 @@ http://www.oracle.com/technetwork/java/javase/terms/license/index.html
                 <key>url</key>
                 <string>http://www.oracle.com/technetwork/java/javase/downloads/jre9-downloads-3848532.html</string>
                 <key>re_pattern</key>
-                <string>(?P&lt;url&gt;http://download.oracle.com/otn-pub/java/jdk/.*?/jre-9_osx-x64_bin.dmg)</string>
+                <string>(?P&lt;url&gt;http://download.oracle.com/otn-pub/java/jdk/9.*?/jre-9.*?_osx-x64_bin.dmg)</string>
             </dict>
         </dict>
         <dict>
