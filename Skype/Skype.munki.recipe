@@ -11,7 +11,7 @@
         <key>NAME</key>
         <string>Skype</string>
         <key>MUNKI_REPO_SUBDIR</key>
-        <string>apps</string>
+        <string>apps/skype</string>
         <key>pkginfo</key>
         <dict>
             <key>catalogs</key>
