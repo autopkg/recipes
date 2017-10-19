@@ -16,7 +16,8 @@
         <dict>
             <key>catalogs</key>
             <array>
-                <string>testing</string>
+                <string>wethinkcode</string>
+                <string>wethinkcode-testing</string>
             </array>
             <key>description</key>
             <string>Calling, seeing, messaging and sharing with others – wherever they are.</string>

@@ -16,7 +16,8 @@
         <dict>
             <key>catalogs</key>
             <array>
-                <string>testing</string>
+                <string>wethinkcode</string>
+                <string>wethinkcode-testing</string>
             </array>
             <key>description</key>
             <string>Chrome is a fast, simple, and secure web browser, built for the modern web.</string>
