@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Description</key>
+	<string>Downloads the current release version of AppCode.</string>
+	<key>Identifier</key>
+	<string>io.github.hjuutilainen.download.AppCode</string>
+	<key>Input</key>
+	<dict>
+		<key>NAME</key>
+		<string>AppCode</string>
+		<key>SEARCH_URL</key>
+		<string>https://data.services.jetbrains.com/products/releases?code=AC</string>
+		<key>SEARCH_PATTERN</key>
+		<string>mac":{"link":"(.+?dmg)"</string>
+	</dict>
+	<key>MinimumVersion</key>
+	<string>0.3.1</string>
+	<key>Process</key>
+	<array>
+		<dict>
+			<key>Processor</key>
+			<string>URLTextSearcher</string>
+			<key>Arguments</key>
+			<dict>
+				<key>url</key>
+				<string>%SEARCH_URL%</string>
+				<key>re_pattern</key>
+				<string>%SEARCH_PATTERN%</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>Processor</key>
+			<string>URLDownloader</string>
+			<key>Arguments</key>
+			<dict>
+				<key>url</key>
+				<string>%match%</string>
+				<key>filename</key>
+				<string>%NAME%.dmg</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>Processor</key>
+			<string>EndOfCheckPhase</string>
+		</dict>
+		<dict>
+			<key>Processor</key>
+			<string>CodeSignatureVerifier</string>
+			<key>Arguments</key>
+			<dict>
+				<key>input_path</key>
+				<string>%pathname%/AppCode.app</string>
+				<key>requirement</key>
+				<string>identifier "com.jetbrains.AppCode" and anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = "2ZEFAR8TH3"</string>
+				<key>strict_verification</key>
+				<true />
+			</dict>
+		</dict>
+	</array>
+</dict>
+</plist>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Description</key>
+	<string>Downloads and installs the current release version of AppCode.</string>
+	<key>Identifier</key>
+	<string>io.github.hjuutilainen.install.AppCode</string>
+	<key>Input</key>
+	<dict>
+	</dict>
+	<key>MinimumVersion</key>
+	<string>0.4.0</string>
+	<key>ParentRecipe</key>
+	<string>io.github.hjuutilainen.download.AppCode</string>
+	<key>Process</key>
+	<array>
+		<dict>
+			<key>Processor</key>
+			<string>InstallFromDMG</string>
+			<key>Arguments</key>
+			<dict>
+				<key>dmg_path</key>
+				<string>%pathname%</string>
+				<key>items_to_copy</key>
+				<array>
+					<dict>
+						<key>source_item</key>
+						<string>AppCode.app</string>
+						<key>destination_path</key>
+						<string>/Applications/</string>
+					</dict>
+				</array>
+			</dict>
+		</dict>
+	</array>
+</dict>
+</plist>
