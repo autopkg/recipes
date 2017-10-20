@@ -3,16 +3,7 @@
 <plist version="1.0">
 <dict>
     <key>Description</key>
-    <string>Downloads the latest 'The Unarchiver' and imports into Munki.
-
-Note: this recipe has issues with repeated runs due to a bug in curl starting
-with OS X 10.10.5. This has been fixed for the next version of AutoPkg, but not
-yet in a released version. It should still download and unzip properly if is it is the first run, without an already-downloaded file.
-
-The application's LSMinimumSystemVersion is currently inaccurate, but the
-sparkle:minimumSystemVersion element is correct, so we use MunkiPkginfoMerger
-to merge the minimum_os_version that is output from SparkleUpdateInfoProvider
-in the .download ParentRecipe.</string>
+    <string>Downloads the latest 'The Unarchiver' and imports into Munki.</string>
     <key>Identifier</key>
     <string>com.github.autopkg.munki.TheUnarchiver</string>
     <key>Input</key>
@@ -21,6 +12,10 @@ in the .download ParentRecipe.</string>
         <string>TheUnarchiver</string>
         <key>MUNKI_REPO_SUBDIR</key>
         <string>apps/theunarchiver</string>
+        <key>MUNKI_CATEGORY</key>
+        <string>Tools</string>
+        <key>MUNKI_DEVELOPER</key>
+        <string>Dag Agren</string>
         <key>pkginfo</key>
         <dict>
             <key>catalogs</key>
@@ -28,6 +23,12 @@ in the .download ParentRecipe.</string>
                 <string>wethinkcode</string>
                 <string>wethinkcode-testing</string>
             </array>
+            <key>category</key>
+            <string>%MUNKI_CATEGORY%</string>
+            <key>developer</key>
+            <string>%MUNKI_DEVELOPER%</string>
+            <key>display_name</key>
+            <string>%NAME%</string>
             <key>description</key>
             <string>The Unarchiver is a much more capable replacement for "Archive Utility.app", the built-in archive unpacker program on Mac OS X. The Unarchiver is designed to handle many more formats than Archive Utility, and to better fit in with the design of the Finder.</string>
             <key>display_name</key>

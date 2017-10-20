@@ -12,6 +12,10 @@
         <string>Skype</string>
         <key>MUNKI_REPO_SUBDIR</key>
         <string>apps/skype</string>
+        <key>MUNKI_CATEGORY</key>
+        <string>Social</string>
+        <key>MUNKI_DEVELOPER</key>
+        <string>Microsoft</string>
         <key>pkginfo</key>
         <dict>
             <key>catalogs</key>
@@ -19,10 +23,14 @@
                 <string>wethinkcode</string>
                 <string>wethinkcode-testing</string>
             </array>
+            <key>category</key>
+            <string>%MUNKI_CATEGORY%</string>
+            <key>developer</key>
+            <string>%MUNKI_DEVELOPER%</string>
+            <key>display_name</key>
+            <string>%NAME%</string>
             <key>description</key>
             <string>Calling, seeing, messaging and sharing with others – wherever they are.</string>
-            <key>display_name</key>
-            <string>Skype</string>
             <key>name</key>
             <string>%NAME%</string>
             <key>unattended_install</key>

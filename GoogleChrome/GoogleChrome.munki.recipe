@@ -12,6 +12,10 @@
         <string>Google Chrome</string>
         <key>MUNKI_REPO_SUBDIR</key>
         <string>apps/google-chrome</string>
+        <key>MUNKI_CATEGORY</key>
+		<string>Developer</string>
+		<key>MUNKI_DEVELOPER</key>
+		<string>Github</string>
         <key>pkginfo</key>
         <dict>
             <key>catalogs</key>
@@ -19,10 +23,14 @@
                 <string>wethinkcode</string>
                 <string>wethinkcode-testing</string>
             </array>
+            <key>category</key>
+            <string>%MUNKI_CATEGORY%</string>
+            <key>developer</key>
+            <string>%MUNKI_DEVELOPER%</string>
             <key>description</key>
-            <string>Chrome is a fast, simple, and secure web browser, built for the modern web.</string>
+            <string>Google Chrome is a freeware web browser developed by Google. It used the WebKit layout engine until version 27 and with the exception of its iOS releases, from version 28 and beyond uses the WebKit fork Blink.</string>
             <key>display_name</key>
-            <string>Google Chrome</string>
+            <string>%NAME%</string>
             <key>name</key>
             <string>%NAME%</string>
             <key>unattended_install</key>

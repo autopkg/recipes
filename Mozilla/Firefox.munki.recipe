@@ -3,22 +3,19 @@
 <plist version="1.0">
 <dict>
     <key>Description</key>
-    <string>Downloads Firefox disk image and imports into Munki.
-Some useful values for RELEASE are: 'latest', 'esr-latest', 'beta-latest'.
-LOCALE controls the language localization to be downloded.
-Examples include 'en-US', 'de', 'sv-SE', and 'zh-TW'
-See the following URLs for more info:
-    http://ftp.mozilla.org/pub/firefox/releases/latest/README.txt
-    http://ftp.mozilla.org/pub/firefox/releases/latest-esr/README.txt
-    http://ftp.mozilla.org/pub/firefox/releases/latest-beta/README.txt</string>
+    <string>Downloads Firefox disk image and imports into Munki.</string>
     <key>Identifier</key>
     <string>com.github.autopkg.munki.firefox-rc-en_US</string>
     <key>Input</key>
     <dict>
-        <key>MUNKI_REPO_SUBDIR</key>
-        <string>apps/firefox</string>
         <key>NAME</key>
         <string>Firefox</string>
+        <key>MUNKI_REPO_SUBDIR</key>
+        <string>apps/firefox</string>
+        <key>MUNKI_CATEGORY</key>
+        <string>Web Browser</string>
+        <key>MUNKI_DEVELOPER</key>
+        <string>Mozilla</string>
         <key>pkginfo</key>
         <dict>
             <key>catalogs</key>
@@ -26,6 +23,10 @@ See the following URLs for more info:
                 <string>wethinkcode</string>
                 <string>wethinkcode-testing</string>
             </array>
+            <key>category</key>
+            <string>%MUNKI_CATEGORY%</string>
+            <key>developer</key>
+            <string>%MUNKI_DEVELOPER%</string>
             <key>description</key>
             <string>Mozilla Firefox is a free and open source web browser.</string>
             <key>display_name</key>

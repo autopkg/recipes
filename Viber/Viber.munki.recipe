@@ -8,10 +8,14 @@
     <string>com.github.joshua-d-miller.autopkg.munki.viber</string>
     <key>Input</key>
     <dict>
-        <key>MUNKI_REPO_SUBDIR</key>
-        <string>apps/viber</string>
         <key>NAME</key>
         <string>Viber</string>
+        <key>MUNKI_REPO_SUBDIR</key>
+        <string>apps/viber</string>
+        <key>MUNKI_CATEGORY</key>
+        <string>Social</string>
+        <key>MUNKI_DEVELOPER</key>
+        <string>Viber Media</string>
     	<key>pkginfo</key>
     	<dict>
     		<key>catalogs</key>
@@ -20,11 +24,11 @@
     			<string>wethinkcode-testing</string>
     		</array>
             <key>category</key>
-            <string>Social</string>
+            <string>%MUNKI_CATEGORY%</string>
             <key>developer</key>
-            <string>Viber Media</string>
+            <string>%MUNKI_DEVELOPER%</string>
             <key>display_name</key>
-            <string>Viber</string>
+            <string>%NAME%</string>
     		<key>description</key>
     		<string>Viber for Mac lets you send free messages and make free calls to other Viber users, on any device and network, in any country!</string>
     		<key>name</key>

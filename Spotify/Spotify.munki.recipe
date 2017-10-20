@@ -3,16 +3,7 @@
 <plist version="1.0">
 <dict>
     <key>Description</key>
-    <string>Downloads the latest Spotify and imports into Munki.
-
-Note: 1.0.50 and 1.0.51 versions of Spotify has mode 744 for its executables,
-causing the app to not launch for any user except the user who installed
-it, root in the case of Munki. Currently a postinstall_script fixes this issue
-by adding group and owner +x to these files.
-
-Related GitHub issue:
-https://github.com/autopkg/recipes/issues/196
-</string>
+    <string>Downloads the latest Spotify and imports into Munki.</string>
     <key>Identifier</key>
     <string>com.github.autopkg.munki.Spotify</string>
     <key>Input</key>
@@ -21,6 +12,10 @@ https://github.com/autopkg/recipes/issues/196
         <string>Spotify</string>
         <key>MUNKI_REPO_SUBDIR</key>
         <string>apps/spotify</string>
+        <key>MUNKI_CATEGORY</key>
+        <string>Multimedia</string>
+        <key>MUNKI_DEVELOPER</key>
+        <string>Spotify</string>
         <key>pkginfo</key>
         <dict>
             <key>catalogs</key>
@@ -28,10 +23,14 @@ https://github.com/autopkg/recipes/issues/196
                 <string>wethinkcode</string>
                 <string>wethinkcode-testing</string>
             </array>
+            <key>category</key>
+            <string>%MUNKI_CATEGORY%</string>
+            <key>developer</key>
+            <string>%MUNKI_DEVELOPER%</string>
+            <key>display_name</key>
+            <string>%NAME%</string>
             <key>description</key>
             <string>Spotify is a music streaming service offering unlimited streaming of selected music from a range of major and independent record labels.</string>
-            <key>display_name</key>
-            <string>Spotify</string>
             <key>name</key>
             <string>%NAME%</string>
             <key>postinstall_script</key>
