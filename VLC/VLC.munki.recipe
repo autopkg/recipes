@@ -3,11 +3,7 @@
 <plist version="1.0">
 <dict>
     <key>Description</key>
-    <string>Downloads latest VLC disk image and imports into Munki.
-
-Please note that the values for supported_architectures in this
-recipe's pkginfo may be only evaluated accurately for early-generation
-Intel Macs as of Munki tools version 0.9.2.</string>
+    <string>Downloads latest VLC disk image and imports into Munki.</string>
     <key>Identifier</key>
     <string>com.github.autopkg.munki.VLC</string>
     <key>Input</key>
@@ -16,8 +12,6 @@ Intel Macs as of Munki tools version 0.9.2.</string>
         <string>VLC media player</string>
         <key>MUNKI_REPO_SUBDIR</key>
         <string>apps/vlc</string>
-        <key>MUNKI_REPO_SUBDIR</key>
-        <string>apps/theunarchiver</string>
         <key>MUNKI_CATEGORY</key>
         <string>Multimedia</string>
         <key>MUNKI_DEVELOPER</key>
