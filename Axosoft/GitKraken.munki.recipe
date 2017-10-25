@@ -30,7 +30,7 @@
 			<key>description</key>
 			<string>Axosoft GitKraken is a cross-platform Git client with efficiency, elegance and reliability at the core. It was made for devs by devs.</string>
 			<key>display_name</key>
-            <string>%NAME%</string>
+			<string>%NAME%</string>
 			<key>name</key>
 			<string>%NAME%</string>
 			<key>unattended_install</key>
