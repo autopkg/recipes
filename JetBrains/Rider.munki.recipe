@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
     <key>Identifier</key>
-    <string>com.github.jarias.munki.CLion</string>
+    <string>com.github.wethinkcode.recipes</string>
     <key>Description</key>
-    <string>Downloads CLion and imports into Munki.</string>
+    <string>Downloads Rider and imports into Munki.</string>
     <key>Input</key>
     <dict>
     	<key>NAME</key>
