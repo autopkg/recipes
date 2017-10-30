@@ -33,7 +33,6 @@
         	<string>%MUNKI_CATEGORY%</string>
         	<key>developer</key>
         	<string>%MUNKI_DEVELOPER%</string>
-       		</string>
       	</dict>
     </dict>
     <key>Process</key>
