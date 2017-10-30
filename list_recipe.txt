@@ -12,3 +12,4 @@ TheUnarchiver.munki
 VLC.munki
 Viber.munki
 iTerm2.munki
+Whatsapp.munki
