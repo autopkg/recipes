@@ -9,7 +9,7 @@
     <key>Input</key>
     <dict>
     	<key>NAME</key>
-    	<string>CLion</string>
+    	<string>Rider</string>
     	<key>MUNKI_REPO_SUBDIR</key>
     	<string>apps/jetbrains</string>
     	<key>MUNKI_CATEGORY</key>
@@ -24,7 +24,7 @@
 				<string>wethinkcode-testing</string>
 			</array>
         	<key>description</key>
-        	<string>CLion (pronounced "sea lion") is a cross-platform C/C++ IDE for Linux, OS X, and Windows integrated with the CMake build system. The initial version will support the GNU Compiler Collection (GCC) and Clang compilers and GDB debugger, with JetBrains hoping to support LLDB and Google Test in the future. Forrester Research analyst Michael Facemire expressed doubts about the product's potential.</string>
+        	<string>A cross-platform .NET IDE by JetBrains, creators of IntelliJ IDEA and ReSharper. Supports C#, ASP.NET, ASP.NET MVC, .NET Core, Unity and Xamarin.</string>
         	<key>display_name</key>
         	<string>%NAME%</string>
         	<key>name</key>
@@ -33,8 +33,6 @@
         	<string>%MUNKI_CATEGORY%</string>
         	<key>developer</key>
         	<string>%MUNKI_DEVELOPER%</string>
-        	<key>postinstall_script</key>
-        	<string>#!/bin/sh /usr/libexec/PlistBuddy -c 'Set :JVMOptions:JVMVersion 1.8+' "/Applications/CLion.app/Contents/Info.plist" exit 0
        		</string>
       	</dict>
     </dict>
@@ -46,7 +44,7 @@
         <key>Arguments</key>
         <dict>
         	<key>url</key>
-        	<string>https://data.services.jetbrains.com/products/releases?code=CL</string>
+        	<string>https://data.services.jetbrains.com/products/releases?code=RD</string>
         	<key>re_pattern</key>
         	<string>mac":{"link":"(.+?dmg)"</string>
         </dict>

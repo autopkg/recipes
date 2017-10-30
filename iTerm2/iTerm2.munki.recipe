@@ -11,7 +11,7 @@
 		<key>NAME</key>
 		<string>iTerm</string>
 		<key>MUNKI_REPO_SUBDIR</key>
-		<string>apps</string>
+		<string>apps/iterm</string>
 		<key>MUNKI_CATEGORY</key>
 		<string>Tools</string>
 		<key>MUNKI_DEVELOPER</key>
