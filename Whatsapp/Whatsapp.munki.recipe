@@ -15,7 +15,7 @@
 		<key>MUNKI_CATEGORY</key>
 		<string>Tools</string>
 		<key>MUNKI_DEVELOPER</key>
-		<string>Whatsapp Inc.</string>
+		<string>WhatsApp Inc.</string>
 		<key>pkginfo</key>
 		<dict>
 			<key>catalogs</key>
