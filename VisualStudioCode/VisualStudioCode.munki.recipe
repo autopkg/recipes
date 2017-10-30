@@ -37,8 +37,6 @@
 		</dict>
 		<key>MinimumVersion</key>
 		<string>0.6.1</string>
-		<key>ParentRecipe</key>
-		<string>com.github.valdore86.download.visualstudiocode</string>
 		<key>Process</key>
 		<array>
 			<dict>
