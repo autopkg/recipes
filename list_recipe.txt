@@ -4,6 +4,7 @@ GoogleChrome.munki
 Grammarly.munki
 AppCode.munki
 CLion.munki
+Rider.munki
 Firefox.munki
 Skype.munki
 Slack.munki
