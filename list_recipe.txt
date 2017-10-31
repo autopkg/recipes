@@ -1,3 +1,4 @@
+Atom.munki
 GitKraken.munki
 BackupAndSync.munki
 GoogleChrome.munki

@@ -24,7 +24,8 @@
 				<string>wethinkcode-testing</string>
 			</array>
         	<key>description</key>
-        	<string>CLion (pronounced "sea lion") is a cross-platform C/C++ IDE for Linux, OS X, and Windows integrated with the CMake build system. The initial version will support the GNU Compiler Collection (GCC) and Clang compilers and GDB debugger, with JetBrains hoping to support LLDB and Google Test in the future. Forrester Research analyst Michael Facemire expressed doubts about the product's potential.</string>
+        	<string>CLion (pronounced "sea lion") is a cross-platform C/C++ IDE for Linux, OS X, and Windows integrated with the CMake build system. The initial version will support the GNU Compiler Collection (GCC) and Clang compilers and GDB debugger, with JetBrains hoping to support LLDB and Google Test in the future. Forrester Research analyst Michael Facemire expressed doubts about the product's potential.
+            </string>
         	<key>display_name</key>
         	<string>%NAME%</string>
         	<key>name</key>
