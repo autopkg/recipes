@@ -13,9 +13,9 @@
      	<key>MUNKI_REPO_SUBDIR</key>
      	<string>apps/atom</string>
      	<key>MUNKI_CATEGORY</key>
-	 	<string>IDE</string>
-		<key>MUNKI_DEVELOPER</key>
-		<string>Github</string>
+      <string>IDE</string>
+      <key>MUNKI_DEVELOPER</key>
+      <string>Github</string>
      	<key>pkginfo</key>
     	<dict>
         	<key>catalogs</key>
