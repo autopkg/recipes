@@ -16,7 +16,7 @@
       <string>IDE</string>
       <key>MUNKI_DEVELOPER</key>
       <string>Github</string>
-     	<key>pkginfo</key>
+      <key>pkginfo</key>
       <dict>
           <key>catalogs</key>
           <array>
@@ -30,7 +30,7 @@
           <key>name</key>
           <string>%NAME%</string>
           <key>category</key>
-         	<string>%MUNKI_CATEGORY%</string>
+          <string>%MUNKI_CATEGORY%</string>
           <key>developer</key>
           <string>%MUNKI_DEVELOPER%</string>
       </dict>
