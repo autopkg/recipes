@@ -21,7 +21,6 @@
 				<key>catalogs</key>
 				<array>
 					<string>wethinkcode</string>
-					<string>wethinkcode-testing</string>
 				</array>
 				<key>category</key>
 				<string>%MUNKI_CATEGORY%</string>

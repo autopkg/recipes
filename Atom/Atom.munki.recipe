@@ -8,31 +8,30 @@
     <string>Downloads Atom and imports into Munki.</string>
     <key>Input</key>
     <dict>
-      <key>NAME</key>
-      <string>Atom</string>
-      <key>MUNKI_REPO_SUBDIR</key>
-      <string>apps/atom</string>
-      <key>MUNKI_CATEGORY</key>
-      <string>IDE</string>
-      <key>MUNKI_DEVELOPER</key>
-      <string>Github</string>
-      <key>pkginfo</key>
-      <dict>
-          <key>catalogs</key>
-          <array>
-          <string>wethinkcode</string>
-          <string>wethinkcode-testing</string>
-          </array>
-          <key>description</key>
-          <string>Atom is a free and open-source text and source code editor for OS X, Linux, and Windows with support for plug-ins written in Node.js, and embedded Git Control, developed by GitHub. Atom is a desktop application built using web technologies.</string>
-          <key>display_name</key>
-          <string>%NAME%</string>
-          <key>name</key>
-          <string>%NAME%</string>
-          <key>category</key>
-          <string>%MUNKI_CATEGORY%</string>
-          <key>developer</key>
-          <string>%MUNKI_DEVELOPER%</string>
+        <key>NAME</key>
+        <string>Atom</string>
+        <key>MUNKI_REPO_SUBDIR</key>
+        <string>apps/atom</string>
+        <key>MUNKI_CATEGORY</key>
+        <string>IDE</string>
+        <key>MUNKI_DEVELOPER</key>
+        <string>Github</string>
+        <key>pkginfo</key>
+        <dict>
+            <key>catalogs</key>
+            <array>
+                <string>wethinkcode</string>
+            </array>
+            <key>description</key>
+            <string>Atom is a free and open-source text and source code editor for OS X, Linux, and Windows with support for plug-ins written in Node.js, and embedded Git Control, developed by GitHub. Atom is a desktop application built using web technologies.</string>
+            <key>display_name</key>
+            <string>%NAME%</string>
+            <key>name</key>
+            <string>%NAME%</string>
+            <key>category</key>
+            <string>%MUNKI_CATEGORY%</string>
+            <key>developer</key>
+            <string>%MUNKI_DEVELOPER%</string>
       </dict>
     </dict>
     <key>Process</key>
