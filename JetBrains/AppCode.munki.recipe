@@ -2,59 +2,59 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>Description</key>
-	<string>Downloads the current release version of AppCode and imports into Munki.</string>
-	<key>Identifier</key>
-	<string>io.github.hjuutilainen.munki.AppCode</string>
-	<key>Input</key>
-	<dict>
-		<key>NAME</key>
-		<string>AppCode</string>
-		<key>MUNKI_REPO_SUBDIR</key>
-		<string>apps/appcode</string>
-		<key>MUNKI_CATEGORY</key>
-		<string>IDE</string>
-		<key>MUNKI_DEVELOPER</key>
-		<string>JetBrains</string>
-		<key>pkginfo</key>
-		<dict>
-			<key>catalogs</key>
-			<array>
-				<string>wethinkcode</string>
-			</array>
-			<key>category</key>
-			<string>%MUNKI_CATEGORY%</string>
-			<key>developer</key>
+    <key>Description</key>
+    <string>Downloads the current release version of AppCode and imports into Munki.</string>
+    <key>Identifier</key>
+    <string>io.github.hjuutilainen.munki.AppCode</string>
+    <key>Input</key>
+    <dict>
+        <key>NAME</key>
+        <string>AppCode</string>
+        <key>MUNKI_REPO_SUBDIR</key>
+        <string>apps/appcode</string>
+        <key>MUNKI_CATEGORY</key>
+        <string>IDE</string>
+        <key>MUNKI_DEVELOPER</key>
+        <string>JetBrains</string>
+        <key>pkginfo</key>
+        <dict>
+            <key>catalogs</key>
+            <array>
+                <string>wethinkcode</string>
+            </array>
+            <key>category</key>
+            <string>%MUNKI_CATEGORY%</string>
+            <key>developer</key>
             <string>%MUNKI_DEVELOPER%</string>
             <key>display_name</key>
-			<string>%NAME%</string>
-			<key>description</key>
-			<string>AppCode is an intelligent Objective-C IDE that helps iOS/OS X developers create outstanding apps with ease and pleasure.</string>
-			<key>name</key>
-			<string>%NAME%</string>
-			<key>unattended_install</key>
-			<true/>
-		</dict>
-	</dict>
-	<key>MinimumVersion</key>
-	<string>0.2.9</string>
-	<key>ParentRecipe</key>
-	<string>io.github.hjuutilainen.download.AppCode</string>
-	<key>Process</key>
-	<array>
-		<dict>
-			<key>Processor</key>
-			<string>MunkiImporter</string>
-			<key>Arguments</key>
-			<dict>
-				<key>munkiimport_appname</key>
-				<string>AppCode.app</string>
-				<key>pkg_path</key>
-				<string>%pathname%</string>
-				<key>repo_subdirectory</key>
-				<string>%MUNKI_REPO_SUBDIR%</string>
-			</dict>
-		</dict>
-	</array>
+            <string>%NAME%</string>
+            <key>description</key>
+            <string>AppCode is an intelligent Objective-C IDE that helps iOS/OS X developers create outstanding apps with ease and pleasure.</string>
+            <key>name</key>
+            <string>%NAME%</string>
+            <key>unattended_install</key>
+            <true/>
+        </dict>
+    </dict>
+    <key>MinimumVersion</key>
+    <string>0.2.9</string>
+    <key>ParentRecipe</key>
+    <string>io.github.hjuutilainen.download.AppCode</string>
+    <key>Process</key>
+    <array>
+        <dict>
+            <key>Processor</key>
+            <string>MunkiImporter</string>
+            <key>Arguments</key>
+            <dict>
+                <key>munkiimport_appname</key>
+                <string>AppCode.app</string>
+                <key>pkg_path</key>
+                <string>%pathname%</string>
+                <key>repo_subdirectory</key>
+                <string>%MUNKI_REPO_SUBDIR%</string>
+            </dict>
+        </dict>
+    </array>
 </dict>
 </plist>

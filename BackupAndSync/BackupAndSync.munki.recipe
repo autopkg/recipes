@@ -8,22 +8,22 @@
     <string>com.github.dataJAR-recipes.munki.Google Backup and Sync</string>
     <key>Input</key>
     <dict>
-    	<key>NAME</key>
+        <key>NAME</key>
         <string>Backup and Sync</string>
         <key>DOWNLOAD_URL</key>
         <string>https://dl.google.com/drive/InstallBackupAndSync.dmg</string>
         <key>MUNKI_REPO_SUBDIR</key>
         <string>apps/backup-and-sync</string>
         <key>MUNKI_CATEGORY</key>
-		<string>Storage</string>
-		<key>MUNKI_DEVELOPER</key>
-		<string>Google</string>
+        <string>Storage</string>
+        <key>MUNKI_DEVELOPER</key>
+        <string>Google</string>
         <key>pkginfo</key>
         <dict>
             <key>catalogs</key>
-			<array>
-				<string>wethinkcode</string>
-			</array>
+            <array>
+                <string>wethinkcode</string>
+            </array>
             <key>category</key>
             <string>%MUNKI_CATEGORY%</string>
             <key>developer</key>
@@ -46,31 +46,31 @@
     <string>com.github.nstrauss.download.BackupandSync</string>
     <key>Process</key>
     <array>
-		<dict>
-			<key>Processor</key>
-			<string>Versioner</string>
-			<key>Arguments</key>
-			<dict>
-				<key>input_plist_path</key>
-				<string>%pathname%/Backup and Sync.app/Contents/Info.plist</string>
-				<key>plist_version_key</key>
-				<string>CFBundleVersion</string>
-			</dict>
-		</dict>
-		<dict>
-			<key>Processor</key>
-			<string>MunkiPkginfoMerger</string>
-			<key>Arguments</key>
-			<dict>
-				<key>additional_pkginfo</key>
-				<dict>
-					<key>version</key>
-					<string>%version%</string>
-				</dict>
-			</dict>
-		</dict>
-		<dict>
-		    <key>Processor</key>
+        <dict>
+            <key>Processor</key>
+            <string>Versioner</string>
+            <key>Arguments</key>
+            <dict>
+                <key>input_plist_path</key>
+                <string>%pathname%/Backup and Sync.app/Contents/Info.plist</string>
+                <key>plist_version_key</key>
+                <string>CFBundleVersion</string>
+            </dict>
+        </dict>
+        <dict>
+            <key>Processor</key>
+            <string>MunkiPkginfoMerger</string>
+            <key>Arguments</key>
+            <dict>
+                <key>additional_pkginfo</key>
+                <dict>
+                    <key>version</key>
+                    <string>%version%</string>
+                </dict>
+            </dict>
+        </dict>
+        <dict>
+            <key>Processor</key>
             <string>MunkiPkginfoMerger</string>
         </dict>
         <dict>

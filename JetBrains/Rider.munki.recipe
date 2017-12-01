@@ -8,44 +8,43 @@
     <string>Downloads Rider and imports into Munki.</string>
     <key>Input</key>
     <dict>
-    	<key>NAME</key>
-    	<string>Rider</string>
-    	<key>MUNKI_REPO_SUBDIR</key>
-    	<string>apps/jetbrains</string>
-    	<key>MUNKI_CATEGORY</key>
-	<string>IDE</string>
-	<key>MUNKI_DEVELOPER</key>
-	<string>JetBrains</string>
-    	<key>pkginfo</key>
-    	<dict>
+        <key>NAME</key>
+        <string>Rider</string>
+        <key>MUNKI_REPO_SUBDIR</key>
+        <string>apps/jetbrains</string>
+        <key>MUNKI_CATEGORY</key>
+        <string>IDE</string>
+        <key>MUNKI_DEVELOPER</key>
+        <string>JetBrains</string>
+        <key>pkginfo</key>
+        <dict>
         <key>catalogs</key>
-		<array>
-			<string>wethinkcode</string>
-			<string>wethinkcode-testing</string>
-		</array>
+        <array>
+            <string>wethinkcode</string>
+        </array>
         <key>description</key>
-       	<string>A cross-platform .NET IDE by JetBrains, creators of IntelliJ IDEA and ReSharper. Supports C#, ASP.NET, ASP.NET MVC, .NET Core, Unity and Xamarin.</string>
-       	<key>display_name</key>
-       	<string>%NAME%</string>
-       	<key>name</key>
-       	<string>%NAME%</string>
-       	<key>category</key>
-       	<string>%MUNKI_CATEGORY%</string>
-       	<key>developer</key>        	
-	<string>%MUNKI_DEVELOPER%</string>
-      	</dict>
+           <string>A cross-platform .NET IDE by JetBrains, creators of IntelliJ IDEA and ReSharper. Supports C#, ASP.NET, ASP.NET MVC, .NET Core, Unity and Xamarin.</string>
+           <key>display_name</key>
+           <string>%NAME%</string>
+           <key>name</key>
+           <string>%NAME%</string>
+           <key>category</key>
+           <string>%MUNKI_CATEGORY%</string>
+           <key>developer</key>
+           <string>%MUNKI_DEVELOPER%</string>
+          </dict>
     </dict>
     <key>Process</key>
     <array>
-      	<dict>
+          <dict>
         <key>Processor</key>
         <string>URLTextSearcher</string>
         <key>Arguments</key>
         <dict>
-        	<key>url</key>
-        	<string>https://data.services.jetbrains.com/products/releases?code=RD</string>
-        	<key>re_pattern</key>
-        	<string>mac":{"link":"(.+?dmg)"</string>
+            <key>url</key>
+            <string>https://data.services.jetbrains.com/products/releases?code=RD</string>
+            <key>re_pattern</key>
+            <string>mac":{"link":"(.+?dmg)"</string>
         </dict>
     </dict>
     <dict>
@@ -53,10 +52,10 @@
         <string>URLDownloader</string>
         <key>Arguments</key>
         <dict>
-        	<key>url</key>
-        	<string>%match%</string>
-        	<key>filename</key>
-        	<string>%NAME%.dmg</string>
+            <key>url</key>
+            <string>%match%</string>
+            <key>filename</key>
+            <string>%NAME%.dmg</string>
         </dict>
     </dict>
     <dict>
@@ -64,15 +63,15 @@
         <string>MunkiImporter</string>
         <key>Arguments</key>
         <dict>
-        	<key>pkg_path</key>
-        	<string>%pathname%</string>
-        	<key>repo_subdirectory</key>
-        	<string>%MUNKI_REPO_SUBDIR%</string>
+            <key>pkg_path</key>
+            <string>%pathname%</string>
+            <key>repo_subdirectory</key>
+            <string>%MUNKI_REPO_SUBDIR%</string>
         </dict>
-    	</dict>
-    	<dict>
-        	<key>Processor</key>
-        	<string>EndOfCheckPhase</string>
+        </dict>
+        <dict>
+            <key>Processor</key>
+            <string>EndOfCheckPhase</string>
       </dict>
     </array>
   </dict>

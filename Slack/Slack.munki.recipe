@@ -2,41 +2,41 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>Identifier</key>
-	<string>com.grahamgilbert.munki.Slack</string>
-	<key>Input</key>
-	<dict>
-		<key>NAME</key>
-		<string>Slack</string>
-		<key>MUNKI_REPO_SUBDIR</key>
-		<string>apps/slack</string>
+    <key>Identifier</key>
+    <string>com.grahamgilbert.munki.Slack</string>
+    <key>Input</key>
+    <dict>
+        <key>NAME</key>
+        <string>Slack</string>
+        <key>MUNKI_REPO_SUBDIR</key>
+        <string>apps/slack</string>
         <key>MUNKI_CATEGORY</key>
         <string>Social</string>
         <key>MUNKI_DEVELOPER</key>
         <string>Slack Technologies</string>
-		<key>PATH</key>
-		<string>/Applications/%NAME%.app</string>
-		<key>pkginfo</key>
-		<dict>
-			<key>catalogs</key>
-			<array>
+        <key>PATH</key>
+        <string>/Applications/%NAME%.app</string>
+        <key>pkginfo</key>
+        <dict>
+            <key>catalogs</key>
+            <array>
                 <string>wethinkcode</string>
-			</array>
-			<key>category</key>
+            </array>
+            <key>category</key>
             <string>%MUNKI_CATEGORY%</string>
             <key>developer</key>
             <string>%MUNKI_DEVELOPER%</string>
-			<key>display_name</key>
-			<string>%NAME%</string>
-			<key>description</key>
-			<string>Slack is a cloud-based team collaboration tool co-founded by Stewart Butterfield, Eric Costello, Cal Henderson, and Serguei Mourachov. Slack began as an internal tool used by their company, Tiny Speck, in the development of Glitch, a now defunct online game.</string>
-			<key>name</key>
-			<string>%NAME%</string>
-			<key>unattended_install</key>
-			<true/>
-		</dict>
-	</dict>
-	<key>ParentRecipe</key>
-	<string>com.github.nmcspadden.pkg.munki.appstore</string>
+            <key>display_name</key>
+            <string>%NAME%</string>
+            <key>description</key>
+            <string>Slack is a cloud-based team collaboration tool co-founded by Stewart Butterfield, Eric Costello, Cal Henderson, and Serguei Mourachov. Slack began as an internal tool used by their company, Tiny Speck, in the development of Glitch, a now defunct online game.</string>
+            <key>name</key>
+            <string>%NAME%</string>
+            <key>unattended_install</key>
+            <true/>
+        </dict>
+    </dict>
+    <key>ParentRecipe</key>
+    <string>com.github.nmcspadden.pkg.munki.appstore</string>
 </dict>
 </plist>

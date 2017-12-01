@@ -8,48 +8,47 @@
     <string>Downloads CLion and imports into Munki.</string>
     <key>Input</key>
     <dict>
-    	<key>NAME</key>
-    	<string>CLion</string>
-    	<key>MUNKI_REPO_SUBDIR</key>
-    	<string>apps/jetbrains</string>
-    	<key>MUNKI_CATEGORY</key>
-		<string>IDE</string>
-		<key>MUNKI_DEVELOPER</key>
-		<string>JetBrains</string>
-    	<key>pkginfo</key>
-    	<dict>
-        	<key>catalogs</key>
-			<array>
-				<string>wethinkcode</string>
-				<string>wethinkcode-testing</string>
-			</array>
-        	<key>description</key>
-        	<string>CLion (pronounced "sea lion") is a cross-platform C/C++ IDE for Linux, OS X, and Windows integrated with the CMake build system. The initial version will support the GNU Compiler Collection (GCC) and Clang compilers and GDB debugger, with JetBrains hoping to support LLDB and Google Test in the future. Forrester Research analyst Michael Facemire expressed doubts about the product's potential.
+        <key>NAME</key>
+        <string>CLion</string>
+        <key>MUNKI_REPO_SUBDIR</key>
+        <string>apps/jetbrains</string>
+        <key>MUNKI_CATEGORY</key>
+        <string>IDE</string>
+        <key>MUNKI_DEVELOPER</key>
+        <string>JetBrains</string>
+        <key>pkginfo</key>
+        <dict>
+            <key>catalogs</key>
+            <array>
+                <string>wethinkcode</string>
+            </array>
+            <key>description</key>
+            <string>CLion (pronounced "sea lion") is a cross-platform C/C++ IDE for Linux, OS X, and Windows integrated with the CMake build system. The initial version will support the GNU Compiler Collection (GCC) and Clang compilers and GDB debugger, with JetBrains hoping to support LLDB and Google Test in the future. Forrester Research analyst Michael Facemire expressed doubts about the product's potential.
             </string>
-        	<key>display_name</key>
-        	<string>%NAME%</string>
-        	<key>name</key>
-        	<string>%NAME%</string>
-        	<key>category</key>
-        	<string>%MUNKI_CATEGORY%</string>
-        	<key>developer</key>
-        	<string>%MUNKI_DEVELOPER%</string>
-        	<key>postinstall_script</key>
-        	<string>#!/bin/sh /usr/libexec/PlistBuddy -c 'Set :JVMOptions:JVMVersion 1.8+' "/Applications/CLion.app/Contents/Info.plist" exit 0
-       		</string>
-      	</dict>
+            <key>display_name</key>
+            <string>%NAME%</string>
+            <key>name</key>
+            <string>%NAME%</string>
+            <key>category</key>
+            <string>%MUNKI_CATEGORY%</string>
+            <key>developer</key>
+            <string>%MUNKI_DEVELOPER%</string>
+            <key>postinstall_script</key>
+            <string>#!/bin/sh /usr/libexec/PlistBuddy -c 'Set :JVMOptions:JVMVersion 1.8+' "/Applications/CLion.app/Contents/Info.plist" exit 0
+            </string>
+        </dict>
     </dict>
     <key>Process</key>
     <array>
-      	<dict>
+        <dict>
         <key>Processor</key>
         <string>URLTextSearcher</string>
         <key>Arguments</key>
         <dict>
-        	<key>url</key>
-        	<string>https://data.services.jetbrains.com/products/releases?code=CL</string>
-        	<key>re_pattern</key>
-        	<string>mac":{"link":"(.+?dmg)"</string>
+            <key>url</key>
+            <string>https://data.services.jetbrains.com/products/releases?code=CL</string>
+            <key>re_pattern</key>
+            <string>mac":{"link":"(.+?dmg)"</string>
         </dict>
     </dict>
     <dict>
@@ -57,10 +56,10 @@
         <string>URLDownloader</string>
         <key>Arguments</key>
         <dict>
-        	<key>url</key>
-        	<string>%match%</string>
-        	<key>filename</key>
-        	<string>%NAME%.dmg</string>
+            <key>url</key>
+            <string>%match%</string>
+            <key>filename</key>
+            <string>%NAME%.dmg</string>
         </dict>
     </dict>
     <dict>
@@ -68,15 +67,15 @@
         <string>MunkiImporter</string>
         <key>Arguments</key>
         <dict>
-        	<key>pkg_path</key>
-        	<string>%pathname%</string>
-        	<key>repo_subdirectory</key>
-        	<string>%MUNKI_REPO_SUBDIR%</string>
+            <key>pkg_path</key>
+            <string>%pathname%</string>
+            <key>repo_subdirectory</key>
+            <string>%MUNKI_REPO_SUBDIR%</string>
         </dict>
-    	</dict>
-    	<dict>
-        	<key>Processor</key>
-        	<string>EndOfCheckPhase</string>
+        </dict>
+        <dict>
+            <key>Processor</key>
+            <string>EndOfCheckPhase</string>
       </dict>
     </array>
   </dict>
