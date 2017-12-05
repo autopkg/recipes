@@ -3,19 +3,19 @@
 <plist version="1.0">
 <dict>
     <key>Description</key>
-    <string>Downloads the latest Google Chrome disk image and imports into Munki.</string>
+    <string>Downloads latest Android Studio disk image and imports into Munki.</string>
     <key>Identifier</key>
-    <string>com.github.autopkg.munki.google-chrome</string>
+    <string>com.github.foigus.munki.AndroidStudio</string>
     <key>Input</key>
     <dict>
         <key>NAME</key>
-        <string>Google Chrome</string>
+        <string>AndroidStudio</string>
         <key>MUNKI_REPO_SUBDIR</key>
-        <string>apps/google-chrome</string>
+        <string>apps/android-studio</string>
         <key>MUNKI_CATEGORY</key>
-        <string>Developer</string>
+        <string>IDE</string>
         <key>MUNKI_DEVELOPER</key>
-        <string>Github</string>
+        <string>Google</string>
         <key>pkginfo</key>
         <dict>
             <key>catalogs</key>
@@ -31,7 +31,11 @@
             <key>name</key>
             <string>%NAME%</string>
             <key>description</key>
-            <string>Google Chrome is a freeware web browser developed by Google. It used the WebKit layout engine until version 27 and with the exception of its iOS releases, from version 28 and beyond uses the WebKit fork Blink.</string>
+            <string>Android Studio is the official IDE for Android application development, based on IntelliJ IDEA.</string>
+            <key>requires</key>
+            <array>
+                <string>OracleJava8JDK</string>
+            </array>
             <key>unattended_install</key>
             <true/>
         </dict>
@@ -39,7 +43,7 @@
     <key>MinimumVersion</key>
     <string>0.2.0</string>
     <key>ParentRecipe</key>
-    <string>com.github.autopkg.download.googlechrome</string>
+    <string>com.github.novaksam.download.AndroidStudio</string>
     <key>Process</key>
     <array>
         <dict>
