@@ -1,4 +1,5 @@
 Atom.munki
+AndroidStudio.munki
 GitKraken.munki
 BackupAndSync.munki
 GoogleChrome.munki

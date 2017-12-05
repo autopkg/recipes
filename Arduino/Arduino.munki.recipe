@@ -3,19 +3,19 @@
 <plist version="1.0">
 <dict>
     <key>Description</key>
-    <string>Downloads latest Android Studio disk image and imports into Munki.</string>
+    <string>Downloads the latest Arduino and imports into Munki.</string>
     <key>Identifier</key>
-    <string>com.github.foigus.munki.AndroidStudio</string>
+    <string>com.github.jps3.munki.Arduino</string>
     <key>Input</key>
     <dict>
         <key>NAME</key>
-        <string>AndroidStudio</string>
+        <string>Arduino</string>
         <key>MUNKI_REPO_SUBDIR</key>
-        <string>apps/android-studio</string>
+        <string>apps/arduino</string>
         <key>MUNKI_CATEGORY</key>
         <string>IDE</string>
         <key>MUNKI_DEVELOPER</key>
-        <string>Google</string>
+        <string>Arduino.cc</string>
         <key>pkginfo</key>
         <dict>
             <key>catalogs</key>
@@ -31,27 +31,35 @@
             <key>name</key>
             <string>%NAME%</string>
             <key>description</key>
-            <string>Android Studio is the official IDE for Android application development, based on IntelliJ IDEA.</string>
-            <key>requires</key>
-            <array>
-                <string>JDK 8</string>
-                <string>IntelHAXM</string>
-            </array>
-            <key>unattended_install</key>
-            <true/>
+            <string>The open-source Arduino Software (IDE) makes it easy to write code and upload it to the board. It runs on Windows, Mac OS X, and Linux. The environment is written in Java and based on Processing and other open-source software.
+                This software can be used with any Arduino board.
+            </string>
         </dict>
     </dict>
     <key>MinimumVersion</key>
-    <string>0.2.0</string>
+    <string>0.4.1</string>
     <key>ParentRecipe</key>
-    <string>com.github.novaksam.download.AndroidStudio</string>
+    <string>com.github.jps3.download.Arduino</string>
     <key>Process</key>
     <array>
+        <dict>
+            <key>Processor</key>
+            <string>DmgCreator</string>
+            <key>Arguments</key>
+            <dict>
+                <key>dmg_root</key>
+                <string>%RECIPE_CACHE_DIR%/%NAME%</string>
+                <key>dmg_path</key>
+                <string>%RECIPE_CACHE_DIR%/%NAME%-%version%.dmg</string>
+                <key>dmg_megabytes</key>
+                <string>500</string>
+            </dict>
+        </dict>
         <dict>
             <key>Arguments</key>
             <dict>
                 <key>pkg_path</key>
-                <string>%pathname%</string>
+                <string>%dmg_path%</string>
                 <key>repo_subdirectory</key>
                 <string>%MUNKI_REPO_SUBDIR%</string>
             </dict>
