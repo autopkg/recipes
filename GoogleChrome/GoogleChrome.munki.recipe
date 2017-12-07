@@ -9,9 +9,9 @@
 	<key>Input</key>
 	<dict>
 		<key>MUNKI_CATEGORY</key>
-		<string>Developer</string>
+		<string>Web Browser</string>
 		<key>MUNKI_DEVELOPER</key>
-		<string>Github</string>
+		<string>Google</string>
 		<key>MUNKI_REPO_SUBDIR</key>
 		<string>apps/google-chrome</string>
 		<key>NAME</key>
