@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Description</key>
+    <string>Downloads the latest minilibx and imports into Munki.</string>
+    <key>Identifier</key>
+    <string>com.github.autopkg.munki.minilibx</string>
+    <key>Input</key>
+    <dict>
+        <key>NAME</key>
+        <string>minilibx</string>
+        <key>MUNKI_REPO_SUBDIR</key>
+        <string>apps/minilibx</string>
+        <key>MUNKI_CATEGORY</key>
+        <string>42</string>
+        <key>MUNKI_DEVELOPER</key>
+        <string>42</string>
+        <key>pkginfo</key>
+        <dict>
+            <key>catalogs</key>
+            <array>
+                <string>wethinkcode</string>
+            </array>
+            <key>category</key>
+            <string>%MUNKI_CATEGORY%</string>
+            <key>developer</key>
+            <string>%MUNKI_DEVELOPER%</string>
+            <key>display_name</key>
+            <string>%NAME%</string>
+            <key>name</key>
+            <string>%NAME%</string>
+            <key>description</key>
+            <string>mlx by 42</string>
+            <key>postinstall_script</key>
+            <string>#!/bin/bash
+if [ -d /usr/share/man/man1 ]
+then
+    mv /usr/share/man/man1 /usr/share/man/man1_
+fi
+if [ -d "/usr/share/man/man1 1" ]
+then
+    mv "/usr/share/man/man1 1" /usr/share/man/man1
+fi</string>
+        </dict>
+    </dict>
+    <key>MinimumVersion</key>
+    <string>0.2.0</string>
+    <key>ParentRecipe</key>
+    <string>com.github.autopkg.download.minilibx</string>
+    <key>Process</key>
+    <array>
+    <dict>
+        <key>Arguments</key>
+        <dict>
+            <key>pkg_path</key>
+            <string>%pathname%</string>
+            <key>repo_subdirectory</key>
+            <string>%MUNKI_REPO_SUBDIR%</string>
+        </dict>
+        <key>Processor</key>
+        <string>MunkiImporter</string>
+    </dict>
+    </array>
+</dict>
+</plist>
