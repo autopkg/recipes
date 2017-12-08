@@ -8,14 +8,14 @@
 	<string>com.github.autopkg.munki.google-chrome</string>
 	<key>Input</key>
 	<dict>
+		<key>NAME</key>
+		<string>Google Chrome</string>
+		<key>MUNKI_REPO_SUBDIR</key>
+		<string>apps/google-chrome</string>
 		<key>MUNKI_CATEGORY</key>
 		<string>Web Browser</string>
 		<key>MUNKI_DEVELOPER</key>
 		<string>Google</string>
-		<key>MUNKI_REPO_SUBDIR</key>
-		<string>apps/google-chrome</string>
-		<key>NAME</key>
-		<string>Google Chrome</string>
 		<key>pkginfo</key>
 		<dict>
 			<key>catalogs</key>
