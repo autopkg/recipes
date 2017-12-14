@@ -217,7 +217,7 @@ class MSOffice2016URLandUpdateInfoProvider(Processor):
         # have two items: a full and a delta. Delta updates will have a
         # 'FullUpdaterLocation' key, so filter by the array according to
         # which item has that key.
-        if self.env["version"] == "latest" or self.env["type"] == "Standalone":
+        if self.env["version"] == "latest" or self.env["version"] == "Standalone":
             item = [u for u in metadata if not u.get("FullUpdaterLocation")]
         elif self.env["version"] == "latest-delta":
             item = [u for u in metadata if u.get("FullUpdaterLocation")]
@@ -226,7 +226,7 @@ class MSOffice2016URLandUpdateInfoProvider(Processor):
                                  "update metadata.")
         item = item[0]
         
-        if self.env["type"] == "Standalone":
+        if self.env["version"] == "Standalone":
             p = re.compile(ur'(^[a-zA-Z0-9:/.-]*_[a-zA-Z]*_)(.*)Updater.pkg')
             url = item["Location"]
             (firstGroup, secondGroup) = re.search(p, url).group(1, 2)
