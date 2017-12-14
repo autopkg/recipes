@@ -50,7 +50,7 @@ PROD_DICT = {
     }
 }
 LOCALE_ID_INFO_URL = "https://msdn.microsoft.com/en-us/goglobal/bb964664.aspx"
-SUPPORTED_VERSIONS = ["latest", "latest-delta"]
+SUPPORTED_VERSIONS = ["latest", "latest-delta", "Standalone"]
 DEFAULT_VERSION = "latest"
 CHANNELS = {
     'Production': 'C1297A47-86C4-4C1F-97FA-950631F94777',
@@ -217,7 +217,7 @@ class MSOffice2016URLandUpdateInfoProvider(Processor):
         # have two items: a full and a delta. Delta updates will have a
         # 'FullUpdaterLocation' key, so filter by the array according to
         # which item has that key.
-        if self.env["version"] == "latest":
+        if self.env["version"] == "latest" or self.env["type"] == "Standalone":
             item = [u for u in metadata if not u.get("FullUpdaterLocation")]
         elif self.env["version"] == "latest-delta":
             item = [u for u in metadata if u.get("FullUpdaterLocation")]
@@ -225,6 +225,13 @@ class MSOffice2016URLandUpdateInfoProvider(Processor):
             raise ProcessorError("Could not find an applicable update in "
                                  "update metadata.")
         item = item[0]
+        
+        if self.env["type"] == "Standalone":
+            p = re.compile(ur'(^[a-zA-Z0-9:/.-]*_[a-zA-Z]*_)(.*)Updater.pkg')
+            url = item["Location"]
+            (firstGroup, secondGroup) = re.search(p, url).group(1, 2)
+            item["Location"] = firstGroup + "2016_"+ secondGroup + "Installer.pkg"
+
 
         self.env["url"] = item["Location"]
         self.output("Found URL %s" % self.env["url"])
