@@ -3,9 +3,9 @@
 <plist version="1.0">
     <dict>
         <key>Description</key>
-        <string>Downloads the current release version of Visual Studio Code and imports into Munki.</string>
+        <string>Downloads the current release version of Visual Studio Code. and imports into Munki.</string>
         <key>Identifier</key>
-        <string>com.github.valdore86.download.visualstudiocode</string>
+        <string>com.github.valdore86.munki.visualstudiocode</string>
         <key>Input</key>
         <dict>
             <key>NAME</key>
@@ -16,6 +16,10 @@
             <string>IDE</string>
             <key>MUNKI_DEVELOPER</key>
             <string>Microsoft</string>
+            <key>blocking_applications</key>
+            <array>
+                <string>Visual Studio Code</string>
+            </array>
             <key>pkginfo</key>
             <dict>
                 <key>catalogs</key>
@@ -31,16 +35,27 @@
                 <key>display_name</key>
                 <string>%NAME%</string>
                 <key>description</key>
-                <string>Visual Studio Code is a source code editor developed by Microsoft for Windows, Linux and OS X. It is free and open-source, and includes support for debugging, embedded Git control, syntax highlighting, intelligent code completion, snippets, and code refactoring.</string>
+                <string>Code combines the streamlined UI of a modern editor with rich code assistance and navigation, and an integrated debugging experience – without the need for a full IDE.</string>
+                <key>unattended_install</key>
+                <true/>
             </dict>
         </dict>
         <key>MinimumVersion</key>
         <string>0.6.1</string>
+        <key>ParentRecipe</key>
+        <string>com.github.valdore86.download.visualstudiocode</string>
         <key>Process</key>
         <array>
             <dict>
                 <key>Processor</key>
                 <string>Versioner</string>
+                <key>Arguments</key>
+                <dict>
+                    <key>input_plist_path</key>
+                    <string>%RECIPE_CACHE_DIR%/%NAME%/Visual Studio Code.app/Contents/Info.plist</string>
+                    <key>plist_version_key</key>
+                    <string>CFBundleShortVersionString</string>
+                </dict>
             </dict>
             <dict>
                 <key>Processor</key>
