@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+  <dict>
+    <key>Identifier</key>
+    <string>com.github.jarias.munki.FirefoxDev</string>
+    <key>Description</key>
+    <string>Downloads Firefox Developer Edition and imports into Munki.</string>
+    <key>Input</key>
+    <dict>
+      <key>NAME</key>
+      <string>Firefox Developer Edition</string>
+      <key>MUNKI_REPO_SUBDIR</key>
+      <string>apps/mozilla</string>
+      <key>MUNKI_CATEGORY</key>
+      <string>Web Browser</string>
+      <key>MUNKI_DEVELOPER</key>
+      <string>Mozilla</string>
+      <key>pkginfo</key>
+      <dict>
+          <key>catalogs</key>
+          <array>
+              <string>wethinkcode</string>
+          </array>
+          <key>category</key>
+          <string>%MUNKI_CATEGORY%</string>
+          <key>developer</key>
+          <string>%MUNKI_DEVELOPER%</string>
+          <key>display_name</key>
+          <string>%NAME%</string>
+          <key>name</key>
+          <string>%NAME%</string>
+          <key>description</key>
+          <string>Built for those who build the Web</string>
+      </dict>
+    </dict>
+    <key>Process</key>
+    <array>
+      <dict>
+        <key>Processor</key>
+        <string>URLDownloader</string>
+        <key>Arguments</key>
+        <dict>
+          <key>url</key>
+          <string>https://download.mozilla.org/?product=firefox-devedition-latest-ssl&amp;os=osx&amp;lang=en-US</string>
+          <key>filename</key>
+          <string>%NAME%.dmg</string>
+        </dict>
+      </dict>
+      <dict>
+        <key>Processor</key>
+        <string>MunkiImporter</string>
+        <key>Arguments</key>
+        <dict>
+          <key>pkg_path</key>
+          <string>%pathname%</string>
+          <key>repo_subdirectory</key>
+          <string>%MUNKI_REPO_SUBDIR%</string>
+        </dict>
+      </dict>
+      <dict>
+        <key>Processor</key>
+        <string>EndOfCheckPhase</string>
+      </dict>
+    </array>
+  </dict>
+</plist>
