@@ -11,7 +11,7 @@
         <key>MAJOR_VERSION</key>
         <string>AcrobatDC</string>
         <key>OS_VERSION</key>
-        <string>10.9.0</string>
+        <string>10.10.0</string>
 		<key>MUNKI_REPO_SUBDIR</key>
 		<string>apps/Adobe</string>
 		<key>NAME</key>
