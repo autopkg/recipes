@@ -33,7 +33,7 @@
 			<key>display_name</key>
 			<string>Adobe Acrobat Reader DC</string>
 			<key>minimum_os_version</key>
-			<string>10.9.0</string>
+			<string>10.10.0</string>
 			<key>name</key>
 			<string>%NAME%</string>
 			<key>preinstall_script</key>
