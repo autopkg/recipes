@@ -35,7 +35,7 @@
                 <key>url</key>
                 <string>https://handbrake.fr/%match%</string>
                 <key>re_pattern</key>
-                <string>(mirror.*?\.dmg)</string>
+                <string>href=\"(https.*?HandBrake.*?\.dmg)\"</string>
             </dict>
         </dict>
         <dict>
@@ -46,7 +46,9 @@
                 <key>filename</key>
                 <string>%NAME%.dmg</string>
                 <key>url</key>
-                <string>https://handbrake.fr/%match%</string>
+                <string>%match%</string>
+                <key>CHECK_FILESIZE_ONLY</key>
+                <true/>
             </dict>
         </dict>
         <dict>
