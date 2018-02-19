@@ -3,13 +3,13 @@
 <plist version="1.0">
 <dict>
     <key>Description</key>
-    <string>Downloads latest OmniPlan 3 disk image.</string>
+    <string>Downloads latest OmniGraffle 7 disk image.</string>
     <key>Identifier</key>
-    <string>com.github.autopkg.download.omniplan3</string>
+    <string>com.github.autopkg.download.omnigraffle7</string>
     <key>Input</key>
     <dict>
         <key>NAME</key>
-        <string>OmniPlan3</string>
+        <string>OmniGraffle7</string>
     </dict>
     <key>MinimumVersion</key>
     <string>0.2.0</string>
@@ -23,9 +23,9 @@
             <key>Arguments</key>
             <dict>
                 <key>input_path</key>
-                <string>%pathname%/OmniPlan.app</string>
+                <string>%pathname%/OmniGraffle.app</string>
                 <key>requirement</key>
-                <string>identifier "com.omnigroup.OmniPlan3" and anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = "34YW5XSRB7"</string>
+                <string>identifier "com.omnigroup.OmniGraffle7" and anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = "34YW5XSRB7"</string>
             </dict>
         </dict>
     </array>

@@ -3,13 +3,13 @@
 <plist version="1.0">
 <dict>
     <key>Description</key>
-    <string>Downloads the latest Transmit 4 using Panic's Sparkle feed</string>
+    <string>Downloads the latest Transmit 5 using Panic's Sparkle feed</string>
     <key>Identifier</key>
-    <string>com.github.autopkg.download.transmit</string>
+    <string>com.github.autopkg.download.transmit5</string>
     <key>Input</key>
     <dict>
         <key>NAME</key>
-        <string>Transmit</string>
+        <string>Transmit5</string>
     </dict>
     <key>MinimumVersion</key>
     <string>0.4.0</string>
@@ -27,12 +27,12 @@
                     <key>appName</key>
                     <string>Transmit</string>
                     <key>appVersion</key>
-                    <string>4.4.12</string>
+                    <string>45656</string>
                 </dict>
                 <key>appcast_request_headers</key>
                 <dict>
                     <key>User-Agent</key>
-                    <string>Transmit/4.4.12 Sparkle/1.5</string>
+                    <string>Transmit/5.0 Sparkle/1.14.0</string>
                 </dict>
             </dict>
         </dict>

@@ -290,6 +290,16 @@ This is not used to obtain the latest released version.
                             <key>mode</key>
                             <string>0644</string>
                         </dict>
+                        <dict>
+                            <key>path</key>
+                            <string>Library/LaunchDaemons/com.github.autopkg.autopkginstalld.plist</string>
+                            <key>user</key>
+                            <string>root</string>
+                            <key>group</key>
+                            <string>wheel</string>
+                            <key>mode</key>
+                            <string>0644</string>
+                        </dict>
                     </array>
                 </dict>
             </dict>

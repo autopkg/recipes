@@ -3,20 +3,29 @@
 <plist version="1.0">
 <dict>
     <key>Description</key>
-    <string>Downloads the latest Transmit 4 and creates a package.</string>
+    <string>Downloads latest OmniGraffle 7 disk image and builds a package.</string>
     <key>Identifier</key>
-    <string>com.github.autopkg.pkg.transmit</string>
+    <string>com.github.autopkg.pkg.omnigraffle7</string>
     <key>Input</key>
     <dict>
         <key>NAME</key>
-        <string>Transmit</string>
+        <string>OmniGraffle7</string>
     </dict>
     <key>MinimumVersion</key>
     <string>0.2.0</string>
     <key>ParentRecipe</key>
-    <string>com.github.autopkg.download.transmit</string>
+    <string>com.github.autopkg.download.omnigraffle7</string>
     <key>Process</key>
     <array>
+        <dict>
+            <key>Processor</key>
+            <string>AppDmgVersioner</string>
+            <key>Arguments</key>
+            <dict>
+                <key>dmg_path</key>
+                <string>%pathname%</string>
+            </dict>
+        </dict>
         <dict>
             <key>Processor</key>
             <string>PkgRootCreator</string>
@@ -33,33 +42,13 @@
         </dict>
         <dict>
             <key>Processor</key>
-            <string>Unarchiver</string>
+            <string>Copier</string>
             <key>Arguments</key>
             <dict>
-                <key>archive_path</key>
-                <string>%pathname%</string>
+                <key>source_path</key>
+                <string>%pathname%/%app_name%</string>
                 <key>destination_path</key>
-                <string>%pkgroot%/Applications</string>
-                <key>purge_destination</key>
-                <true/>
-            </dict>
-        </dict>
-        <dict>
-            <key>Processor</key>
-            <string>PlistReader</string>
-            <key>Arguments</key>
-            <dict>
-                <key>info_path</key>
-                <string>%pkgroot%/Applications/Transmit.app</string>
-                <key>plist_keys</key>
-                <dict>
-                    <key>CFBundleShortVersionString</key>
-                    <string>version</string>
-                    <key>CFBundleIdentifier</key>
-                    <string>bundleid</string>
-                    <key>CFBundleName</key>
-                    <string>app_name</string>
-                </dict>
+                <string>%pkgroot%/Applications/%app_name%</string>
             </dict>
         </dict>
         <dict>
@@ -67,12 +56,12 @@
             <string>PkgCreator</string>
             <key>Arguments</key>
             <dict>
-                <key>pkgname</key>
-                <string>%NAME%-%version%</string>
                 <key>pkg_request</key>
                 <dict>
-                    <key>pkgdir</key>
-                    <string>%RECIPE_CACHE_DIR%</string>
+                    <key>pkgname</key>
+                    <string>%NAME%-%version%</string>
+                    <key>version</key>
+                    <string>%version%</string>
                     <key>id</key>
                     <string>%bundleid%</string>
                     <key>options</key>

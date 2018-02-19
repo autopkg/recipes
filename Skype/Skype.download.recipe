@@ -11,7 +11,7 @@
         <key>NAME</key>
         <string>Skype</string>
         <key>DOWNLOAD_URL</key>
-        <string>https://www.skype.com/go/getskype-macosx.dmg</string>
+        <string>https://go.skype.com/mac.download</string>
     </dict>
     <key>MinimumVersion</key>
     <string>0.6.0</string>

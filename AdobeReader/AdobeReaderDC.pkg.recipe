@@ -14,7 +14,7 @@ and enabling installation on non-boot volumes.</string>
         <key>MAJOR_VERSION</key>
         <string>AcrobatDC</string>
         <key>OS_VERSION</key>
-        <string>10.9.0</string>
+        <string>10.10.0</string>
         <key>NAME</key>
         <string>AdobeReaderDC</string>
     </dict>

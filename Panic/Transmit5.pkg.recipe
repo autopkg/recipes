@@ -3,18 +3,18 @@
 <plist version="1.0">
 <dict>
     <key>Description</key>
-    <string>Downloads the latest Transmit 4 and creates a package.</string>
+    <string>Downloads the latest Transmit 5 and creates a package.</string>
     <key>Identifier</key>
-    <string>com.github.autopkg.pkg.transmit</string>
+    <string>com.github.autopkg.pkg.transmit5</string>
     <key>Input</key>
     <dict>
         <key>NAME</key>
-        <string>Transmit</string>
+        <string>Transmit5</string>
     </dict>
     <key>MinimumVersion</key>
     <string>0.2.0</string>
     <key>ParentRecipe</key>
-    <string>com.github.autopkg.download.transmit</string>
+    <string>com.github.autopkg.download.transmit5</string>
     <key>Process</key>
     <array>
         <dict>

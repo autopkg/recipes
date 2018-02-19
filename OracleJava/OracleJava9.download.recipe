@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
     <key>Description</key>
-    <string>Download recipe for Oracle's Java 8. Finds and downloads the latest Oracle Java 8 JRE CPU release.
+    <string>Download recipe for Oracle's Java 9. Finds and downloads the latest Oracle Java 9 JRE CPU release.
 
 Read more about CPU and PSU releases here:
     http://www.oracle.com/technetwork/java/javase/downloads/cpu-psu-explained-2331472.html
@@ -13,11 +13,11 @@ http://www.oracle.com/technetwork/java/javase/terms/license/index.html
 
 </string>
     <key>Identifier</key>
-    <string>com.github.autopkg.download.OracleJava8</string>
+    <string>com.github.autopkg.download.OracleJava9</string>
     <key>Input</key>
     <dict>
         <key>NAME</key>
-        <string>OracleJava8</string>
+        <string>OracleJava9</string>
     </dict>
     <key>MinimumVersion</key>
     <string>0.3.1</string>
@@ -29,9 +29,9 @@ http://www.oracle.com/technetwork/java/javase/terms/license/index.html
             <key>Arguments</key>
             <dict>
                 <key>url</key>
-                <string>http://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html</string>
+                <string>http://www.oracle.com/technetwork/java/javase/downloads/jre9-downloads-3848532.html</string>
                 <key>re_pattern</key>
-                <string>(?P&lt;url&gt;http://download.oracle.com/otn-pub/java/jdk/.*?/jre-8.*?x64.dmg)</string>
+                <string>(?P&lt;url&gt;http://download.oracle.com/otn-pub/java/jdk/9.*?/jre-9.*?_osx-x64_bin.dmg)</string>
             </dict>
         </dict>
         <dict>
@@ -58,7 +58,7 @@ http://www.oracle.com/technetwork/java/javase/terms/license/index.html
             <key>Arguments</key>
             <dict>
                 <key>input_path</key>
-                <string>%pathname%/Java 8 Update*.app/Contents/Resources/JavaAppletPlugin.pkg</string>
+                <string>%pathname%/Java 9*.app/Contents/Resources/JavaAppletPlugin.pkg</string>
                 <key>expected_authority_names</key>
                 <array>
                     <string>Developer ID Installer: Oracle America, Inc. (VB5E2TV963)</string>

@@ -32,8 +32,10 @@ preflight script, looking to find a user's trash folder to copy the .app into.
         <dict>
             <key>blocking_applications</key>
             <array>
-                <string>Adobe Reader.app</string>
-                <string>Adobe Acrobat Pro.app</string>
+	       	<string>Adobe Acrobat Pro.app</string>
+	        <string>Adobe Acrobat Reader DC.app</string>
+	        <string>Adobe Acrobat.app</string>
+	        <string>Adobe Reader.app</string>
             </array>
             <key>catalogs</key>
             <array>
