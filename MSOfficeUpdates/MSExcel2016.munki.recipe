@@ -46,7 +46,7 @@ installer for the given CHANNEL. 'latest-standalone' does not support
             <array>
                 <string>Microsoft Excel</string>
                 <string>Microsoft Error Reporting</string>
-                <string>Microsoft Auto Update</string>
+                <string>Microsoft AutoUpdate</string>
             </array>
             <key>catalogs</key>
             <array>

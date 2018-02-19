@@ -32,7 +32,7 @@ __all__ = ["MSOffice2011UpdateInfoProvider"]
 # Office 2011
 # http://www.microsoft.com/mac/autoupdate/0409MSOf14.xml
 
-# Microsoft Auto Update 2
+# Microsoft AutoUpdate 2
 # http://www.microsoft.com/mac/autoupdate/0409MSau02.xml
 
 # Microsoft Error Reporting 2

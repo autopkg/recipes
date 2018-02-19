@@ -42,7 +42,7 @@ the latest full update for the given CHANNEL.
             <array>
                 <string>Skype for Business</string>
                 <string>Microsoft Error Reporting</string>
-                <string>Microsoft Auto Update</string>
+                <string>Microsoft AutoUpdate</string>
             </array>
             <key>catalogs</key>
             <array>
