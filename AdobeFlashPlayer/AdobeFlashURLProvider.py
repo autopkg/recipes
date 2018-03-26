@@ -35,20 +35,25 @@ class AdobeFlashURLProvider(Processor):
     """Provides URL to the latest Adobe Flash Player release."""
     description = __doc__
     input_variables = {
-        'url': {
-            'required': False,
+        "url": {
+            "required": False,
             "description": ("Override URL. If provided, this processor "
                             "just returns without doing anything."),
         },
-        'request_headers': {
-            'description': ('Optional dictionary of headers to include with '
-                            'the download request.'),
-            'required': False,
+        "version": {
+            "required": False,
+            "description": ("Specific version to download. If not defined, "
+                            "defaults to latest version.")
         },
-        'curl_opts': {
-            'description': ('Optional array of curl options to include with '
-                            'the download request.'),
-            'required': False,
+        "request_headers": {
+            "description": ("Optional dictionary of headers to include with "
+                            "the download request."),
+            "required": False,
+        },
+        "curl_opts": {
+            "description": ("Optional array of curl options to include with "
+                            "the download request."),
+            "required": False,
         },
         "CURL_PATH": {
             "required": False,
