@@ -1,6 +1,9 @@
 #!/usr/bin/python
 #
-# Copyright 2010 Per Olofsson
+# Copyright 2018 Glynn Lane
+#
+# Based on AdobeFlashURLProvider.py, Copyright 2010 Per Olofsson
+# Based on URLTextSearcher.py, Copyright 2014 Jesse Peterson, Copyright 2015 Greg Neagle
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -15,12 +18,10 @@
 # limitations under the License.
 """See docstring for AdobeFlashURLProvider class"""
 
-
-import urllib2
+import subprocess
 from xml.etree import ElementTree
 
 from autopkglib import Processor, ProcessorError
-
 
 __all__ = ["AdobeFlashURLProvider"]
 
@@ -34,15 +35,25 @@ class AdobeFlashURLProvider(Processor):
     """Provides URL to the latest Adobe Flash Player release."""
     description = __doc__
     input_variables = {
-        "url": {
-            "required": False,
+        'url': {
+            'required': False,
             "description": ("Override URL. If provided, this processor "
                             "just returns without doing anything."),
         },
-        "version": {
+        'request_headers': {
+            'description': ('Optional dictionary of headers to include with '
+                            'the download request.'),
+            'required': False,
+        },
+        'curl_opts': {
+            'description': ('Optional array of curl options to include with '
+                            'the download request.'),
+            'required': False,
+        },
+        "CURL_PATH": {
             "required": False,
-            "description": ("Specific version to download. If not defined, "
-                            "defaults to latest version.")
+            "default": "/usr/bin/curl",
+            "description": "Path to curl binary. Defaults to /usr/bin/curl.",
         },
     }
     output_variables = {
@@ -51,20 +62,29 @@ class AdobeFlashURLProvider(Processor):
         },
     }
 
-    def get_adobeflash_dmg_url(self):
+    def get_adobeflash_dmg_url(self, headers=None, opts=None):
         '''Return the URL for the Adobe Flash DMG'''
+        #pylint: disable=no-self-use
         version = self.env.get("version")
         if not version:
-            # Read update XML.
             try:
-                fref = urllib2.urlopen(UPDATE_XML_URL)
-                xml_data = fref.read()
-                fref.close()
-            except BaseException as err:
-                raise ProcessorError(
-                    "Can't download %s: %s" % (UPDATE_XML_URL, err))
+                cmd = [self.env['CURL_PATH'], '--location']
+                if headers:
+                    for header, value in headers.items():
+                        cmd.extend(['--header', '%s: %s' % (header, value)])
+                if opts:
+                    for item in opts:
+                        cmd.extend([item])
+                cmd.append(UPDATE_XML_URL)
+                proc = subprocess.Popen(
+                    cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+                (xml_data, stderr) = proc.communicate()
+                if proc.returncode:
+                    raise ProcessorError(
+                        'Could not retrieve URL %s: %s' % (UPDATE_XML_URL, stderr))
+            except OSError:
+                raise ProcessorError('Could not retrieve URL: %s' % UPDATE_XML_URL)
 
-            # parse XML data
             try:
                 root = ElementTree.fromstring(xml_data)
             except (OSError, IOError, ElementTree.ParseError), err:
@@ -88,10 +108,18 @@ class AdobeFlashURLProvider(Processor):
 
     def main(self):
         '''Return a download URL for latest Mac Flash Player'''
+        
         if "url" in self.env:
             self.output("Using input URL %s" % self.env["url"])
             return
-        self.env["url"] = self.get_adobeflash_dmg_url()
+
+        headers = self.env.get('request_headers', {})
+
+        opts = self.env.get('curl_opts', [])
+
+        self.env["url"] = self.get_adobeflash_dmg_url(
+            headers, opts)
+
         self.output("Found URL %s" % self.env["url"])
 
 
