@@ -42,7 +42,8 @@ https://github.com/autopkg/recipes/issues/196
                 '/Applications/Spotify.app/Contents/Frameworks/Spotify Helper.app/Contents/MacOS/Spotify Helper' \
                 /Applications/Spotify.app/Contents/MacOS/Spotify \
                 /Applications/Spotify.app/Contents/MacOS/SpotifyWebHelper \
-                /Applications/Spotify.app/Contents/MacOS/sp_relauncher
+                /Applications/Spotify.app/Contents/MacOS/sp_relauncher \
+                /Applications/Spotify.app/Contents/Library/LoginItems/StartUpHelper.app/Contents/MacOS/StartUpHelper
             </string>
             <key>unattended_install</key>
             <true/>
