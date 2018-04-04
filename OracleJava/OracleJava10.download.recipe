@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Description</key>
+    <string>Download recipe for Oracle's Java 10. Finds and downloads the latest Oracle Java 10 JRE CPU release.
+
+Read more about CPU and PSU releases here:
+    http://www.oracle.com/technetwork/java/javase/downloads/cpu-psu-explained-2331472.html
+
+To use this recipe, you must accept the Oracle Binary Code License Agreement for Java SE.
+http://www.oracle.com/technetwork/java/javase/terms/license/index.html
+
+</string>
+    <key>Identifier</key>
+    <string>com.github.autopkg.download.OracleJava9</string>
+    <key>Input</key>
+    <dict>
+        <key>NAME</key>
+        <string>OracleJava10</string>
+    </dict>
+    <key>MinimumVersion</key>
+    <string>0.3.1</string>
+    <key>Process</key>
+    <array>
+        <dict>
+            <key>Processor</key>
+            <string>URLTextSearcher</string>
+            <key>Arguments</key>
+            <dict>
+                <key>url</key>
+                <string>http://www.oracle.com/technetwork/java/javase/downloads/jre10-downloads-4417026.html</string>
+                <key>re_pattern</key>
+                <string>(?P&lt;url&gt;http://download.oracle.com/otn-pub/java/jdk/10.*?/jre-10.*?_osx-x64_bin.dmg)</string>
+            </dict>
+        </dict>
+        <dict>
+            <key>Arguments</key>
+            <dict>
+                <key>request_headers</key>
+                <dict>
+                    <key>Cookie</key>
+                    <string>oraclelicense=accept-securebackup-cookie</string>
+                </dict>
+                <key>filename</key>
+                <string>%NAME%.dmg</string>
+            </dict>
+            <key>Processor</key>
+            <string>URLDownloader</string>
+        </dict>
+        <dict>
+            <key>Processor</key>
+            <string>EndOfCheckPhase</string>
+        </dict>
+        <dict>
+            <key>Processor</key>
+            <string>CodeSignatureVerifier</string>
+            <key>Arguments</key>
+            <dict>
+                <key>input_path</key>
+                <string>%pathname%/Java 10*.app/Contents/Resources/JavaAppletPlugin.pkg</string>
+                <key>expected_authority_names</key>
+                <array>
+                    <string>Developer ID Installer: Oracle America, Inc. (VB5E2TV963)</string>
+                    <string>Developer ID Certification Authority</string>
+                    <string>Apple Root CA</string>
+                </array>
+            </dict>
+        </dict>
+    </array>
+</dict>
+</plist>
