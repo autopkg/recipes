@@ -13,7 +13,7 @@ http://www.oracle.com/technetwork/java/javase/terms/license/index.html
 
 </string>
     <key>Identifier</key>
-    <string>com.github.autopkg.download.OracleJava9</string>
+    <string>com.github.autopkg.download.OracleJava10</string>
     <key>Input</key>
     <dict>
         <key>NAME</key>

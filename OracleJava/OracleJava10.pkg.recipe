@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
     <key>Description</key>
-    <string>Downloads the latest Oracle Java 9 JRE CPU release and copies out the flat installer pkg
+    <string>Downloads the latest Oracle Java 10 JRE CPU release and copies out the flat installer pkg
 within the installer app wrapper, appending the version number to the filename.
 (Note the version of the actual pkg id for the com.oracle.jre pkg component is still
 always "1.0".)
@@ -15,7 +15,7 @@ To use this recipe, you must accept the Oracle Binary Code License Agreement for
 http://www.oracle.com/technetwork/java/javase/terms/license/index.html
 </string>
     <key>Identifier</key>
-    <string>com.github.autopkg.pkg.OracleJava9</string>
+    <string>com.github.autopkg.pkg.OracleJava10</string>
     <key>Input</key>
     <dict>
         <key>NAME</key>
@@ -26,7 +26,7 @@ http://www.oracle.com/technetwork/java/javase/terms/license/index.html
     <key>MinimumVersion</key>
     <string>0.2.9</string>
     <key>ParentRecipe</key>
-    <string>com.github.autopkg.download.OracleJava9</string>
+    <string>com.github.autopkg.download.OracleJava10</string>
     <key>Process</key>
     <array>
         <dict>
