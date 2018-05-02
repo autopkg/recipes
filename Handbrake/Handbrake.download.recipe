@@ -3,8 +3,7 @@
 <plist version="1.0">
 <dict>
     <key>Description</key>
-    <string>Downloads the latest Handbrake disk image.
-    Note: Code signature verification for Handbrake cannot be done at this time, as the application is not currently signed.</string>
+    <string>Downloads the latest Handbrake disk image.</string>
     <key>Identifier</key>
     <string>com.github.autopkg.download.Handbrake</string>
     <key>Input</key>
@@ -13,7 +12,7 @@
         <string>Handbrake</string>
     </dict>
     <key>MinimumVersion</key>
-    <string>0.2.9</string>
+    <string>1.0.4</string>
     <key>Process</key>
     <array>
         <dict>
@@ -35,7 +34,7 @@
                 <key>url</key>
                 <string>https://handbrake.fr/%match%</string>
                 <key>re_pattern</key>
-                <string>(mirror.*?\.dmg)</string>
+                <string>href=\"(https.*?HandBrake.*?\.dmg)\"</string>
             </dict>
         </dict>
         <dict>
@@ -46,12 +45,27 @@
                 <key>filename</key>
                 <string>%NAME%.dmg</string>
                 <key>url</key>
-                <string>https://handbrake.fr/%match%</string>
+                <string>%match%</string>
+                <key>CHECK_FILESIZE_ONLY</key>
+                <true/>
             </dict>
         </dict>
         <dict>
             <key>Processor</key>
             <string>EndOfCheckPhase</string>
+        </dict>
+        <dict>
+            <key>Processor</key>
+            <string>CodeSignatureVerifier</string>
+            <key>Arguments</key>
+            <dict>
+                <key>input_path</key>
+                <string>%pathname%/HandBrake.app</string>
+                <key>requirement</key>
+                <string>identifier "fr.handbrake.HandBrake" and anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = "5X9DE89KYV"</string>
+                <key>strict_verification</key>
+                <true />
+            </dict>
         </dict>
     </array>
 </dict>
