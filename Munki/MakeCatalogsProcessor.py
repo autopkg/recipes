@@ -26,10 +26,14 @@ __all__ = ["MakeCatalogsProcessor"]
 class MakeCatalogsProcessor(Processor):
     """Runs makecatalogs on a munki repo"""
     input_variables = {
-        "munki_repo_path": {
+        "MUNKI_REPO": {
             "required": True,
-            "description": "Path to the munki repo.",
+            "description": "Munki repo URL.",
         },
+        "MUNKI_REPO_PLUGIN": {
+            "required": False,
+            "description": "Name of a Munki repo plugin. Defaults to FileRepo",
+        }, 
         "force_rebuild": {
             "required": False,
             "description":
@@ -79,9 +83,16 @@ class MakeCatalogsProcessor(Processor):
             self.env["makecatalogs_stderr"] = ""
         else:
             # Generate arguments for makecatalogs.
-            args = ["/usr/local/munki/makecatalogs",
-                    self.env["munki_repo_path"]]
+            args = ["/usr/local/munki/makecatalogs"]
+            if self.env["MUNKI_REPO"].startswith('/'):
+                # looks a file path instead of a URL
+                args.append(self.env["MUNKI_REPO"])
+            else:
+                args.extend(["--repo-url" , self.env["MUNKI_REPO"]])
 
+            if self.env.get("MUNKI_REPO_PLUGIN"):
+                args.extend(["--plugin", self.env["MUNKI_REPO_PLUGIN"]])
+                
             # Call makecatalogs.
             try:
                 proc = subprocess.Popen(
