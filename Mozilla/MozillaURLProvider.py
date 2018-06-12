@@ -15,12 +15,6 @@
 # limitations under the License.
 """See docstring for MozillaURLProvider class"""
 
-import re
-import urllib
-import urllib2
-import urlparse
-from distutils.version import LooseVersion
-
 from autopkglib import Processor, ProcessorError
 
 
