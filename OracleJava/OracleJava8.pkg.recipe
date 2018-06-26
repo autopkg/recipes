@@ -75,10 +75,12 @@ http://www.oracle.com/technetwork/java/javase/terms/license/index.html
                 <key>info_path</key>
                 <string>%RECIPE_CACHE_DIR%/unpack/root/Library/Internet Plug-Ins/JavaAppletPlugin.plugin/Contents/Enabled.plist</string>
                 <key>plist_keys</key>
-				<dict>
-					<key>CFBundleVersion</key>
-					<string>version</string>
-				</dict>
+                <dict>
+                    <key>CFBundleVersion</key>
+                    <string>versionString</string>
+                    <key>CFBundleShortVersionString</key>
+                    <string>version</string>
+                </dict>
             </dict>
             <key>Processor</key>
             <string>PlistReader</string>
@@ -91,7 +93,7 @@ http://www.oracle.com/technetwork/java/javase/terms/license/index.html
 				<key>source_pkg</key>
                 <string>%pathname%/Java 8 Update*.app/Contents/Resources/JavaAppletPlugin.pkg</string>
                 <key>pkg_path</key>
-                <string>%RECIPE_CACHE_DIR%/%NAME%-%version%.pkg</string>
+                <string>%RECIPE_CACHE_DIR%/%NAME%-%versionString%.pkg</string>
             </dict>
         </dict>
     </array>
