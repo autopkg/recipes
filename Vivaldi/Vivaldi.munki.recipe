@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>Description</key>
+  <string>Downloads the current release version of PyCharm and imports into Munki.</string>
+  <key>Identifier</key>
+  <string>com.github.autopkg.munki.vivaldi</string>
+  <key>Input</key>
+  <dict>
+    <key>NAME</key>
+    <string>Vivaldi</string>
+    <key>MUNKI_REPO_SUBDIR</key>
+    <string>apps/vivaldi</string>
+    <key>MUNKI_CATEGORY</key>
+    <string>Developer</string>
+    <key>pkginfo</key>
+    <dict>
+      <key>catalogs</key>
+      <array>
+        <string>testing</string>
+      </array>
+      <key>category</key>
+      <string>%MUNKI_CATEGORY%</string>
+      <key>description</key>
+      <string>You spend a lot of time on the web. You deserve a browser that is personal, has the functionality you need and the flexibility you crave. You deserve Vivaldi so we made it for you. Enjoy!</string>
+      <key>developer</key>
+      <string>Vivaldi</string>
+      <key>display_name</key>
+      <string>Vivaldi</string>
+      <key>name</key>
+      <string>%NAME%</string>
+      <key>unattended_install</key>
+      <true/>
+    </dict>
+  </dict>
+  <key>MinimumVersion</key>
+  <string>0.2.9</string>
+  <key>ParentRecipe</key>
+  <string>com.github.autopkg.download.vivaldi</string>
+  <key>Process</key>
+  <array>
+    <dict>
+      <key>Processor</key>
+      <string>MunkiImporter</string>
+      <key>Arguments</key>
+      <dict>
+        <key>munkiimport_appname</key>
+        <string>Vivaldi.app</string>
+        <key>pkg_path</key>
+        <string>%pathname%</string>
+        <key>repo_subdirectory</key>
+        <string>%MUNKI_REPO_SUBDIR%</string>
+      </dict>
+    </dict>
+  </array>
+</dict>
+</plist>
