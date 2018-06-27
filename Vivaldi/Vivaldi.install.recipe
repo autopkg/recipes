@@ -14,7 +14,7 @@
 	<key>MinimumVersion</key>
 	<string>0.4.0</string>
 	<key>ParentRecipe</key>
-	<string>io.github.hjuutilainen.download.vivaldi</string>
+	<string>com.github.autopkg.download.vivaldi</string>
 	<key>Process</key>
 	<array>
 		<dict>
