@@ -21,7 +21,7 @@ See the following URLs for more info:
         <key>NAME</key>
         <string>Thunderbird</string>
         <key>DISABLE_CODE_SIGNATURE_VERIFICATION</key>
-        <false/>
+        <true/>
     </dict>
     <key>MinimumVersion</key>
     <string>0.4.1</string>
