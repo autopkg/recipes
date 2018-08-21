@@ -58,6 +58,8 @@ installer for the given CHANNEL. 'latest-standalone' does not support
             <string>%NAME%</string>
             <key>unattended_install</key>
             <true/>
+            <key>developer</key>
+	    <string>Microsoft</string>
         </dict>
     </dict>
     <key>ParentRecipe</key>

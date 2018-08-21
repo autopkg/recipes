@@ -54,6 +54,8 @@ the latest full update for the given CHANNEL.
             <string>%NAME%</string>
             <key>unattended_install</key>
             <true/>
+	    <key>developer</key>
+	    <string>Microsoft</string>
         </dict>
     </dict>
     <key>ParentRecipe</key>
