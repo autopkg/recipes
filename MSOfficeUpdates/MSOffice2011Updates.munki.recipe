@@ -72,6 +72,8 @@ certificate for the downloaded update can still be manually verified, however.
             </array>
 	    <key>developer</key>
 	    <string>Microsoft</string>
+	    <key>category</key>
+	    <string>Productivity</string>
         </dict>
     </dict>
     <key>MinimumVersion</key>

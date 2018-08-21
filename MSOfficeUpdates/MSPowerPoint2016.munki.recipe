@@ -60,6 +60,8 @@ installer for the given CHANNEL. 'latest-standalone' does not support
             <true/>
 	    <key>developer</key>
 	    <string>Microsoft</string>
+            <key>category</key>
+            <string>Productivity</string>
         </dict>
     </dict>
     <key>ParentRecipe</key>
