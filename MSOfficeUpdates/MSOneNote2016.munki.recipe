@@ -52,16 +52,14 @@ installer for the given CHANNEL. 'latest-standalone' does not support
             <array>
                 <string>testing</string>
             </array>
+            <key>developer</key>
+      	    <string>Microsoft</string>
             <key>display_name</key>
             <string>Microsoft OneNote for Mac</string>
             <key>name</key>
             <string>%NAME%</string>
             <key>unattended_install</key>
             <true/>
-	    <key>developer</key>
-	    <string>Microsoft</string>
-            <key>category</key>
-            <string>Productivity</string>
         </dict>
     </dict>
     <key>ParentRecipe</key>

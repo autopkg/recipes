@@ -66,14 +66,12 @@ certificate for the downloaded update can still be manually verified, however.
             <array>
                 <string>testing</string>
             </array>
+            <key>developer</key>
+      	    <string>Microsoft</string>
             <key>update_for</key>
             <array>
                 <string>Office2011</string>
             </array>
-	    <key>developer</key>
-	    <string>Microsoft</string>
-	    <key>category</key>
-	    <string>Productivity</string>
         </dict>
     </dict>
     <key>MinimumVersion</key>

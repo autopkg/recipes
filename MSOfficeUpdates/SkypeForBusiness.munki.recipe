@@ -50,14 +50,12 @@ the latest full update for the given CHANNEL.
             </array>
             <key>display_name</key>
             <string>Skype for Business</string>
+            <key>developer</key>
+      	    <string>Microsoft</string>
             <key>name</key>
             <string>%NAME%</string>
             <key>unattended_install</key>
             <true/>
-	    <key>developer</key>
-	    <string>Microsoft</string>
-            <key>category</key>
-            <string>Communication</string>
         </dict>
     </dict>
     <key>ParentRecipe</key>
