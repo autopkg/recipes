@@ -53,7 +53,7 @@ installer for the given CHANNEL. 'latest-standalone' does not support
                 <string>testing</string>
             </array>
             <key>developer</key>
-      	    <string>Microsoft</string>
+            <string>Microsoft</string>
             <key>display_name</key>
             <string>Microsoft OneNote for Mac</string>
             <key>name</key>
