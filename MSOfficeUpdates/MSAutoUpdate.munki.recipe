@@ -48,6 +48,8 @@ the latest full update for the given CHANNEL.
             <array>
                 <string>testing</string>
             </array>
+            <key>developer</key>
+            <string>Microsoft</string>
             <key>display_name</key>
             <string>Microsoft AutoUpdate</string>
             <key>name</key>

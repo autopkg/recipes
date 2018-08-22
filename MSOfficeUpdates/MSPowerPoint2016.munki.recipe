@@ -54,6 +54,8 @@ installer for the given CHANNEL. 'latest-standalone' does not support
             </array>
             <key>display_name</key>
             <string>Microsoft PowerPoint for Mac</string>
+            <key>developer</key>
+            <string>Microsoft</string>
             <key>name</key>
             <string>%NAME%</string>
             <key>unattended_install</key>
