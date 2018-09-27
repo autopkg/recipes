@@ -49,7 +49,6 @@ PROD_DICT = {
         'path': '/Library/Application Support/Microsoft/MAU2.0/Microsoft AutoUpdate.app'
     }
 }
-
 LOCALE_ID_INFO_URL = "https://msdn.microsoft.com/en-us/goglobal/bb964664.aspx"
 SUPPORTED_VERSIONS = ["latest", "latest-delta", "latest-standalone"]
 DEFAULT_VERSION = "latest"
