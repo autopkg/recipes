@@ -15,7 +15,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 # Disabling 'no-env-member' for recipe processors
-#pylint:disable=e1101
+# pylint:disable=e1101
 """See docstring for MSOffice2016URLandUpdateInfoProvider class"""
 
 import plistlib
@@ -32,17 +32,25 @@ __all__ = ["MSOffice2016URLandUpdateInfoProvider"]
 CULTURE_CODE = "0409"
 BASE_URL = "https://officecdn.microsoft.com/pr/%s/OfficeMac/%s.xml"
 
-# These can be easily be found as "Application ID" in ~/Library/Preferences/com.microsoft.autoupdate2.plist on a 
+# These can be easily be found as "Application ID" in ~/Library/Preferences/com.microsoft.autoupdate2.plist on a
 # machine that has Microsoft AutoUpdate.app installed on it.
 #
 # Note that Skype, 'MSFB' has a '16' after it, AutoUpdate has a '03' after it while all the other products have '15'
+#
+# "Application ID" values changed for the Office 2019 apps. PROD_DICT updated with new values. Skype and
+# Microsoft Auto Update values have not changed.
 
 PROD_DICT = {
     'Excel': {'id': 'XCEL15', 'path': '/Applications/Microsoft Excel.app'},
+    'Excel2019': {'id': 'XCEL2019', 'path': '/Applications/Microsoft Excel.app'},
     'OneNote': {'id': 'ONMC15', 'path': '/Applications/Microsoft OneNote.app'},
+    'OneNote2019': {'id': 'ONMC2019', 'path': '/Applications/Microsoft OneNote.app'},
     'Outlook': {'id': 'OPIM15', 'path': '/Applications/Microsoft Outlook.app'},
+    'Outlook2019': {'id': 'OPIM2019', 'path': '/Applications/Microsoft Outlook.app'},
     'PowerPoint': {'id': 'PPT315', 'path': '/Applications/Microsoft PowerPoint.app'},
+    'PowerPoint2019': {'id': 'PPT32019', 'path': '/Applications/Microsoft PowerPoint.app'},
     'Word': {'id': 'MSWD15', 'path': '/Applications/Microsoft Word.app'},
+    'Word2019': {'id': 'MSWD2019', 'path': '/Applications/Microsoft Word.app'},
     'SkypeForBusiness': {'id': 'MSFB16', 'path': '/Applications/Skype for Business.app'},
     'AutoUpdate': {
         'id': 'MSau03',
@@ -58,6 +66,7 @@ CHANNELS = {
     'InsiderFast': '4B2D7701-0A4F-49C8-B4CB-0C2D4043F51F',
 }
 DEFAULT_CHANNEL = "Production"
+
 
 class MSOffice2016URLandUpdateInfoProvider(Processor):
     """Provides a download URL for the most recent version of MS Office 2016."""
@@ -99,9 +108,8 @@ class MSOffice2016URLandUpdateInfoProvider(Processor):
             "description":
                 ("Update feed channel that will be checked for updates. "
                  "Defaults to %s, acceptable values are either a custom "
-                 "UUID or one of: %s" % (
-                    DEFAULT_CHANNEL,
-                    ", ".join(CHANNELS.keys())))
+                 "UUID or one of: %s" % (DEFAULT_CHANNEL,
+                                         ", ".join(CHANNELS.keys())))
         }
     }
     output_variables = {
@@ -226,12 +234,16 @@ class MSOffice2016URLandUpdateInfoProvider(Processor):
             raise ProcessorError("Could not find an applicable update in "
                                  "update metadata.")
         item = item[0]
-        
+
         if self.env["version"] == "latest-standalone":
             p = re.compile(ur'(^[a-zA-Z0-9:/.-]*_[a-zA-Z]*_)(.*)Updater.pkg')
             url = item["Location"]
             (firstGroup, secondGroup) = re.search(p, url).group(1, 2)
-            item["Location"] = firstGroup + "2016_"+ secondGroup + "Installer.pkg"
+            if '2019' in PROD_DICT[self.env["product"]]['id']:
+                officeRelease = '2019_'
+            else:
+                officeRelease = '2016_'
+            item["Location"] = firstGroup + officeRelease + secondGroup + "Installer.pkg"
 
         self.env["url"] = item["Location"]
         self.output("Found URL %s" % self.env["url"])
@@ -257,7 +269,12 @@ class MSOffice2016URLandUpdateInfoProvider(Processor):
 
         # Minimum OS version key should exist always, but default to the current
         # minimum as of 16/11/03
-        pkginfo["minimum_os_version"] = item.get('Minimum OS', '10.10.5')
+        # 2018-09-27: Minimum OS for Office 2019 release is now 10.12.x
+        if '2019' in PROD_DICT[self.env["product"]]['id']:
+            minimumOS = '10.12'
+        else:
+            minimumOS = '10.10.5'
+        pkginfo["minimum_os_version"] = item.get('Minimum OS', minimumOS)
         installs_items = self.get_installs_items(item)
         if installs_items:
             pkginfo["installs"] = installs_items
