@@ -43,7 +43,7 @@ installer for the given CHANNEL. 'latest-standalone' does not support
     <array>
         <dict>
             <key>Processor</key>
-            <string>MSOffice2019URLandUpdateInfoProvider</string>
+            <string>MSOffice2016URLandUpdateInfoProvider</string>
             <key>Arguments</key>
             <dict>
                 <key>channel</key>
@@ -51,7 +51,7 @@ installer for the given CHANNEL. 'latest-standalone' does not support
                 <key>locale_id</key>
                 <string>%LOCALE_ID%</string>
                 <key>product</key>
-                <string>Word</string>
+                <string>Word2019</string>
                 <key>version</key>
                 <string>%VERSION%</string>
             </dict>
