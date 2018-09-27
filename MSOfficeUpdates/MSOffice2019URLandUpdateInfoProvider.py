@@ -38,17 +38,18 @@ BASE_URL = "https://officecdn.microsoft.com/pr/%s/OfficeMac/%s.xml"
 # Note that Skype, 'MSFB' has a '16' after it, AutoUpdate has a '03' after it while all the other products have '15'
 
 PROD_DICT = {
-    'Excel': {'id': 'XCEL15', 'path': '/Applications/Microsoft Excel.app'},
-    'OneNote': {'id': 'ONMC15', 'path': '/Applications/Microsoft OneNote.app'},
-    'Outlook': {'id': 'OPIM15', 'path': '/Applications/Microsoft Outlook.app'},
-    'PowerPoint': {'id': 'PPT315', 'path': '/Applications/Microsoft PowerPoint.app'},
-    'Word': {'id': 'MSWD15', 'path': '/Applications/Microsoft Word.app'},
+    'Excel': {'id': 'XCEL2019', 'path': '/Applications/Microsoft Excel.app'},
+    'OneNote': {'id': 'ONMC2019', 'path': '/Applications/Microsoft OneNote.app'},
+    'Outlook': {'id': 'OPIM2019', 'path': '/Applications/Microsoft Outlook.app'},
+    'PowerPoint': {'id': 'PPT32019', 'path': '/Applications/Microsoft PowerPoint.app'},
+    'Word': {'id': 'MSWD2019', 'path': '/Applications/Microsoft Word.app'},
     'SkypeForBusiness': {'id': 'MSFB16', 'path': '/Applications/Skype for Business.app'},
     'AutoUpdate': {
         'id': 'MSau03',
         'path': '/Library/Application Support/Microsoft/MAU2.0/Microsoft AutoUpdate.app'
     }
 }
+
 LOCALE_ID_INFO_URL = "https://msdn.microsoft.com/en-us/goglobal/bb964664.aspx"
 SUPPORTED_VERSIONS = ["latest", "latest-delta", "latest-standalone"]
 DEFAULT_VERSION = "latest"
