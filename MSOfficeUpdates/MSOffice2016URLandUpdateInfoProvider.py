@@ -231,7 +231,7 @@ class MSOffice2016URLandUpdateInfoProvider(Processor):
             p = re.compile(ur'(^[a-zA-Z0-9:/.-]*_[a-zA-Z]*_)(.*)Updater.pkg')
             url = item["Location"]
             (firstGroup, secondGroup) = re.search(p, url).group(1, 2)
-            item["Location"] = firstGroup + "2016_"+ secondGroup + "Installer.pkg"
+            item["Location"] = firstGroup + secondGroup + "Installer.pkg"
 
         self.env["url"] = item["Location"]
         self.output("Found URL %s" % self.env["url"])
