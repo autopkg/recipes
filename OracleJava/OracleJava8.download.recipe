@@ -31,7 +31,7 @@ http://www.oracle.com/technetwork/java/javase/terms/license/index.html
                 <key>url</key>
                 <string>https://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html</string>
                 <key>re_pattern</key>
-                <string>(?P&lt;url&gt;https://download.oracle.com/otn-pub/java/jdk/.*?/jre-8.*?x64.dmg)</string>
+                <string>(?P&lt;url&gt;https://download.oracle.com/otn/java/jdk/.*?/jre-8.*?x64.dmg)</string>
             </dict>
         </dict>
         <dict>
