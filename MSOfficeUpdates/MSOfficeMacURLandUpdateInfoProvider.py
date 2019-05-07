@@ -2,6 +2,7 @@
 #
 # Copyright 2015 Allister Banks and Tim Sutton,
 # based on MSOffice2011UpdateInfoProvider by Greg Neagle
+# much Office 2019 update work done by Carl Ashley
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -16,7 +17,7 @@
 # limitations under the License.
 # Disabling 'no-env-member' for recipe processors
 #pylint:disable=e1101
-"""See docstring for MSOffice2016URLandUpdateInfoProvider class"""
+"""See docstring for MSOfficeMacURLandUpdateInfoProvider class"""
 
 import plistlib
 import re
@@ -25,7 +26,7 @@ import urllib2
 from autopkglib import Processor, ProcessorError
 
 
-__all__ = ["MSOffice2016URLandUpdateInfoProvider"]
+__all__ = ["MSOfficeMacURLandUpdateInfoProvider"]
 
 # CULTURE_CODE defaulting to 'en-US' as the installers and updates seem to be
 # multilingual.
@@ -38,11 +39,16 @@ BASE_URL = "https://officecdn.microsoft.com/pr/%s/MacAutoupdate/%s.xml"
 # Note that Skype, 'MSFB' has a '16' after it, AutoUpdate has a '03' after it while all the other products have '15'
 
 PROD_DICT = {
-    'Excel': {'id': 'XCEL15', 'path': '/Applications/Microsoft Excel.app'},
-    'OneNote': {'id': 'ONMC15', 'path': '/Applications/Microsoft OneNote.app'},
-    'Outlook': {'id': 'OPIM15', 'path': '/Applications/Microsoft Outlook.app'},
-    'PowerPoint': {'id': 'PPT315', 'path': '/Applications/Microsoft PowerPoint.app'},
-    'Word': {'id': 'MSWD15', 'path': '/Applications/Microsoft Word.app'},
+    'Excel2016': {'id': 'XCEL15', 'path': '/Applications/Microsoft Excel.app'},
+    'Excel2019': {'id': 'XCEL2019', 'path': '/Applications/Microsoft Excel.app', 'minimum_os': '10.12'},
+    'OneNote2016': {'id': 'ONMC15', 'path': '/Applications/Microsoft OneNote.app'},
+    'OneNote2019': {'id': 'ONMC2019', 'path': '/Applications/Microsoft OneNote.app', 'minimum_os': '10.12'},
+    'Outlook2016': {'id': 'OPIM15', 'path': '/Applications/Microsoft Outlook.app'},
+    'Outlook2019': {'id': 'OPIM2019', 'path': '/Applications/Microsoft Outlook.app', 'minimum_os': '10.12'},
+    'PowerPoint2016': {'id': 'PPT315', 'path': '/Applications/Microsoft PowerPoint.app'},
+    'PowerPoint2019': {'id': 'PPT32019', 'path': '/Applications/Microsoft PowerPoint.app', 'minimum_os': '10.12'},
+    'Word2016': {'id': 'MSWD15', 'path': '/Applications/Microsoft Word.app'},
+    'Word2019': {'id': 'MSWD2019', 'path': '/Applications/Microsoft Word.app', 'minimum_os': '10.12'},
     'SkypeForBusiness': {'id': 'MSFB16', 'path': '/Applications/Skype for Business.app'},
     'AutoUpdate': {
         'id': 'MSau03',
@@ -59,7 +65,7 @@ CHANNELS = {
 }
 DEFAULT_CHANNEL = "Production"
 
-class MSOffice2016URLandUpdateInfoProvider(Processor):
+class MSOfficeMacURLandUpdateInfoProvider(Processor):
     """Provides a download URL for the most recent version of MS Office 2016."""
     input_variables = {
         "locale_id": {
@@ -214,10 +220,10 @@ class MSOffice2016URLandUpdateInfoProvider(Processor):
         metadata = plistlib.readPlistFromString(data)
         item = {}
         # Update feeds for a given 'channel' will have either combo or delta
-        # pkg urls, with delta's additionally having a 'FullUpdaterLocation' key.
+        # pkg urls, with delta's additionally having a 'FullUpdaterLocation'
+        # key.
         # We populate the item dict with the appropriate section of the metadata
-        # output, and do string replacement on the pattern of the URL in the
-        # case of a Standalone app request.
+        # output
         if self.env["version"] == "latest" or self.env["version"] == "latest-standalone":
             item = [u for u in metadata if not u.get("FullUpdaterLocation")]
         elif self.env["version"] == "latest-delta":
@@ -225,13 +231,22 @@ class MSOffice2016URLandUpdateInfoProvider(Processor):
         if not item:
             raise ProcessorError("Could not find an applicable update in "
                                  "update metadata.")
+
+        # this just returns the first item; in the case of delta updates this
+        # is not guaranteed to be the "latest" delta. Does anybody actually
+        # use this?
         item = item[0]
         
         if self.env["version"] == "latest-standalone":
-            p = re.compile(ur'(^[a-zA-Z0-9:/.-]*_[a-zA-Z]*_)(.*)Updater.pkg')
+            # do string replacement on the pattern of the URL in the
+            # case of a Standalone app request.
             url = item["Location"]
-            (firstGroup, secondGroup) = re.search(p, url).group(1, 2)
-            item["Location"] = firstGroup + secondGroup + "Installer.pkg"
+            updater_suffix = '_Updater.pkg'
+            if url.endswith(updater_suffix):
+                item["Location"] = url[0:-(len(updater_suffix))] + '_Installer.pkg'
+            else:
+                raise ProcessorError("Updater URL in unexpected format; cannot "
+                                     "determine standalone URL.")
 
         self.env["url"] = item["Location"]
         self.output("Found URL %s" % self.env["url"])
@@ -255,9 +270,13 @@ class MSOffice2016URLandUpdateInfoProvider(Processor):
         pkginfo["description"] = "<html>%s</html>" % manifest_description
         self.env["description"] = manifest_description
 
-        # Minimum OS version key should exist always, but default to the current
-        # minimum as of 16/11/03
-        pkginfo["minimum_os_version"] = item.get('Minimum OS', '10.10.5')
+        # Minimum OS version key should exist!
+        pkginfo["minimum_os_version"] = (
+            item.get('Minimum OS') or
+            PROD_DICT[self.env["product"]].get('minimum_os') or
+            '10.10.5'
+        )
+
         installs_items = self.get_installs_items(item)
         if installs_items:
             pkginfo["installs"] = installs_items
@@ -306,5 +325,5 @@ class MSOffice2016URLandUpdateInfoProvider(Processor):
 
 
 if __name__ == "__main__":
-    PROCESSOR = MSOffice2016URLandUpdateInfoProvider()
+    PROCESSOR = MSOfficeMacURLandUpdateInfoProvider()
     PROCESSOR.execute_shell()

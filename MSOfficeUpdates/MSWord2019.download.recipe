@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
     <key>Description</key>
-    <string>Downloads the latest Skype for Business multilingual update pkg,
+    <string>Downloads the latest Word 2019 multilingual update pkg,
 and appends the version to the end of the filename.
 
 CHANNEL can be set to several values in order to get more frequent updates
@@ -17,11 +17,15 @@ extracted from the Microsoft update metadata. See
 https://msdn.microsoft.com/en-us/goglobal/bb964664.aspx
 for more information about locale IDs.
 
-VERSION currently only supports one value: 'latest', which will download
-the latest full update for the given CHANNEL.
+VERSION supports three values: 'latest', which will download
+the latest full update for the given CHANNEL, 'latest-delta',
+which will download the latest delta update for the given CHANNEL,
+and 'latest-standalone' which will download the latest standalone
+installer for the given CHANNEL. 'latest-standalone' does not support
+'InsiderFast' CHANNEL.
 </string>
     <key>Identifier</key>
-    <string>com.github.autopkg.download.SkypeForBusiness</string>
+    <string>com.github.autopkg.download.MSWord2019</string>
     <key>MinimumVersion</key>
     <string>0.4.2</string>
     <key>Input</key>
@@ -31,9 +35,9 @@ the latest full update for the given CHANNEL.
         <key>LOCALE_ID</key>
         <string>1033</string>
         <key>NAME</key>
-        <string>SkypeForBusiness</string>
+        <string>MSWord2019</string>
         <key>PRODUCT</key>
-        <string>SkypeForBusiness</string>
+        <string>Word2019</string>
         <key>VERSION</key>
         <string>latest</string>
     </dict>

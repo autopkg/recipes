@@ -36,54 +36,12 @@ installer for the given CHANNEL. 'latest-standalone' does not support
         <string>1033</string>
         <key>NAME</key>
         <string>MSOneNote2016</string>
+        <key>PRODUCT</key>
+        <string>OneNote2016</string>
         <key>VERSION</key>
         <string>latest</string>
     </dict>
-    <key>Process</key>
-    <array>
-        <dict>
-            <key>Processor</key>
-            <string>MSOffice2016URLandUpdateInfoProvider</string>
-            <key>Arguments</key>
-            <dict>
-                <key>channel</key>
-                <string>%CHANNEL%</string>
-                <key>locale_id</key>
-                <string>%LOCALE_ID%</string>
-                <key>product</key>
-                <string>OneNote</string>
-                <key>version</key>
-                <string>%VERSION%</string>
-            </dict>
-        </dict>
-        <dict>
-            <key>Processor</key>
-            <string>URLDownloader</string>
-            <key>Arguments</key>
-            <dict>
-                <key>filename</key>
-                <string>%NAME%-%version%.pkg</string>
-            </dict>
-        </dict>
-        <dict>
-            <key>Processor</key>
-            <string>EndOfCheckPhase</string>
-        </dict>
-        <dict>
-            <key>Processor</key>
-            <string>CodeSignatureVerifier</string>
-            <key>Arguments</key>
-            <dict>
-                <key>input_path</key>
-                <string>%pathname%</string>
-                <key>expected_authority_names</key>
-                <array>
-                    <string>Developer ID Installer: Microsoft Corporation (UBF8T346G9)</string>
-                    <string>Developer ID Certification Authority</string>
-                    <string>Apple Root CA</string>
-                </array>
-            </dict>
-        </dict>
-    </array>
+    <key>ParentRecipe</key>
+    <string>com.github.autopkg.download.MSOfficeMacProduct</string>
 </dict>
 </plist>

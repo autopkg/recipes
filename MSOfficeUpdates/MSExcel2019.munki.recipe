@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
     <key>Description</key>
-    <string>Downloads the latest Word 2016 multilingual update pkg,
+    <string>Downloads the latest Excel 2019 multilingual update pkg,
 appends the version to the end of the filename, and imports into
 Munki.
 
@@ -29,13 +29,13 @@ installer for the given CHANNEL. 'latest-standalone' does not support
 'InsiderFast' CHANNEL.
 </string>
     <key>Identifier</key>
-    <string>com.github.autopkg.munki.MSWord2016</string>
+    <string>com.github.autopkg.munki.MSExcel2019</string>
     <key>MinimumVersion</key>
     <string>0.4.2</string>
     <key>Input</key>
     <dict>
         <key>NAME</key>
-        <string>MSWord2016</string>
+        <string>MSExcel2019</string>
         <key>MUNKI_REPO_SUBDIR</key>
         <string>apps</string>
         <key>munki_required_update_name</key>
@@ -44,7 +44,7 @@ installer for the given CHANNEL. 'latest-standalone' does not support
         <dict>
             <key>blocking_applications</key>
             <array>
-                <string>Microsoft Word</string>
+                <string>Microsoft Excel</string>
                 <string>Microsoft Error Reporting</string>
                 <string>Microsoft AutoUpdate</string>
             </array>
@@ -52,10 +52,10 @@ installer for the given CHANNEL. 'latest-standalone' does not support
             <array>
                 <string>testing</string>
             </array>
-            <key>display_name</key>
-            <string>Microsoft Word for Mac</string>
             <key>developer</key>
             <string>Microsoft</string>
+            <key>display_name</key>
+            <string>Microsoft Excel for Mac</string>
             <key>name</key>
             <string>%NAME%</string>
             <key>unattended_install</key>
@@ -63,7 +63,7 @@ installer for the given CHANNEL. 'latest-standalone' does not support
         </dict>
     </dict>
     <key>ParentRecipe</key>
-    <string>com.github.autopkg.download.MSWord2016</string>
+    <string>com.github.autopkg.download.MSExcel2019</string>
     <key>Process</key>
     <array>
         <dict>

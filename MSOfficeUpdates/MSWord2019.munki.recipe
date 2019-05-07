@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
     <key>Description</key>
-    <string>Downloads the latest Word 2016 multilingual update pkg,
+    <string>Downloads the latest Word 2019 multilingual update pkg,
 appends the version to the end of the filename, and imports into
 Munki.
 
@@ -29,13 +29,13 @@ installer for the given CHANNEL. 'latest-standalone' does not support
 'InsiderFast' CHANNEL.
 </string>
     <key>Identifier</key>
-    <string>com.github.autopkg.munki.MSWord2016</string>
+    <string>com.github.autopkg.munki.MSWord2019</string>
     <key>MinimumVersion</key>
     <string>0.4.2</string>
     <key>Input</key>
     <dict>
         <key>NAME</key>
-        <string>MSWord2016</string>
+        <string>MSWord2019</string>
         <key>MUNKI_REPO_SUBDIR</key>
         <string>apps</string>
         <key>munki_required_update_name</key>
@@ -63,7 +63,7 @@ installer for the given CHANNEL. 'latest-standalone' does not support
         </dict>
     </dict>
     <key>ParentRecipe</key>
-    <string>com.github.autopkg.download.MSWord2016</string>
+    <string>com.github.autopkg.download.MSWord2019</string>
     <key>Process</key>
     <array>
         <dict>
