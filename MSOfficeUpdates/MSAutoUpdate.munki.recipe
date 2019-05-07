@@ -42,7 +42,6 @@ the latest full update for the given CHANNEL.
             <array>
                 <string>Microsoft AutoUpdate</string>
                 <string>Microsoft Error Reporting</string>
-                <string>Microsoft AutoUpdate</string>
             </array>
             <key>catalogs</key>
             <array>
