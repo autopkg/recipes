@@ -33,10 +33,13 @@ __all__ = ["MSOfficeMacURLandUpdateInfoProvider"]
 CULTURE_CODE = "0409"
 BASE_URL = "https://officecdn.microsoft.com/pr/%s/MacAutoupdate/%s.xml"
 
-# These can be easily be found as "Application ID" in ~/Library/Preferences/com.microsoft.autoupdate2.plist on a 
+# These can be easily be found as "Application ID" in
+# ~/Library/Preferences/com.microsoft.autoupdate2.plist on a 
 # machine that has Microsoft AutoUpdate.app installed on it.
 #
-# Note that Skype, 'MSFB' has a '16' after it, AutoUpdate has a '03' after it while all the other products have '15'
+# Note that Skype, 'MSFB' has a '16' after it, 
+# AutoUpdate has a '03' or '04' after it,
+# other Office 2016 products have '15'; Office 2019/365 prodects end with 2019
 
 PROD_DICT = {
     'Excel2016': {'id': 'XCEL15', 'path': '/Applications/Microsoft Excel.app'},
@@ -50,8 +53,12 @@ PROD_DICT = {
     'Word2016': {'id': 'MSWD15', 'path': '/Applications/Microsoft Word.app'},
     'Word2019': {'id': 'MSWD2019', 'path': '/Applications/Microsoft Word.app', 'minimum_os': '10.12'},
     'SkypeForBusiness': {'id': 'MSFB16', 'path': '/Applications/Skype for Business.app'},
-    'AutoUpdate': {
+    'AutoUpdate03': {
         'id': 'MSau03',
+        'path': '/Library/Application Support/Microsoft/MAU2.0/Microsoft AutoUpdate.app'
+    },
+    'AutoUpdate04': {
+        'id': 'MSau04',
         'path': '/Library/Application Support/Microsoft/MAU2.0/Microsoft AutoUpdate.app'
     }
 }

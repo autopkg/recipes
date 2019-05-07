@@ -33,7 +33,7 @@ the latest full update for the given CHANNEL.
         <key>NAME</key>
         <string>MSAutoUpdate</string>
         <key>PRODUCT</key>
-        <string>AutoUpdate</string>
+        <string>AutoUpdate4</string>
         <key>VERSION</key>
         <string>latest</string>
     </dict>
