@@ -45,7 +45,7 @@ PROD_DICT = {
     'Word': {'id': 'MSWD15', 'path': '/Applications/Microsoft Word.app'},
     'SkypeForBusiness': {'id': 'MSFB16', 'path': '/Applications/Skype for Business.app'},
     'AutoUpdate': {
-        'id': 'MSau03',
+        'id': 'MSau04',
         'path': '/Library/Application Support/Microsoft/MAU2.0/Microsoft AutoUpdate.app'
     }
 }
