@@ -15,6 +15,7 @@
 # limitations under the License.
 """See docstring for PraatVersionFixer class"""
 
+from __future__ import absolute_import
 import os.path
 #pylint: disable=no-name-in-module
 from Foundation import NSData, \

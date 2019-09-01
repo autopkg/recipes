@@ -15,6 +15,7 @@
 # limitations under the License.
 """See docstring for SampleSharedProcessor class"""
 
+from __future__ import absolute_import
 import os
 from autopkglib import Processor, ProcessorError
 

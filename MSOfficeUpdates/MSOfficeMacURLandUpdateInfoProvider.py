@@ -19,6 +19,7 @@
 #pylint:disable=e1101
 """See docstring for MSOfficeMacURLandUpdateInfoProvider class"""
 
+from __future__ import absolute_import
 import plistlib
 import re
 import urllib2
@@ -34,10 +35,10 @@ CULTURE_CODE = "0409"
 BASE_URL = "https://officecdn.microsoft.com/pr/%s/MacAutoupdate/%s.xml"
 
 # These can be easily be found as "Application ID" in
-# ~/Library/Preferences/com.microsoft.autoupdate2.plist on a 
+# ~/Library/Preferences/com.microsoft.autoupdate2.plist on a
 # machine that has Microsoft AutoUpdate.app installed on it.
 #
-# Note that Skype, 'MSFB' has a '16' after it, 
+# Note that Skype, 'MSFB' has a '16' after it,
 # AutoUpdate has a '03' or '04' after it,
 # other Office 2016 products have '15'; Office 2019/365 prodects end with 2019
 
@@ -244,7 +245,7 @@ class MSOfficeMacURLandUpdateInfoProvider(Processor):
         # is not guaranteed to be the "latest" delta. Does anybody actually
         # use this?
         item = item[0]
-        
+
         if self.env["version"] == "latest-standalone":
             # do string replacement on the pattern of the URL in the
             # case of a Standalone app request.

@@ -18,6 +18,7 @@
 # limitations under the License.
 """See docstring for AdobeFlashURLProvider class"""
 
+from __future__ import absolute_import
 import subprocess
 from xml.etree import ElementTree
 
@@ -92,7 +93,7 @@ class AdobeFlashURLProvider(Processor):
 
             try:
                 root = ElementTree.fromstring(xml_data)
-            except (OSError, IOError, ElementTree.ParseError), err:
+            except (OSError, IOError, ElementTree.ParseError) as err:
                 raise Exception("Can't read %s: %s" % (xml_data, err))
 
             # extract version number from the XML

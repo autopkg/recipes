@@ -17,6 +17,7 @@
 # suppress 'missing class member env'
 #pylint: disable=e1101
 
+from __future__ import absolute_import
 import urllib2
 import plistlib
 from distutils.version import LooseVersion

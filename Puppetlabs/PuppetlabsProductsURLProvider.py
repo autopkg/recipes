@@ -15,6 +15,7 @@
 # limitations under the License.
 """See docstring for PuppetlabsProductsURLProvider class"""
 
+from __future__ import absolute_import
 import urllib2
 import re
 from distutils.version import LooseVersion

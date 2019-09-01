@@ -15,6 +15,7 @@
 # limitations under the License.
 """See docstring for MSOffice2011UpdateInfoProvider class"""
 
+from __future__ import absolute_import
 import plistlib
 import urllib2
 

@@ -15,6 +15,7 @@
 # limitations under the License.
 """See docstring for AdobeReaderRepackager class"""
 
+from __future__ import absolute_import
 import os
 import shutil
 import subprocess
@@ -99,13 +100,13 @@ class AdobeReaderRepackager(DmgMounter):
         if os.path.isdir(expand_dir):
             try:
                 shutil.rmtree(expand_dir)
-            except (OSError, IOError), err:
+            except (OSError, IOError) as err:
                 raise ProcessorError(
                     "Can't remove %s: %s" % (expand_dir, err))
         try:
             subprocess.check_call(
                 ['/usr/sbin/pkgutil', '--expand', pkg, expand_dir])
-        except subprocess.CalledProcessError, err:
+        except subprocess.CalledProcessError as err:
             raise ProcessorError("%s expanding %s" % (err, pkg))
         return expand_dir
 
@@ -115,13 +116,13 @@ class AdobeReaderRepackager(DmgMounter):
         if os.path.exists(destination):
             try:
                 os.unlink(destination)
-            except OSError, err:
+            except OSError as err:
                 raise ProcessorError(
                     "Can't remove %s: %s" % (destination, err))
         try:
             subprocess.check_call(
                 ['/usr/sbin/pkgutil', '--flatten', expanded_pkg, destination])
-        except subprocess.CalledProcessError, err:
+        except subprocess.CalledProcessError as err:
             raise ProcessorError(
                 "%s flattening %s" % (err, expanded_pkg))
 
@@ -134,7 +135,7 @@ class AdobeReaderRepackager(DmgMounter):
             raise ProcessorError("%s not found")
         try:
             dist = ElementTree.parse(dist_file)
-        except (OSError, IOError, ElementTree.ParseError), err:
+        except (OSError, IOError, ElementTree.ParseError) as err:
             raise ProcessorError("Can't read %s: %s" % (dist_file, err))
 
         dist_root = dist.getroot()
@@ -146,7 +147,7 @@ class AdobeReaderRepackager(DmgMounter):
             dist_root.remove(domains)
             try:
                 dist.write(dist_file)
-            except (OSError, IOError), err:
+            except (OSError, IOError) as err:
                 raise ProcessorError(
                     "Could not write %s: %s" % (dist_file, err))
 
@@ -169,11 +170,11 @@ class AdobeReaderRepackager(DmgMounter):
             raise ProcessorError("%s not found" % our_script)
         try:
             os.unlink(preinstall_script)
-        except (OSError, IOError), err:
+        except (OSError, IOError) as err:
             raise ProcessorError("%s removing %s" % (err, preinstall_script))
         try:
             shutil.copy(our_script, preinstall_script)
-        except (OSError, IOError), err:
+        except (OSError, IOError) as err:
             raise ProcessorError(
                 "%s copying %s to %s" % (err, our_script, preinstall_script))
         self.output(
@@ -198,7 +199,7 @@ class AdobeReaderRepackager(DmgMounter):
             self.flatten(expanded_pkg, modified_pkg)
             self.env["pkg_path"] = modified_pkg
 
-        except BaseException, err:
+        except BaseException as err:
             raise ProcessorError(err)
         finally:
             self.unmount(self.env["dmg_path"])
