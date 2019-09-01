@@ -16,11 +16,16 @@
 """See docstring for AdobeAcrobatProUpdateInfoProvider class"""
 
 from __future__ import absolute_import
-import urllib2
+
 import re
+from plistlib import readPlistFromString
 
 from autopkglib import Processor, ProcessorError
-from plistlib import readPlistFromString
+
+try:
+    from urllib.parse import urlopen  # For Python 3
+except ImportError:
+    from urllib2 import urlopen  # For Python 2
 
 __all__ = ["AdobeAcrobatProUpdateInfoProvider"]
 
@@ -117,7 +122,7 @@ class AdobeAcrobatProUpdateInfoProvider(Processor):
         '''Get data from a url'''
         #pylint: disable=no-self-use
         try:
-            url_handle = urllib2.urlopen(url)
+            url_handle = urlopen(url)
             response = url_handle.read()
             url_handle.close()
         except BaseException as err:

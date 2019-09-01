@@ -17,10 +17,13 @@
 
 from __future__ import absolute_import
 import re
-import urllib2
 
 from autopkglib import Processor, ProcessorError
 
+try:
+    from urllib.parse import urlopen  # For Python 3
+except ImportError:
+    from urllib2 import urlopen  # For Python 2
 
 __all__ = ["PraatURLProvider"]
 
@@ -56,7 +59,7 @@ class PraatURLProvider(Processor):
         re_praat_dmg = re.compile(PRAAT_DMG_RE.format(arch))
         # Read HTML index.
         try:
-            fref = urllib2.urlopen(base_url)
+            fref = urlopen(base_url)
             html = fref.read()
             fref.close()
         except BaseException as err:

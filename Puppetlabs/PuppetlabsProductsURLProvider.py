@@ -16,11 +16,15 @@
 """See docstring for PuppetlabsProductsURLProvider class"""
 
 from __future__ import absolute_import
-import urllib2
 import re
 from distutils.version import LooseVersion
 
 from autopkglib import Processor, ProcessorError
+
+try:
+    from urllib.parse import urlopen  # For Python 3
+except ImportError:
+    from urllib2 import urlopen  # For Python 2
 
 __all__ = ["PuppetlabsProductsURLProvider"]
 
@@ -82,7 +86,7 @@ class PuppetlabsProductsURLProvider(Processor):
                            % (self.env["product_name"].lower(), version_re))
 
         try:
-            data = urllib2.urlopen(download_url).read()
+            data = urlopen(download_url).read()
         except BaseException as err:
             raise ProcessorError(
                 "Unexpected error retrieving download index: '%s'" % err)
