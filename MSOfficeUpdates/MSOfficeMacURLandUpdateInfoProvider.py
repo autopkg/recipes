@@ -116,7 +116,7 @@ class MSOfficeMacURLandUpdateInfoProvider(Processor):
                  "Defaults to %s, acceptable values are either a custom "
                  "UUID or one of: %s" % (
                     DEFAULT_CHANNEL,
-                    ", ".join(CHANNELS.keys())))
+                    ", ".join(CHANNELS)))
         }
     }
     output_variables = {
@@ -198,10 +198,10 @@ class MSOfficeMacURLandUpdateInfoProvider(Processor):
         channel_input = self.env.get("channel", DEFAULT_CHANNEL)
         rex = r"^([0-9a-fA-F]{8}-([0-9a-fA-F]{4}-){3}[0-9a-fA-F]{12})$"
         match_uuid = re.match(rex, channel_input)
-        if not match_uuid and channel_input not in CHANNELS.keys():
+        if not match_uuid and channel_input not in CHANNELS:
             raise ProcessorError(
                 "'channel' input variable must be one of: %s or a custom "
-                "uuid" % (", ".join(CHANNELS.keys())))
+                "uuid" % (", ".join(CHANNELS)))
         if match_uuid:
             channel = match_uuid.groups()[0]
         else:
@@ -271,7 +271,7 @@ class MSOfficeMacURLandUpdateInfoProvider(Processor):
                 "Locale ID %s not found in manifest metadata. Available IDs: "
                 "%s. See %s for more details." % (
                     lcid,
-                    ", ".join(all_localizations.keys()),
+                    ", ".join(all_localizations),
                     LOCALE_ID_INFO_URL))
         manifest_description = all_localizations[lcid]['Short Description']
         # Store the description in a separate output variable and in our pkginfo

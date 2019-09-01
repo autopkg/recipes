@@ -72,12 +72,11 @@ class BarebonesURLProvider(Processor):
             '''compare LooseVersions'''
             return cmp(LooseVersion(this), LooseVersion(that))
 
-        valid_prods = URLS.keys()
         prod = self.env.get("product_name")
-        if prod not in valid_prods:
+        if prod not in URLS:
             raise ProcessorError(
                 "product_name %s is invalid; it must be one of: %s"
-                % (prod, valid_prods))
+                % (prod, ', '.join(URLS)))
         url = URLS[prod]
         try:
             manifest_str = urllib2.urlopen(url).read()
