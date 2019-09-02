@@ -15,9 +15,10 @@
 # limitations under the License.
 """See docstring for TextMateURLProvider processor"""
 
-from __future__ import absolute_import
-from __future__ import print_function
-from subprocess import Popen, PIPE
+from __future__ import absolute_import, print_function
+
+from subprocess import PIPE, Popen
+
 from autopkglib import Processor, ProcessorError
 
 DEFAULT_BRANCH = "release"

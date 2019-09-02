@@ -19,6 +19,7 @@
 """See docstring for AdobeFlashURLProvider class"""
 
 from __future__ import absolute_import
+
 import subprocess
 from xml.etree import ElementTree
 

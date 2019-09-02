@@ -16,8 +16,8 @@
 """See docstring for MozillaURLProvider class"""
 
 from __future__ import absolute_import
-from autopkglib import Processor, ProcessorError
 
+from autopkglib import Processor, ProcessorError
 
 __all__ = ["MozillaURLProvider"]
 
@@ -103,4 +103,3 @@ class MozillaURLProvider(Processor):
 if __name__ == "__main__":
     PROCESSOR = MozillaURLProvider()
     PROCESSOR.execute_shell()
-

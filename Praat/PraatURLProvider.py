@@ -16,6 +16,7 @@
 """See docstring for PraatURLProvider class"""
 
 from __future__ import absolute_import
+
 import re
 
 from autopkglib import Processor, ProcessorError

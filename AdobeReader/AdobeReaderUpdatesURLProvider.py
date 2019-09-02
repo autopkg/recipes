@@ -20,6 +20,7 @@
 #pylint: disable=e1101
 
 from __future__ import absolute_import
+
 import plistlib
 
 from autopkglib import Processor, ProcessorError

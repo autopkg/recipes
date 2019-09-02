@@ -16,13 +16,12 @@
 """See docstring for AdobeFlashDownloadDecoder class"""
 
 from __future__ import absolute_import
+
 import os
 import subprocess
-
 from tempfile import mkstemp
 
 from autopkglib import Processor, ProcessorError
-
 
 __all__ = ["AdobeFlashDownloadDecoder"]
 

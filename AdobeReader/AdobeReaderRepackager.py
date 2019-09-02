@@ -16,14 +16,14 @@
 """See docstring for AdobeReaderRepackager class"""
 
 from __future__ import absolute_import
+
 import os
 import shutil
 import subprocess
 from xml.etree import ElementTree
 
-from autopkglib.DmgMounter import DmgMounter
 from autopkglib import ProcessorError
-
+from autopkglib.DmgMounter import DmgMounter
 
 __all__ = ["AdobeReaderRepackager"]
 

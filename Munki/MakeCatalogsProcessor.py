@@ -16,6 +16,7 @@
 """autopkg processor to run makecatalogs on a Munki repo"""
 
 from __future__ import absolute_import
+
 import os.path
 import plistlib
 import subprocess
@@ -115,4 +116,3 @@ class MakeCatalogsProcessor(Processor):
 if __name__ == "__main__":
     PROCESSOR = MakeCatalogsProcessor()
     PROCESSOR.execute_shell()
-

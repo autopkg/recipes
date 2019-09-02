@@ -20,15 +20,15 @@
 ###
 
 from __future__ import absolute_import
+
 import os
-import FoundationPlist
-import tempfile
 import shutil
 import subprocess
+import tempfile
 
-from autopkglib.PkgExtractor import PkgExtractor
+import FoundationPlist
 from autopkglib import ProcessorError
-
+from autopkglib.PkgExtractor import PkgExtractor
 
 __all__ = ["AdobeFlashDmgUnpacker"]
 

@@ -16,15 +16,14 @@
 """See docstring for MSOffice2011UpdateInfoProvider class"""
 
 from __future__ import absolute_import
+
 import plistlib
 import urllib2
-
 from distutils.version import LooseVersion
 from operator import itemgetter
 from urlparse import urlparse, urlunparse
 
 from autopkglib import Processor, ProcessorError
-
 
 __all__ = ["MSOffice2011UpdateInfoProvider"]
 

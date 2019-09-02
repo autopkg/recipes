@@ -20,12 +20,12 @@
 """See docstring for MSOfficeMacURLandUpdateInfoProvider class"""
 
 from __future__ import absolute_import
+
 import plistlib
 import re
 import urllib2
 
 from autopkglib import Processor, ProcessorError
-
 
 __all__ = ["MSOfficeMacURLandUpdateInfoProvider"]
 
