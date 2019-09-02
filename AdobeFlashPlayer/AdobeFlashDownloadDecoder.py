@@ -66,7 +66,7 @@ class AdobeFlashDownloadDecoder(Processor):
         try:
             subprocess.check_call([sec_bin, "create-keychain",
                                    "-p", "", keychain_file])
-        except Exception as exp:
+        except BaseException as exp:
             raise ProcessorError("Error creating temporary keychain at path "
                                  "%s: %s" % (keychain_file, exp))
 
