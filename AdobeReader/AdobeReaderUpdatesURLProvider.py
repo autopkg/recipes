@@ -19,11 +19,16 @@
 # specific processors.
 #pylint: disable=e1101
 
-import urllib2
+from __future__ import absolute_import
+
 import plistlib
 
 from autopkglib import Processor, ProcessorError
 
+try:
+    from urllib.parse import urlopen  # For Python 3
+except ImportError:
+    from urllib2 import urlopen  # For Python 2
 
 __all__ = ["AdobeReaderUpdatesURLProvider"]
 
@@ -76,10 +81,8 @@ class AdobeReaderUpdatesURLProvider(Processor):
     def get_reader_updater_pkg_url(self, major_version):
         '''Returns download URL for Adobe Reader Updater DMG'''
 
-        request = urllib2.Request(
-            AR_UPDATER_BASE_URL + AR_MANIFEST_TEMPLATE % major_version)
         try:
-            url_handle = urllib2.urlopen(request)
+            url_handle = urlopen(AR_UPDATER_BASE_URL + AR_MANIFEST_TEMPLATE % major_version)
             version_string = url_handle.read()
             url_handle.close()
         except BaseException as err:
@@ -92,10 +95,8 @@ class AdobeReaderUpdatesURLProvider(Processor):
         version_string = version_string.replace(AR_PROD_IDENTIFIER, AR_PROD)
         version_string = version_string.replace(AR_PROD_ARCH_IDENTIFIER, AR_PROD_ARCH)
 
-        request = urllib2.Request(
-            AR_UPDATER_BASE_URL + version_string)
         try:
-            url_handle = urllib2.urlopen(request)
+            url_handle = urlopen(AR_UPDATER_BASE_URL + version_string)
             plist = plistlib.readPlistFromString(url_handle.read())
             url_handle.close()
         except BaseException as err:
@@ -107,10 +108,8 @@ class AdobeReaderUpdatesURLProvider(Processor):
     def get_reader_updater_dmg_url(self, major_version):
         '''Returns download URL for Adobe Reader Updater DMG'''
 
-        request = urllib2.Request(
-            AR_UPDATER_BASE_URL + AR_URL_TEMPLATE % major_version)
         try:
-            url_handle = urllib2.urlopen(request)
+            url_handle = urlopen(AR_UPDATER_BASE_URL + AR_URL_TEMPLATE % major_version)
             version_string = url_handle.read()
             url_handle.close()
         except BaseException as err:
@@ -121,10 +120,8 @@ class AdobeReaderUpdatesURLProvider(Processor):
         version_string = version_string.replace(OSX_MAJREV_IDENTIFIER, os_maj)
         version_string = version_string.replace(OSX_MINREV_IDENTIFIER, os_min)
 
-        request = urllib2.Request(
-            AR_UPDATER_BASE_URL + version_string)
         try:
-            url_handle = urllib2.urlopen(request)
+            url_handle = urlopen(AR_UPDATER_BASE_URL + version_string)
             version = url_handle.read()
             url_handle.close()
         except BaseException as err:

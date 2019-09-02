@@ -16,11 +16,12 @@
 """See docstring for SassafrasK2ClientCustomizer class"""
 
 
+from __future__ import absolute_import
+
 import os
 import subprocess
 
 from autopkglib import Processor, ProcessorError
-
 
 __all__ = ["SassafrasK2ClientCustomizer"]
 
@@ -59,7 +60,7 @@ class SassafrasK2ClientCustomizer(Processor):
             raise ProcessorError("No file exists at k2clientconfig_path: "
                                  "%s" % script)
         if not os.access(script, os.X_OK):
-            os.chmod(script, 0755)
+            os.chmod(script, 0o755)
         if not os.path.exists(pkg):
             raise ProcessorError("No K2Client pkg exists at "
                                  "base_pkg_path: %s" % pkg)

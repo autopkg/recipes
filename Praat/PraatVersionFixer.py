@@ -15,15 +15,21 @@
 # limitations under the License.
 """See docstring for PraatVersionFixer class"""
 
+from __future__ import absolute_import
+
 import os.path
-#pylint: disable=no-name-in-module
-from Foundation import NSData, \
-                       NSPropertyListSerialization, \
-                       NSPropertyListXMLFormat_v1_0, \
-                       NSPropertyListMutableContainers
-#pylint: enable=no-name-in-module
 
 from autopkglib import Processor, ProcessorError
+#pylint: disable=no-name-in-module
+from Foundation import (
+    NSData,
+    NSPropertyListMutableContainers,
+    NSPropertyListSerialization,
+    NSPropertyListXMLFormat_v1_0,
+)
+
+#pylint: enable=no-name-in-module
+
 
 
 __all__ = ["PraatVersionFixer"]

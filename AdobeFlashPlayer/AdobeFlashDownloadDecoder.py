@@ -15,13 +15,13 @@
 # limitations under the License.
 """See docstring for AdobeFlashDownloadDecoder class"""
 
+from __future__ import absolute_import
+
 import os
 import subprocess
-
 from tempfile import mkstemp
 
 from autopkglib import Processor, ProcessorError
-
 
 __all__ = ["AdobeFlashDownloadDecoder"]
 
@@ -65,7 +65,7 @@ class AdobeFlashDownloadDecoder(Processor):
         try:
             subprocess.check_call([sec_bin, "create-keychain",
                                    "-p", "", keychain_file])
-        except Exception as exp:
+        except BaseException as exp:
             raise ProcessorError("Error creating temporary keychain at path "
                                  "%s: %s" % (keychain_file, exp))
 

@@ -16,11 +16,12 @@
 """See docstring for AdobeReaderURLProvider class"""
 
 
+from __future__ import absolute_import
+
 import json
 import urllib2
 
 from autopkglib import Processor, ProcessorError
-
 
 __all__ = ["AdobeReaderURLProvider"]
 
@@ -105,4 +106,3 @@ class AdobeReaderURLProvider(Processor):
 if __name__ == "__main__":
     PROCESSOR = AdobeReaderURLProvider()
     PROCESSOR.execute_shell()
-

@@ -19,12 +19,13 @@
 #pylint:disable=e1101
 """See docstring for MSOfficeMacURLandUpdateInfoProvider class"""
 
+from __future__ import absolute_import
+
 import plistlib
 import re
 import urllib2
 
 from autopkglib import Processor, ProcessorError
-
 
 __all__ = ["MSOfficeMacURLandUpdateInfoProvider"]
 
@@ -34,10 +35,10 @@ CULTURE_CODE = "0409"
 BASE_URL = "https://officecdn.microsoft.com/pr/%s/MacAutoupdate/%s.xml"
 
 # These can be easily be found as "Application ID" in
-# ~/Library/Preferences/com.microsoft.autoupdate2.plist on a 
+# ~/Library/Preferences/com.microsoft.autoupdate2.plist on a
 # machine that has Microsoft AutoUpdate.app installed on it.
 #
-# Note that Skype, 'MSFB' has a '16' after it, 
+# Note that Skype, 'MSFB' has a '16' after it,
 # AutoUpdate has a '03' or '04' after it,
 # other Office 2016 products have '15'; Office 2019/365 prodects end with 2019
 
@@ -115,7 +116,7 @@ class MSOfficeMacURLandUpdateInfoProvider(Processor):
                  "Defaults to %s, acceptable values are either a custom "
                  "UUID or one of: %s" % (
                     DEFAULT_CHANNEL,
-                    ", ".join(CHANNELS.keys())))
+                    ", ".join(CHANNELS)))
         }
     }
     output_variables = {
@@ -197,10 +198,10 @@ class MSOfficeMacURLandUpdateInfoProvider(Processor):
         channel_input = self.env.get("channel", DEFAULT_CHANNEL)
         rex = r"^([0-9a-fA-F]{8}-([0-9a-fA-F]{4}-){3}[0-9a-fA-F]{12})$"
         match_uuid = re.match(rex, channel_input)
-        if not match_uuid and channel_input not in CHANNELS.keys():
+        if not match_uuid and channel_input not in CHANNELS:
             raise ProcessorError(
                 "'channel' input variable must be one of: %s or a custom "
-                "uuid" % (", ".join(CHANNELS.keys())))
+                "uuid" % (", ".join(CHANNELS)))
         if match_uuid:
             channel = match_uuid.groups()[0]
         else:
@@ -244,7 +245,7 @@ class MSOfficeMacURLandUpdateInfoProvider(Processor):
         # is not guaranteed to be the "latest" delta. Does anybody actually
         # use this?
         item = item[0]
-        
+
         if self.env["version"] == "latest-standalone":
             # do string replacement on the pattern of the URL in the
             # case of a Standalone app request.
@@ -270,7 +271,7 @@ class MSOfficeMacURLandUpdateInfoProvider(Processor):
                 "Locale ID %s not found in manifest metadata. Available IDs: "
                 "%s. See %s for more details." % (
                     lcid,
-                    ", ".join(all_localizations.keys()),
+                    ", ".join(all_localizations),
                     LOCALE_ID_INFO_URL))
         manifest_description = all_localizations[lcid]['Short Description']
         # Store the description in a separate output variable and in our pkginfo

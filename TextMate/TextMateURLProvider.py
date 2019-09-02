@@ -15,7 +15,10 @@
 # limitations under the License.
 """See docstring for TextMateURLProvider processor"""
 
-from subprocess import Popen, PIPE
+from __future__ import absolute_import, print_function
+
+from subprocess import PIPE, Popen
+
 from autopkglib import Processor, ProcessorError
 
 DEFAULT_BRANCH = "release"
@@ -59,7 +62,7 @@ class TextMateURLProvider(Processor):
         out, err = proc.communicate()
         parsed_url = None
         if err:
-            print err
+            print(err)
             raise ProcessorError("curl returned an error: %s" % out)
         for line in out.splitlines():
             if line.startswith("Location"):

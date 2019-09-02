@@ -15,8 +15,9 @@
 # limitations under the License.
 """See docstring for MozillaURLProvider class"""
 
-from autopkglib import Processor, ProcessorError
+from __future__ import absolute_import
 
+from autopkglib import Processor, ProcessorError
 
 __all__ = ["MozillaURLProvider"]
 
@@ -102,4 +103,3 @@ class MozillaURLProvider(Processor):
 if __name__ == "__main__":
     PROCESSOR = MozillaURLProvider()
     PROCESSOR.execute_shell()
-

@@ -15,11 +15,12 @@
 # limitations under the License.
 """See docstring for AutoPkgSourceFinder class"""
 
-import os
+from __future__ import absolute_import
+
 import glob
+import os
 
 from autopkglib import Processor, ProcessorError
-
 
 __all__ = ["AutoPkgSourceFinder"]
 

@@ -17,20 +17,26 @@
 # suppress 'missing class member env'
 #pylint: disable=e1101
 
-import urllib2
+from __future__ import absolute_import
+
 import plistlib
+import ssl
 from distutils.version import LooseVersion
+from functools import wraps
 from operator import itemgetter
 
 from autopkglib import Processor, ProcessorError
+
+try:
+    from urllib.parse import urlopen  # For Python 3
+except ImportError:
+    from urllib2 import urlopen  # For Python 2
 
 __all__ = ["BarebonesURLProvider"]
 
 URLS = {"textwrangler": "https://versioncheck.barebones.com/TextWrangler.xml",
         "bbedit": "https://versioncheck.barebones.com/BBEdit.xml"}
 
-import ssl
-from functools import wraps
 def sslwrap(func):
     """http://stackoverflow.com/a/24175862"""
     @wraps(func)
@@ -71,15 +77,14 @@ class BarebonesURLProvider(Processor):
             '''compare LooseVersions'''
             return cmp(LooseVersion(this), LooseVersion(that))
 
-        valid_prods = URLS.keys()
         prod = self.env.get("product_name")
-        if prod not in valid_prods:
+        if prod not in URLS:
             raise ProcessorError(
                 "product_name %s is invalid; it must be one of: %s"
-                % (prod, valid_prods))
+                % (prod, ', '.join(URLS)))
         url = URLS[prod]
         try:
-            manifest_str = urllib2.urlopen(url).read()
+            manifest_str = urlopen(url).read()
         except BaseException as err:
             raise ProcessorError(
                 "Unexpected error retrieving product manifest: '%s'" % err)

@@ -19,15 +19,16 @@
 ### NOTE: this processor is no longer used as Adobe has fixed their package
 ###
 
+from __future__ import absolute_import
+
 import os
-import FoundationPlist
-import tempfile
 import shutil
 import subprocess
+import tempfile
 
-from autopkglib.PkgExtractor import PkgExtractor
+import FoundationPlist
 from autopkglib import ProcessorError
-
+from autopkglib.PkgExtractor import PkgExtractor
 
 __all__ = ["AdobeFlashDmgUnpacker"]
 
@@ -96,7 +97,7 @@ class AdobeFlashDmgUnpacker(PkgExtractor):
             with open(patched_postflight_path, "wb") as fref:
                 fref.write(postflight.replace(
                     "/Library/Internet Plug-Ins", temp_path))
-            os.chmod(patched_postflight_path, 0700)
+            os.chmod(patched_postflight_path, 0o700)
 
             # Run patched postflight to unpack plugin.
             subprocess.check_call(patched_postflight_path)
@@ -123,7 +124,7 @@ class AdobeFlashDmgUnpacker(PkgExtractor):
         dest_app_path = os.path.join(
             dest_path, "Adobe Flash Player Install Manager.app")
         try:
-            os.makedirs(dest_path, 0755)
+            os.makedirs(dest_path, 0o755)
             shutil.copytree(source_app_path, dest_app_path)
         except (OSError, IOError):
             raise ProcessorError(
