@@ -34,8 +34,7 @@ except ImportError:
 
 __all__ = ["BarebonesURLProvider"]
 
-URLS = {"textwrangler": "https://versioncheck.barebones.com/TextWrangler.xml",
-        "bbedit": "https://versioncheck.barebones.com/BBEdit.xml"}
+URLS = {"bbedit": "https://versioncheck.barebones.com/BBEdit.xml"}
 
 def sslwrap(func):
     """http://stackoverflow.com/a/24175862"""
