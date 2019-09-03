@@ -125,7 +125,7 @@ class AdobeAcrobatProUpdateInfoProvider(Processor):
             url_handle = urlopen(url)
             response = url_handle.read()
             url_handle.close()
-        except BaseException as err:
+        except Exception as err:
             raise ProcessorError(
                 "Can't read response from URL %s: %s" % (url, err))
         return response
@@ -135,7 +135,7 @@ class AdobeAcrobatProUpdateInfoProvider(Processor):
         manifest_plist_response = self.get_url_response(manifest_plist_url)
         try:
             manifest_data = readPlistFromString(manifest_plist_response)
-        except BaseException as err:
+        except Exception as err:
             raise ProcessorError(
                 "Can't parse manifest plist at %s: %s"
                 % (manifest_plist_url, err))

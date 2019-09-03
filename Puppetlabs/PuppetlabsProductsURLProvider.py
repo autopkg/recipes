@@ -88,7 +88,7 @@ class PuppetlabsProductsURLProvider(Processor):
 
         try:
             data = urlopen(download_url).read()
-        except BaseException as err:
+        except Exception as err:
             raise ProcessorError(
                 "Unexpected error retrieving download index: '%s'" % err)
 

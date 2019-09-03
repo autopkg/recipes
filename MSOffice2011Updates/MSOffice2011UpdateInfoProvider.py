@@ -219,7 +219,7 @@ class MSOffice2011UpdateInfoProvider(Processor):
             fref = urllib2.urlopen(req)
             data = fref.read()
             fref.close()
-        except BaseException as err:
+        except Exception as err:
             raise ProcessorError("Can't download %s: %s" % (base_url, err))
 
         metadata = plistlib.readPlistFromString(data)

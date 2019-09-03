@@ -78,7 +78,7 @@ class AdobeReaderURLProvider(Processor):
             url_handle = urllib2.urlopen(request)
             json_response = url_handle.read()
             url_handle.close()
-        except BaseException as err:
+        except Exception as err:
             raise ProcessorError("Can't open %s: %s" % (base_url, err))
         reader_info = json.loads(json_response)
         major_version_string = MAJOR_VERSION_MATCH_STR % major_version

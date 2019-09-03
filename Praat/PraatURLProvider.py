@@ -63,7 +63,7 @@ class PraatURLProvider(Processor):
             fref = urlopen(base_url)
             html = fref.read()
             fref.close()
-        except BaseException as err:
+        except Exception as err:
             raise ProcessorError("Can't download %s: %s" % (base_url, err))
 
         # Search for download link.

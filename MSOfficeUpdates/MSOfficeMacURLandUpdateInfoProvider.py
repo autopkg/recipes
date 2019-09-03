@@ -223,7 +223,7 @@ class MSOfficeMacURLandUpdateInfoProvider(Processor):
             fdesc = urllib2.urlopen(req)
             data = fdesc.read()
             fdesc.close()
-        except BaseException as err:
+        except Exception as err:
             raise ProcessorError("Can't download %s: %s" % (base_url, err))
 
         metadata = plistlib.readPlistFromString(data)

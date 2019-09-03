@@ -199,7 +199,7 @@ class AdobeReaderRepackager(DmgMounter):
             self.flatten(expanded_pkg, modified_pkg)
             self.env["pkg_path"] = modified_pkg
 
-        except BaseException as err:
+        except Exception as err:
             raise ProcessorError(err)
         finally:
             self.unmount(self.env["dmg_path"])
