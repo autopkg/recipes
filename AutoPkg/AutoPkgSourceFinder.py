@@ -57,7 +57,7 @@ class AutoPkgSourceFinder(Processor):
             autopkg_dir = self.find_match(root_dir, 'autopkg-autopkg-*')
             self.env["autopkg_path"] = os.path.join(root_dir, autopkg_dir)
             self.output("Found %s" % self.env["autopkg_path"])
-        except BaseException as err:
+        except Exception as err:
             raise ProcessorError(err)
 
 

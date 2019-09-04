@@ -49,7 +49,7 @@ class SampleSharedProcessor(Processor):
             self.output(
                 "This shared processor is located at %s" % module_file_path)
             self.env["module_file_path"] = module_file_path
-        except BaseException as err:
+        except Exception as err:
             # handle unexpected errors here
             raise ProcessorError(err)
 

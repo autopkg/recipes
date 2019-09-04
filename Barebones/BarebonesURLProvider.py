@@ -84,13 +84,13 @@ class BarebonesURLProvider(Processor):
         url = URLS[prod]
         try:
             manifest_str = urlopen(url).read()
-        except BaseException as err:
+        except Exception as err:
             raise ProcessorError(
                 "Unexpected error retrieving product manifest: '%s'" % err)
 
         try:
             plist = plistlib.readPlistFromString(manifest_str)
-        except BaseException as err:
+        except Exception as err:
             raise ProcessorError(
                 "Unexpected error parsing manifest as a plist: '%s'" % err)
 

@@ -85,7 +85,7 @@ class AdobeReaderUpdatesURLProvider(Processor):
             url_handle = urlopen(AR_UPDATER_BASE_URL + AR_MANIFEST_TEMPLATE % major_version)
             version_string = url_handle.read()
             url_handle.close()
-        except BaseException as err:
+        except Exception as err:
             raise ProcessorError("Can't open manifest template: %s" % (err))
         os_maj, os_min = self.env["os_version"].split(".")
         version_string = version_string.replace(
@@ -99,7 +99,7 @@ class AdobeReaderUpdatesURLProvider(Processor):
             url_handle = urlopen(AR_UPDATER_BASE_URL + version_string)
             plist = plistlib.readPlistFromString(url_handle.read())
             url_handle.close()
-        except BaseException as err:
+        except Exception as err:
             raise ProcessorError("Can't get or read manifest: %s" % (err))
 
         url = AR_UPDATER_DOWNLOAD_URL2 + plist['PatchURL']
@@ -112,7 +112,7 @@ class AdobeReaderUpdatesURLProvider(Processor):
             url_handle = urlopen(AR_UPDATER_BASE_URL + AR_URL_TEMPLATE % major_version)
             version_string = url_handle.read()
             url_handle.close()
-        except BaseException as err:
+        except Exception as err:
             raise ProcessorError("Can't open URL template: %s" % (err))
         os_maj, os_min = self.env["os_version"].split(".")
         version_string = version_string.replace(
@@ -124,7 +124,7 @@ class AdobeReaderUpdatesURLProvider(Processor):
             url_handle = urlopen(AR_UPDATER_BASE_URL + version_string)
             version = url_handle.read()
             url_handle.close()
-        except BaseException as err:
+        except Exception as err:
             raise ProcessorError("Can't get version string: %s" % (err))
 
         versioncode = version.replace('.', '')
