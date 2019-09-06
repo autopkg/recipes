@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
     <key>Description</key>
-    <string>Download recipe for Firefox. Finds and downloads a Firefox release.
+    <string>Download recipe for Firefox. Finds and downloads a Firefox release disk image.
 Some useful values for RELEASE are: 'latest', 'esr-latest', 'beta-latest'.
 LOCALE controls the language localization to be downloded.
 Examples include 'en-US', 'de', 'sv-SE', and 'zh-TW'
