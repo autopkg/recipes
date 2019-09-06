@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Description</key>
+	<string>This recipe downloads the signed installer package that Mozilla made available starting in Firefox 69.0. Because the downloaded file is already a package, this pkg recipe does not add any further actions.
+
+The RELEASE key used in the standard Firefox recipes are not yet supported.
+LOCALE controls the language localization to be downloded.
+Examples include 'en-US', 'de', 'sv-SE', and 'zh-TW'
+See the following URL for possible LOCALE values:
+    http://ftp.mozilla.org/pub/firefox/releases/latest/README.txt
+</string>
+	<key>Identifier</key>
+	<string>com.github.autopkg.pkg.FirefoxSignedPkg</string>
+	<key>Input</key>
+	<dict>
+		<key>NAME</key>
+		<string>Firefox</string>
+	</dict>
+	<key>MinimumVersion</key>
+	<string>1.1</string>
+	<key>ParentRecipe</key>
+	<string>com.github.autopkg.download.FirefoxSignedPkg</string>
+	<key>Process</key>
+	<array/>
+</dict>
+</plist>

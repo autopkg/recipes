@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Description</key>
+	<string>This recipe downloads the signed installer package that Mozilla made available starting in Firefox 69.0, and imports the pkg file into a Munki repo.
+
+The RELEASE key used in the standard Firefox recipes are not yet supported.
+LOCALE controls the language localization to be downloded.
+Examples include 'en-US', 'de', 'sv-SE', and 'zh-TW'
+See the following URL for possible LOCALE values:
+    http://ftp.mozilla.org/pub/firefox/releases/latest/README.txt
+</string>
+	<key>Identifier</key>
+	<string>com.github.autopkg.munki.FirefoxSignedPkg</string>
+	<key>Input</key>
+	<dict>
+		<key>MUNKI_REPO_SUBDIR</key>
+		<string>apps/firefox</string>
+		<key>NAME</key>
+		<string>Firefox</string>
+		<key>pkginfo</key>
+		<dict>
+			<key>blocking_applications</key>
+			<array>
+				<string>Firefox.app</string>
+			</array>
+			<key>catalogs</key>
+			<array>
+				<string>testing</string>
+			</array>
+			<key>description</key>
+			<string>Mozilla Firefox is a free and open source web browser.</string>
+			<key>display_name</key>
+			<string>Mozilla Firefox</string>
+			<key>minimum_os_version</key>
+			<string>10.9</string>
+			<key>name</key>
+			<string>%NAME%</string>
+			<key>unattended_install</key>
+			<true/>
+		</dict>
+	</dict>
+	<key>MinimumVersion</key>
+	<string>1.1</string>
+	<key>ParentRecipe</key>
+	<string>com.github.autopkg.download.FirefoxSignedPkg</string>
+	<key>Process</key>
+	<array>
+		<dict>
+			<key>Arguments</key>
+			<dict>
+				<key>additional_pkginfo</key>
+				<dict>
+					<key>version</key>
+					<string>%version%</string>
+				</dict>
+			</dict>
+			<key>Processor</key>
+			<string>MunkiPkginfoMerger</string>
+		</dict>
+		<dict>
+			<key>Arguments</key>
+			<dict>
+				<key>pkg_path</key>
+				<string>%pathname%</string>
+				<key>repo_subdirectory</key>
+				<string>%MUNKI_REPO_SUBDIR%</string>
+			</dict>
+			<key>Processor</key>
+			<string>MunkiImporter</string>
+		</dict>
+	</array>
+</dict>
+</plist>
