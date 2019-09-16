@@ -23,6 +23,8 @@ preferences panel.
         <string>TextMate2</string>
         <key>BRANCH</key>
         <string>release</string>
+        <key>OS</key>
+        <string>10.14</string>
         <key>pkginfo</key>
         <dict>
             <key>catalogs</key>

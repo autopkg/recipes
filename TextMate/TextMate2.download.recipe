@@ -17,6 +17,8 @@ preferences panel.
         <string>TextMate2</string>
         <key>BRANCH</key>
         <string>release</string>
+        <key>OS</key>
+        <string>10.14</string>
     </dict>
     <key>MinimumVersion</key>
     <string>0.6.0</string>
@@ -29,6 +31,8 @@ preferences panel.
             <dict>
                 <key>branch</key>
                 <string>%BRANCH%</string>
+                <key>os</key>
+                <string>%OS%</string>
             </dict>
         </dict>
         <dict>
