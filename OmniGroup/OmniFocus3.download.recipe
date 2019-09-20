@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
     <key>Description</key>
-    <string>Downloads latest OmniFocus3 disk image and imports into Munki.</string>
+    <string>Downloads latest OmniFocus3 disk image.</string>
     <key>Identifier</key>
     <string>com.github.autopkg.download.omnifocus3</string>
     <key>Input</key>
