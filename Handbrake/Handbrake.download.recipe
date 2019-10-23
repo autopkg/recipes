@@ -3,13 +3,18 @@
 <plist version="1.0">
 <dict>
     <key>Description</key>
-    <string>Downloads the latest Handbrake disk image.</string>
+    <string>Downloads the latest Handbrake disk image.
+Set PRERELEASE to a non-empty string to download prereleases, either
+via Input in an override or via the -k option,
+i.e.: `-k PRERELEASE=yes`</string>
     <key>Identifier</key>
     <string>com.github.autopkg.download.Handbrake</string>
     <key>Input</key>
     <dict>
         <key>NAME</key>
         <string>Handbrake</string>
+        <key>PRERELEASE</key>
+        <string></string>
     </dict>
     <key>MinimumVersion</key>
     <string>1.0.4</string>
@@ -17,24 +22,15 @@
     <array>
         <dict>
             <key>Processor</key>
-            <string>URLTextSearcher</string>
+            <string>GitHubReleasesInfoProvider</string>
             <key>Arguments</key>
             <dict>
-                <key>url</key>
-                <string>https://handbrake.fr/downloads.php</string>
-                <key>re_pattern</key>
-                <string>(rotation.*?\.dmg)</string>
-            </dict>
-        </dict>
-        <dict>
-            <key>Processor</key>
-            <string>URLTextSearcher</string>
-            <key>Arguments</key>
-            <dict>
-                <key>url</key>
-                <string>https://handbrake.fr/%match%</string>
-                <key>re_pattern</key>
-                <string>href=\"(https.*?HandBrake.*?\.dmg)\"</string>
+                <key>github_repo</key>
+                <string>HandBrake/HandBrake</string>
+                <key>include_prereleases</key>
+                <string>%PRERELEASE%</string>
+                <key>asset_regex</key>
+                <string>HandBrake-\S.*?.dmg</string>
             </dict>
         </dict>
         <dict>
@@ -44,10 +40,6 @@
             <dict>
                 <key>filename</key>
                 <string>%NAME%.dmg</string>
-                <key>url</key>
-                <string>%match%</string>
-                <key>CHECK_FILESIZE_ONLY</key>
-                <true/>
             </dict>
         </dict>
         <dict>
