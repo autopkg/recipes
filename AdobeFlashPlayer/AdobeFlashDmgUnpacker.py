@@ -30,43 +30,40 @@ import FoundationPlist
 from autopkglib import ProcessorError
 from autopkglib.PkgExtractor import PkgExtractor
 
+
 __all__ = ["AdobeFlashDmgUnpacker"]
 
 
 class AdobeFlashDmgUnpacker(PkgExtractor):
     """Mounts a Flash dmg and extracts the Player pkg payload to pkgroot."""
+
     description = __doc__
     input_variables = {
         "dmg_path": {
             "required": True,
-            "description":
-                "Path to a dmg containing the Flash player installer.",
+            "description": "Path to a dmg containing the Flash player installer.",
         },
         "pkgroot": {
             "required": True,
-            "description":
-                "Path to where the new package root will be created.",
+            "description": "Path to where the new package root will be created.",
         },
     }
-    output_variables = {
-        "version": {
-            "description": "Version of the flash plugin.",
-        },
-    }
+    output_variables = {"version": {"description": "Version of the flash plugin."}}
 
     def read_bundle_info(self, path):
         """Read Contents/Info.plist inside a bundle."""
-        #pylint: disable=no-self-use
+        # pylint: disable=no-self-use
         try:
             info = FoundationPlist.readPlist(
-                os.path.join(path, "Contents", "Info.plist"))
+                os.path.join(path, "Contents", "Info.plist")
+            )
         except FoundationPlist.FoundationPlistException as err:
             raise ProcessorError(err)
         return info
 
     def decompress_plugin(self, pkg_path, pkgroot):
-        '''Patches postflight binary to decompress the Flash Player.plugin'''
-        #pylint: disable=no-self-use
+        """Patches postflight binary to decompress the Flash Player.plugin"""
+        # pylint: disable=no-self-use
         # Create temporary directory that we'll use to uncompress the plugin
         temp_path = tempfile.mkdtemp(prefix="flashXX", dir="/private/tmp")
         try:
@@ -77,12 +74,12 @@ class AdobeFlashDmgUnpacker(PkgExtractor):
 
             # Move Flash Player.plugin.lzma to our temp_path
             src = os.path.join(
-                pkgroot, "Library/Internet Plug-Ins/Flash Player.plugin.lzma")
+                pkgroot, "Library/Internet Plug-Ins/Flash Player.plugin.lzma"
+            )
             try:
                 shutil.move(src, temp_path)
             except (OSError, IOError):
-                raise ProcessorError(
-                    "Couldn't move %s to %s" % (src, temp_path))
+                raise ProcessorError("Couldn't move %s to %s" % (src, temp_path))
 
             # Patch postflight executable.
             # It's hard-coded to work on
@@ -90,13 +87,13 @@ class AdobeFlashDmgUnpacker(PkgExtractor):
             # so patch with a pathname the exact same length and
             # hope for the best...
             original_postflight_path = os.path.join(
-                pkg_path, "Contents/Resources/postflight")
+                pkg_path, "Contents/Resources/postflight"
+            )
             with open(original_postflight_path, "rb") as fref:
                 postflight = fref.read()
             patched_postflight_path = os.path.join(temp_path, "postflight")
             with open(patched_postflight_path, "wb") as fref:
-                fref.write(postflight.replace(
-                    "/Library/Internet Plug-Ins", temp_path))
+                fref.write(postflight.replace("/Library/Internet Plug-Ins", temp_path))
             os.chmod(patched_postflight_path, 0o700)
 
             # Run patched postflight to unpack plugin.
@@ -109,35 +106,37 @@ class AdobeFlashDmgUnpacker(PkgExtractor):
 
             # Move plugin back into pkgroot.
             plugin_destination = os.path.join(
-                pkgroot, "Library/Internet Plug-Ins/Flash Player.plugin")
+                pkgroot, "Library/Internet Plug-Ins/Flash Player.plugin"
+            )
             shutil.copytree(plugin_path, plugin_destination, symlinks=True)
         finally:
             shutil.rmtree(temp_path)
 
     def copy_install_app(self, mount_point, pkgroot):
-        '''Copy installation app to pkgroot as Adobe Flash Player Install
-        Manager.app'''
-        #pylint: disable=no-self-use
-        source_app_path = os.path.join(
-            mount_point, "Install Adobe Flash Player.app")
+        """Copy installation app to pkgroot as Adobe Flash Player Install
+        Manager.app"""
+        # pylint: disable=no-self-use
+        source_app_path = os.path.join(mount_point, "Install Adobe Flash Player.app")
         dest_path = os.path.join(pkgroot, "Applications/Utilities")
         dest_app_path = os.path.join(
-            dest_path, "Adobe Flash Player Install Manager.app")
+            dest_path, "Adobe Flash Player Install Manager.app"
+        )
         try:
             os.makedirs(dest_path, 0o755)
             shutil.copytree(source_app_path, dest_app_path)
         except (OSError, IOError):
-            raise ProcessorError(
-                "Couldn't copy Adobe Flash Player Install Manager.app")
+            raise ProcessorError("Couldn't copy Adobe Flash Player Install Manager.app")
 
         # remove embedded pkg from copied app
         embedded_pkg_path = os.path.join(
-            dest_app_path, "Contents/Resources/Adobe Flash Player.pkg")
+            dest_app_path, "Contents/Resources/Adobe Flash Player.pkg"
+        )
         try:
             shutil.rmtree(embedded_pkg_path)
         except (OSError, IOError):
             raise ProcessorError(
-                "Couldn't clean up Adobe Flash Player Install Manager.app")
+                "Couldn't clean up Adobe Flash Player Install Manager.app"
+            )
 
     def main(self):
         # Mount the image.
@@ -145,13 +144,14 @@ class AdobeFlashDmgUnpacker(PkgExtractor):
         # Wrap all other actions in a try/finally so the image is always
         # unmounted.
         try:
-            pkgroot = self.env['pkgroot']
+            pkgroot = self.env["pkgroot"]
 
             # extract package payload
             pkg_path = os.path.join(
                 mount_point,
                 "Install Adobe Flash Player.app",
-                "Contents/Resources/Adobe Flash Player.pkg")
+                "Contents/Resources/Adobe Flash Player.pkg",
+            )
             self.extract_payload(pkg_path, pkgroot)
 
             # decompress the actual plugin
@@ -162,7 +162,8 @@ class AdobeFlashDmgUnpacker(PkgExtractor):
 
             # Read version of plugin
             plugin_path = os.path.join(
-                pkgroot, "Library/Internet Plug-Ins/Flash Player.plugin")
+                pkgroot, "Library/Internet Plug-Ins/Flash Player.plugin"
+            )
             info = self.read_bundle_info(plugin_path)
             self.env["version"] = info["CFBundleShortVersionString"]
 
@@ -172,6 +173,6 @@ class AdobeFlashDmgUnpacker(PkgExtractor):
             self.unmount(self.env["dmg_path"])
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     PROCESSOR = AdobeFlashDmgUnpacker()
     PROCESSOR.execute_shell()

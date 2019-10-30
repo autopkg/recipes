@@ -16,16 +16,23 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 # Disabling 'no-env-member' for recipe processors
-#pylint:disable=e1101
+# pylint:disable=e1101
 """See docstring for MSOfficeMacURLandUpdateInfoProvider class"""
 
 from __future__ import absolute_import
 
 import plistlib
 import re
-import urllib2
+import urllib.error
+import urllib.parse
+import urllib.request
 
 from autopkglib import Processor, ProcessorError
+from future import standard_library
+
+
+standard_library.install_aliases()
+
 
 __all__ = ["MSOfficeMacURLandUpdateInfoProvider"]
 
@@ -43,39 +50,71 @@ BASE_URL = "https://officecdn.microsoft.com/pr/%s/MacAutoupdate/%s.xml"
 # other Office 2016 products have '15'; Office 2019/365 prodects end with 2019
 
 PROD_DICT = {
-    'Excel2016': {'id': 'XCEL15', 'path': '/Applications/Microsoft Excel.app'},
-    'Excel2019': {'id': 'XCEL2019', 'path': '/Applications/Microsoft Excel.app', 'minimum_os': '10.12'},
-    'OneNote2016': {'id': 'ONMC15', 'path': '/Applications/Microsoft OneNote.app'},
-    'OneNote2019': {'id': 'ONMC2019', 'path': '/Applications/Microsoft OneNote.app', 'minimum_os': '10.12'},
-    'Outlook2016': {'id': 'OPIM15', 'path': '/Applications/Microsoft Outlook.app'},
-    'Outlook2019': {'id': 'OPIM2019', 'path': '/Applications/Microsoft Outlook.app', 'minimum_os': '10.12'},
-    'PowerPoint2016': {'id': 'PPT315', 'path': '/Applications/Microsoft PowerPoint.app'},
-    'PowerPoint2019': {'id': 'PPT32019', 'path': '/Applications/Microsoft PowerPoint.app', 'minimum_os': '10.12'},
-    'Word2016': {'id': 'MSWD15', 'path': '/Applications/Microsoft Word.app'},
-    'Word2019': {'id': 'MSWD2019', 'path': '/Applications/Microsoft Word.app', 'minimum_os': '10.12'},
-    'SkypeForBusiness': {'id': 'MSFB16', 'path': '/Applications/Skype for Business.app'},
-    'AutoUpdate03': {
-        'id': 'MSau03',
-        'path': '/Library/Application Support/Microsoft/MAU2.0/Microsoft AutoUpdate.app'
+    "Excel2016": {"id": "XCEL15", "path": "/Applications/Microsoft Excel.app"},
+    "Excel2019": {
+        "id": "XCEL2019",
+        "path": "/Applications/Microsoft Excel.app",
+        "minimum_os": "10.12",
     },
-    'AutoUpdate04': {
-        'id': 'MSau04',
-        'path': '/Library/Application Support/Microsoft/MAU2.0/Microsoft AutoUpdate.app'
+    "OneNote2016": {"id": "ONMC15", "path": "/Applications/Microsoft OneNote.app"},
+    "OneNote2019": {
+        "id": "ONMC2019",
+        "path": "/Applications/Microsoft OneNote.app",
+        "minimum_os": "10.12",
     },
-    'DefenderATP': {'id': 'WDAV00', 'path': '/Applications/Microsoft Defender ATP.app', 'minimum_os': '10.12'}
+    "Outlook2016": {"id": "OPIM15", "path": "/Applications/Microsoft Outlook.app"},
+    "Outlook2019": {
+        "id": "OPIM2019",
+        "path": "/Applications/Microsoft Outlook.app",
+        "minimum_os": "10.12",
+    },
+    "PowerPoint2016": {
+        "id": "PPT315",
+        "path": "/Applications/Microsoft PowerPoint.app",
+    },
+    "PowerPoint2019": {
+        "id": "PPT32019",
+        "path": "/Applications/Microsoft PowerPoint.app",
+        "minimum_os": "10.12",
+    },
+    "Word2016": {"id": "MSWD15", "path": "/Applications/Microsoft Word.app"},
+    "Word2019": {
+        "id": "MSWD2019",
+        "path": "/Applications/Microsoft Word.app",
+        "minimum_os": "10.12",
+    },
+    "SkypeForBusiness": {
+        "id": "MSFB16",
+        "path": "/Applications/Skype for Business.app",
+    },
+    "AutoUpdate03": {
+        "id": "MSau03",
+        "path": "/Library/Application Support/Microsoft/MAU2.0/Microsoft AutoUpdate.app",
+    },
+    "AutoUpdate04": {
+        "id": "MSau04",
+        "path": "/Library/Application Support/Microsoft/MAU2.0/Microsoft AutoUpdate.app",
+    },
+    "DefenderATP": {
+        "id": "WDAV00",
+        "path": "/Applications/Microsoft Defender ATP.app",
+        "minimum_os": "10.12",
+    },
 }
 LOCALE_ID_INFO_URL = "https://msdn.microsoft.com/en-us/goglobal/bb964664.aspx"
 SUPPORTED_VERSIONS = ["latest", "latest-delta", "latest-standalone"]
 DEFAULT_VERSION = "latest"
 CHANNELS = {
-    'Production': 'C1297A47-86C4-4C1F-97FA-950631F94777',
-    'InsiderSlow': '1ac37578-5a24-40fb-892e-b89d85b6dfaa',
-    'InsiderFast': '4B2D7701-0A4F-49C8-B4CB-0C2D4043F51F',
+    "Production": "C1297A47-86C4-4C1F-97FA-950631F94777",
+    "InsiderSlow": "1ac37578-5a24-40fb-892e-b89d85b6dfaa",
+    "InsiderFast": "4B2D7701-0A4F-49C8-B4CB-0C2D4043F51F",
 }
 DEFAULT_CHANNEL = "Production"
 
+
 class MSOfficeMacURLandUpdateInfoProvider(Processor):
     """Provides a download URL for the most recent version of MS Office 2016."""
+
     input_variables = {
         "locale_id": {
             "required": False,
@@ -84,8 +123,8 @@ class MSOfficeMacURLandUpdateInfoProvider(Processor):
                 "Locale ID that determines the language "
                 "that is retrieved from the metadata, currently only "
                 "used by the update description. See %s "
-                "for a list of locale codes. The default is en-US."
-                % LOCALE_ID_INFO_URL)
+                "for a list of locale codes. The default is en-US." % LOCALE_ID_INFO_URL
+            ),
         },
         "product": {
             "required": True,
@@ -94,60 +133,59 @@ class MSOfficeMacURLandUpdateInfoProvider(Processor):
         "version": {
             "required": False,
             "default": DEFAULT_VERSION,
-            "description": ("Update type to fetch. Supported values are: "
-                            "'%s'. Defaults to %s."
-                            % ("', '".join(SUPPORTED_VERSIONS),
-                               DEFAULT_VERSION)),
+            "description": (
+                "Update type to fetch. Supported values are: "
+                "'%s'. Defaults to %s."
+                % ("', '".join(SUPPORTED_VERSIONS), DEFAULT_VERSION)
+            ),
         },
         "munki_required_update_name": {
             "required": False,
             "default": "",
-            "description":
-                ("If the update is a delta, a 'requires' key will be set "
-                 "according to the minimum version defined in the MS "
-                 "metadata. If this key is set, this name will be used "
-                 "for the required item. If unset, NAME will be used.")
+            "description": (
+                "If the update is a delta, a 'requires' key will be set "
+                "according to the minimum version defined in the MS "
+                "metadata. If this key is set, this name will be used "
+                "for the required item. If unset, NAME will be used."
+            ),
         },
         "channel": {
             "required": False,
             "default": DEFAULT_CHANNEL,
-            "description":
-                ("Update feed channel that will be checked for updates. "
-                 "Defaults to %s, acceptable values are either a custom "
-                 "UUID or one of: %s" % (
-                    DEFAULT_CHANNEL,
-                    ", ".join(CHANNELS)))
-        }
+            "description": (
+                "Update feed channel that will be checked for updates. "
+                "Defaults to %s, acceptable values are either a custom "
+                "UUID or one of: %s" % (DEFAULT_CHANNEL, ", ".join(CHANNELS))
+            ),
+        },
     }
     output_variables = {
         "additional_pkginfo": {
-            "description":
-                "Some pkginfo fields extracted from the Microsoft metadata.",
+            "description": "Some pkginfo fields extracted from the Microsoft metadata."
         },
         "description": {
-            "description":
-                "Description of the update from the manifest, in the language "
-                "given by the locale_id input variable.",
+            "description": "Description of the update from the manifest, in the language "
+            "given by the locale_id input variable."
         },
         "version": {
-            "description":
-                ("The version of the update as extracted from the Microsoft "
-                 "metadata.")
+            "description": (
+                "The version of the update as extracted from the Microsoft " "metadata."
+            )
         },
         "minimum_os_version": {
-            "description":
-                ("The minimum os version required by the update as extracted "
-                 "from the Microsoft metadata.")
+            "description": (
+                "The minimum os version required by the update as extracted "
+                "from the Microsoft metadata."
+            )
         },
         "minimum_version_for_delta": {
-            "description":
-                ("If this update is a delta, this value will be set to the "
-                 "minimum required application version to which this delta "
-                 "can be applied. Otherwise it will be an empty string.")
+            "description": (
+                "If this update is a delta, this value will be set to the "
+                "minimum required application version to which this delta "
+                "can be applied. Otherwise it will be an empty string."
+            )
         },
-        "url": {
-            "description": "URL to the latest installer.",
-        },
+        "url": {"description": "URL to the latest installer."},
     }
     description = __doc__
     min_delta_version = ""
@@ -162,14 +200,15 @@ class MSOfficeMacURLandUpdateInfoProvider(Processor):
         if not item.get("Trigger Condition") == ["and", "Registered File"]:
             raise ProcessorError(
                 "Unexpected Trigger Condition in item %s: %s"
-                % (item["Title"], item["Trigger Condition"]))
+                % (item["Title"], item["Trigger Condition"])
+            )
 
     def get_installs_items(self, item):
         """Attempts to parse the Triggers to create an installs item using
         only manifest data, making the assumption that CFBundleVersion and
         CFBundleShortVersionString are equal. Skip SkypeForBusiness as its
         xml does not contain a 'Trigger Condition'"""
-        if self.env["product"] != 'SkypeForBusiness':
+        if self.env["product"] != "SkypeForBusiness":
             self.sanity_check_expected_triggers(item)
         version = self.get_version(item)
         # Skipping CFBundleShortVersionString because it doesn't contain
@@ -177,7 +216,7 @@ class MSOfficeMacURLandUpdateInfoProvider(Processor):
         # distinguishing Insider builds for example)
         installs_item = {
             "CFBundleVersion": version,
-            "path": PROD_DICT[self.env["product"]]['path'],
+            "path": PROD_DICT[self.env["product"]]["path"],
             "type": "application",
         }
         return [installs_item]
@@ -188,8 +227,9 @@ class MSOfficeMacURLandUpdateInfoProvider(Processor):
         # easily from this
         if item.get("Update Version"):
             self.output(
-                "Extracting version %s from metadata 'Update Version' key" %
-                item["Update Version"])
+                "Extracting version %s from metadata 'Update Version' key"
+                % item["Update Version"]
+            )
             return item["Update Version"]
 
     def get_installer_info(self):
@@ -201,26 +241,30 @@ class MSOfficeMacURLandUpdateInfoProvider(Processor):
         if not match_uuid and channel_input not in CHANNELS:
             raise ProcessorError(
                 "'channel' input variable must be one of: %s or a custom "
-                "uuid" % (", ".join(CHANNELS)))
+                "uuid" % (", ".join(CHANNELS))
+            )
         if match_uuid:
             channel = match_uuid.groups()[0]
         else:
             channel = CHANNELS[channel_input]
-        base_url = BASE_URL % (channel,
-                               CULTURE_CODE + PROD_DICT[self.env["product"]]['id'])
+        base_url = BASE_URL % (
+            channel,
+            CULTURE_CODE + PROD_DICT[self.env["product"]]["id"],
+        )
 
         # Get metadata URL
         self.output("Requesting xml: %s" % base_url)
-        req = urllib2.Request(base_url)
+        req = urllib.request.Request(base_url)
         # Add the MAU User-Agent, since MAU feed server seems to explicitly
         # block a User-Agent of 'Python-urllib/2.7' - even a blank User-Agent
         # string passes.
         req.add_header(
             "User-Agent",
-            "Microsoft%20AutoUpdate/3.6.16080300 CFNetwork/760.6.3 Darwin/15.6.0 (x86_64)")
+            "Microsoft%20AutoUpdate/3.6.16080300 CFNetwork/760.6.3 Darwin/15.6.0 (x86_64)",
+        )
 
         try:
-            fdesc = urllib2.urlopen(req)
+            fdesc = urllib.request.urlopen(req)
             data = fdesc.read()
             fdesc.close()
         except Exception as err:
@@ -233,13 +277,17 @@ class MSOfficeMacURLandUpdateInfoProvider(Processor):
         # key.
         # We populate the item dict with the appropriate section of the metadata
         # output
-        if self.env["version"] == "latest" or self.env["version"] == "latest-standalone":
+        if (
+            self.env["version"] == "latest"
+            or self.env["version"] == "latest-standalone"
+        ):
             item = [u for u in metadata if not u.get("FullUpdaterLocation")]
         elif self.env["version"] == "latest-delta":
             item = [u for u in metadata if u.get("FullUpdaterLocation")]
         if not item:
-            raise ProcessorError("Could not find an applicable update in "
-                                 "update metadata.")
+            raise ProcessorError(
+                "Could not find an applicable update in " "update metadata."
+            )
 
         # this just returns the first item; in the case of delta updates this
         # is not guaranteed to be the "latest" delta. Does anybody actually
@@ -250,12 +298,14 @@ class MSOfficeMacURLandUpdateInfoProvider(Processor):
             # do string replacement on the pattern of the URL in the
             # case of a Standalone app request.
             url = item["Location"]
-            updater_suffix = '_Updater.pkg'
+            updater_suffix = "_Updater.pkg"
             if url.endswith(updater_suffix):
-                item["Location"] = url[0:-(len(updater_suffix))] + '_Installer.pkg'
+                item["Location"] = url[0 : -(len(updater_suffix))] + "_Installer.pkg"
             else:
-                raise ProcessorError("Updater URL in unexpected format; cannot "
-                                     "determine standalone URL.")
+                raise ProcessorError(
+                    "Updater URL in unexpected format; cannot "
+                    "determine standalone URL."
+                )
 
         self.env["url"] = item["Location"]
         self.output("Found URL %s" % self.env["url"])
@@ -269,11 +319,10 @@ class MSOfficeMacURLandUpdateInfoProvider(Processor):
         if lcid not in all_localizations:
             raise ProcessorError(
                 "Locale ID %s not found in manifest metadata. Available IDs: "
-                "%s. See %s for more details." % (
-                    lcid,
-                    ", ".join(all_localizations),
-                    LOCALE_ID_INFO_URL))
-        manifest_description = all_localizations[lcid]['Short Description']
+                "%s. See %s for more details."
+                % (lcid, ", ".join(all_localizations), LOCALE_ID_INFO_URL)
+            )
+        manifest_description = all_localizations[lcid]["Short Description"]
         # Store the description in a separate output variable and in our pkginfo
         # directly.
         pkginfo["description"] = "<html>%s</html>" % manifest_description
@@ -281,9 +330,9 @@ class MSOfficeMacURLandUpdateInfoProvider(Processor):
 
         # Minimum OS version key should exist!
         pkginfo["minimum_os_version"] = (
-            item.get('Minimum OS') or
-            PROD_DICT[self.env["product"]].get('minimum_os') or
-            '10.10.5'
+            item.get("Minimum OS")
+            or PROD_DICT[self.env["product"]].get("minimum_os")
+            or "10.10.5"
         )
 
         installs_items = self.get_installs_items(item)
@@ -295,28 +344,31 @@ class MSOfficeMacURLandUpdateInfoProvider(Processor):
             try:
                 rel_versions = item["Triggers"]["Registered File"]["VersionsRelative"]
             except KeyError:
-                raise ProcessorError("Can't find expected VersionsRelative"
-                                     "keys for determining minimum update "
-                                     "required for delta update.")
+                raise ProcessorError(
+                    "Can't find expected VersionsRelative"
+                    "keys for determining minimum update "
+                    "required for delta update."
+                )
             for expression in rel_versions:
                 operator, ver_eval = expression.split()
                 if operator == ">=":
                     self.min_delta_version = ver_eval
                     break
             if not self.min_delta_version:
-                raise ProcessorError("Not able to determine minimum required "
-                                     "version for delta update.")
+                raise ProcessorError(
+                    "Not able to determine minimum required "
+                    "version for delta update."
+                )
             # Put minimum_update_version into installs item
-            self.output("Adding minimum required version: %s" %
-                        self.min_delta_version)
-            pkginfo["installs"][0]["minimum_update_version"] = \
-                self.min_delta_version
+            self.output("Adding minimum required version: %s" % self.min_delta_version)
+            pkginfo["installs"][0]["minimum_update_version"] = self.min_delta_version
             required_update_name = self.env["NAME"]
             if self.env["munki_required_update_name"]:
                 required_update_name = self.env["munki_required_update_name"]
             # Add 'requires' array
-            pkginfo["requires"] = ["%s-%s" % (required_update_name,
-                                              self.min_delta_version)]
+            pkginfo["requires"] = [
+                "%s-%s" % (required_update_name, self.min_delta_version)
+            ]
 
         self.env["version"] = self.get_version(item)
         self.env["minimum_os_version"] = pkginfo["minimum_os_version"]
@@ -328,8 +380,10 @@ class MSOfficeMacURLandUpdateInfoProvider(Processor):
     def main(self):
         """Get information about an update"""
         if self.env["version"] not in SUPPORTED_VERSIONS:
-            raise ProcessorError("Invalid 'version': supported values are '%s'"
-                                 % "', '".join(SUPPORTED_VERSIONS))
+            raise ProcessorError(
+                "Invalid 'version': supported values are '%s'"
+                % "', '".join(SUPPORTED_VERSIONS)
+            )
         self.get_installer_info()
 
 

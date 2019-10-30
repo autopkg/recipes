@@ -20,7 +20,8 @@ from __future__ import absolute_import
 import os.path
 
 from autopkglib import Processor, ProcessorError
-#pylint: disable=no-name-in-module
+
+# pylint: disable=no-name-in-module
 from Foundation import (
     NSData,
     NSPropertyListMutableContainers,
@@ -28,8 +29,8 @@ from Foundation import (
     NSPropertyListXMLFormat_v1_0,
 )
 
-#pylint: enable=no-name-in-module
 
+# pylint: enable=no-name-in-module
 
 
 __all__ = ["PraatVersionFixer"]
@@ -37,33 +38,26 @@ __all__ = ["PraatVersionFixer"]
 
 class PraatVersionFixer(Processor):
     """Fixes Praat version string."""
+
     description = __doc__
     input_variables = {
-        "app_path": {
-            "required": True,
-            "description": "Path to Praat.app.",
-        },
+        "app_path": {"required": True, "description": "Path to Praat.app."}
     }
     output_variables = {
-        "bundleid": {
-            "description": "Bundle identifier of Praat.app.",
-        },
-        "version": {
-            "description": "Version of Praat.app.",
-        },
+        "bundleid": {"description": "Bundle identifier of Praat.app."},
+        "version": {"description": "Version of Praat.app."},
     }
 
     def read_bundle_info(self, path):
         """Read Contents/Info.plist inside a bundle."""
-        #pylint: disable=no-self-use
+        # pylint: disable=no-self-use
         plistpath = os.path.join(path, "Contents", "Info.plist")
-        info, _, error = (
-            NSPropertyListSerialization.
-            propertyListFromData_mutabilityOption_format_errorDescription_(
-                NSData.dataWithContentsOfFile_(plistpath),
-                NSPropertyListMutableContainers,
-                None,
-                None))
+        info, _, error = NSPropertyListSerialization.propertyListFromData_mutabilityOption_format_errorDescription_(
+            NSData.dataWithContentsOfFile_(plistpath),
+            NSPropertyListMutableContainers,
+            None,
+            None,
+        )
         if error:
             raise ProcessorError("Can't read %s: %s" % (plistpath, error))
 
@@ -71,14 +65,11 @@ class PraatVersionFixer(Processor):
 
     def write_bundle_info(self, info, path):
         """Write Contents/Info.plist inside a bundle."""
-        #pylint: disable=no-self-use
+        # pylint: disable=no-self-use
         plistpath = os.path.join(path, "Contents", "Info.plist")
-        plist_data, error = (
-            NSPropertyListSerialization.
-            dataFromPropertyList_format_errorDescription_(
-                info,
-                NSPropertyListXMLFormat_v1_0,
-                None))
+        plist_data, error = NSPropertyListSerialization.dataFromPropertyList_format_errorDescription_(
+            info, NSPropertyListXMLFormat_v1_0, None
+        )
         if error:
             raise ProcessorError("Can't serialize %s: %s" % (plistpath, error))
 
@@ -96,6 +87,6 @@ class PraatVersionFixer(Processor):
         self.write_bundle_info(info, app_path)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     PROCESSOR = PraatVersionFixer()
     PROCESSOR.execute_shell()

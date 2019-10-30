@@ -20,43 +20,47 @@ from __future__ import absolute_import
 import re
 
 from autopkglib import Processor, ProcessorError
+from future import standard_library
+
+
+standard_library.install_aliases()
+
 
 try:
     from urllib.parse import urlopen  # For Python 3
 except ImportError:
-    from urllib2 import urlopen  # For Python 2
+    from urllib.request import urlopen  # For Python 2
 
 __all__ = ["PraatURLProvider"]
 
 
 PRAAT_BASE_URL = "http://www.fon.hum.uva.nl/praat/download_mac.html"
-PRAAT_DEFAULT_ARCH = '32'
+PRAAT_DEFAULT_ARCH = "32"
 PRAAT_DMG_RE = r'a href="?(?P<url>praat\d+_mac{0}\.dmg)"?'
 
 
 class PraatURLProvider(Processor):
     """Provides URL to the latest release of Praat."""
+
     description = __doc__
     input_variables = {
         "arch_edition": {
             "required": False,
-            "description": ("Build architecture to retrieve. Can be either ",
-                            "'32' or '64'. Default is %s" % PRAAT_DEFAULT_ARCH),
+            "description": (
+                "Build architecture to retrieve. Can be either ",
+                "'32' or '64'. Default is %s" % PRAAT_DEFAULT_ARCH,
+            ),
         },
         "base_url": {
             "required": False,
             "description": "Default is '%s'." % PRAAT_BASE_URL,
         },
     }
-    output_variables = {
-        "url": {
-            "description": "URL to the latest release of Praat.",
-        },
-    }
+    output_variables = {"url": {"description": "URL to the latest release of Praat."}}
 
     def get_praat_dmg_url(self, base_url):
         """Find the download URL in the HTML returned from the base_url"""
-        arch = self.env.get('arch_edition', '32')
+        arch = self.env.get("arch_edition", "32")
         re_praat_dmg = re.compile(PRAAT_DMG_RE.format(arch))
         # Read HTML index.
         try:
@@ -69,8 +73,7 @@ class PraatURLProvider(Processor):
         # Search for download link.
         match = re_praat_dmg.search(html)
         if not match:
-            raise ProcessorError(
-                "Couldn't find Praat download URL in %s" % base_url)
+            raise ProcessorError("Couldn't find Praat download URL in %s" % base_url)
 
         # Return URL.
         url = PRAAT_BASE_URL.rsplit("/", 1)[0] + "/" + match.group("url")
@@ -78,12 +81,12 @@ class PraatURLProvider(Processor):
 
     def main(self):
         # Determine base_url.
-        base_url = self.env.get('base_url', PRAAT_BASE_URL)
+        base_url = self.env.get("base_url", PRAAT_BASE_URL)
 
         self.env["url"] = self.get_praat_dmg_url(base_url)
         self.output("Found URL %s" % self.env["url"])
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     PROCESSOR = PraatURLProvider()
     PROCESSOR.execute_shell()

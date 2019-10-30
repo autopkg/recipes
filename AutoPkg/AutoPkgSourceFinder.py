@@ -22,31 +22,31 @@ import os
 
 from autopkglib import Processor, ProcessorError
 
+
 __all__ = ["AutoPkgSourceFinder"]
 
 
 class AutoPkgSourceFinder(Processor):
     """Finds the root autopkg-autopkg-foo folder from the expanded autopkg zip
     archive"""
+
     description = __doc__
     input_variables = {
         "input_path": {
             "required": True,
             "description": "Path the zip archive was expanded to.",
-        },
+        }
     }
     output_variables = {
-        "autopkg_path": {
-            "description": "Root path of expanded autopkg archive.",
-        },
+        "autopkg_path": {"description": "Root path of expanded autopkg archive."}
     }
 
     def find_match(self, root_dir, match_string):
         """Finds a file or directory using shell globbing"""
-        #pylint: disable=no-self-use
+        # pylint: disable=no-self-use
         matches = glob.glob(os.path.join(root_dir, match_string))
         if matches:
-            return matches[0][len(root_dir) + 1:]
+            return matches[0][len(root_dir) + 1 :]
         else:
             return ""
 
@@ -54,7 +54,7 @@ class AutoPkgSourceFinder(Processor):
         # Get root dir
         root_dir = self.env["input_path"]
         try:
-            autopkg_dir = self.find_match(root_dir, 'autopkg-autopkg-*')
+            autopkg_dir = self.find_match(root_dir, "autopkg-autopkg-*")
             self.env["autopkg_path"] = os.path.join(root_dir, autopkg_dir)
             self.output("Found %s" % self.env["autopkg_path"])
         except Exception as err:
