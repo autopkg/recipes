@@ -17,7 +17,7 @@
 
 from __future__ import absolute_import
 
-from autopkglib import Processor, ProcessorError
+from autopkglib import Processor
 
 
 __all__ = ["MozillaURLProvider"]

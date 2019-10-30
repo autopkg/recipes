@@ -28,7 +28,7 @@ from urllib.parse import urlparse, urlunparse
 
 from autopkglib import Processor, ProcessorError
 from future import standard_library
-from past.builtins import basestring, cmp
+from past.builtins import cmp
 
 
 standard_library.install_aliases()
@@ -122,7 +122,7 @@ class MSOffice2011UpdateInfoProvider(Processor):
                 "Unexpected Trigger Condition in item %s: %s"
                 % (item["Title"], item["Trigger Condition"])
             )
-        if not "MCP" in item.get("Triggers", {}):
+        if "MCP" not in item.get("Triggers", {}):
             raise ProcessorError(
                 "Missing expected MCP Trigger in item %s" % item["Title"]
             )
@@ -181,17 +181,9 @@ class MSOffice2011UpdateInfoProvider(Processor):
 
     def value_to_os_version_string(self, value):
         """Converts a value to an OS X version number"""
-        # pylint: disable=no-self-use
-
-        # Map string type for both Python 2 and Python 3.
-        try:
-            _ = basestring
-        except NameError:
-            basestring = str  # pylint: disable=W0622
-
         if isinstance(value, int):
             version_str = hex(value)[2:]
-        elif isinstance(value, basestring):
+        elif isinstance(value, str):
             if value.startswith("0x"):
                 version_str = value[2:]
         # OS versions are encoded as hex:
@@ -269,7 +261,6 @@ class MSOffice2011UpdateInfoProvider(Processor):
             item = matched_items[0]
 
         # Try to use https even though url is http
-        download_url_scheme = self.env.get("download_url_scheme", DOWNLOAD_URL_SCHEME)
         if DOWNLOAD_URL_SCHEME == "https":
             try:
                 pkg_url = item["Location"]
