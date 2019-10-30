@@ -96,7 +96,7 @@ class AdobeAcrobatProUpdateInfoProvider(Processor):
                 raise ProcessorError(
                     "Minor OS Version %s is not supported" % minor_vers
                 )
-        except (TypeError, ValueError) as err:
+        except (TypeError, ValueError):
             raise ProcessorError("OS X Version %s not recognised" % os_version)
         return (major_vers, minor_vers)
 
@@ -106,7 +106,7 @@ class AdobeAcrobatProUpdateInfoProvider(Processor):
         for v in all_versions:
             try:
                 int(v)
-            except (TypeError, ValueError) as err:
+            except (TypeError, ValueError):
                 raise ProcessorError("Version %s not recognised" % version)
         return tuple(all_versions)
 
@@ -141,8 +141,7 @@ class AdobeAcrobatProUpdateInfoProvider(Processor):
 
         if "PatchURL" not in list(manifest_data.keys()):
             raise ProcessorError(
-                "Manifest plist key '%s' not found at %s: %s"
-                % ("PatchURL", manifest_plist_url, err)
+                f"Manifest plist key 'PatchURL' not found at {manifest_plist_url}"
             )
 
         return manifest_data
@@ -194,8 +193,6 @@ class AdobeAcrobatProUpdateInfoProvider(Processor):
         if not munki_update_name:
             munki_update_name = self.process_url_vars(MUNKI_UPDATE_NAME_DEFAULT)
         (url, version, prev_version) = self.get_acrobat_metadata(get_version)
-
-        version_parsed = self.process_version(version)
 
         new_pkginfo = {}
 
