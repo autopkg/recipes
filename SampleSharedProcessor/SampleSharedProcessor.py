@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/Library/AutoPkg/Python3/Python.framework/Versions/Current/bin/python3
 #
 # Copyright 2014 Timothy Sutton
 #
@@ -15,12 +15,10 @@
 # limitations under the License.
 """See docstring for SampleSharedProcessor class"""
 
-from __future__ import absolute_import
 
 import os
 
 from autopkglib import Processor, ProcessorError
-
 
 __all__ = ["SampleSharedProcessor"]
 
@@ -44,10 +42,10 @@ class SampleSharedProcessor(Processor):
         try:
             module_file_path = os.path.abspath(__file__)
             self.output(
-                "The input variable data '%s' was given to this "
-                "Processor." % self.env["shared_processor_input_var"]
+                f"The input variable data '{self.env['shared_processor_input_var']}' "
+                "was given to this Processor."
             )
-            self.output("This shared processor is located at %s" % module_file_path)
+            self.output(f"This shared processor is located at {module_file_path}")
             self.env["module_file_path"] = module_file_path
         except Exception as err:
             # handle unexpected errors here
