@@ -16,13 +16,10 @@
 """See docstring for SassafrasK2ClientCustomizer class"""
 
 
-from __future__ import absolute_import
-
 import os
 import subprocess
 
 from autopkglib import Processor, ProcessorError
-
 
 __all__ = ["SassafrasK2ClientCustomizer"]
 
@@ -42,7 +39,9 @@ class SassafrasK2ClientCustomizer(Processor):
         },
         "k2clientconfig_options": {
             "required": True,
-            "description": "String of command arguments to be passed to k2clientconfig.",
+            "description": (
+                "String of command arguments to be passed to k2clientconfig."
+            ),
         },
         "k2clientconfig_path": {
             "required": True,
@@ -58,20 +57,18 @@ class SassafrasK2ClientCustomizer(Processor):
         script = self.env["k2clientconfig_path"]
         pkg = self.env["base_pkg_path"]
         if not os.path.exists(script):
-            raise ProcessorError(
-                "No file exists at k2clientconfig_path: " "%s" % script
-            )
+            raise ProcessorError(f"No file exists at k2clientconfig_path: {script}")
         if not os.access(script, os.X_OK):
             os.chmod(script, 0o755)
         if not os.path.exists(pkg):
-            raise ProcessorError("No K2Client pkg exists at " "base_pkg_path: %s" % pkg)
+            raise ProcessorError(f"No K2Client pkg exists at base_pkg_path: {pkg}")
 
         cmd = [script] + [n for n in self.env["k2clientconfig_options"].split()]
         cmd.append(pkg)
         proc = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         _, err = proc.communicate()
         if err:
-            raise ProcessorError("k2clientconfig returned errors:\n%s" % err)
+            raise ProcessorError(f"k2clientconfig returned errors:\n{err}")
 
 
 if __name__ == "__main__":
