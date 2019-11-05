@@ -15,41 +15,26 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 """See docstring for AdobeReaderURLProvider class"""
-# Disabling warnings for env members and imports that only affect recipe-
-# specific processors.
-# pylint: disable=e1101
-
-from __future__ import absolute_import
 
 import plistlib
+from urllib.parse import urlopen
 
 from autopkglib import Processor, ProcessorError
-from future import standard_library
-
-
-standard_library.install_aliases()
-
-
-try:
-    from urllib.parse import urlopen  # For Python 3
-except ImportError:
-    from urllib.request import urlopen  # For Python 2
 
 __all__ = ["AdobeReaderUpdatesURLProvider"]
 
 MAJOR_VERSION_DEFAULT = "11"
 CHECK_OS_VERSION_DEFAULT = "10.8"
-MAJOR_VERSION_MATCH_STR = "adobe/reader/mac/%s"
 
 AR_UPDATER_DOWNLOAD_URL = (
-    "http://download.adobe.com/" "pub/adobe/reader/mac/%s.x/%s/misc/AdbeRdrUpd%s.dmg"
+    "http://download.adobe.com/" "pub/adobe/reader/mac/{}.x/{}/misc/AdbeRdrUpd{}.dmg"
 )
 AR_UPDATER_DOWNLOAD_URL2 = "http://ardownload.adobe.com"
 
 
 AR_UPDATER_BASE_URL = "https://armmf.adobe.com/arm-manifests/mac"
-AR_URL_TEMPLATE = "/%s/current_version_url_template.txt"
-AR_MANIFEST_TEMPLATE = "/%s/manifest_url_template.txt"
+AR_URL_TEMPLATE = "/{}/current_version_url_template.txt"
+AR_MANIFEST_TEMPLATE = "/{}/manifest_url_template.txt"
 AR_MAJREV_IDENTIFIER = "{MAJREV}"
 OSX_MAJREV_IDENTIFIER = "{OS_VER_MAJ}"
 OSX_MINREV_IDENTIFIER = "{OS_VER_MIN}"
@@ -68,14 +53,14 @@ class AdobeReaderUpdatesURLProvider(Processor):
             "required": False,
             "description": (
                 "Major version. Examples: '10', '11'. Defaults to "
-                "%s" % MAJOR_VERSION_DEFAULT
+                f"{MAJOR_VERSION_DEFAULT}"
             ),
         },
         "os_version": {
             "required": False,
             "default": CHECK_OS_VERSION_DEFAULT,
             "description": (
-                "Version of OS X to check. Default: %s" % CHECK_OS_VERSION_DEFAULT
+                f"Version of OS X to check. Default: {CHECK_OS_VERSION_DEFAULT}"
             ),
         },
     }
@@ -89,12 +74,12 @@ class AdobeReaderUpdatesURLProvider(Processor):
 
         try:
             url_handle = urlopen(
-                AR_UPDATER_BASE_URL + AR_MANIFEST_TEMPLATE % major_version
+                AR_UPDATER_BASE_URL + AR_MANIFEST_TEMPLATE.format(major_version)
             )
             version_string = url_handle.read()
             url_handle.close()
         except Exception as err:
-            raise ProcessorError("Can't open manifest template: %s" % (err))
+            raise ProcessorError(f"Can't open manifest template: {err}")
         os_maj, os_min = self.env["os_version"].split(".")
         version_string = version_string.replace(AR_MAJREV_IDENTIFIER, major_version)
         version_string = version_string.replace(OSX_MAJREV_IDENTIFIER, os_maj)
@@ -107,7 +92,7 @@ class AdobeReaderUpdatesURLProvider(Processor):
             plist = plistlib.readPlistFromString(url_handle.read())
             url_handle.close()
         except Exception as err:
-            raise ProcessorError("Can't get or read manifest: %s" % (err))
+            raise ProcessorError(f"Can't get or read manifest: {err}")
 
         url = AR_UPDATER_DOWNLOAD_URL2 + plist["PatchURL"]
         return url
@@ -116,11 +101,13 @@ class AdobeReaderUpdatesURLProvider(Processor):
         """Returns download URL for Adobe Reader Updater DMG"""
 
         try:
-            url_handle = urlopen(AR_UPDATER_BASE_URL + AR_URL_TEMPLATE % major_version)
+            url_handle = urlopen(
+                AR_UPDATER_BASE_URL + AR_URL_TEMPLATE.format(major_version)
+            )
             version_string = url_handle.read()
             url_handle.close()
         except Exception as err:
-            raise ProcessorError("Can't open URL template: %s" % (err))
+            raise ProcessorError(f"Can't open URL template: {err}")
         os_maj, os_min = self.env["os_version"].split(".")
         version_string = version_string.replace(AR_MAJREV_IDENTIFIER, major_version)
         version_string = version_string.replace(OSX_MAJREV_IDENTIFIER, os_maj)
@@ -131,10 +118,10 @@ class AdobeReaderUpdatesURLProvider(Processor):
             version = url_handle.read()
             url_handle.close()
         except Exception as err:
-            raise ProcessorError("Can't get version string: %s" % (err))
+            raise ProcessorError(f"Can't get version string: {err}")
 
         versioncode = version.replace(".", "")
-        url = AR_UPDATER_DOWNLOAD_URL % (major_version, version, versioncode)
+        url = AR_UPDATER_DOWNLOAD_URL.format(major_version, version, versioncode)
 
         return (url, version)
 
@@ -148,7 +135,7 @@ class AdobeReaderUpdatesURLProvider(Processor):
         self.env["url"] = url
         self.env["version"] = version
 
-        self.output("Found URL %s" % self.env["url"])
+        self.output(f"Found URL {self.env['url']}")
 
 
 if __name__ == "__main__":
