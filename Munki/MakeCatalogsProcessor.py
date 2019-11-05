@@ -15,14 +15,12 @@
 # limitations under the License.
 """autopkg processor to run makecatalogs on a Munki repo"""
 
-from __future__ import absolute_import
 
 import os.path
 import plistlib
 import subprocess
 
 from autopkglib import Processor, ProcessorError, get_pref
-
 
 __all__ = ["MakeCatalogsProcessor"]
 
@@ -38,7 +36,9 @@ class MakeCatalogsProcessor(Processor):
         },
         "force_rebuild": {
             "required": False,
-            "description": "If not false or empty or undefined, force a makecatalogs run.",
+            "description": (
+                "If not false or empty or undefined, force a makecatalogs run."
+            ),
         },
     }
     output_variables = {
@@ -61,7 +61,7 @@ class MakeCatalogsProcessor(Processor):
         current_run_results_plist = os.path.join(cache_dir, "autopkg_results.plist")
         try:
             run_results = plistlib.readPlist(current_run_results_plist)
-        except IOError:
+        except OSError:
             run_results = []
 
         something_imported = False
@@ -102,8 +102,8 @@ class MakeCatalogsProcessor(Processor):
                 (_, err_out) = proc.communicate()
             except OSError as err:
                 raise ProcessorError(
-                    "makecatalog execution failed with error code %d: %s"
-                    % (err.errno, err.strerror)
+                    f"makecatalog execution failed with error code {err.errno}: "
+                    f"{err.strerror}"
                 )
 
             self.env["makecatalogs_resultcode"] = proc.returncode
