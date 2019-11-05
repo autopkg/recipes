@@ -15,7 +15,6 @@
 # limitations under the License.
 """See docstring for AdobeAcrobatProUpdateInfoProvider class"""
 
-from __future__ import absolute_import
 
 import re
 from plistlib import readPlistFromString
@@ -53,23 +52,22 @@ class AdobeAcrobatProUpdateInfoProvider(Processor):
     input_variables = {
         "target_os": {
             "required": False,
-            "description": ("OS X version. Defaults to %s" % TARGET_DEFAULT),
+            "description": (f"OS X version. Defaults to {TARGET_DEFAULT}"),
         },
         "major_version": {
             "required": True,
             "description": (
-                "Major version. Currently supports: %s" % ", ".join(SUPPORTED_VERS)
+                f"Major version. Currently supports: {', '.join(SUPPORTED_VERS)}"
             ),
         },
         "version": {
             "required": False,
-            "description": ("Update version number. Defaults to %s." % VERSION_DEFAULT),
+            "description": (f"Update version number. Defaults to {VERSION_DEFAULT}."),
         },
         "munki_update_name": {
             "required": False,
             "description": (
-                "Name for the update in Munki. Defaults to %s"
-                % MUNKI_UPDATE_NAME_DEFAULT
+                f"Name for the update in Munki. Defaults to {MUNKI_UPDATE_NAME_DEFAULT}"
             ),
         },
     }
@@ -89,15 +87,11 @@ class AdobeAcrobatProUpdateInfoProvider(Processor):
             major_vers = major_and_minor_versions[0]
             minor_vers = major_and_minor_versions[1]
             if major_vers != "10":
-                raise ProcessorError(
-                    "Major OS Version %s is not supported" % major_vers
-                )
+                raise ProcessorError(f"Major OS Version {major_vers} is not supported")
             if int(minor_vers) < 6:
-                raise ProcessorError(
-                    "Minor OS Version %s is not supported" % minor_vers
-                )
+                raise ProcessorError(f"Minor OS Version {minor_vers} is not supported")
         except (TypeError, ValueError):
-            raise ProcessorError("OS X Version %s not recognised" % os_version)
+            raise ProcessorError(f"macOS Version {os_version} not recognised")
         return (major_vers, minor_vers)
 
     def process_version(self, version):
@@ -107,14 +101,14 @@ class AdobeAcrobatProUpdateInfoProvider(Processor):
             try:
                 int(v)
             except (TypeError, ValueError):
-                raise ProcessorError("Version %s not recognised" % version)
+                raise ProcessorError(f"Version {version} not recognised")
         return tuple(all_versions)
 
     def process_url_vars(self, url):
         """Substitute keys in URL templates with actual values"""
         # pylint: disable=no-self-use
         for var in list(_URL_VARS.keys()):
-            subbed_url = url.replace(r"{%s}" % var, _URL_VARS[var])
+            subbed_url = url.replace(fr"{{{var}}}", _URL_VARS[var])
             url = subbed_url
         return subbed_url
 
@@ -126,7 +120,7 @@ class AdobeAcrobatProUpdateInfoProvider(Processor):
             response = url_handle.read()
             url_handle.close()
         except Exception as err:
-            raise ProcessorError("Can't read response from URL %s: %s" % (url, err))
+            raise ProcessorError(f"Can't read response from URL {url}: {err}")
         return response
 
     def get_manifest_data(self, manifest_plist_url):
@@ -136,7 +130,7 @@ class AdobeAcrobatProUpdateInfoProvider(Processor):
             manifest_data = readPlistFromString(manifest_plist_response)
         except Exception as err:
             raise ProcessorError(
-                "Can't parse manifest plist at %s: %s" % (manifest_plist_url, err)
+                f"Can't parse manifest plist at {manifest_plist_url}: {err}"
             )
 
         if "PatchURL" not in list(manifest_data.keys()):
@@ -178,11 +172,12 @@ class AdobeAcrobatProUpdateInfoProvider(Processor):
         get_version = self.env.get("version", VERSION_DEFAULT)
         if major_version not in SUPPORTED_VERS:
             raise ProcessorError(
-                "major_version %s not one of those supported: %s"
-                % (major_version, ", ".join(SUPPORTED_VERS))
+                f"major_version {major_version} not one of those supported: "
+                f"{', '.join(SUPPORTED_VERS)}"
             )
 
-        # Adobe require a target OS X version to be passed to the URL on more recent updates
+        # Adobe require a target macOS version to be passed to the URL on more recent
+        # updates
         target_os_parsed = self.process_target_os(target_os)
         # global _URL_VARS global statement not needed to modify a key/value pair
         _URL_VARS["MAJREV"] = major_version
@@ -199,14 +194,14 @@ class AdobeAcrobatProUpdateInfoProvider(Processor):
         # if our required version is something other than a base version
         # should match a version ending in '.0.0', '.00.0', '.00.00', etc.
         if not re.search(r"\.[0]+\.[0]+", prev_version):
-            new_pkginfo["requires"] = ["%s-%s" % (munki_update_name, prev_version)]
-            self.output("Update requires previous version: %s" % prev_version)
-        new_pkginfo["minimum_os_version"] = "%s.0" % target_os
+            new_pkginfo["requires"] = [f"{munki_update_name}-{prev_version}"]
+            self.output(f"Update requires previous version: {prev_version}")
+        new_pkginfo["minimum_os_version"] = f"{target_os}.0"
         new_pkginfo["version"] = version
         self.env["additional_pkginfo"] = new_pkginfo
         self.env["url"] = url
         self.env["version"] = version
-        self.output("Found URL %s" % self.env["url"])
+        self.output(f"Found URL {self.env['url']}")
 
 
 if __name__ == "__main__":
