@@ -15,23 +15,13 @@
 # limitations under the License.
 """See docstring for PuppetlabsProductsURLProvider class"""
 
-from __future__ import absolute_import
 
 import re
 from builtins import str
 from distutils.version import LooseVersion
+from urllib.parse import urlopen
 
 from autopkglib import Processor, ProcessorError
-from future import standard_library
-
-
-standard_library.install_aliases()
-
-
-try:
-    from urllib.parse import urlopen  # For Python 3
-except ImportError:
-    from urllib.request import urlopen  # For Python 2
 
 __all__ = ["PuppetlabsProductsURLProvider"]
 
@@ -47,23 +37,24 @@ class PuppetlabsProductsURLProvider(Processor):
     input_variables = {
         "product_name": {
             "required": True,
-            "description": "Product to fetch URL for. One of 'puppet', 'facter', 'hiera',"
-            "or 'agent'.",
+            "description": (
+                "Product to fetch URL for. One of 'puppet', 'facter', 'hiera',"
+                "or 'agent'."
+            ),
         },
         "get_version": {
             "required": False,
             "description": (
-                "Specific version to request. Defaults to '%s', which "
+                f"Specific version to request. Defaults to '{DEFAULT_VERSION}', which "
                 "automatically finds the highest available release version."
-                % (DEFAULT_VERSION)
             ),
         },
         "get_os_version": {
             "required": False,
             "description": (
                 "When fetching the puppet-agent, collection-style pkg, "
-                "designates OS. Defaults to '%s'. Currently only 10.9 "
-                "or 10.10 packages are available." % (OS_VERSION)
+                f"designates OS. Defaults to '{OS_VERSION}'. Currently only 10.9 "
+                "or 10.10 packages are available."
             ),
         },
     }
@@ -82,9 +73,8 @@ class PuppetlabsProductsURLProvider(Processor):
                 r"\d+\.\d+\.\d+"
             )  # e.g.: 10.10/PC1/x86_64/puppet-agent-1.2.5-1.osx10.10.dmg
             download_url += str("/" + os_version + "/PC1/x86_64")
-            re_download = 'href="(puppet-agent-(%s)-1.osx(%s).dmg)"' % (
-                version_re,
-                os_version,
+            re_download = 'href="(puppet-agent-({})-1.osx({}).dmg)"'.format(
+                version_re, os_version
             )
         else:
             # look for "product-1.2.3.dmg"
@@ -92,17 +82,14 @@ class PuppetlabsProductsURLProvider(Processor):
             version_re = self.env.get("get_version")
             if not version_re or version_re == DEFAULT_VERSION:
                 version_re = r"\d+[\.\d]+"
-            re_download = 'href="(%s-(%s)+.dmg)"' % (
-                self.env["product_name"].lower(),
-                version_re,
+            re_download = 'href="({}-({})+.dmg)"'.format(
+                self.env["product_name"].lower(), version_re
             )
 
         try:
             data = urlopen(download_url).read()
         except Exception as err:
-            raise ProcessorError(
-                "Unexpected error retrieving download index: '%s'" % err
-            )
+            raise ProcessorError(f"Unexpected error retrieving download index: '{err}'")
 
         # (dmg, version)
         candidates = re.findall(re_download, data)
@@ -116,10 +103,10 @@ class PuppetlabsProductsURLProvider(Processor):
                 if LooseVersion(prod[1]) > LooseVersion(highest[1]):
                     highest = prod
 
-        ver, url = highest[1], "%s/%s" % (download_url, highest[0])
+        ver, url = highest[1], "{}/{}".format(download_url, highest[0])
         self.env["version"] = ver
         self.env["url"] = url
-        self.output("Found URL %s" % self.env["url"])
+        self.output(f"Found URL {self.env['url']}")
 
 
 if __name__ == "__main__":
