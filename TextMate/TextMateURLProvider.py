@@ -15,12 +15,10 @@
 # limitations under the License.
 """See docstring for TextMateURLProvider processor"""
 
-from __future__ import absolute_import, print_function
 
 from subprocess import PIPE, Popen
 
 from autopkglib import Processor, ProcessorError
-
 
 DEFAULT_BRANCH = "release"
 BASE_URL = "https://api.textmate.org/downloads/"
@@ -44,7 +42,7 @@ class TextMateURLProvider(Processor):
             "description": (
                 "The update branch. One of 'release', 'beta', or 'nightly'. "
                 "In the TM GUI, 'Normal' corresponds to 'release', 'Nightly' = "
-                "'beta'. Defaults to %s" % DEFAULT_BRANCH
+                f"'beta'. Defaults to {DEFAULT_BRANCH}"
             ),
         }
     }
@@ -62,14 +60,14 @@ class TextMateURLProvider(Processor):
         parsed_url = None
         if err:
             print(err)
-            raise ProcessorError("curl returned an error: %s" % out)
+            raise ProcessorError(f"curl returned an error: {out}")
         for line in out.splitlines():
             if line.startswith("Location"):
                 parsed_url = line.split()[1]
         if not parsed_url:
             raise ProcessorError(
                 "curl didn't find a resolved 'Location' header we can use. "
-                "Full curl output:\n %s" % "\n".join(out.splitlines())
+                "Full curl output:\n {}".format("\n".join(out.splitlines()))
             )
 
         self.env["url"] = parsed_url
