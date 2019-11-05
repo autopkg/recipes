@@ -15,7 +15,6 @@
 # limitations under the License.
 """See docstring for AdobeReaderRepackager class"""
 
-from __future__ import absolute_import
 
 import os
 import shutil
@@ -89,7 +88,7 @@ class AdobeReaderRepackager(DmgMounter):
         for item in os.listdir(dir_path):
             if item.endswith(".pkg"):
                 return os.path.join(dir_path, item)
-        raise ProcessorError("No package found in %s" % dir_path)
+        raise ProcessorError(f"No package found in {dir_path}")
 
     def expand(self, pkg, expand_dir):
         """Uses pkgutil to expand a flat package."""
@@ -97,12 +96,12 @@ class AdobeReaderRepackager(DmgMounter):
         if os.path.isdir(expand_dir):
             try:
                 shutil.rmtree(expand_dir)
-            except (OSError, IOError) as err:
-                raise ProcessorError("Can't remove %s: %s" % (expand_dir, err))
+            except OSError as err:
+                raise ProcessorError(f"Can't remove {expand_dir}: {err}")
         try:
             subprocess.check_call(["/usr/sbin/pkgutil", "--expand", pkg, expand_dir])
         except subprocess.CalledProcessError as err:
-            raise ProcessorError("%s expanding %s" % (err, pkg))
+            raise ProcessorError(f"{err} expanding {pkg}")
         return expand_dir
 
     def flatten(self, expanded_pkg, destination):
@@ -112,13 +111,13 @@ class AdobeReaderRepackager(DmgMounter):
             try:
                 os.unlink(destination)
             except OSError as err:
-                raise ProcessorError("Can't remove %s: %s" % (destination, err))
+                raise ProcessorError(f"Can't remove {destination}: {err}")
         try:
             subprocess.check_call(
                 ["/usr/sbin/pkgutil", "--flatten", expanded_pkg, destination]
             )
         except subprocess.CalledProcessError as err:
-            raise ProcessorError("%s flattening %s" % (err, expanded_pkg))
+            raise ProcessorError(f"{err} flattening {expanded_pkg}")
 
     def modify_distribution(self, expanded_pkg):
         """Modify the package Distribution file so that installation is allowed
@@ -126,11 +125,11 @@ class AdobeReaderRepackager(DmgMounter):
         # pylint: disable=no-self-use
         dist_file = os.path.join(expanded_pkg, "Distribution")
         if not os.path.exists(dist_file):
-            raise ProcessorError("%s not found")
+            raise ProcessorError(f"{dist_file} not found")
         try:
             dist = ElementTree.parse(dist_file)
-        except (OSError, IOError, ElementTree.ParseError) as err:
-            raise ProcessorError("Can't read %s: %s" % (dist_file, err))
+        except (OSError, ElementTree.ParseError) as err:
+            raise ProcessorError(f"Can't read {dist_file}: {err}")
 
         dist_root = dist.getroot()
         if dist_root.tag not in ["installer-script", "installer-gui-script"]:
@@ -140,8 +139,8 @@ class AdobeReaderRepackager(DmgMounter):
             dist_root.remove(domains)
             try:
                 dist.write(dist_file)
-            except (OSError, IOError) as err:
-                raise ProcessorError("Could not write %s: %s" % (dist_file, err))
+            except OSError as err:
+                raise ProcessorError(f"Could not write {dist_file}: {err}")
 
     def replace_app_preinstall(self, expanded_pkg):
         """Replace the preinstall script in application.pkg with our own"""
@@ -160,19 +159,17 @@ class AdobeReaderRepackager(DmgMounter):
                 os.path.dirname(__file__), "package_resources/scripts/reader_preinstall"
             )
         if not os.path.exists(our_script):
-            raise ProcessorError("%s not found" % our_script)
+            raise ProcessorError(f"{our_script} not found")
         try:
             os.unlink(preinstall_script)
-        except (OSError, IOError) as err:
-            raise ProcessorError("%s removing %s" % (err, preinstall_script))
+        except OSError as err:
+            raise ProcessorError(f"{err} removing {preinstall_script}")
         try:
             shutil.copy(our_script, preinstall_script)
-        except (OSError, IOError) as err:
-            raise ProcessorError(
-                "%s copying %s to %s" % (err, our_script, preinstall_script)
-            )
+        except OSError as err:
+            raise ProcessorError(f"{err} copying {our_script} to {preinstall_script}")
         self.output(
-            "Replaced pkg preinstall script with our custom script at %s" % our_script
+            f"Replaced pkg preinstall script with our custom script at {our_script}"
         )
 
     def main(self):
