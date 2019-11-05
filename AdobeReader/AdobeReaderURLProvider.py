@@ -16,18 +16,12 @@
 """See docstring for AdobeReaderURLProvider class"""
 
 
-from __future__ import absolute_import
-
 import json
 import urllib.error
 import urllib.parse
 import urllib.request
 
 from autopkglib import Processor, ProcessorError
-from future import standard_library
-
-
-standard_library.install_aliases()
 
 
 __all__ = ["AdobeReaderURLProvider"]
@@ -43,7 +37,7 @@ LANGUAGE_DEFAULT = "English"
 MAJOR_VERSION_DEFAULT = "11"
 OS_VERSION_DEFAULT = "10.8.0"
 
-MAJOR_VERSION_MATCH_STR = "adobe/reader/mac/%s"
+MAJOR_VERSION_MATCH_STR = "adobe/reader/mac/{}"
 
 
 class AdobeReaderURLProvider(Processor):
@@ -89,9 +83,9 @@ class AdobeReaderURLProvider(Processor):
             json_response = url_handle.read()
             url_handle.close()
         except Exception as err:
-            raise ProcessorError("Can't open %s: %s" % (base_url, err))
+            raise ProcessorError(f"Can't open {base_url}: {err}")
         reader_info = json.loads(json_response)
-        major_version_string = MAJOR_VERSION_MATCH_STR % major_version
+        major_version_string = MAJOR_VERSION_MATCH_STR.format(major_version)
         matches = [
             item["download_url"]
             for item in reader_info
@@ -101,8 +95,8 @@ class AdobeReaderURLProvider(Processor):
             return matches[0]
         except IndexError:
             raise ProcessorError(
-                "Can't find Adobe Reader download URL for %s, version %s"
-                % (language, major_version)
+                f"Can't find Adobe Reader download URL for {language}, version "
+                f"{major_version}"
             )
 
     def main(self):
@@ -115,7 +109,7 @@ class AdobeReaderURLProvider(Processor):
         self.env["url"] = self.get_reader_dmg_url(
             base_url, language, major_version, os_version
         )
-        self.output("Found URL %s" % self.env["url"])
+        self.output(f"Found URL {self.env['url']}")
 
 
 if __name__ == "__main__":
