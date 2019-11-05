@@ -15,23 +15,16 @@
 # limitations under the License.
 """See docstring for PraatVersionFixer class"""
 
-from __future__ import absolute_import
 
 import os.path
 
 from autopkglib import Processor, ProcessorError
-
-# pylint: disable=no-name-in-module
 from Foundation import (
     NSData,
     NSPropertyListMutableContainers,
     NSPropertyListSerialization,
     NSPropertyListXMLFormat_v1_0,
 )
-
-
-# pylint: enable=no-name-in-module
-
 
 __all__ = ["PraatVersionFixer"]
 
@@ -50,31 +43,29 @@ class PraatVersionFixer(Processor):
 
     def read_bundle_info(self, path):
         """Read Contents/Info.plist inside a bundle."""
-        # pylint: disable=no-self-use
         plistpath = os.path.join(path, "Contents", "Info.plist")
-        info, _, error = NSPropertyListSerialization.propertyListFromData_mutabilityOption_format_errorDescription_(
+        info, _, error = NSPropertyListSerialization.propertyListFromData_mutabilityOption_format_errorDescription_(  # noqa
             NSData.dataWithContentsOfFile_(plistpath),
             NSPropertyListMutableContainers,
             None,
             None,
         )
         if error:
-            raise ProcessorError("Can't read %s: %s" % (plistpath, error))
+            raise ProcessorError(f"Can't read {plistpath}: {error}")
 
         return info
 
     def write_bundle_info(self, info, path):
         """Write Contents/Info.plist inside a bundle."""
-        # pylint: disable=no-self-use
         plistpath = os.path.join(path, "Contents", "Info.plist")
-        plist_data, error = NSPropertyListSerialization.dataFromPropertyList_format_errorDescription_(
+        plist_data, error = NSPropertyListSerialization.dataFromPropertyList_format_errorDescription_(  # noqa
             info, NSPropertyListXMLFormat_v1_0, None
         )
         if error:
-            raise ProcessorError("Can't serialize %s: %s" % (plistpath, error))
+            raise ProcessorError(f"Can't serialize {plistpath}: {error}")
 
         if not plist_data.writeToFile_atomically_(plistpath, True):
-            raise ProcessorError("Can't write %s" % (plistpath))
+            raise ProcessorError(f"Can't write {plistpath}")
 
     def main(self):
         """Perform our Processor's task"""
