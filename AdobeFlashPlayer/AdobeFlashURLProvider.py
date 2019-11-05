@@ -18,7 +18,6 @@
 # limitations under the License.
 """See docstring for AdobeFlashURLProvider class"""
 
-from __future__ import absolute_import
 
 import subprocess
 from xml.etree import ElementTree
@@ -35,7 +34,7 @@ UPDATE_XML_URL = (
 
 DOWNLOAD_TEMPLATE_URL = (
     "https://fpdownload.macromedia.com/"
-    "get/flashplayer/pdc/%s/install_flash_player_osx.dmg"
+    "get/flashplayer/pdc/{}/install_flash_player_osx.dmg"
 )
 
 
@@ -84,14 +83,13 @@ class AdobeFlashURLProvider(Processor):
 
     def get_adobeflash_dmg_url(self, headers=None, opts=None):
         """Return the URL for the Adobe Flash DMG"""
-        # pylint: disable=no-self-use
         version = self.env.get("version")
         if not version:
             try:
                 cmd = [self.env["CURL_PATH"], "--location"]
                 if headers:
                     for header, value in list(headers.items()):
-                        cmd.extend(["--header", "%s: %s" % (header, value)])
+                        cmd.extend(["--header", f"{header}: {value}"])
                 if opts:
                     for item in opts:
                         cmd.extend([item])
@@ -102,15 +100,15 @@ class AdobeFlashURLProvider(Processor):
                 (xml_data, stderr) = proc.communicate()
                 if proc.returncode:
                     raise ProcessorError(
-                        "Could not retrieve URL %s: %s" % (UPDATE_XML_URL, stderr)
+                        f"Could not retrieve URL {UPDATE_XML_URL}: {stderr}"
                     )
             except OSError:
-                raise ProcessorError("Could not retrieve URL: %s" % UPDATE_XML_URL)
+                raise ProcessorError(f"Could not retrieve URL: {UPDATE_XML_URL}")
 
             try:
                 root = ElementTree.fromstring(xml_data)
-            except (OSError, IOError, ElementTree.ParseError) as err:
-                raise Exception("Can't read %s: %s" % (xml_data, err))
+            except (OSError, ElementTree.ParseError) as err:
+                raise Exception(f"Can't read {xml_data}: {err}")
 
             # extract version number from the XML
             version = None
@@ -122,26 +120,21 @@ class AdobeFlashURLProvider(Processor):
             if not version:
                 raise ProcessorError("Update XML in unexpected format.")
         else:
-            self.output("Using provided version %s" % version)
+            self.output(f"Using provided version {version}")
 
         # use version number to build a download URL
         version = version.replace(",", ".")
-        return DOWNLOAD_TEMPLATE_URL % version
+        return DOWNLOAD_TEMPLATE_URL.format(version)
 
     def main(self):
         """Return a download URL for latest Mac Flash Player"""
-
         if "url" in self.env:
-            self.output("Using input URL %s" % self.env["url"])
+            self.output(f"Using input URL {self.env['url']}")
             return
-
         headers = self.env.get("request_headers", {})
-
         opts = self.env.get("curl_opts", [])
-
         self.env["url"] = self.get_adobeflash_dmg_url(headers, opts)
-
-        self.output("Found URL %s" % self.env["url"])
+        self.output(f"Found URL {self.env['url']}")
 
 
 if __name__ == "__main__":
