@@ -14,10 +14,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 """See docstring for BarebonesURLProvider class"""
-# suppress 'missing class member env'
-# pylint: disable=e1101
 
-from __future__ import absolute_import
 
 import plistlib
 import ssl
@@ -86,22 +83,21 @@ class BarebonesURLProvider(Processor):
         prod = self.env.get("product_name")
         if prod not in URLS:
             raise ProcessorError(
-                "product_name %s is invalid; it must be one of: %s"
-                % (prod, ", ".join(URLS))
+                f"product_name {prod,} is invalid; it must be one of: {', '.join(URLS)}"
             )
         url = URLS[prod]
         try:
             manifest_str = urlopen(url).read()
         except Exception as err:
             raise ProcessorError(
-                "Unexpected error retrieving product manifest: '%s'" % err
+                f"Unexpected error retrieving product manifest: '{err}'"
             )
 
         try:
             plist = plistlib.readPlistFromString(manifest_str)
         except Exception as err:
             raise ProcessorError(
-                "Unexpected error parsing manifest as a plist: '%s'" % err
+                f"Unexpected error parsing manifest as a plist: '{err}'"
             )
 
         entries = plist.get("SUFeedEntries")
@@ -121,7 +117,7 @@ class BarebonesURLProvider(Processor):
         self.env["version"] = version
         self.env["minimum_os_version"] = min_os_version
         self.env["url"] = url
-        self.output("Found URL %s" % self.env["url"])
+        self.output(f"Found URL {self.env['url']}")
 
 
 if __name__ == "__main__":
