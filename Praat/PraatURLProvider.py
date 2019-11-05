@@ -15,21 +15,11 @@
 # limitations under the License.
 """See docstring for PraatURLProvider class"""
 
-from __future__ import absolute_import
 
 import re
+from urllib.parse import urlopen  # For Python 3
 
 from autopkglib import Processor, ProcessorError
-from future import standard_library
-
-
-standard_library.install_aliases()
-
-
-try:
-    from urllib.parse import urlopen  # For Python 3
-except ImportError:
-    from urllib.request import urlopen  # For Python 2
 
 __all__ = ["PraatURLProvider"]
 
@@ -48,12 +38,12 @@ class PraatURLProvider(Processor):
             "required": False,
             "description": (
                 "Build architecture to retrieve. Can be either ",
-                "'32' or '64'. Default is %s" % PRAAT_DEFAULT_ARCH,
+                f"'32' or '64'. Default is {PRAAT_DEFAULT_ARCH}",
             ),
         },
         "base_url": {
             "required": False,
-            "description": "Default is '%s'." % PRAAT_BASE_URL,
+            "description": f"Default is '{PRAAT_BASE_URL}'.",
         },
     }
     output_variables = {"url": {"description": "URL to the latest release of Praat."}}
@@ -68,12 +58,12 @@ class PraatURLProvider(Processor):
             html = fref.read()
             fref.close()
         except Exception as err:
-            raise ProcessorError("Can't download %s: %s" % (base_url, err))
+            raise ProcessorError(f"Can't download {base_url}: {err}")
 
         # Search for download link.
         match = re_praat_dmg.search(html)
         if not match:
-            raise ProcessorError("Couldn't find Praat download URL in %s" % base_url)
+            raise ProcessorError(f"Couldn't find Praat download URL in {base_url}")
 
         # Return URL.
         url = PRAAT_BASE_URL.rsplit("/", 1)[0] + "/" + match.group("url")
@@ -84,7 +74,7 @@ class PraatURLProvider(Processor):
         base_url = self.env.get("base_url", PRAAT_BASE_URL)
 
         self.env["url"] = self.get_praat_dmg_url(base_url)
-        self.output("Found URL %s" % self.env["url"])
+        self.output(f"Found URL {self.env['url']}")
 
 
 if __name__ == "__main__":
