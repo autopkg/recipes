@@ -19,6 +19,7 @@
 ### NOTE: this processor is no longer used as Adobe has fixed their package
 ###
 
+from __future__ import absolute_import
 
 import os
 import shutil
@@ -77,8 +78,8 @@ class AdobeFlashDmgUnpacker(PkgExtractor):
             )
             try:
                 shutil.move(src, temp_path)
-            except OSError:
-                raise ProcessorError(f"Couldn't move {src} to {temp_path}")
+            except (OSError, IOError):
+                raise ProcessorError("Couldn't move %s to %s" % (src, temp_path))
 
             # Patch postflight executable.
             # It's hard-coded to work on
@@ -123,7 +124,7 @@ class AdobeFlashDmgUnpacker(PkgExtractor):
         try:
             os.makedirs(dest_path, 0o755)
             shutil.copytree(source_app_path, dest_app_path)
-        except OSError:
+        except (OSError, IOError):
             raise ProcessorError("Couldn't copy Adobe Flash Player Install Manager.app")
 
         # remove embedded pkg from copied app
@@ -132,7 +133,7 @@ class AdobeFlashDmgUnpacker(PkgExtractor):
         )
         try:
             shutil.rmtree(embedded_pkg_path)
-        except OSError:
+        except (OSError, IOError):
             raise ProcessorError(
                 "Couldn't clean up Adobe Flash Player Install Manager.app"
             )
