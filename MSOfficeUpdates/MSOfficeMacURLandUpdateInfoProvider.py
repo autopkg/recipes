@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/Library/AutoPkg/Python3/Python.framework/Versions/Current/bin/python3
 #
 # Copyright 2015 Allister Banks and Tim Sutton,
 # based on MSOffice2011UpdateInfoProvider by Greg Neagle
@@ -19,7 +19,6 @@
 # pylint:disable=e1101
 """See docstring for MSOfficeMacURLandUpdateInfoProvider class"""
 
-from __future__ import absolute_import
 
 import plistlib
 import re
@@ -28,18 +27,13 @@ import urllib.parse
 import urllib.request
 
 from autopkglib import Processor, ProcessorError
-from future import standard_library
-
-
-standard_library.install_aliases()
-
 
 __all__ = ["MSOfficeMacURLandUpdateInfoProvider"]
 
 # CULTURE_CODE defaulting to 'en-US' as the installers and updates seem to be
 # multilingual.
 CULTURE_CODE = "0409"
-BASE_URL = "https://officecdn.microsoft.com/pr/%s/MacAutoupdate/%s.xml"
+BASE_URL = "https://officecdn.microsoft.com/pr/{}/MacAutoupdate/{}.xml"
 
 # These can be easily be found as "Application ID" in
 # ~/Library/Preferences/com.microsoft.autoupdate2.plist on a
@@ -89,11 +83,15 @@ PROD_DICT = {
     },
     "AutoUpdate03": {
         "id": "MSau03",
-        "path": "/Library/Application Support/Microsoft/MAU2.0/Microsoft AutoUpdate.app",
+        "path": (
+            "/Library/Application Support/Microsoft/MAU2.0/Microsoft AutoUpdate.app"
+        ),
     },
     "AutoUpdate04": {
         "id": "MSau04",
-        "path": "/Library/Application Support/Microsoft/MAU2.0/Microsoft AutoUpdate.app",
+        "path": (
+            "/Library/Application Support/Microsoft/MAU2.0/Microsoft AutoUpdate.app"
+        ),
     },
     "DefenderATP": {
         "id": "WDAV00",
@@ -103,6 +101,7 @@ PROD_DICT = {
 }
 LOCALE_ID_INFO_URL = "https://msdn.microsoft.com/en-us/goglobal/bb964664.aspx"
 SUPPORTED_VERSIONS = ["latest", "latest-delta", "latest-standalone"]
+SUPPORTED_VERSIONS_LIST = "', '".join(SUPPORTED_VERSIONS)
 DEFAULT_VERSION = "latest"
 CHANNELS = {
     "Production": "C1297A47-86C4-4C1F-97FA-950631F94777",
@@ -122,8 +121,8 @@ class MSOfficeMacURLandUpdateInfoProvider(Processor):
             "description": (
                 "Locale ID that determines the language "
                 "that is retrieved from the metadata, currently only "
-                "used by the update description. See %s "
-                "for a list of locale codes. The default is en-US." % LOCALE_ID_INFO_URL
+                f"used by the update description. See {LOCALE_ID_INFO_URL} "
+                "for a list of locale codes. The default is en-US."
             ),
         },
         "product": {
@@ -135,8 +134,7 @@ class MSOfficeMacURLandUpdateInfoProvider(Processor):
             "default": DEFAULT_VERSION,
             "description": (
                 "Update type to fetch. Supported values are: "
-                "'%s'. Defaults to %s."
-                % ("', '".join(SUPPORTED_VERSIONS), DEFAULT_VERSION)
+                f"'{SUPPORTED_VERSIONS_LIST}'. Defaults to {DEFAULT_VERSION}."
             ),
         },
         "munki_required_update_name": {
@@ -154,8 +152,8 @@ class MSOfficeMacURLandUpdateInfoProvider(Processor):
             "default": DEFAULT_CHANNEL,
             "description": (
                 "Update feed channel that will be checked for updates. "
-                "Defaults to %s, acceptable values are either a custom "
-                "UUID or one of: %s" % (DEFAULT_CHANNEL, ", ".join(CHANNELS))
+                f"Defaults to {DEFAULT_CHANNEL}, acceptable values are either a custom "
+                f"UUID or one of: {', '.join(CHANNELS)}"
             ),
         },
     }
@@ -164,8 +162,10 @@ class MSOfficeMacURLandUpdateInfoProvider(Processor):
             "description": "Some pkginfo fields extracted from the Microsoft metadata."
         },
         "description": {
-            "description": "Description of the update from the manifest, in the language "
-            "given by the locale_id input variable."
+            "description": (
+                "Description of the update from the manifest, in the language "
+                "given by the locale_id input variable."
+            )
         },
         "version": {
             "description": (
@@ -199,8 +199,8 @@ class MSOfficeMacURLandUpdateInfoProvider(Processor):
         # the bundle version of the app itself.
         if not item.get("Trigger Condition") == ["and", "Registered File"]:
             raise ProcessorError(
-                "Unexpected Trigger Condition in item %s: %s"
-                % (item["Title"], item["Trigger Condition"])
+                f"Unexpected Trigger Condition in item {item['Title']}: "
+                f"{item['Trigger Condition']}"
             )
 
     def get_installs_items(self, item):
@@ -227,8 +227,8 @@ class MSOfficeMacURLandUpdateInfoProvider(Processor):
         # easily from this
         if item.get("Update Version"):
             self.output(
-                "Extracting version %s from metadata 'Update Version' key"
-                % item["Update Version"]
+                f"Extracting version {item['Update Version']} from metadata "
+                "'Update Version' key"
             )
             return item["Update Version"]
 
@@ -240,27 +240,29 @@ class MSOfficeMacURLandUpdateInfoProvider(Processor):
         match_uuid = re.match(rex, channel_input)
         if not match_uuid and channel_input not in CHANNELS:
             raise ProcessorError(
-                "'channel' input variable must be one of: %s or a custom "
-                "uuid" % (", ".join(CHANNELS))
+                f"'channel' input variable must be one of: {', '.join(CHANNELS)} or a "
+                "custom uuid"
             )
         if match_uuid:
             channel = match_uuid.groups()[0]
         else:
             channel = CHANNELS[channel_input]
-        base_url = BASE_URL % (
-            channel,
-            CULTURE_CODE + PROD_DICT[self.env["product"]]["id"],
+        base_url = BASE_URL.format(
+            channel, CULTURE_CODE + PROD_DICT[self.env["product"]]["id"]
         )
 
         # Get metadata URL
-        self.output("Requesting xml: %s" % base_url)
+        self.output(f"Requesting xml: {base_url}")
         req = urllib.request.Request(base_url)
         # Add the MAU User-Agent, since MAU feed server seems to explicitly
         # block a User-Agent of 'Python-urllib/2.7' - even a blank User-Agent
         # string passes.
         req.add_header(
             "User-Agent",
-            "Microsoft%20AutoUpdate/3.6.16080300 CFNetwork/760.6.3 Darwin/15.6.0 (x86_64)",
+            (
+                "Microsoft%20AutoUpdate/3.6.16080300 CFNetwork/760.6.3 Darwin/"
+                "15.6.0 (x86_64)"
+            ),
         )
 
         try:
@@ -268,7 +270,7 @@ class MSOfficeMacURLandUpdateInfoProvider(Processor):
             data = fdesc.read()
             fdesc.close()
         except Exception as err:
-            raise ProcessorError("Can't download %s: %s" % (base_url, err))
+            raise ProcessorError(f"Can't download {base_url}: {err}")
 
         metadata = plistlib.readPlistFromString(data)
         item = {}
@@ -308,8 +310,8 @@ class MSOfficeMacURLandUpdateInfoProvider(Processor):
                 )
 
         self.env["url"] = item["Location"]
-        self.output("Found URL %s" % self.env["url"])
-        self.output("Got update: '%s'" % item["Title"])
+        self.output(f"Found URL {self.env['url']}")
+        self.output(f"Got update: '{item['Title']}'")
         # now extract useful info from the rest of the metadata that could
         # be used in a pkginfo
         pkginfo = {}
@@ -318,14 +320,14 @@ class MSOfficeMacURLandUpdateInfoProvider(Processor):
         lcid = self.env["locale_id"]
         if lcid not in all_localizations:
             raise ProcessorError(
-                "Locale ID %s not found in manifest metadata. Available IDs: "
-                "%s. See %s for more details."
-                % (lcid, ", ".join(all_localizations), LOCALE_ID_INFO_URL)
+                f"Locale ID {lcid} not found in manifest metadata. Available IDs: "
+                f"{', '.join(all_localizations)}. See {LOCALE_ID_INFO_URL} for more "
+                "details."
             )
         manifest_description = all_localizations[lcid]["Short Description"]
         # Store the description in a separate output variable and in our pkginfo
         # directly.
-        pkginfo["description"] = "<html>%s</html>" % manifest_description
+        pkginfo["description"] = f"<html>{manifest_description}</html>"
         self.env["description"] = manifest_description
 
         # Minimum OS version key should exist!
@@ -360,29 +362,26 @@ class MSOfficeMacURLandUpdateInfoProvider(Processor):
                     "version for delta update."
                 )
             # Put minimum_update_version into installs item
-            self.output("Adding minimum required version: %s" % self.min_delta_version)
+            self.output(f"Adding minimum required version: {self.min_delta_version}")
             pkginfo["installs"][0]["minimum_update_version"] = self.min_delta_version
             required_update_name = self.env["NAME"]
             if self.env["munki_required_update_name"]:
                 required_update_name = self.env["munki_required_update_name"]
             # Add 'requires' array
-            pkginfo["requires"] = [
-                "%s-%s" % (required_update_name, self.min_delta_version)
-            ]
+            pkginfo["requires"] = [f"{required_update_name}-{self.min_delta_version}"]
 
         self.env["version"] = self.get_version(item)
         self.env["minimum_os_version"] = pkginfo["minimum_os_version"]
         self.env["minimum_version_for_delta"] = self.min_delta_version
         self.env["additional_pkginfo"] = pkginfo
         self.env["url"] = item["Location"]
-        self.output("Additional pkginfo: %s" % self.env["additional_pkginfo"])
+        self.output(f"Additional pkginfo: {self.env['additional_pkginfo']}")
 
     def main(self):
         """Get information about an update"""
         if self.env["version"] not in SUPPORTED_VERSIONS:
             raise ProcessorError(
-                "Invalid 'version': supported values are '%s'"
-                % "', '".join(SUPPORTED_VERSIONS)
+                f"Invalid 'version': supported values are '{SUPPORTED_VERSIONS_LIST}'"
             )
         self.get_installer_info()
 
