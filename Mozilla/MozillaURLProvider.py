@@ -15,10 +15,8 @@
 # limitations under the License.
 """See docstring for MozillaURLProvider class"""
 
-from __future__ import absolute_import
 
 from autopkglib import Processor
-
 
 __all__ = ["MozillaURLProvider"]
 
@@ -62,10 +60,7 @@ class MozillaURLProvider(Processor):
             "default": "en-US",
             "description": "Which localization to download, default is 'en-US'.",
         },
-        "base_url": {
-            "required": False,
-            "description": "Default is '%s." % MOZ_BASE_URL,
-        },
+        "base_url": {"required": False, "description": f"Default is '{MOZ_BASE_URL}'."},
     }
     output_variables = {
         "url": {"description": "URL to the latest Mozilla product release."}
@@ -97,7 +92,7 @@ class MozillaURLProvider(Processor):
         self.env["url"] = self.get_mozilla_dmg_url(
             base_url, product_name, release, locale
         )
-        self.output("Found URL %s" % self.env["url"])
+        self.output(f"Found URL {self.env['url']}")
 
 
 if __name__ == "__main__":
