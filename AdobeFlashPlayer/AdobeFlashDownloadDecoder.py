@@ -15,7 +15,6 @@
 # limitations under the License.
 """See docstring for AdobeFlashDownloadDecoder class"""
 
-from __future__ import absolute_import
 
 import os
 import subprocess
@@ -25,9 +24,6 @@ from autopkglib import Processor, ProcessorError
 
 
 __all__ = ["AdobeFlashDownloadDecoder"]
-
-# pylint: disable=missing-docstring
-# pylint: disable=e1101
 
 
 class AdobeFlashDownloadDecoder(Processor):
@@ -72,8 +68,7 @@ class AdobeFlashDownloadDecoder(Processor):
             subprocess.check_call([sec_bin, "create-keychain", "-p", "", keychain_file])
         except Exception as exp:
             raise ProcessorError(
-                "Error creating temporary keychain at path "
-                "%s: %s" % (keychain_file, exp)
+                "Error creating temporary keychain at path " f"{keychain_file}: {exp}"
             )
 
         sec_cmd = [
@@ -93,10 +88,10 @@ class AdobeFlashDownloadDecoder(Processor):
         # of any non-zero return code or stderr output
         if proc.returncode or err:
             raise ProcessorError(
-                "Unexpected `security` error (%s): %s "
-                "keychain path: %s" % (proc.returncode, err, keychain_file)
+                f"Unexpected `security` error ({proc.returncode}): {err} "
+                f"keychain path: {keychain_file}"
             )
-        self.output("Decoded auto-update Flash DMG to %s." % outpath)
+        self.output(f"Decoded auto-update Flash DMG to {outpath}.")
         # remove our temporary keychain
         os.remove(keychain_file)
         self.env["pathname"] = outpath
