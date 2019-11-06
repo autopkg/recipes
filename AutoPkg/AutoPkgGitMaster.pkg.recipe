@@ -119,6 +119,8 @@ This is not used to obtain the latest released version.
                     <string>0755</string>
                     <key>usr/local/bin</key>
                     <string>0755</string>
+                    <key>usr/local/autopkg</key>
+                    <string>0755</string>
                 </dict>
             </dict>
         </dict>
@@ -215,6 +217,19 @@ This is not used to obtain the latest released version.
                 <string>%python_path%</string>
                 <key>destination_path</key>
                 <string>%pkgroot%/Library/AutoPkg/Python3/Python.framework</string>
+            </dict>
+        </dict>
+        <dict>
+            <key>Comment</key>
+            <string>Symlink bundled Python to /usr/local/autopkg/python</string>
+            <key>Processor</key>
+            <string>Symlinker</string>
+            <key>Arguments</key>
+            <dict>
+                <key>source_path</key>
+                <string>/Library/AutoPkg/Python3/Python.framework/Versions/Current/bin/python3</string>
+                <key>destination_path</key>
+                <string>%pkgroot%/usr/local/autopkg/python</string>
             </dict>
         </dict>
         <dict>
