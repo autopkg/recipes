@@ -7,19 +7,13 @@
 This is not used to obtain the latest released version.
 </string>
     <key>Identifier</key>
-    <string>com.github.autopkg.AutoPkgGitMaster</string>
+    <string>com.github.autopkg.AutoPkgGitMasterNoPython</string>
     <key>Input</key>
     <dict>
         <key>NAME</key>
         <string>autopkg</string>
-        <key>BRANCH</key>
-        <string>master</string>
         <key>URL</key>
-        <string>https://github.com/autopkg/autopkg/zipball/</string>
-        <key>PYTHON_VERSION</key>
-        <string>3.7.5</string>
-        <key>REQUIREMENTS_FILENAME</key>
-        <string>requirements.txt</string>
+        <string>https://github.com/autopkg/autopkg/zipball/master</string>
     </dict>
     <key>MinimumVersion</key>
     <string>0.2.1</string>
@@ -33,7 +27,7 @@ This is not used to obtain the latest released version.
             <key>Arguments</key>
             <dict>
                 <key>url</key>
-                <string>%URL%%BRANCH%</string>
+                <string>%URL%</string>
                 <key>filename</key>
                 <string>%NAME%.zip</string>
             </dict>
@@ -79,19 +73,6 @@ This is not used to obtain the latest released version.
         </dict>
         <dict>
             <key>Comment</key>
-            <string>Build a relocatable Python framework.</string>
-            <key>Arguments</key>
-            <dict>
-                <key>requirements_path</key>
-                <string>%autopkg_path%/%REQUIREMENTS_FILENAME%</string>
-                <key>python_version</key>
-                <string>%PYTHON_VERSION%</string>
-            </dict>
-            <key>Processor</key>
-            <string>GenerateRelocatablePython</string>
-        </dict>
-        <dict>
-            <key>Comment</key>
             <string>Create a pkg root; we'll extract things from the disk image here.</string>
             <key>Processor</key>
             <string>PkgRootCreator</string>
@@ -108,8 +89,6 @@ This is not used to obtain the latest released version.
                     <key>Library/AutoPkg/autopkglib</key>
                     <string>0755</string>
                     <key>Library/AutoPkg/autopkgserver</key>
-                    <string>0755</string>
-                    <key>Library/AutoPkg/Python3</key>
                     <string>0755</string>
                     <key>Library/LaunchDaemons</key>
                     <string>0755</string>
@@ -180,6 +159,21 @@ This is not used to obtain the latest released version.
         </dict>
         <dict>
             <key>Comment</key>
+            <string>Copy FoundationPlist to /Library/AutoPkg</string>
+            <key>Processor</key>
+            <string>Copier</string>
+            <key>Arguments</key>
+            <dict>
+                <key>source_path</key>
+                <string>%autopkg_path%/Code/FoundationPlist</string>
+                <key>destination_path</key>
+                <string>%pkgroot%/Library/AutoPkg/FoundationPlist</string>
+                <key>overwrite</key>
+                <true/>
+            </dict>
+        </dict>
+        <dict>
+            <key>Comment</key>
             <string>Copy autopkgserver launchd plist</string>
             <key>Processor</key>
             <string>Copier</string>
@@ -202,19 +196,6 @@ This is not used to obtain the latest released version.
                 <string>%autopkg_path%/Code/autopkgserver/autopkginstalld.plist</string>
                 <key>destination_path</key>
                 <string>%pkgroot%/Library/LaunchDaemons/com.github.autopkg.autopkginstalld.plist</string>
-            </dict>
-        </dict>
-        <dict>
-            <key>Comment</key>
-            <string>Copy Python framework</string>
-            <key>Processor</key>
-            <string>Copier</string>
-            <key>Arguments</key>
-            <dict>
-                <key>source_path</key>
-                <string>%python_path%</string>
-                <key>destination_path</key>
-                <string>%pkgroot%/Library/AutoPkg/Python3/Python.framework</string>
             </dict>
         </dict>
         <dict>
@@ -257,8 +238,6 @@ This is not used to obtain the latest released version.
             <dict>
                 <key>pkgname</key>
                 <string>%NAME%-%version%</string>
-                <key>force_pkg_build</key>
-                <string>True</string>
                 <key>pkg_request</key>
                 <dict>
                     <key>pkgdir</key>
