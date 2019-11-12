@@ -18,7 +18,9 @@
 from __future__ import absolute_import
 
 import re
+import ssl
 
+import certifi
 from autopkglib import Processor, ProcessorError
 from future import standard_library
 
@@ -117,7 +119,7 @@ class AdobeAcrobatProUpdateInfoProvider(Processor):
         """Substitute keys in URL templates with actual values"""
         # pylint: disable=no-self-use
         for var in list(_URL_VARS.keys()):
-            subbed_url = url.replace(r"{%s}" % var, _URL_VARS[var])
+            subbed_url = url.replace(r"{{{}}}".format(var), _URL_VARS[var])
             url = subbed_url
         return subbed_url
 
@@ -125,7 +127,9 @@ class AdobeAcrobatProUpdateInfoProvider(Processor):
         """Get data from a url"""
         # pylint: disable=no-self-use
         try:
-            url_handle = urlopen(url)
+            context = ssl.SSLContext()
+            context.load_verify_locations(certifi.where())
+            url_handle = urlopen(url, context=context)
             response = url_handle.read()
             url_handle.close()
         except Exception as err:
@@ -160,7 +164,9 @@ class AdobeAcrobatProUpdateInfoProvider(Processor):
             # /{MAJREV}/get_version/{PROD}_{PROD_ARCH}.plist
             template_response = re.sub(r"\d+\.\d+\.\d+", get_version, template_response)
 
-        manifest_url = self.process_url_vars(META_BASE_URL + template_response)
+        manifest_url = self.process_url_vars(
+            META_BASE_URL + template_response.decode("utf-8")
+        )
         manifest_data = self.get_manifest_data(manifest_url)
 
         composed_dl_url = DL_BASE_URL + manifest_data["PatchURL"]
