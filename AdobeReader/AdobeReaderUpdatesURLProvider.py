@@ -23,10 +23,6 @@ from __future__ import absolute_import
 import plistlib
 
 from autopkglib import Processor, ProcessorError
-from future import standard_library
-
-standard_library.install_aliases()
-
 
 try:
     from urllib.parse import urlopen  # For Python 3

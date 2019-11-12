@@ -24,10 +24,6 @@ import urllib.parse
 import urllib.request
 
 from autopkglib import Processor, ProcessorError
-from future import standard_library
-
-standard_library.install_aliases()
-
 
 __all__ = ["AdobeReaderURLProvider"]
 

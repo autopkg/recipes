@@ -24,11 +24,7 @@ from functools import wraps
 from operator import itemgetter
 
 from autopkglib import Processor, ProcessorError
-from future import standard_library
 from past.builtins import cmp
-
-standard_library.install_aliases()
-
 
 try:
     from urllib.parse import urlopen  # For Python 3

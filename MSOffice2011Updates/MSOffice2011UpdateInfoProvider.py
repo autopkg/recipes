@@ -27,11 +27,7 @@ from operator import itemgetter
 from urllib.parse import urlparse, urlunparse
 
 from autopkglib import Processor, ProcessorError
-from future import standard_library
 from past.builtins import basestring, cmp
-
-standard_library.install_aliases()
-
 
 __all__ = ["MSOffice2011UpdateInfoProvider"]
 
