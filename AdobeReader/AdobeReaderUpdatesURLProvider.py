@@ -16,10 +16,15 @@
 # limitations under the License.
 """See docstring for AdobeReaderURLProvider class"""
 
-import plistlib
 from urllib.parse import urlopen
 
 from autopkglib import Processor, ProcessorError
+
+try:
+    from plistlib import readPlistFromString
+except ImportError:
+    from plistlib import readPlistFromBytes as readPlistFromString
+
 
 __all__ = ["AdobeReaderUpdatesURLProvider"]
 
@@ -89,7 +94,7 @@ class AdobeReaderUpdatesURLProvider(Processor):
 
         try:
             url_handle = urlopen(AR_UPDATER_BASE_URL + version_string)
-            plist = plistlib.readPlistFromString(url_handle.read())
+            plist = readPlistFromString(url_handle.read())
             url_handle.close()
         except Exception as err:
             raise ProcessorError(f"Can't get or read manifest: {err}")

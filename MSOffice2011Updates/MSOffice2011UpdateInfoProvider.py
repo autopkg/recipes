@@ -16,7 +16,6 @@
 """See docstring for MSOffice2011UpdateInfoProvider class"""
 
 
-import plistlib
 import urllib.error
 import urllib.parse
 import urllib.request
@@ -27,6 +26,12 @@ from urllib.parse import urlparse, urlunparse
 
 from autopkglib import Processor, ProcessorError
 from past.builtins import cmp
+
+try:
+    from plistlib import readPlistFromString
+except ImportError:
+    from plistlib import readPlistFromBytes as readPlistFromString
+
 
 __all__ = ["MSOffice2011UpdateInfoProvider"]
 
@@ -216,7 +221,8 @@ class MSOffice2011UpdateInfoProvider(Processor):
         # passes.
         req.add_header(
             "User-Agent",
-            "Microsoft%20AutoUpdate/3.9.17050900 CFNetwork/811.5.4 Darwin/16.7.0 (x86_64)",
+            "Microsoft%20AutoUpdate/3.9.17050900 CFNetwork/"
+            "811.5.4 Darwin/16.7.0 (x86_64)",
         )
         try:
             fref = urllib.request.urlopen(req)
@@ -225,7 +231,7 @@ class MSOffice2011UpdateInfoProvider(Processor):
         except Exception as err:
             raise ProcessorError(f"Can't download {base_url}: {err}")
 
-        metadata = plistlib.readPlistFromString(data)
+        metadata = readPlistFromString(data)
         if version_str == "latest":
             # Office 2011 update metadata is a list of dicts.
             # we need to sort by date.

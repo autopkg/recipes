@@ -16,18 +16,18 @@
 """See docstring for BarebonesURLProvider class"""
 
 
-import plistlib
 import ssl
 from distutils.version import LooseVersion
 from functools import wraps
 from operator import itemgetter
 
 from autopkglib import Processor, ProcessorError
-from future import standard_library
 from past.builtins import cmp
 
-
-standard_library.install_aliases()
+try:
+    from plistlib import readPlistFromString
+except ImportError:
+    from plistlib import readPlistFromBytes as readPlistFromString
 
 
 try:
@@ -94,7 +94,7 @@ class BarebonesURLProvider(Processor):
             )
 
         try:
-            plist = plistlib.readPlistFromString(manifest_str)
+            plist = readPlistFromString(manifest_str)
         except Exception as err:
             raise ProcessorError(
                 f"Unexpected error parsing manifest as a plist: '{err}'"

@@ -17,11 +17,9 @@
 
 
 import re
-from plistlib import readPlistFromString
 
 from autopkglib import Processor, ProcessorError
 from future import standard_library
-
 
 standard_library.install_aliases()
 
@@ -30,6 +28,12 @@ try:
     from urllib.parse import urlopen  # For Python 3
 except ImportError:
     from urllib.request import urlopen  # For Python 2
+
+try:
+    from plistlib import readPlistFromString
+except ImportError:
+    from plistlib import readPlistFromBytes as readPlistFromString
+
 
 __all__ = ["AdobeAcrobatProUpdateInfoProvider"]
 

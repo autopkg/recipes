@@ -20,13 +20,18 @@
 """See docstring for MSOfficeMacURLandUpdateInfoProvider class"""
 
 
-import plistlib
 import re
 import urllib.error
 import urllib.parse
 import urllib.request
 
 from autopkglib import Processor, ProcessorError
+
+try:
+    from plistlib import readPlistFromString
+except ImportError:
+    from plistlib import readPlistFromBytes as readPlistFromString
+
 
 __all__ = ["MSOfficeMacURLandUpdateInfoProvider"]
 
@@ -272,7 +277,7 @@ class MSOfficeMacURLandUpdateInfoProvider(Processor):
         except Exception as err:
             raise ProcessorError(f"Can't download {base_url}: {err}")
 
-        metadata = plistlib.readPlistFromString(data)
+        metadata = readPlistFromString(data)
         item = {}
         # Update feeds for a given 'channel' will have either combo or delta
         # pkg urls, with delta's additionally having a 'FullUpdaterLocation'
