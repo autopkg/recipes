@@ -44,7 +44,11 @@ class PraatVersionFixer(Processor):
     def read_bundle_info(self, path):
         """Read Contents/Info.plist inside a bundle."""
         plistpath = os.path.join(path, "Contents", "Info.plist")
-        info, _, error = NSPropertyListSerialization.propertyListFromData_mutabilityOption_format_errorDescription_(  # noqa
+        (
+            info,
+            _,
+            error,
+        ) = NSPropertyListSerialization.propertyListFromData_mutabilityOption_format_errorDescription_(  # noqa
             NSData.dataWithContentsOfFile_(plistpath),
             NSPropertyListMutableContainers,
             None,
@@ -58,7 +62,10 @@ class PraatVersionFixer(Processor):
     def write_bundle_info(self, info, path):
         """Write Contents/Info.plist inside a bundle."""
         plistpath = os.path.join(path, "Contents", "Info.plist")
-        plist_data, error = NSPropertyListSerialization.dataFromPropertyList_format_errorDescription_(  # noqa
+        (
+            plist_data,
+            error,
+        ) = NSPropertyListSerialization.dataFromPropertyList_format_errorDescription_(  # noqa
             info, NSPropertyListXMLFormat_v1_0, None
         )
         if error:

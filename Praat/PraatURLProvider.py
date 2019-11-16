@@ -17,9 +17,14 @@
 
 
 import re
-from urllib.parse import urlopen  # For Python 3
 
 from autopkglib import Processor, ProcessorError
+
+try:
+    from urllib.request import urlopen  # For Python 3
+except ImportError:
+    from urllib import urlopen  # For Python 2
+
 
 __all__ = ["PraatURLProvider"]
 
@@ -55,7 +60,7 @@ class PraatURLProvider(Processor):
         # Read HTML index.
         try:
             fref = urlopen(base_url)
-            html = fref.read()
+            html = fref.read().decode()
             fref.close()
         except Exception as err:
             raise ProcessorError(f"Can't download {base_url}: {err}")
