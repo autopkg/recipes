@@ -27,11 +27,10 @@ try:
 except ImportError:
     from plistlib import readPlistFromBytes as readPlistFromString
 
-
 try:
-    from urllib.parse import urlopen  # For Python 3
+    from urllib.request import urlopen  # For Python 3
 except ImportError:
-    from urllib.request import urlopen  # For Python 2
+    from urllib import urlopen  # For Python 2
 
 __all__ = ["BarebonesURLProvider"]
 
