@@ -19,10 +19,8 @@
 import ssl
 from distutils.version import LooseVersion
 from functools import wraps
-from operator import itemgetter
 
 from autopkglib import Processor, ProcessorError
-from past.builtins import cmp
 
 try:
     from plistlib import readPlistFromString
@@ -76,10 +74,6 @@ class BarebonesURLProvider(Processor):
     def main(self):
         """Find the download URL"""
 
-        def compare_version(this, that):
-            """compare LooseVersions"""
-            return cmp(LooseVersion(this), LooseVersion(that))
-
         prod = self.env.get("product_name")
         if prod not in URLS:
             raise ProcessorError(
@@ -105,9 +99,7 @@ class BarebonesURLProvider(Processor):
             raise ProcessorError("Expected 'SUFeedEntries' manifest key wasn't found.")
 
         sorted_entries = sorted(
-            entries,
-            key=itemgetter("SUFeedEntryShortVersionString"),
-            cmp=compare_version,
+            entries, key=lambda a: LooseVersion(a["SUFeedEntryShortVersionString"]),
         )
         metadata = sorted_entries[-1]
         url = metadata["SUFeedEntryDownloadURL"]
