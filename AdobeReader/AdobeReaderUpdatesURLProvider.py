@@ -16,7 +16,10 @@
 # limitations under the License.
 """See docstring for AdobeReaderURLProvider class"""
 
-from urllib.parse import urlopen
+try:
+    from urllib.request import urlopen  # For Python 3
+except ImportError:
+    from urllib import urlopen  # For Python 2
 
 from autopkglib import Processor, ProcessorError
 
@@ -81,7 +84,7 @@ class AdobeReaderUpdatesURLProvider(Processor):
             url_handle = urlopen(
                 AR_UPDATER_BASE_URL + AR_MANIFEST_TEMPLATE.format(major_version)
             )
-            version_string = url_handle.read()
+            version_string = url_handle.read().decode()
             url_handle.close()
         except Exception as err:
             raise ProcessorError(f"Can't open manifest template: {err}")
@@ -109,7 +112,7 @@ class AdobeReaderUpdatesURLProvider(Processor):
             url_handle = urlopen(
                 AR_UPDATER_BASE_URL + AR_URL_TEMPLATE.format(major_version)
             )
-            version_string = url_handle.read()
+            version_string = url_handle.read().decode()
             url_handle.close()
         except Exception as err:
             raise ProcessorError(f"Can't open URL template: {err}")
@@ -120,7 +123,7 @@ class AdobeReaderUpdatesURLProvider(Processor):
 
         try:
             url_handle = urlopen(AR_UPDATER_BASE_URL + version_string)
-            version = url_handle.read()
+            version = url_handle.read().decode()
             url_handle.close()
         except Exception as err:
             raise ProcessorError(f"Can't get version string: {err}")
