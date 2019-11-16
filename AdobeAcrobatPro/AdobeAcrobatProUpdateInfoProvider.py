@@ -19,15 +19,11 @@
 import re
 
 from autopkglib import Processor, ProcessorError
-from future import standard_library
-
-standard_library.install_aliases()
-
 
 try:
-    from urllib.parse import urlopen  # For Python 3
+    from urllib.request import urlopen  # For Python 3
 except ImportError:
-    from urllib.request import urlopen  # For Python 2
+    from urllib import urlopen  # For Python 2
 
 try:
     from plistlib import readPlistFromString
@@ -121,7 +117,7 @@ class AdobeAcrobatProUpdateInfoProvider(Processor):
         # pylint: disable=no-self-use
         try:
             url_handle = urlopen(url)
-            response = url_handle.read()
+            response = url_handle.read().decode()
             url_handle.close()
         except Exception as err:
             raise ProcessorError(f"Can't read response from URL {url}: {err}")
@@ -131,7 +127,7 @@ class AdobeAcrobatProUpdateInfoProvider(Processor):
         """Get manifest(plist) data from a url"""
         manifest_plist_response = self.get_url_response(manifest_plist_url)
         try:
-            manifest_data = readPlistFromString(manifest_plist_response)
+            manifest_data = readPlistFromString(manifest_plist_response.encode())
         except Exception as err:
             raise ProcessorError(
                 f"Can't parse manifest plist at {manifest_plist_url}: {err}"
