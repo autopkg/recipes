@@ -19,7 +19,7 @@
 import re
 from builtins import str
 from distutils.version import LooseVersion
-from urllib.parse import urlopen
+from urllib.request import urlopen
 
 from autopkglib import Processor, ProcessorError
 
@@ -87,7 +87,7 @@ class PuppetlabsProductsURLProvider(Processor):
             )
 
         try:
-            data = urlopen(download_url).read()
+            data = urlopen(download_url).read().decode()
         except Exception as err:
             raise ProcessorError(f"Unexpected error retrieving download index: '{err}'")
 
