@@ -7,11 +7,11 @@
 organization requires code signature, it is recommend to internally sign
 the application.
 
-Downloads and imports version 3 of the Munki tools via
+Downloads and imports version 4 of the Munki tools via
 the official releases listing on GitHub. You can set INCLUDE_PRERELEASES
 to any value to have this recipe pull prerelease versions.
 
-Note that Munki 3 includes an additional component pkg, munkitools_app_usage.
+Note that Munki 4 includes an additional component pkg, munkitools_app_usage.
 This recipe imports this to the Munki with the appropriate 'requires' key,
 however as it is considered an optional component, this recipe does not
 add it as an update_for any Munki component. Admins should add
@@ -31,13 +31,13 @@ descending by tag names according to LooseVersion semantics.
 MUNKI_ICON should be overridden with your icon name.
 </string>
     <key>Identifier</key>
-    <string>com.github.autopkg.munki.munkitools3</string>
+    <string>com.github.autopkg.munki.munkitools4</string>
     <key>Input</key>
     <dict>
         <key>INCLUDE_PRERELEASES</key>
         <string>true</string>
         <key>NAME</key>
-        <string>munkitools3</string>
+        <string>munkitools4</string>
         <key>MUNKI_CATALOG</key>
         <string>development</string>
         <key>MUNKI_CATEGORY</key>
@@ -101,7 +101,7 @@ MUNKI_ICON should be overridden with your icon name.
             <key>Arguments</key>
             <dict>
                 <key>asset_regex</key>
-                <string>^munkitools-3.*?pkg$</string>
+                <string>^munkitools-4.*?pkg$</string>
                 <key>github_repo</key>
                 <string>munki/munki</string>
                 <key>include_prereleases</key>
