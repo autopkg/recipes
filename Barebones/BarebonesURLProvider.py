@@ -20,17 +20,19 @@ import ssl
 from distutils.version import LooseVersion
 from functools import wraps
 
+import certifi
 from autopkglib import Processor, ProcessorError
+
+try:
+    from urllib.request import urlopen  # For Python 3
+except ImportError:
+    from urllib2 import urlopen  # For Python 2
 
 try:
     from plistlib import readPlistFromString
 except ImportError:
     from plistlib import readPlistFromBytes as readPlistFromString
 
-try:
-    from urllib.request import urlopen  # For Python 3
-except ImportError:
-    from urllib import urlopen  # For Python 2
 
 __all__ = ["BarebonesURLProvider"]
 
@@ -80,7 +82,7 @@ class BarebonesURLProvider(Processor):
             )
         url = URLS[prod]
         try:
-            manifest_str = urlopen(url).read()
+            manifest_str = urlopen(url, cafile=certifi.where()).read()
         except Exception as err:
             raise ProcessorError(
                 f"Unexpected error retrieving product manifest: '{err}'"
