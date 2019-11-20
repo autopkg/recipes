@@ -16,12 +16,13 @@
 # limitations under the License.
 """See docstring for AdobeReaderURLProvider class"""
 
+import certifi
+from autopkglib import Processor, ProcessorError
+
 try:
     from urllib.request import urlopen  # For Python 3
 except ImportError:
-    from urllib import urlopen  # For Python 2
-
-from autopkglib import Processor, ProcessorError
+    from urllib2 import urlopen  # For Python 2
 
 try:
     from plistlib import readPlistFromString
@@ -82,7 +83,8 @@ class AdobeReaderUpdatesURLProvider(Processor):
 
         try:
             url_handle = urlopen(
-                AR_UPDATER_BASE_URL + AR_MANIFEST_TEMPLATE.format(major_version)
+                AR_UPDATER_BASE_URL + AR_MANIFEST_TEMPLATE.format(major_version),
+                cafile=certifi.where(),
             )
             version_string = url_handle.read().decode()
             url_handle.close()
@@ -96,7 +98,9 @@ class AdobeReaderUpdatesURLProvider(Processor):
         version_string = version_string.replace(AR_PROD_ARCH_IDENTIFIER, AR_PROD_ARCH)
 
         try:
-            url_handle = urlopen(AR_UPDATER_BASE_URL + version_string)
+            url_handle = urlopen(
+                AR_UPDATER_BASE_URL + version_string, cafile=certifi.where()
+            )
             plist = readPlistFromString(url_handle.read())
             url_handle.close()
         except Exception as err:
@@ -110,7 +114,8 @@ class AdobeReaderUpdatesURLProvider(Processor):
 
         try:
             url_handle = urlopen(
-                AR_UPDATER_BASE_URL + AR_URL_TEMPLATE.format(major_version)
+                AR_UPDATER_BASE_URL + AR_URL_TEMPLATE.format(major_version),
+                cafile=certifi.where(),
             )
             version_string = url_handle.read().decode()
             url_handle.close()
@@ -122,7 +127,9 @@ class AdobeReaderUpdatesURLProvider(Processor):
         version_string = version_string.replace(OSX_MINREV_IDENTIFIER, os_min)
 
         try:
-            url_handle = urlopen(AR_UPDATER_BASE_URL + version_string)
+            url_handle = urlopen(
+                AR_UPDATER_BASE_URL + version_string, cafile=certifi.where()
+            )
             version = url_handle.read().decode()
             url_handle.close()
         except Exception as err:
