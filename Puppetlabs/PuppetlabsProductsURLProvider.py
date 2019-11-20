@@ -19,9 +19,15 @@
 import re
 from builtins import str
 from distutils.version import LooseVersion
-from urllib.request import urlopen
 
+import certifi
 from autopkglib import Processor, ProcessorError
+
+try:
+    from urllib.request import urlopen  # For Python 3
+except ImportError:
+    from urllib2 import urlopen  # For Python 2
+
 
 __all__ = ["PuppetlabsProductsURLProvider"]
 
@@ -87,7 +93,7 @@ class PuppetlabsProductsURLProvider(Processor):
             )
 
         try:
-            data = urlopen(download_url).read().decode()
+            data = urlopen(download_url, cafile=certifi.where()).read().decode()
         except Exception as err:
             raise ProcessorError(f"Unexpected error retrieving download index: '{err}'")
 
