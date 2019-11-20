@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
-<dict>
-    <key>Description</key>
-    <string>Downloads the latest multi-lingual Adobe Reader "patch" updater pkg. This is not a complete
+    <dict>
+        <key>Description</key>
+        <string>Downloads the latest multi-lingual Adobe Reader "patch" updater pkg. This is not a complete
 installer for Adobe Reader as is provided by AdobeReader.download, but recent versions (11.0.11 and 11.0.12)
 have not been made available as integrated installers. These updates are also multilingual, and provide
 updates for languages that aren't available in full installers.
@@ -17,46 +17,55 @@ This recipe does not currently support "patch" updaters for Reader DC.
 
 Based on AdobeReaderUpdates recipes by Matthias Choules,
 https://github.com/autopkg/recipes/pull/61.
-</string>
-    <key>Identifier</key>
-    <string>com.github.autopkg.download.AdobeReaderUpdates</string>
-    <key>Input</key>
-    <dict>
-        <key>MAJOR_VERSION</key>
-        <string>11</string>
-        <key>NAME</key>
-        <string>AdobeReader</string>
-        <key>OS_VERSION</key>
-        <string>10.9</string>
+        </string>
+        <key>Identifier</key>
+        <string>com.github.autopkg.download.AdobeReaderUpdates</string>
+        <key>Input</key>
+        <dict>
+            <key>MAJOR_VERSION</key>
+            <string>11</string>
+            <key>NAME</key>
+            <string>AdobeReader</string>
+            <key>OS_VERSION</key>
+            <string>10.9</string>
+        </dict>
+        <key>MinimumVersion</key>
+        <string>0.2.0</string>
+        <key>Process</key>
+        <array>
+            <dict>
+                <key>Processor</key>
+                <string>DeprecationWarning</string>
+                <key>Arguments</key>
+                <dict>
+                    <key>warning_message</key>
+                    <string>This recipe will soon be removed. Please remove it from your list of recipes.</string>
+                </dict>
+            </dict>
+            <dict>
+                <key>Arguments</key>
+                <dict>
+                    <key>major_version</key>
+                    <string>%MAJOR_VERSION%</string>
+                    <key>os_version</key>
+                    <string>%OS_VERSION%</string>
+                </dict>
+                <key>Processor</key>
+                <string>AdobeReaderUpdatesURLProvider</string>
+            </dict>
+            <dict>
+                <key>Arguments</key>
+                <dict>
+                    <key>filename</key>
+                    <string>%NAME%.pkg</string>
+                </dict>
+                <key>Processor</key>
+                <string>URLDownloader</string>
+            </dict>
+            <dict>
+                <key>Processor</key>
+                <string>EndOfCheckPhase</string>
+            </dict>
+        </array>
     </dict>
-    <key>MinimumVersion</key>
-    <string>0.2.0</string>
-    <key>Process</key>
-    <array>
-        <dict>
-            <key>Arguments</key>
-            <dict>
-                <key>major_version</key>
-                <string>%MAJOR_VERSION%</string>
-                <key>os_version</key>
-                <string>%OS_VERSION%</string>
-            </dict>
-            <key>Processor</key>
-            <string>AdobeReaderUpdatesURLProvider</string>
-        </dict>
-        <dict>
-            <key>Arguments</key>
-            <dict>
-                <key>filename</key>
-                <string>%NAME%.pkg</string>
-            </dict>
-            <key>Processor</key>
-            <string>URLDownloader</string>
-        </dict>
-        <dict>
-            <key>Processor</key>
-            <string>EndOfCheckPhase</string>
-        </dict>
-    </array>
-</dict>
 </plist>
