@@ -20,12 +20,10 @@ is desired.
 
 Note that Munki 4 offers the option to include Python to be embedded 
 in preparation for macOS no longer including the Python environment in future OSes.
-This recipe includes the embedded Python installation.
+This recipe includes the embedded Python installation and adds the Python package
+as a requirement to the other munki pkginfos.
 
-This recipe cannot be overridden to pull a download from an
-alternate location such as munkibuilds.org - it will only download the
-official releases. For this, use the munkitools2-autobuild.munki
-recipe with a manually-provided DOWNLOAD_URL variable.
+This recipe cannot be overridden to pull a download from an alternate location.
 
 The GitHubReleasesInfoProvider processor used by this recipe also
 respects an input variable: 'sort_by_highest_tag_names', which
