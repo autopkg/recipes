@@ -37,7 +37,7 @@ MUNKI_ICON should be overridden with your icon name.
     <key>Input</key>
     <dict>
         <key>INCLUDE_PRERELEASES</key>
-        <string>true</string>
+        <string></string>
         <key>NAME</key>
         <string>munkitools4</string>
         <key>MUNKI_CATALOG</key>
