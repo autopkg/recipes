@@ -21,16 +21,19 @@
 
 
 import re
-import urllib.error
-import urllib.parse
-import urllib.request
 
+import certifi
 from autopkglib import Processor, ProcessorError
 
 try:
     from plistlib import readPlistFromString
 except ImportError:
     from plistlib import readPlistFromBytes as readPlistFromString
+
+try:
+    from urllib.request import urlopen, Request  # For Python 3
+except ImportError:
+    from urllib2 import urlopen, Request  # For Python 2
 
 
 __all__ = ["MSOfficeMacURLandUpdateInfoProvider"]
@@ -258,7 +261,7 @@ class MSOfficeMacURLandUpdateInfoProvider(Processor):
 
         # Get metadata URL
         self.output(f"Requesting xml: {base_url}")
-        req = urllib.request.Request(base_url)
+        req = Request(base_url)
         # Add the MAU User-Agent, since MAU feed server seems to explicitly
         # block a User-Agent of 'Python-urllib/2.7' - even a blank User-Agent
         # string passes.
@@ -271,7 +274,7 @@ class MSOfficeMacURLandUpdateInfoProvider(Processor):
         )
 
         try:
-            fdesc = urllib.request.urlopen(req)
+            fdesc = urlopen(req, cafile=certifi.where())
             data = fdesc.read()
             fdesc.close()
         except Exception as err:
