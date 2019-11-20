@@ -1,4 +1,4 @@
-#!/Library/AutoPkg/Python3/Python.framework/Versions/Current/bin/python3
+#!/usr/local/autopkg/python
 #
 # Copyright 2013 Timothy Sutton
 #
@@ -18,12 +18,13 @@
 
 import re
 
+import certifi
 from autopkglib import Processor, ProcessorError
 
 try:
     from urllib.request import urlopen  # For Python 3
 except ImportError:
-    from urllib import urlopen  # For Python 2
+    from urllib2 import urlopen  # For Python 2
 
 try:
     from plistlib import readPlistFromString
@@ -81,7 +82,6 @@ class AdobeAcrobatProUpdateInfoProvider(Processor):
 
     def process_target_os(self, os_version):
         """Returns a tuple of major and minor versions"""
-        # pylint: disable=no-self-use
         major_and_minor_versions = os_version.split(".")
         try:
             major_vers = major_and_minor_versions[0]
@@ -106,7 +106,6 @@ class AdobeAcrobatProUpdateInfoProvider(Processor):
 
     def process_url_vars(self, url):
         """Substitute keys in URL templates with actual values"""
-        # pylint: disable=no-self-use
         for var in list(_URL_VARS.keys()):
             subbed_url = url.replace(fr"{{{var}}}", _URL_VARS[var])
             url = subbed_url
@@ -114,10 +113,9 @@ class AdobeAcrobatProUpdateInfoProvider(Processor):
 
     def get_url_response(self, url):
         """Get data from a url"""
-        # pylint: disable=no-self-use
         try:
-            url_handle = urlopen(url)
-            response = url_handle.read().decode()
+            url_handle = urlopen(url, cafile=certifi.where())
+            response = url_handle.read()
             url_handle.close()
         except Exception as err:
             raise ProcessorError(f"Can't read response from URL {url}: {err}")
@@ -127,7 +125,7 @@ class AdobeAcrobatProUpdateInfoProvider(Processor):
         """Get manifest(plist) data from a url"""
         manifest_plist_response = self.get_url_response(manifest_plist_url)
         try:
-            manifest_data = readPlistFromString(manifest_plist_response.encode())
+            manifest_data = readPlistFromString(manifest_plist_response)
         except Exception as err:
             raise ProcessorError(
                 f"Can't parse manifest plist at {manifest_plist_url}: {err}"
@@ -150,7 +148,7 @@ class AdobeAcrobatProUpdateInfoProvider(Processor):
             # /{MAJREV}/get_version/{PROD}_{PROD_ARCH}.plist
             template_response = re.sub(r"\d+\.\d+\.\d+", get_version, template_response)
 
-        manifest_url = self.process_url_vars(META_BASE_URL + template_response)
+        manifest_url = self.process_url_vars(META_BASE_URL + template_response.decode())
         manifest_data = self.get_manifest_data(manifest_url)
 
         composed_dl_url = DL_BASE_URL + manifest_data["PatchURL"]
