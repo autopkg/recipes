@@ -59,11 +59,10 @@ class TextMateURLProvider(Processor):
         out, err = proc.communicate()
         parsed_url = None
         if err:
-            print(err)
             raise ProcessorError(f"curl returned an error: {out}")
         for line in out.splitlines():
-            if line.startswith("Location"):
-                parsed_url = line.split()[1]
+            if line.startswith(b"Location"):
+                parsed_url = line.split()[1].decode()
         if not parsed_url:
             raise ProcessorError(
                 "curl didn't find a resolved 'Location' header we can use. "
