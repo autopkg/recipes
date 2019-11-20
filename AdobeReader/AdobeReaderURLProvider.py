@@ -1,4 +1,4 @@
-#!/Library/AutoPkg/Python3/Python.framework/Versions/Current/bin/python3
+#!/usr/local/autopkg/python
 #
 # Copyright 2010 Per Olofsson
 #
@@ -18,12 +18,12 @@
 
 import json
 
+from autopkglib import Processor, ProcessorError
+
 try:
     from urllib.request import Request, urlopen  # For Python 3
 except ImportError:
     from urllib import urlopen  # For Python 2
-
-from autopkglib import Processor, ProcessorError
 
 
 __all__ = ["AdobeReaderURLProvider"]

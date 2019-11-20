@@ -1,4 +1,4 @@
-#!/Library/AutoPkg/Python3/Python.framework/Versions/Current/bin/python3
+#!/usr/local/autopkg/python
 #
 # Copyright 2014: wycomco GmbH (choules@wycomco.de)
 #           2015: modifications by Tim Sutton

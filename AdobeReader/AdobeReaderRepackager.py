@@ -1,4 +1,4 @@
-#!/Library/AutoPkg/Python3/Python.framework/Versions/Current/bin/python3
+#!/usr/local/autopkg/python
 #
 # Copyright 2013 Greg Neagle
 #
@@ -23,7 +23,6 @@ from xml.etree import ElementTree
 
 from autopkglib import ProcessorError
 from autopkglib.DmgMounter import DmgMounter
-
 
 __all__ = ["AdobeReaderRepackager"]
 

@@ -1,4 +1,4 @@
-#!/Library/AutoPkg/Python3/Python.framework/Versions/Current/bin/python3
+#!/usr/local/autopkg/python
 #
 # Copyright 2018 Glynn Lane
 #
@@ -23,7 +23,6 @@ import subprocess
 from xml.etree import ElementTree
 
 from autopkglib import Processor, ProcessorError
-
 
 __all__ = ["AdobeFlashURLProvider"]
 

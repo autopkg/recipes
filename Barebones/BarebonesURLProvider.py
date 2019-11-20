@@ -1,4 +1,4 @@
-#!/Library/AutoPkg/Python3/Python.framework/Versions/Current/bin/python3
+#!/usr/local/autopkg/python
 #
 # Copyright 2013 Timothy Sutton
 #
@@ -98,7 +98,7 @@ class BarebonesURLProvider(Processor):
             raise ProcessorError("Expected 'SUFeedEntries' manifest key wasn't found.")
 
         sorted_entries = sorted(
-            entries, key=lambda a: LooseVersion(a["SUFeedEntryShortVersionString"]),
+            entries, key=lambda a: LooseVersion(a["SUFeedEntryShortVersionString"])
         )
         metadata = sorted_entries[-1]
         url = metadata["SUFeedEntryDownloadURL"]
