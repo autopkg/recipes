@@ -30,6 +30,15 @@ If you would like to use an undocumented HTTPS download, set DOWNLOAD_URL_SCHEME
         <array>
             <dict>
                 <key>Processor</key>
+                <string>DeprecationWarning</string>
+                <key>Arguments</key>
+                <dict>
+                    <key>warning_message</key>
+                    <string>This recipe will soon be removed. Please remove it from your list of recipes.</string>
+                </dict>
+            </dict>
+            <dict>
+                <key>Processor</key>
                 <string>PkgCopier</string>
                 <key>Arguments</key>
                 <dict>
