@@ -12,7 +12,7 @@ can be overridden by setting ARCH_EDITION to either '32' or '64'.</string>
 	<key>Input</key>
 	<dict>
 		<key>ARCH_EDITION</key>
-		<string>32</string>
+		<string>64</string>
 		<key>MUNKI_REPO_SUBDIR</key>
 		<string>apps</string>
 		<key>NAME</key>
@@ -51,15 +51,6 @@ can be overridden by setting ARCH_EDITION to either '32' or '64'.</string>
 			</dict>
 			<key>Processor</key>
 			<string>Copier</string>
-		</dict>
-		<dict>
-			<key>Arguments</key>
-			<dict>
-				<key>app_path</key>
-				<string>%destination_path%</string>
-			</dict>
-			<key>Processor</key>
-			<string>PraatVersionFixer</string>
 		</dict>
 		<dict>
 			<key>Arguments</key>
