@@ -55,15 +55,6 @@ can be overridden by setting ARCH_EDITION to either '32' or '64'.</string>
 		<dict>
 			<key>Arguments</key>
 			<dict>
-				<key>app_path</key>
-				<string>%destination_path%</string>
-			</dict>
-			<key>Processor</key>
-			<string>PraatVersionFixer</string>
-		</dict>
-		<dict>
-			<key>Arguments</key>
-			<dict>
 				<key>dmg_path</key>
 				<string>%RECIPE_CACHE_DIR%/%NAME%-%version%.dmg</string>
 				<key>dmg_root</key>
