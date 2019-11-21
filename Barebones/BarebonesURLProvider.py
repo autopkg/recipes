@@ -15,43 +15,24 @@
 # limitations under the License.
 """See docstring for BarebonesURLProvider class"""
 
-from __future__ import absolute_import
-
-import plistlib
-import ssl
 from distutils.version import LooseVersion
-from functools import wraps
 from operator import itemgetter
 
-from autopkglib import Processor, ProcessorError
+from autopkglib import ProcessorError
+from autopkglib.URLGetter import URLGetter
 from past.builtins import cmp
 
 try:
-    from urllib.parse import urlopen  # For Python 3
+    from plistlib import readPlistFromString
 except ImportError:
-    from urllib.request import urlopen  # For Python 2
+    from plistlib import readPlistFromBytes as readPlistFromString
 
 __all__ = ["BarebonesURLProvider"]
 
 URLS = {"bbedit": "https://versioncheck.barebones.com/BBEdit.xml"}
 
 
-def sslwrap(func):
-    """http://stackoverflow.com/a/24175862"""
-
-    @wraps(func)
-    def wraps_sslwrap(*args, **kw):
-        """Monkey-patch for sslwrap to force TLSv1"""
-        kw["ssl_version"] = ssl.PROTOCOL_TLSv1
-        return func(*args, **kw)
-
-    return wraps_sslwrap
-
-
-ssl.wrap_socket = sslwrap(ssl.wrap_socket)
-
-
-class BarebonesURLProvider(Processor):
+class BarebonesURLProvider(URLGetter):
     """Provides a version and dmg download for the Barebones product given."""
 
     description = __doc__
@@ -83,15 +64,10 @@ class BarebonesURLProvider(Processor):
                 % (prod, ", ".join(URLS))
             )
         url = URLS[prod]
-        try:
-            manifest_str = urlopen(url).read()
-        except Exception as err:
-            raise ProcessorError(
-                "Unexpected error retrieving product manifest: '%s'" % err
-            )
+        manifest_str = self.download(url)
 
         try:
-            plist = plistlib.readPlistFromString(manifest_str)
+            plist = readPlistFromString(manifest_str)
         except Exception as err:
             raise ProcessorError(
                 "Unexpected error parsing manifest as a plist: '%s'" % err
