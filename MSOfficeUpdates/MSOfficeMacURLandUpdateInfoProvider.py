@@ -98,6 +98,7 @@ PROD_DICT = {
 }
 LOCALE_ID_INFO_URL = "https://msdn.microsoft.com/en-us/goglobal/bb964664.aspx"
 SUPPORTED_VERSIONS = ["latest", "latest-delta", "latest-standalone"]
+SUPPORTED_VERSIONS_LIST = "', '".join(SUPPORTED_VERSIONS)
 DEFAULT_VERSION = "latest"
 CHANNELS = {
     "Production": "C1297A47-86C4-4C1F-97FA-950631F94777",
@@ -132,6 +133,7 @@ class MSOfficeMacURLandUpdateInfoProvider(Processor):
                 "Update type to fetch. Supported values are: "
                 "'%s'. Defaults to %s."
                 % ("', '".join(SUPPORTED_VERSIONS), DEFAULT_VERSION)
+                "'%s'. Defaults to %s." % (SUPPORTED_VERSIONS_LIST, DEFAULT_VERSION)
             ),
         },
         "munki_required_update_name": {
