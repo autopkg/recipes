@@ -15,22 +15,12 @@
 # limitations under the License.
 """See docstring for PuppetlabsProductsURLProvider class"""
 
-from __future__ import absolute_import
-
 import re
 from builtins import str
 from distutils.version import LooseVersion
 
-from autopkglib import Processor, ProcessorError
-from future import standard_library
-
-standard_library.install_aliases()
-
-
-try:
-    from urllib.parse import urlopen  # For Python 3
-except ImportError:
-    from urllib.request import urlopen  # For Python 2
+from autopkglib import ProcessorError
+from autopkglib.URLGetter import URLGetter
 
 __all__ = ["PuppetlabsProductsURLProvider"]
 
@@ -39,7 +29,7 @@ DEFAULT_VERSION = "latest"
 OS_VERSION = "10.10"
 
 
-class PuppetlabsProductsURLProvider(Processor):
+class PuppetlabsProductsURLProvider(URLGetter):
     """Extracts a URL for a Puppet Labs item."""
 
     description = __doc__
@@ -95,14 +85,7 @@ class PuppetlabsProductsURLProvider(Processor):
                 self.env["product_name"].lower(),
                 version_re,
             )
-
-        try:
-            data = urlopen(download_url).read()
-        except Exception as err:
-            raise ProcessorError(
-                "Unexpected error retrieving download index: '%s'" % err
-            )
-
+        data = self.download(download_url, text=True)
         # (dmg, version)
         candidates = re.findall(re_download, data)
         if not candidates:
