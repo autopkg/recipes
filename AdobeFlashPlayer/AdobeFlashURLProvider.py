@@ -18,12 +18,10 @@
 # limitations under the License.
 """See docstring for AdobeFlashURLProvider class"""
 
-from __future__ import absolute_import
-
-import subprocess
 from xml.etree import ElementTree
 
-from autopkglib import Processor, ProcessorError
+from autopkglib import ProcessorError
+from autopkglib.URLGetter import URLGetter
 
 __all__ = ["AdobeFlashURLProvider"]
 
@@ -38,7 +36,7 @@ DOWNLOAD_TEMPLATE_URL = (
 )
 
 
-class AdobeFlashURLProvider(Processor):
+class AdobeFlashURLProvider(URLGetter):
     """Provides URL to the latest Adobe Flash Player release."""
 
     description = __doc__
@@ -81,30 +79,20 @@ class AdobeFlashURLProvider(Processor):
         "url": {"description": "URL to the latest Adobe Flash Player release."}
     }
 
-    def get_adobeflash_dmg_url(self, headers=None, opts=None):
+    def prepare_curl_cmd(self):
+        """Assemble curl command and return it."""
+        curl_cmd = super(AdobeFlashURLProvider, self).prepare_curl_cmd()
+        self.add_curl_common_opts(curl_cmd)
+        curl_cmd.append(UPDATE_XML_URL)
+        return curl_cmd
+
+    def get_adobeflash_dmg_url(self):
         """Return the URL for the Adobe Flash DMG"""
         # pylint: disable=no-self-use
         version = self.env.get("version")
         if not version:
-            try:
-                cmd = [self.env["CURL_PATH"], "--location"]
-                if headers:
-                    for header, value in list(headers.items()):
-                        cmd.extend(["--header", "%s: %s" % (header, value)])
-                if opts:
-                    for item in opts:
-                        cmd.extend([item])
-                cmd.append(UPDATE_XML_URL)
-                proc = subprocess.Popen(
-                    cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE
-                )
-                (xml_data, stderr) = proc.communicate()
-                if proc.returncode:
-                    raise ProcessorError(
-                        "Could not retrieve URL %s: %s" % (UPDATE_XML_URL, stderr)
-                    )
-            except OSError:
-                raise ProcessorError("Could not retrieve URL: %s" % UPDATE_XML_URL)
+            curl_cmd = self.prepare_curl_cmd()
+            xml_data = self.download_with_curl(curl_cmd)
 
             try:
                 root = ElementTree.fromstring(xml_data)
@@ -138,7 +126,7 @@ class AdobeFlashURLProvider(Processor):
 
         opts = self.env.get("curl_opts", [])
 
-        self.env["url"] = self.get_adobeflash_dmg_url(headers, opts)
+        self.env["url"] = self.get_adobeflash_dmg_url()
 
         self.output("Found URL %s" % self.env["url"])
 
