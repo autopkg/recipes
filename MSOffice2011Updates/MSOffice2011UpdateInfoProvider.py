@@ -17,12 +17,10 @@
 
 from builtins import hex
 from distutils.version import LooseVersion
-from operator import itemgetter
-from urllib.parse import urlparse, urlunparse
 
 from autopkglib import ProcessorError
 from autopkglib.URLGetter import URLGetter
-from past.builtins import basestring, cmp
+from past.builtins import basestring
 
 try:
     from urlparse import urlparse, urlunparse
@@ -131,10 +129,6 @@ class MSOffice2011UpdateInfoProvider(URLGetter):
         """Attempts to determine what earlier updates are
         required by this update"""
 
-        def compare_versions(this, that):
-            """Internal comparison function for use with sorting"""
-            return cmp(LooseVersion(this), LooseVersion(that))
-
         self.sanity_check_expected_triggers(item)
         munki_update_name = self.env.get("munki_update_name", MUNKI_UPDATE_NAME)
         mcp_versions = item.get("Triggers", {}).get("MCP", {}).get("Versions", [])
@@ -142,7 +136,7 @@ class MSOffice2011UpdateInfoProvider(URLGetter):
             return None
         # Versions array is already sorted in current 0409MSOf14.xml,
         # may be no need to sort; but we should just to be safe...
-        mcp_versions.sort(compare_versions)
+        mcp_versions = sorted(mcp_versions, key=lambda a: LooseVersion(a))
         if mcp_versions[0] == "14.0.0":
             # works with original Office release, so no requires array
             return None
@@ -237,7 +231,7 @@ class MSOffice2011UpdateInfoProvider(URLGetter):
         if version_str == "latest":
             # Office 2011 update metadata is a list of dicts.
             # we need to sort by date.
-            sorted_metadata = sorted(metadata, key=itemgetter("Date"))
+            sorted_metadata = sorted(metadata, key=lambda a: a["Date"])
             # choose the last item, which should be most recent.
             item = sorted_metadata[-1]
         else:
