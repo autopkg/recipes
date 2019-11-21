@@ -15,8 +15,6 @@
 # limitations under the License.
 """autopkg processor to run makecatalogs on a Munki repo"""
 
-from __future__ import absolute_import
-
 import os.path
 import plistlib
 import subprocess
@@ -62,7 +60,7 @@ class MakeCatalogsProcessor(Processor):
             cache_dir, "autopkg_results.plist")
         try:
             run_results = plistlib.readPlist(current_run_results_plist)
-        except IOError:
+        except (IOError, OSError):
             run_results = []
 
         something_imported = False
@@ -106,9 +104,10 @@ class MakeCatalogsProcessor(Processor):
                     % (err.errno, err.strerror))
 
             self.env["makecatalogs_resultcode"] = proc.returncode
-            self.env["makecatalogs_stderr"] = err_out
+            self.env["makecatalogs_stderr"] = err_out.decode("utf-8")
             if proc.returncode != 0:
-                raise ProcessorError("makecatalogs failed: %s" % err_out)
+                error_text = "makecatalogs failed: \n" + self.env["makecatalogs_stderr"]
+                raise ProcessorError(error_text)
             else:
                 self.output("Munki catalogs rebuilt!")
 
