@@ -479,6 +479,8 @@ MUNKI_ICON should be overridden with your icon name.
                     <string>10.8.0</string>
                     <key>name</key>
                     <string>%MUNKITOOLS_PYTHON_NAME%</string>
+                    <key>unattended_install</key>
+                    <true/>
                 </dict>
             </dict>
         </dict>
