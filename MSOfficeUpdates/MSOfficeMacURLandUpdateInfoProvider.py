@@ -19,15 +19,15 @@
 # pylint:disable=e1101
 """See docstring for MSOfficeMacURLandUpdateInfoProvider class"""
 
-from __future__ import absolute_import
-
-import plistlib
 import re
-import urllib.error
-import urllib.parse
-import urllib.request
 
-from autopkglib import Processor, ProcessorError
+from autopkglib import ProcessorError
+from autopkglib.URLGetter import URLGetter
+
+try:
+    from plistlib import readPlistFromString
+except ImportError:
+    from plistlib import readPlistFromBytes as readPlistFromString
 
 __all__ = ["MSOfficeMacURLandUpdateInfoProvider"]
 
@@ -107,7 +107,7 @@ CHANNELS = {
 DEFAULT_CHANNEL = "Production"
 
 
-class MSOfficeMacURLandUpdateInfoProvider(Processor):
+class MSOfficeMacURLandUpdateInfoProvider(URLGetter):
     """Provides a download URL for the most recent version of MS Office 2016."""
 
     input_variables = {
@@ -249,23 +249,15 @@ class MSOfficeMacURLandUpdateInfoProvider(Processor):
 
         # Get metadata URL
         self.output("Requesting xml: %s" % base_url)
-        req = urllib.request.Request(base_url)
         # Add the MAU User-Agent, since MAU feed server seems to explicitly
         # block a User-Agent of 'Python-urllib/2.7' - even a blank User-Agent
         # string passes.
-        req.add_header(
-            "User-Agent",
-            "Microsoft%20AutoUpdate/3.6.16080300 CFNetwork/760.6.3 Darwin/15.6.0 (x86_64)",
-        )
+        headers = {
+            "User-Agent": "Microsoft%20AutoUpdate/3.6.16080300 CFNetwork/760.6.3 Darwin/15.6.0 (x86_64)"
+        }
+        data = self.download(base_url, headers)
 
-        try:
-            fdesc = urllib.request.urlopen(req)
-            data = fdesc.read()
-            fdesc.close()
-        except Exception as err:
-            raise ProcessorError("Can't download %s: %s" % (base_url, err))
-
-        metadata = plistlib.readPlistFromString(data)
+        metadata = readPlistFromString(data)
         item = {}
         # Update feeds for a given 'channel' will have either combo or delta
         # pkg urls, with delta's additionally having a 'FullUpdaterLocation'
