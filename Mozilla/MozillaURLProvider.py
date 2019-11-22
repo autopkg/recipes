@@ -30,7 +30,7 @@ MOZ_BASE_URL = "https://download.mozilla.org/?product=%s-%s&os=osx&lang=%s"
 # firefox-beta-latest
 # thunderbird-latest
 # thunderbird-beta-latest
-# 
+#
 # See also:
 #    http://ftp.mozilla.org/pub/firefox/releases/latest/README.txt
 #    http://ftp.mozilla.org/pub/firefox/releases/latest-esr/README.txt
@@ -74,10 +74,9 @@ class MozillaURLProvider(Processor):
 
     def get_mozilla_dmg_url(self, base_url, product_name, release, locale):
         """Assemble download URL for Mozilla product"""
-        #pylint: disable=no-self-use
         # Allow locale as both en-US and en_US.
         locale = locale.replace("_", "-")
-        
+
         # fix releases into new format
         if release == 'latest-esr':
             release = 'esr-latest'

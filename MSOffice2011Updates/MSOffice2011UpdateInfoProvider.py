@@ -114,7 +114,6 @@ class MSOffice2011UpdateInfoProvider(URLGetter):
         """Raises an exeception if the Trigger Condition or
         Triggers for an update don't match what we expect.
         Protects us if these change in the future."""
-        # pylint: disable=no-self-use
         if not item.get("Trigger Condition") == ["and", "MCP"]:
             raise ProcessorError(
                 "Unexpected Trigger Condition in item %s: %s"
@@ -166,7 +165,6 @@ class MSOffice2011UpdateInfoProvider(URLGetter):
         """Extracts the version of the update item."""
         # currently relies on the item having a title in the format
         # "Office 2011 x.y.z Update"
-        # pylint: disable=no-self-use
         title_start = "Office 2011 "
         title_end = " Update"
         title = item.get("Title", "")
@@ -175,13 +173,11 @@ class MSOffice2011UpdateInfoProvider(URLGetter):
 
     def value_to_os_version_string(self, value):
         """Converts a value to an OS X version number"""
-        # pylint: disable=no-self-use
-
         # Map string type for both Python 2 and Python 3.
         try:
             _ = basestring  # noqa: F823
         except NameError:
-            basestring = str  # pylint: disable=W0622
+            basestring = str
 
         if isinstance(value, int):
             version_str = hex(value)[2:]
