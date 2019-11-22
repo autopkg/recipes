@@ -93,16 +93,6 @@ class AdobeAcrobatProUpdateInfoProvider(URLGetter):
             raise ProcessorError("OS X Version %s not recognised" % os_version)
         return (major_vers, minor_vers)
 
-    def process_version(self, version):
-        """Returns a tuple of major, minor and patch versions"""
-        all_versions = version.split(".")
-        for v in all_versions:
-            try:
-                int(v)
-            except (TypeError, ValueError):
-                raise ProcessorError("Version %s not recognised" % version)
-        return tuple(all_versions)
-
     def process_url_vars(self, url):
         """Substitute keys in URL templates with actual values"""
         # pylint: disable=no-self-use
@@ -121,7 +111,7 @@ class AdobeAcrobatProUpdateInfoProvider(URLGetter):
                 "Can't parse manifest plist at %s: %s" % (manifest_plist_url, err)
             )
 
-        if "PatchURL" not in list(manifest_data.keys()):
+        if "PatchURL" not in manifest_data.keys():
             raise ProcessorError(
                 "Manifest plist key '%s' not found at %s"
                 % ("PatchURL", manifest_plist_url)
@@ -167,8 +157,8 @@ class AdobeAcrobatProUpdateInfoProvider(URLGetter):
                 % (major_version, ", ".join(SUPPORTED_VERS))
             )
 
-        # Adobe requires a target macOS version to be passed to the URL
-        # # on more recent updates
+        # Adobe require a target OS X version to be passed to the URL on more recent
+        # updates
         target_os_parsed = self.process_target_os(target_os)
         # global _URL_VARS global statement not needed to modify a key/value pair
         _URL_VARS["MAJREV"] = major_version
@@ -179,8 +169,6 @@ class AdobeAcrobatProUpdateInfoProvider(URLGetter):
         if not munki_update_name:
             munki_update_name = self.process_url_vars(MUNKI_UPDATE_NAME_DEFAULT)
         (url, version, prev_version) = self.get_acrobat_metadata(get_version)
-
-        self.process_version(version)
 
         new_pkginfo = {}
 
