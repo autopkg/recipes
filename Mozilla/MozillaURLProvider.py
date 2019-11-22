@@ -17,7 +17,7 @@
 
 from __future__ import absolute_import
 
-from autopkglib import Processor, ProcessorError
+from autopkglib import Processor
 
 __all__ = ["MozillaURLProvider"]
 
@@ -41,25 +41,25 @@ MOZ_BASE_URL = "https://download.mozilla.org/?product=%s-%s&os=osx&lang=%s"
 
 class MozillaURLProvider(Processor):
     """Provides URL to the latest Firefox release."""
+
     description = __doc__
     input_variables = {
         "product_name": {
             "required": True,
-            "description":
-                "Product to fetch URL for. One of 'firefox', 'thunderbird'.",
+            "description": "Product to fetch URL for. One of 'firefox', 'thunderbird'.",
         },
         "release": {
             "required": False,
-            "default": 'latest',
+            "default": "latest",
             "description": (
                 "Which release to download. Examples: 'latest', "
-                "'esr-latest', 'beta-latest'. Defaults to 'latest'"),
+                "'esr-latest', 'beta-latest'. Defaults to 'latest'"
+            ),
         },
         "locale": {
             "required": False,
-            "default": 'en-US',
-            "description":
-                "Which localization to download, default is 'en-US'.",
+            "default": "en-US",
+            "description": "Which localization to download, default is 'en-US'.",
         },
         "base_url": {
             "required": False,
@@ -67,9 +67,7 @@ class MozillaURLProvider(Processor):
         },
     }
     output_variables = {
-        "url": {
-            "description": "URL to the latest Mozilla product release.",
-        },
+        "url": {"description": "URL to the latest Mozilla product release."}
     }
 
     def get_mozilla_dmg_url(self, base_url, product_name, release, locale):
@@ -78,10 +76,10 @@ class MozillaURLProvider(Processor):
         locale = locale.replace("_", "-")
 
         # fix releases into new format
-        if release == 'latest-esr':
-            release = 'esr-latest'
-        if release == 'latest-beta':
-            release = 'beta-latest'
+        if release == "latest-esr":
+            release = "esr-latest"
+        if release == "latest-beta":
+            release = "beta-latest"
 
         # Construct download URL.
         return base_url % (product_name, release, locale)
@@ -95,7 +93,8 @@ class MozillaURLProvider(Processor):
         base_url = self.env.get("base_url", MOZ_BASE_URL)
 
         self.env["url"] = self.get_mozilla_dmg_url(
-            base_url, product_name, release, locale)
+            base_url, product_name, release, locale
+        )
         self.output("Found URL %s" % self.env["url"])
 
 

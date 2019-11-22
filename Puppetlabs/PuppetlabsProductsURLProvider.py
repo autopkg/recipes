@@ -36,8 +36,10 @@ class PuppetlabsProductsURLProvider(URLGetter):
     input_variables = {
         "product_name": {
             "required": True,
-            "description": "Product to fetch URL for. One of 'puppet', 'facter', 'hiera',"
-            "or 'agent'.",
+            "description": (
+                "Product to fetch URL for. One of 'puppet', 'facter', 'hiera',"
+                "or 'agent'."
+            ),
         },
         "get_version": {
             "required": False,

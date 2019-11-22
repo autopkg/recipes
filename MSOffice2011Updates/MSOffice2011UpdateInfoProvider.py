@@ -24,7 +24,7 @@ from past.builtins import basestring
 
 try:
     from urlparse import urlparse, urlunparse
-except:
+except ImportError:
     from urllib.parse import urlparse, urlunparse
 
 try:
@@ -219,7 +219,10 @@ class MSOffice2011UpdateInfoProvider(URLGetter):
         # a User-Agent of 'Python-urllib/2.7' - even a blank User-Agent string
         # passes.
         headers = {
-            "User-Agent": "Microsoft%20AutoUpdate/3.9.17050900 CFNetwork/811.5.4 Darwin/16.7.0 (x86_64)"
+            "User-Agent": (
+                "Microsoft%20AutoUpdate/3.9.17050900 CFNetwork/"
+                "811.5.4 Darwin/16.7.0 (x86_64)"
+            )
         }
         data = self.download(base_url, headers)
 

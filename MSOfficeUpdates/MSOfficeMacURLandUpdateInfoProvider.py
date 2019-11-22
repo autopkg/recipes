@@ -82,11 +82,15 @@ PROD_DICT = {
     },
     "AutoUpdate03": {
         "id": "MSau03",
-        "path": "/Library/Application Support/Microsoft/MAU2.0/Microsoft AutoUpdate.app",
+        "path": (
+            "/Library/Application Support/Microsoft/MAU2.0/Microsoft AutoUpdate.app"
+        ),
     },
     "AutoUpdate04": {
         "id": "MSau04",
-        "path": "/Library/Application Support/Microsoft/MAU2.0/Microsoft AutoUpdate.app",
+        "path": (
+            "/Library/Application Support/Microsoft/MAU2.0/Microsoft AutoUpdate.app"
+        ),
     },
     "DefenderATP": {
         "id": "WDAV00",
@@ -157,8 +161,10 @@ class MSOfficeMacURLandUpdateInfoProvider(URLGetter):
             "description": "Some pkginfo fields extracted from the Microsoft metadata."
         },
         "description": {
-            "description": "Description of the update from the manifest, in the language "
-            "given by the locale_id input variable."
+            "description": (
+                "Description of the update from the manifest, in the language "
+                "given by the locale_id input variable."
+            )
         },
         "version": {
             "description": (
@@ -251,7 +257,10 @@ class MSOfficeMacURLandUpdateInfoProvider(URLGetter):
         # block a User-Agent of 'Python-urllib/2.7' - even a blank User-Agent
         # string passes.
         headers = {
-            "User-Agent": "Microsoft%20AutoUpdate/3.6.16080300 CFNetwork/760.6.3 Darwin/15.6.0 (x86_64)"
+            "User-Agent": (
+                "Microsoft%20AutoUpdate/3.6.16080300 CFNetwork/"
+                "760.6.3 Darwin/15.6.0 (x86_64)"
+            )
         }
         data = self.download(base_url, headers)
 

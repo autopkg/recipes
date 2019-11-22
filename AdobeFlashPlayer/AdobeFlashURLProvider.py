@@ -121,13 +121,7 @@ class AdobeFlashURLProvider(URLGetter):
         if "url" in self.env:
             self.output("Using input URL %s" % self.env["url"])
             return
-
-        headers = self.env.get("request_headers", {})
-
-        opts = self.env.get("curl_opts", [])
-
         self.env["url"] = self.get_adobeflash_dmg_url()
-
         self.output("Found URL %s" % self.env["url"])
 
 
