@@ -43,7 +43,6 @@ class AutoPkgSourceFinder(Processor):
 
     def find_match(self, root_dir, match_string):
         """Finds a file or directory using shell globbing"""
-        #pylint: disable=no-self-use
         matches = glob.glob(os.path.join(root_dir, match_string))
         if matches:
             return matches[0][len(root_dir) + 1:]

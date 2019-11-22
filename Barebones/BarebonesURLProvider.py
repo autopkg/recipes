@@ -14,8 +14,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 """See docstring for BarebonesURLProvider class"""
-# suppress 'missing class member env'
-#pylint: disable=e1101
 
 from __future__ import absolute_import
 

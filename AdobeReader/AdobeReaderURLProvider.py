@@ -70,7 +70,6 @@ class AdobeReaderURLProvider(Processor):
 
     def get_reader_dmg_url(self, base_url, language, major_version, os_version):
         '''Returns download URL for Adobe Reader DMG'''
-        #pylint: disable=no-self-use
         request_url = base_url % (os_version, language)
         request = urllib2.Request(request_url)
         request.add_header("x-requested-with", "XMLHttpRequest")

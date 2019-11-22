@@ -15,9 +15,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 """See docstring for AdobeReaderURLProvider class"""
-# Disabling warnings for env members and imports that only affect recipe-
-# specific processors.
-#pylint: disable=e1101
 
 from __future__ import absolute_import
 
