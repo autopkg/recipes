@@ -15,18 +15,12 @@
 # limitations under the License.
 """See docstring for AdobeReaderURLProvider class"""
 
-
-from __future__ import absolute_import
-
 import json
-import urllib.error
-import urllib.parse
-import urllib.request
 
-from autopkglib import Processor, ProcessorError
+from autopkglib import ProcessorError
+from autopkglib.URLGetter import URLGetter
 
 __all__ = ["AdobeReaderURLProvider"]
-
 
 AR_BASE_URL = (
     "http://get.adobe.com/reader/webservices/json/standalone/"
@@ -41,7 +35,7 @@ OS_VERSION_DEFAULT = "10.8.0"
 MAJOR_VERSION_MATCH_STR = "adobe/reader/mac/%s"
 
 
-class AdobeReaderURLProvider(Processor):
+class AdobeReaderURLProvider(URLGetter):
     """Provides URL to the latest Adobe Reader release."""
 
     description = __doc__
@@ -75,16 +69,10 @@ class AdobeReaderURLProvider(Processor):
 
     def get_reader_dmg_url(self, base_url, language, major_version, os_version):
         """Returns download URL for Adobe Reader DMG"""
-        # pylint: disable=no-self-use
         request_url = base_url % (os_version, language)
-        request = urllib.request.Request(request_url)
-        request.add_header("x-requested-with", "XMLHttpRequest")
-        try:
-            url_handle = urllib.request.urlopen(request)
-            json_response = url_handle.read()
-            url_handle.close()
-        except Exception as err:
-            raise ProcessorError("Can't open %s: %s" % (base_url, err))
+        header = {"x-requested-with": "XMLHttpRequest"}
+        json_response = self.download(request_url, headers=header)
+
         reader_info = json.loads(json_response)
         major_version_string = MAJOR_VERSION_MATCH_STR % major_version
         matches = [

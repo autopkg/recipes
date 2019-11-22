@@ -15,20 +15,10 @@
 # limitations under the License.
 """See docstring for PraatURLProvider class"""
 
-from __future__ import absolute_import
-
 import re
 
-from autopkglib import Processor, ProcessorError
-from future import standard_library
-
-standard_library.install_aliases()
-
-
-try:
-    from urllib.parse import urlopen  # For Python 3
-except ImportError:
-    from urllib.request import urlopen  # For Python 2
+from autopkglib import ProcessorError
+from autopkglib.URLGetter import URLGetter
 
 __all__ = ["PraatURLProvider"]
 
@@ -38,7 +28,7 @@ PRAAT_DEFAULT_ARCH = "32"
 PRAAT_DMG_RE = r'a href="?(?P<url>praat\d+_mac{0}\.dmg)"?'
 
 
-class PraatURLProvider(Processor):
+class PraatURLProvider(URLGetter):
     """Provides URL to the latest release of Praat."""
 
     description = __doc__
@@ -62,12 +52,7 @@ class PraatURLProvider(Processor):
         arch = self.env.get("arch_edition", "32")
         re_praat_dmg = re.compile(PRAAT_DMG_RE.format(arch))
         # Read HTML index.
-        try:
-            fref = urlopen(base_url)
-            html = fref.read()
-            fref.close()
-        except Exception as err:
-            raise ProcessorError("Can't download %s: %s" % (base_url, err))
+        html = self.download(base_url, text=True)
 
         # Search for download link.
         match = re_praat_dmg.search(html)

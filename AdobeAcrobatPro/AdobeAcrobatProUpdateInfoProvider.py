@@ -15,22 +15,10 @@
 # limitations under the License.
 """See docstring for AdobeAcrobatProUpdateInfoProvider class"""
 
-from __future__ import absolute_import
-
 import re
-import ssl
 
-import certifi
-from autopkglib import Processor, ProcessorError
-from future import standard_library
-
-standard_library.install_aliases()
-
-
-try:
-    from urllib.parse import urlopen  # For Python 3
-except ImportError:
-    from urllib.request import urlopen  # For Python 2
+from autopkglib import ProcessorError
+from autopkglib.URLGetter import URLGetter
 
 try:
     from plistlib import readPlistFromString
@@ -51,7 +39,7 @@ _URL_VARS = {"PROD": "com_adobe_Acrobat_Pro", "PROD_ARCH": "univ"}
 SUPPORTED_VERS = ["9", "10", "11"]
 
 
-class AdobeAcrobatProUpdateInfoProvider(Processor):
+class AdobeAcrobatProUpdateInfoProvider(URLGetter):
     """Provides URL to the latest Adobe Acrobat Pro release."""
 
     description = __doc__
@@ -123,22 +111,9 @@ class AdobeAcrobatProUpdateInfoProvider(Processor):
             url = subbed_url
         return subbed_url
 
-    def get_url_response(self, url):
-        """Get data from a url"""
-        # pylint: disable=no-self-use
-        try:
-            context = ssl.SSLContext()
-            context.load_verify_locations(certifi.where())
-            url_handle = urlopen(url, context=context)
-            response = url_handle.read()
-            url_handle.close()
-        except Exception as err:
-            raise ProcessorError("Can't read response from URL %s: %s" % (url, err))
-        return response
-
     def get_manifest_data(self, manifest_plist_url):
         """Get manifest(plist) data from a url"""
-        manifest_plist_response = self.get_url_response(manifest_plist_url)
+        manifest_plist_response = self.download(manifest_plist_url)
         try:
             manifest_data = readPlistFromString(manifest_plist_response)
         except Exception as err:
@@ -157,7 +132,7 @@ class AdobeAcrobatProUpdateInfoProvider(Processor):
     def get_acrobat_metadata(self, get_version):
         """Returns a tuple: (url, version, previous_required_version)"""
         template_url = self.process_url_vars(MANIFEST_URL_TEMPLATE)
-        template_response = self.get_url_response(template_url)
+        template_response = self.download(template_url, text=True)
 
         if get_version != "latest":
             # /{MAJREV}/latest/{PROD}_{PROD_ARCH}.plist -->

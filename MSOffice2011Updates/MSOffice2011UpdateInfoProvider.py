@@ -15,19 +15,22 @@
 # limitations under the License.
 """See docstring for MSOffice2011UpdateInfoProvider class"""
 
-from __future__ import absolute_import
-
-import plistlib
-import urllib.error
-import urllib.parse
-import urllib.request
 from builtins import hex
 from distutils.version import LooseVersion
-from operator import itemgetter
-from urllib.parse import urlparse, urlunparse
 
-from autopkglib import Processor, ProcessorError
-from past.builtins import basestring, cmp
+from autopkglib import ProcessorError
+from autopkglib.URLGetter import URLGetter
+from past.builtins import basestring
+
+try:
+    from urlparse import urlparse, urlunparse
+except:
+    from urllib.parse import urlparse, urlunparse
+
+try:
+    from plistlib import readPlistFromString
+except ImportError:
+    from plistlib import readPlistFromBytes as readPlistFromString
 
 __all__ = ["MSOffice2011UpdateInfoProvider"]
 
@@ -53,7 +56,7 @@ BASE_URL = (
 )
 
 
-class MSOffice2011UpdateInfoProvider(Processor):
+class MSOffice2011UpdateInfoProvider(URLGetter):
     """Provides a download URL for an Office 2011 update."""
 
     description = __doc__
@@ -126,10 +129,6 @@ class MSOffice2011UpdateInfoProvider(Processor):
         """Attempts to determine what earlier updates are
         required by this update"""
 
-        def compare_versions(this, that):
-            """Internal comparison function for use with sorting"""
-            return cmp(LooseVersion(this), LooseVersion(that))
-
         self.sanity_check_expected_triggers(item)
         munki_update_name = self.env.get("munki_update_name", MUNKI_UPDATE_NAME)
         mcp_versions = item.get("Triggers", {}).get("MCP", {}).get("Versions", [])
@@ -137,7 +136,7 @@ class MSOffice2011UpdateInfoProvider(Processor):
             return None
         # Versions array is already sorted in current 0409MSOf14.xml,
         # may be no need to sort; but we should just to be safe...
-        mcp_versions.sort(compare_versions)
+        mcp_versions = sorted(mcp_versions, key=lambda a: LooseVersion(a))
         if mcp_versions[0] == "14.0.0":
             # works with original Office release, so no requires array
             return None
@@ -220,27 +219,19 @@ class MSOffice2011UpdateInfoProvider(Processor):
         if not version_str:
             version_str = "latest"
         # Get metadata URL
-        req = urllib.request.Request(base_url)
         # Add the MAU User-Agent, since MAU feed server seems to explicitly block
         # a User-Agent of 'Python-urllib/2.7' - even a blank User-Agent string
         # passes.
-        req.add_header(
-            "User-Agent",
-            "Microsoft%20AutoUpdate/3.9.17050900 CFNetwork/811.5.4 Darwin/"
-            "16.7.0 (x86_64)",
-        )
-        try:
-            fref = urllib.request.urlopen(req)
-            data = fref.read()
-            fref.close()
-        except Exception as err:
-            raise ProcessorError("Can't download %s: %s" % (base_url, err))
+        headers = {
+            "User-Agent": "Microsoft%20AutoUpdate/3.9.17050900 CFNetwork/811.5.4 Darwin/16.7.0 (x86_64)"
+        }
+        data = self.download(base_url, headers)
 
-        metadata = plistlib.readPlistFromString(data)
+        metadata = readPlistFromString(data)
         if version_str == "latest":
             # Office 2011 update metadata is a list of dicts.
             # we need to sort by date.
-            sorted_metadata = sorted(metadata, key=itemgetter("Date"))
+            sorted_metadata = sorted(metadata, key=lambda a: a["Date"])
             # choose the last item, which should be most recent.
             item = sorted_metadata[-1]
         else:

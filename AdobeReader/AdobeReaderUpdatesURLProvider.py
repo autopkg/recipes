@@ -18,16 +18,13 @@
 # Disabling warnings for env members and imports that only affect recipe-
 # specific processors.
 
-from __future__ import absolute_import
-
-import plistlib
-
-from autopkglib import Processor, ProcessorError
+from autopkglib import ProcessorError
+from autopkglib.URLGetter import URLGetter
 
 try:
-    from urllib.parse import urlopen  # For Python 3
+    from plistlib import readPlistFromString
 except ImportError:
-    from urllib.request import urlopen  # For Python 2
+    from plistlib import readPlistFromBytes as readPlistFromString
 
 __all__ = ["AdobeReaderUpdatesURLProvider"]
 
@@ -53,7 +50,7 @@ AR_PROD = "com_adobe_Reader"
 AR_PROD_ARCH = "univ"
 
 
-class AdobeReaderUpdatesURLProvider(Processor):
+class AdobeReaderUpdatesURLProvider(URLGetter):
     """Provides URL to the latest Adobe Reader release."""
 
     description = __doc__
@@ -80,15 +77,9 @@ class AdobeReaderUpdatesURLProvider(Processor):
 
     def get_reader_updater_pkg_url(self, major_version):
         """Returns download URL for Adobe Reader Updater DMG"""
+        url = AR_UPDATER_BASE_URL + AR_MANIFEST_TEMPLATE % major_version
+        version_string = self.download(url, text=True)
 
-        try:
-            url_handle = urlopen(
-                AR_UPDATER_BASE_URL + AR_MANIFEST_TEMPLATE % major_version
-            )
-            version_string = url_handle.read()
-            url_handle.close()
-        except Exception as err:
-            raise ProcessorError("Can't open manifest template: %s" % (err))
         os_maj, os_min = self.env["os_version"].split(".")
         version_string = version_string.replace(AR_MAJREV_IDENTIFIER, major_version)
         version_string = version_string.replace(OSX_MAJREV_IDENTIFIER, os_maj)
@@ -96,12 +87,9 @@ class AdobeReaderUpdatesURLProvider(Processor):
         version_string = version_string.replace(AR_PROD_IDENTIFIER, AR_PROD)
         version_string = version_string.replace(AR_PROD_ARCH_IDENTIFIER, AR_PROD_ARCH)
 
-        try:
-            url_handle = urlopen(AR_UPDATER_BASE_URL + version_string)
-            plist = plistlib.readPlistFromString(url_handle.read())
-            url_handle.close()
-        except Exception as err:
-            raise ProcessorError("Can't get or read manifest: %s" % (err))
+        url = AR_UPDATER_BASE_URL + version_string
+        data = self.download(url)
+        plist = readPlistFromString(data)
 
         url = AR_UPDATER_DOWNLOAD_URL2 + plist["PatchURL"]
         return url
@@ -109,23 +97,16 @@ class AdobeReaderUpdatesURLProvider(Processor):
     def get_reader_updater_dmg_url(self, major_version):
         """Returns download URL for Adobe Reader Updater DMG"""
 
-        try:
-            url_handle = urlopen(AR_UPDATER_BASE_URL + AR_URL_TEMPLATE % major_version)
-            version_string = url_handle.read()
-            url_handle.close()
-        except Exception as err:
-            raise ProcessorError("Can't open URL template: %s" % (err))
+        url = AR_UPDATER_BASE_URL + AR_URL_TEMPLATE % major_version
+        version_string = self.download(url, text=True)
+
         os_maj, os_min = self.env["os_version"].split(".")
         version_string = version_string.replace(AR_MAJREV_IDENTIFIER, major_version)
         version_string = version_string.replace(OSX_MAJREV_IDENTIFIER, os_maj)
         version_string = version_string.replace(OSX_MINREV_IDENTIFIER, os_min)
 
-        try:
-            url_handle = urlopen(AR_UPDATER_BASE_URL + version_string)
-            version = url_handle.read()
-            url_handle.close()
-        except Exception as err:
-            raise ProcessorError("Can't get version string: %s" % (err))
+        url = AR_UPDATER_BASE_URL + version_string
+        version = self.download(url, text=True)
 
         versioncode = version.replace(".", "")
         url = AR_UPDATER_DOWNLOAD_URL % (major_version, version, versioncode)
