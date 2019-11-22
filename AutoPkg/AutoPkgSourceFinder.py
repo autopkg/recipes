@@ -32,15 +32,14 @@ class AutoPkgSourceFinder(Processor):
         "input_path": {
             "required": True,
             "description": "Path the zip archive was expanded to.",
-        },
+        }
     }
     output_variables = {
-        "autopkg_path": {"description": "Root path of expanded autopkg archive."},
+        "autopkg_path": {"description": "Root path of expanded autopkg archive."}
     }
 
     def find_match(self, root_dir, match_string):
         """Finds a file or directory using shell globbing"""
-        # pylint: disable=no-self-use
         matches = glob.glob(os.path.join(root_dir, match_string))
         if matches:
             return matches[0][len(root_dir) + 1 :]

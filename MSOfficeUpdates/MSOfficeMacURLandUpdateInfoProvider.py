@@ -15,8 +15,6 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-# Disabling 'no-env-member' for recipe processors
-# pylint:disable=e1101
 """See docstring for MSOfficeMacURLandUpdateInfoProvider class"""
 
 from __future__ import absolute_import
@@ -131,8 +129,6 @@ class MSOfficeMacURLandUpdateInfoProvider(Processor):
             "default": DEFAULT_VERSION,
             "description": (
                 "Update type to fetch. Supported values are: "
-                "'%s'. Defaults to %s."
-                % ("', '".join(SUPPORTED_VERSIONS), DEFAULT_VERSION)
                 "'%s'. Defaults to %s." % (SUPPORTED_VERSIONS_LIST, DEFAULT_VERSION)
             ),
         },

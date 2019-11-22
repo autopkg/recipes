@@ -15,6 +15,15 @@
 	<key>Process</key>
 	<array>
 		<dict>
+			<key>Processor</key>
+			<string>Versioner</string>
+			<key>Arguments</key>
+			<dict>
+				<key>input_plist_path</key>
+				<string>%pathname%/%NAME%.app/Contents/Info.plist</string>
+			</dict>
+		</dict>
+		<dict>
 			<key>Arguments</key>
 			<dict>
 				<key>pkgdirs</key>
@@ -38,15 +47,6 @@
 			</dict>
 			<key>Processor</key>
 			<string>Copier</string>
-		</dict>
-		<dict>
-			<key>Arguments</key>
-			<dict>
-				<key>app_path</key>
-				<string>%destination_path%</string>
-			</dict>
-			<key>Processor</key>
-			<string>PraatVersionFixer</string>
 		</dict>
 		<dict>
 			<key>Arguments</key>

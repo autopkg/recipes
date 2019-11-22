@@ -34,7 +34,7 @@ __all__ = ["PraatURLProvider"]
 
 
 PRAAT_BASE_URL = "http://www.fon.hum.uva.nl/praat/download_mac.html"
-PRAAT_DEFAULT_ARCH = "32"
+PRAAT_DEFAULT_ARCH = "64"
 PRAAT_DMG_RE = r'a href="?(?P<url>praat\d+_mac{0}\.dmg)"?'
 
 

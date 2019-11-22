@@ -65,12 +65,11 @@ class MozillaURLProvider(Processor):
         },
     }
     output_variables = {
-        "url": {"description": "URL to the latest Mozilla product release."},
+        "url": {"description": "URL to the latest Mozilla product release."}
     }
 
     def get_mozilla_dmg_url(self, base_url, product_name, release, locale):
         """Assemble download URL for Mozilla product"""
-        # pylint: disable=no-self-use
         # Allow locale as both en-US and en_US.
         locale = locale.replace("_", "-")
 

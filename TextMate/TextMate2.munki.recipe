@@ -23,6 +23,8 @@ preferences panel.
         <string>TextMate2</string>
         <key>BRANCH</key>
         <string>release</string>
+        <key>MACOS</key>
+        <string>10.15</string>
         <key>pkginfo</key>
         <dict>
             <key>catalogs</key>
@@ -33,6 +35,8 @@ preferences panel.
             <string>TextMate brings Apple&apos;s approach to operating systems into the world of text editors. By bridging UNIX underpinnings and GUI, TextMate cherry-picks the best of both worlds to the benefit of expert scripters and novice users alike.</string>
             <key>display_name</key>
             <string>TextMate 2</string>
+            <key>minimum_os_version</key>
+            <string>10.12</string>
             <key>name</key>
             <string>%NAME%</string>
             <key>postinstall_script</key>
