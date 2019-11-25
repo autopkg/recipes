@@ -27,7 +27,7 @@ the latest full update for the given CHANNEL.
     <key>Identifier</key>
     <string>com.github.autopkg.munki.MSAutoUpdate</string>
     <key>MinimumVersion</key>
-    <string>0.4.2</string>
+    <string>1.4</string>
     <key>Input</key>
     <dict>
         <key>NAME</key>

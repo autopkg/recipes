@@ -17,7 +17,7 @@ OS_VERSION can be overridden, or left to the default, '10.10'.</string>
 		<string>10.12</string>
 	</dict>
 	<key>MinimumVersion</key>
-	<string>0.4.1</string>
+	<string>1.4</string>
 	<key>Process</key>
 	<array>
 		<dict>

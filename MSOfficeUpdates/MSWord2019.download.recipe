@@ -27,7 +27,7 @@ installer for the given CHANNEL. 'latest-standalone' does not support
     <key>Identifier</key>
     <string>com.github.autopkg.download.MSWord2019</string>
     <key>MinimumVersion</key>
-    <string>0.4.2</string>
+    <string>1.4</string>
     <key>Input</key>
     <dict>
         <key>CHANNEL</key>

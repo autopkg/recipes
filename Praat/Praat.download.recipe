@@ -20,7 +20,7 @@ causing the CodeSignatureVerifier step to fail and print a warning.</string>
 		<string>Praat</string>
 	</dict>
 	<key>MinimumVersion</key>
-	<string>0.4.0</string>
+	<string>1.4</string>
 	<key>Process</key>
 	<array>
 		<dict>
