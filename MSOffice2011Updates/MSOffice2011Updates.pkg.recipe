@@ -23,7 +23,7 @@ If you would like to use an undocumented HTTPS download, set DOWNLOAD_URL_SCHEME
             <string>http</string>
         </dict>
         <key>MinimumVersion</key>
-        <string>0.6.0</string>
+        <string>1.4</string>
         <key>ParentRecipe</key>
         <string>com.github.autopkg.download.Office2011Updates</string>
         <key>Process</key>

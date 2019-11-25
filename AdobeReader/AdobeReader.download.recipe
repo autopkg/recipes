@@ -20,7 +20,7 @@ Set MAJOR_VERSION to "10" to get the latest/last version of Adobe Reader 10 inst
             <string>AdobeReader</string>
         </dict>
         <key>MinimumVersion</key>
-        <string>0.3.1</string>
+        <string>1.4</string>
         <key>Process</key>
         <array>
             <dict>
