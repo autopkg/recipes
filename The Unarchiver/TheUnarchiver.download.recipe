@@ -34,7 +34,7 @@
         </dict>
         <dict>
             <key>Processor</key>
-            <string>CURLDownloader</string>
+            <string>URLDownloader</string>
         </dict>
         <dict>
             <key>Processor</key>
