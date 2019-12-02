@@ -151,15 +151,6 @@ This is not used to obtain the latest released version.
                 </dict>
             </dict>
             <dict>
-                <key>Processor</key>
-                <string>FileFinder</string>
-                <key>Arguments</key>
-                <dict>
-                    <key>pattern</key>
-                    <string>%python_path%/Versions/*/bin/python3</string>
-                </dict>
-            </dict>
-            <dict>
                 <key>Comment</key>
                 <string>Symlink python3 to /usr/local/autopkg/python</string>
                 <key>Processor</key>
@@ -167,7 +158,7 @@ This is not used to obtain the latest released version.
                 <key>Arguments</key>
                 <dict>
                     <key>source_path</key>
-                    <string>%found_filename%</string>
+                    <string>/Library/AutoPkg/Python3/Python.framework/Versions/Current/bin/python3</string>
                     <key>destination_path</key>
                     <string>%pkgroot%/usr/local/autopkg/python</string>
                 </dict>
