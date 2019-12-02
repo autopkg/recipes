@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/local/autopkg/python
 #
 # Copyright 2013 Greg Neagle
 #
@@ -15,7 +15,6 @@
 # limitations under the License.
 """See docstring for AutoPkgSourceFinder class"""
 
-from __future__ import absolute_import
 
 import glob
 import os
@@ -54,7 +53,7 @@ class AutoPkgSourceFinder(Processor):
         try:
             autopkg_dir = self.find_match(root_dir, "autopkg-autopkg-*")
             self.env["autopkg_path"] = os.path.join(root_dir, autopkg_dir)
-            self.output("Found %s" % self.env["autopkg_path"])
+            self.output(f"Found {self.env['autopkg_path']}")
         except Exception as err:
             raise ProcessorError(err)
 
