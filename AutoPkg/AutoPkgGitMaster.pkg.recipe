@@ -13,7 +13,7 @@ This is not used to obtain the latest released version.
             <key>NAME</key>
             <string>autopkg</string>
             <key>BRANCH</key>
-            <string>py2-to-3</string>
+            <string>master</string>
             <key>URL</key>
             <string>https://github.com/autopkg/autopkg/zipball/</string>
             <key>PYTHON_VERSION</key>
