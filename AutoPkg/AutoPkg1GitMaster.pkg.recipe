@@ -7,13 +7,13 @@
 This is not used to obtain the latest released version.
         </string>
         <key>Identifier</key>
-        <string>com.github.autopkg.AutoPkgGitMaster</string>
+        <string>com.github.autopkg.AutoPkg1GitMaster</string>
         <key>Input</key>
         <dict>
             <key>NAME</key>
             <string>autopkg</string>
             <key>URL</key>
-            <string>https://github.com/autopkg/autopkg/zipball/master</string>
+            <string>https://github.com/autopkg/autopkg/zipball/AutoPkg_1.x</string>
         </dict>
         <key>MinimumVersion</key>
         <string>0.2.1</string>
