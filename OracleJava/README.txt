@@ -16,5 +16,3 @@ AmazonCorettoJDK11.jss.recipe          rtrouton-recipes            JSS/AmazonCor
 AmazonCorettoJDK8.jss.recipe           rtrouton-recipes            JSS/AmazonCorettoJDK8.jss.recipe
 OpenJDK12.jss.recipe                   rtrouton-recipes            JSS/OpenJDK12.jss.recipe
 SapMachineJDK11.pkg.recipe             rtrouton-recipes            SapMachineJDK11/SapMachineJDK11.pkg.recipe
-
-
