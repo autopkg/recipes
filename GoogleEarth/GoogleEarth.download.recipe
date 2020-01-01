@@ -14,7 +14,7 @@
         <string>https://dl.google.com/earth/client/advanced/current/GoogleEarthMacNoUpdate-Intel.dmg</string>
     </dict>
     <key>MinimumVersion</key>
-    <string>0.2.0</string>
+    <string>0.3.1</string>
     <key>Process</key>
     <array>
         <dict>
