@@ -30,12 +30,15 @@
     </dict>
     <key>MinimumVersion</key>
     <string>0.2.0</string>
-	<key>ParentRecipe</key>
-	<string>com.github.autopkg.download.google-earth</string>
+    <key>ParentRecipe</key>
+    <string>com.github.autopkg.download.google-earth</string>
     <key>Process</key>
-	<array>
-        <!-- Make a fake pkg root -->
+    <array>
         <dict>
+            <key>Processor</key>
+            <string>PkgRootCreator</string>
+            <key>Comment</key>
+            <string>Make a fake pkg root</string>
             <key>Arguments</key>
             <dict>
                 <key>pkgroot</key>
@@ -50,13 +53,12 @@
                     <string>0775</string>
                 </dict>
             </dict>
-            <key>Processor</key>
-            <string>PkgRootCreator</string>
         </dict>
-        <!-- Expand packages into fake root -->
         <dict>
             <key>Processor</key>
             <string>FlatPkgUnpacker</string>
+            <key>Comment</key>
+            <string>Expand packages into fake root</string>
             <key>Arguments</key>
             <dict>
                 <key>destination_path</key>
@@ -76,8 +78,11 @@
                 <string>%RECIPE_CACHE_DIR%/expanded/Google_Earth.pkg/Payload</string>
             </dict>
         </dict>
-        <!-- Make and merge Munki installs items -->
         <dict>
+            <key>Processor</key>
+            <string>MunkiInstallsItemsCreator</string>
+            <key>Comment</key>
+            <string>Make and merge Munki installs items</string>
             <key>Arguments</key>
             <dict>
                 <key>installs_item_paths</key>
@@ -89,17 +94,16 @@
                 <key>version_comparison_key</key>
                 <string>CFBundleVersion</string>
             </dict>
-            <key>Processor</key>
-            <string>MunkiInstallsItemsCreator</string>
         </dict>
         <dict>
             <key>Processor</key>
             <string>MunkiPkginfoMerger</string>
         </dict>
-        <!-- Extract a version from Google Earth.app and merge pkginfo version key -->
         <dict>
             <key>Processor</key>
             <string>Versioner</string>
+            <key>Comment</key>
+            <string>Extract a version from Google Earth.app and merge pkginfo version key</string>
             <key>Arguments</key>
             <dict>
                 <key>input_plist_path</key>
