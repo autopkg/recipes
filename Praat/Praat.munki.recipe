@@ -43,11 +43,11 @@ can be overridden by setting ARCH_EDITION to either '32' or '64'.</string>
 			<key>Arguments</key>
 			<dict>
 				<key>destination_path</key>
-				<string>%RECIPE_CACHE_DIR%/%NAME%/%NAME%.app</string>
+				<string>%RECIPE_CACHE_DIR%/%NAME%/Praat.app</string>
 				<key>overwrite</key>
 				<true/>
 				<key>source_path</key>
-				<string>%pathname%/%NAME%.app</string>
+				<string>%pathname%/Praat.app</string>
 			</dict>
 			<key>Processor</key>
 			<string>Copier</string>
