@@ -1,4 +1,5 @@
 #!/usr/bin/python
+# -*- coding: utf-8 -*-
 #
 # Copyright 2014: wycomco GmbH (choules@wycomco.de)
 #           2015: modifications by Tim Sutton

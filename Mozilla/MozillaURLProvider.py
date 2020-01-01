@@ -1,4 +1,5 @@
 #!/usr/bin/python
+# -*- coding: utf-8 -*-
 #
 # Copyright 2010 Per Olofsson, 2013 Greg Neagle
 #

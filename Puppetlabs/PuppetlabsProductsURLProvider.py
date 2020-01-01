@@ -1,4 +1,5 @@
 #!/usr/bin/python
+# -*- coding: utf-8 -*-
 #
 # Copyright 2015 Timothy Sutton, w/ insignificant contributions by Allister Banks
 #
