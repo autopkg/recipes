@@ -12,7 +12,7 @@ A clear and concise description of what the problem is.
 
 **Preferences contents**
 *BE SURE TO SANITIZE ANY SENSITIVE DATA SUCH AS PASSWORDS OR ADDRESSES.*
-Provide or link to a [gist](https://gist.github.com) of the output of `defaults read com.github.autopkg`, or the contents of your external `--prefs` file. 
+Provide or link to a [gist](https://gist.github.com) of the output of `defaults read com.github.autopkg`, or the contents of your external `--prefs` file.
 
 **AutoPkg output**
 *BE SURE TO SANITIZE ANY SENSITIVE DATA SUCH AS PASSWORDS OR ADDRESSES.*

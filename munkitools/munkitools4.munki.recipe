@@ -18,7 +18,7 @@ add it as an update_for any Munki component. Admins should add
 munkitools_app_usage to a manifest manually if its installation on clients
 is desired.
 
-Note that Munki 4 offers the option to include Python to be embedded 
+Note that Munki 4 offers the option to include Python to be embedded
 in preparation for macOS no longer including the Python environment in future OSes.
 This recipe includes the embedded Python installation and adds the Python package
 as a requirement to the other munki pkginfos.
