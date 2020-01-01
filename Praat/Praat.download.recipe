@@ -26,17 +26,23 @@ causing the CodeSignatureVerifier step to fail and print a warning.</string>
 		<dict>
 			<key>Arguments</key>
 			<dict>
-				<key>arch_edition</key>
-				<string>%ARCH_EDITION%</string>
+				<key>re_pattern</key>
+				<string>a href="?(praat\d+_mac%ARCH_EDITION%.dmg)"?</string>
+				<key>result_output_var_name</key>
+				<string>download_filename</string>
+				<key>url</key>
+				<string>http://www.fon.hum.uva.nl/praat/download_mac.html</string>
 			</dict>
 			<key>Processor</key>
-			<string>PraatURLProvider</string>
+			<string>URLTextSearcher</string>
 		</dict>
 		<dict>
 			<key>Arguments</key>
 			<dict>
 				<key>filename</key>
 				<string>%NAME%.dmg</string>
+				<key>url</key>
+				<string>http://www.fon.hum.uva.nl/praat/%download_filename%</string>
 			</dict>
 			<key>Processor</key>
 			<string>URLDownloader</string>
@@ -46,8 +52,6 @@ causing the CodeSignatureVerifier step to fail and print a warning.</string>
 			<string>EndOfCheckPhase</string>
 		</dict>
 		<dict>
-			<key>Processor</key>
-			<string>CodeSignatureVerifier</string>
 			<key>Arguments</key>
 			<dict>
 				<key>input_path</key>
@@ -55,6 +59,8 @@ causing the CodeSignatureVerifier step to fail and print a warning.</string>
 				<key>requirement</key>
 				<string>anchor apple generic and identifier "org.praat.Praat" and (certificate leaf[field.1.2.840.113635.100.6.1.9] /* exists */ or certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = J9C6R9XA5W)</string>
 			</dict>
+			<key>Processor</key>
+			<string>CodeSignatureVerifier</string>
 		</dict>
 	</array>
 </dict>
