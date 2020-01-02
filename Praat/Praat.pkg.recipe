@@ -16,66 +16,7 @@
 	<array>
 		<dict>
 			<key>Processor</key>
-			<string>Versioner</string>
-			<key>Arguments</key>
-			<dict>
-				<key>input_plist_path</key>
-				<string>%pathname%/%NAME%.app/Contents/Info.plist</string>
-			</dict>
-		</dict>
-		<dict>
-			<key>Arguments</key>
-			<dict>
-				<key>pkgdirs</key>
-				<dict>
-					<key>Applications</key>
-					<string>0775</string>
-				</dict>
-				<key>pkgroot</key>
-				<string>%RECIPE_CACHE_DIR%/%NAME%</string>
-			</dict>
-			<key>Processor</key>
-			<string>PkgRootCreator</string>
-		</dict>
-		<dict>
-			<key>Arguments</key>
-			<dict>
-				<key>destination_path</key>
-				<string>%pkgroot%/Applications/%NAME%.app</string>
-				<key>source_path</key>
-				<string>%pathname%/%NAME%.app</string>
-			</dict>
-			<key>Processor</key>
-			<string>Copier</string>
-		</dict>
-		<dict>
-			<key>Arguments</key>
-			<dict>
-				<key>pkg_request</key>
-				<dict>
-					<key>chown</key>
-					<array>
-						<dict>
-							<key>group</key>
-							<string>admin</string>
-							<key>path</key>
-							<string>Applications</string>
-							<key>user</key>
-							<string>root</string>
-						</dict>
-					</array>
-					<key>id</key>
-					<string>org.praat.Praat</string>
-					<key>options</key>
-					<string>purge_ds_store</string>
-					<key>pkgdir</key>
-					<string>%RECIPE_CACHE_DIR%</string>
-				</dict>
-				<key>pkgname</key>
-				<string>%NAME%-%version%</string>
-			</dict>
-			<key>Processor</key>
-			<string>PkgCreator</string>
+			<string>AppPkgCreator</string>
 		</dict>
 	</array>
 </dict>
