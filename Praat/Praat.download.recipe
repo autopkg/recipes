@@ -29,7 +29,7 @@ causing the CodeSignatureVerifier step to fail and print a warning.</string>
 				<key>re_pattern</key>
 				<string>a href="?(praat\d+_mac%ARCH_EDITION%.dmg)"?</string>
 				<key>result_output_var_name</key>
-				<string>filename</string>
+				<string>dl_filename</string>
 				<key>url</key>
 				<string>http://www.fon.hum.uva.nl/praat/download_mac.html</string>
 			</dict>
@@ -42,7 +42,7 @@ causing the CodeSignatureVerifier step to fail and print a warning.</string>
 				<key>filename</key>
 				<string>%NAME%.dmg</string>
 				<key>url</key>
-				<string>http://www.fon.hum.uva.nl/praat/%filename%</string>
+				<string>http://www.fon.hum.uva.nl/praat/%dl_filename%</string>
 			</dict>
 			<key>Processor</key>
 			<string>URLDownloader</string>
