@@ -9,8 +9,9 @@ You may choose a specific release stream by placing the appropriate key in the
 LATEST_RELEASE input variable. The two most common are:
     LATEST_FIREFOX_VERSION for the latest (regular) release (this is the default), and
     FIREFOX_ESR for latest ESR release.
-Other possible values can be determined by examining the JSON file at:
+Other values to try can be found by examining the JSON file at:
     https://product-details.mozilla.org/1.0/firefox_versions.json
+(Not all will work.)
 
 LOCALE controls the language localization to be downloded.
 Examples include 'en-US', 'de', 'sv-SE', and 'zh-TW'
