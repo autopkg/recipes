@@ -3,9 +3,16 @@
 <plist version="1.0">
 <dict>
 	<key>Description</key>
-	<string>This recipe downloads the signed installer package that Mozilla made available starting in Firefox 69.0.
+	<string>This recipe downloads the signed installer package that Mozilla made available starting in Firefox 69.0 and 68.1esr.
 
-The RELEASE key used in the standard Firefox recipes are not yet supported.
+You may choose a specific release stream by placing the appropriate key in the 
+LATEST_RELEASE input variable. The two most common are:
+    LATEST_FIREFOX_VERSION for the latest (regular) release (this is the default), and
+    FIREFOX_ESR for latest ESR release.
+Other values to try can be found by examining the JSON file at:
+    https://product-details.mozilla.org/1.0/firefox_versions.json
+(Not all will work.)
+
 LOCALE controls the language localization to be downloded.
 Examples include 'en-US', 'de', 'sv-SE', and 'zh-TW'
 See the following URL for possible LOCALE values:
@@ -19,6 +26,8 @@ See the following URL for possible LOCALE values:
 		<string>en-US</string>
 		<key>NAME</key>
 		<string>Firefox</string>
+		<key>LATEST_RELEASE</key>
+		<string>LATEST_FIREFOX_VERSION</string>
 	</dict>
 	<key>MinimumVersion</key>
 	<string>1.1</string>
@@ -28,7 +37,7 @@ See the following URL for possible LOCALE values:
 			<key>Arguments</key>
 			<dict>
 				<key>re_pattern</key>
-				<string>"LATEST_FIREFOX_VERSION": "([\d\.]+)"</string>
+				<string>"%LATEST_RELEASE%": "([\d\.abesr]+)"</string>
 				<key>result_output_var_name</key>
 				<string>version</string>
 				<key>url</key>
