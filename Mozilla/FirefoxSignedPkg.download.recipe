@@ -64,7 +64,7 @@ See the following URL for possible LOCALE values:
 		<dict>
 			<key>Arguments</key>
 			<dict>
-				<key>expected_authorities</key>
+				<key>expected_authority_names</key>
 				<array>
 					<string>Developer ID Installer: Mozilla Corporation (43AQ936H96)</string>
 					<string>Developer ID Certification Authority</string>
