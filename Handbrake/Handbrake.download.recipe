@@ -29,6 +29,8 @@ i.e.: `-k PRERELEASE=yes`</string>
                 <string>HandBrake/HandBrake</string>
                 <key>include_prereleases</key>
                 <string>%PRERELEASE%</string>
+                <key>sort_by_highest_tag_names</key>
+                <string>True</string>
                 <key>asset_regex</key>
                 <string>HandBrake-\S.*?.dmg</string>
             </dict>
