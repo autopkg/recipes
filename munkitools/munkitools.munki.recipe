@@ -33,7 +33,7 @@ descending by tag names according to LooseVersion semantics.
 MUNKI_ICON should be overridden with your icon name.
 </string>
     <key>Identifier</key>
-    <string>com.github.autopkg.munki.munkitools4</string>
+    <string>com.github.autopkg.munki.munkitools</string>
     <key>Input</key>
     <dict>
         <key>INCLUDE_PRERELEASES</key>
