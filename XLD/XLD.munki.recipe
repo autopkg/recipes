@@ -12,8 +12,6 @@
         <string>XLD</string>
         <key>MUNKI_REPO_SUBDIR</key>
         <string>apps/XLD</string>
-        <key>SU_FEED_URL</key>
-        <string>http://xld.googlecode.com/svn/appcast/xld-appcast_e.xml</string>
         <key>pkginfo</key>
         <dict>
             <key>catalogs</key>
@@ -32,30 +30,10 @@
     </dict>
     <key>MinimumVersion</key>
     <string>0.2.0</string>
+    <key>ParentRecipe</key>
+    <string>com.github.autopkg.download.XLD</string>
     <key>Process</key>
     <array>
-        <dict>
-            <key>Processor</key>
-            <string>SparkleUpdateInfoProvider</string>
-            <key>Arguments</key>
-            <dict>
-                <key>appcast_url</key>
-                <string>%SU_FEED_URL%</string>
-            </dict>
-        </dict>
-        <dict>
-            <key>Processor</key>
-            <string>URLDownloader</string>
-            <key>Arguments</key>
-            <dict>
-                <key>filename</key>
-                <string>%NAME%.dmg</string>
-            </dict>
-        </dict>
-        <dict>
-            <key>Processor</key>
-            <string>EndOfCheckPhase</string>
-        </dict>
         <dict>
             <key>Processor</key>
             <string>MunkiPkginfoMerger</string>

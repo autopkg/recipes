@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Description</key>
+    <string>Downloads Adium installer and installs it from DMG.</string>
+    <key>Identifier</key>
+    <string>com.github.autopkg.install.Adium</string>
+    <key>Input</key>
+    <dict>
+        <key>NAME</key>
+        <string>Adium</string>
+    </dict>
+    <key>MinimumVersion</key>
+    <string>0.2.9</string>
+    <key>ParentRecipe</key>
+    <string>com.github.autopkg.download.Adium</string>
+    <key>Process</key>
+    <array>
+        <dict>
+            <key>Processor</key>
+            <string>InstallFromDMG</string>
+            <key>Arguments</key>
+            <dict>
+                <key>dmg_path</key>
+                <string>%pathname%</string>
+                <key>items_to_copy</key>
+                <array>
+                    <dict>
+                        <key>source_item</key>
+                        <string>Adium.app</string>
+                        <key>destination_path</key>
+                        <string>/Applications/</string>
+                    </dict>
+                </array>
+            </dict>
+        </dict>
+    </array>
+</dict>
+</plist>

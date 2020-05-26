@@ -15,14 +15,15 @@
 # limitations under the License.
 """See docstring for AdobeReaderRepackager class"""
 
+from __future__ import absolute_import
+
 import os
 import shutil
 import subprocess
 from xml.etree import ElementTree
 
-from autopkglib.DmgMounter import DmgMounter
 from autopkglib import ProcessorError
-
+from autopkglib.DmgMounter import DmgMounter
 
 __all__ = ["AdobeReaderRepackager"]
 
@@ -76,82 +77,73 @@ class AdobeReaderRepackager(DmgMounter):
     input_variables = {
         "dmg_path": {
             "required": True,
-            "description":
-                "Path to a dmg containing the Adobe Reader installer.",
-        },
+            "description": "Path to a dmg containing the Adobe Reader installer.",
+        }
     }
-    output_variables = {
-        "pkg_path": "Path to the repackaged package."
-    }
+    output_variables = {"pkg_path": "Path to the repackaged package."}
 
     def find_pkg(self, dir_path):
-        '''Return path to the first package in dir_path'''
-        #pylint: disable=no-self-use
+        """Return path to the first package in dir_path"""
+        # pylint: disable=no-self-use
         for item in os.listdir(dir_path):
             if item.endswith(".pkg"):
                 return os.path.join(dir_path, item)
-        raise ProcessorError(
-            "No package found in %s" % dir_path)
+        raise ProcessorError("No package found in %s" % dir_path)
 
     def expand(self, pkg, expand_dir):
-        '''Uses pkgutil to expand a flat package.'''
-        #pylint: disable=no-self-use
+        """Uses pkgutil to expand a flat package."""
+        # pylint: disable=no-self-use
         if os.path.isdir(expand_dir):
             try:
                 shutil.rmtree(expand_dir)
-            except (OSError, IOError), err:
-                raise ProcessorError(
-                    "Can't remove %s: %s" % (expand_dir, err))
+            except (OSError, IOError) as err:
+                raise ProcessorError("Can't remove %s: %s" % (expand_dir, err))
         try:
-            subprocess.check_call(
-                ['/usr/sbin/pkgutil', '--expand', pkg, expand_dir])
-        except subprocess.CalledProcessError, err:
+            subprocess.check_call(["/usr/sbin/pkgutil", "--expand", pkg, expand_dir])
+        except subprocess.CalledProcessError as err:
             raise ProcessorError("%s expanding %s" % (err, pkg))
         return expand_dir
 
     def flatten(self, expanded_pkg, destination):
-        '''Flatten an expanded flat pkg'''
-        #pylint: disable=no-self-use
+        """Flatten an expanded flat pkg"""
+        # pylint: disable=no-self-use
         if os.path.exists(destination):
             try:
                 os.unlink(destination)
-            except OSError, err:
-                raise ProcessorError(
-                    "Can't remove %s: %s" % (destination, err))
+            except OSError as err:
+                raise ProcessorError("Can't remove %s: %s" % (destination, err))
         try:
             subprocess.check_call(
-                ['/usr/sbin/pkgutil', '--flatten', expanded_pkg, destination])
-        except subprocess.CalledProcessError, err:
-            raise ProcessorError(
-                "%s flattening %s" % (err, expanded_pkg))
+                ["/usr/sbin/pkgutil", "--flatten", expanded_pkg, destination]
+            )
+        except subprocess.CalledProcessError as err:
+            raise ProcessorError("%s flattening %s" % (err, expanded_pkg))
 
     def modify_distribution(self, expanded_pkg):
-        '''Modify the package Distribution file so that installation is allowed
-        on non-boot volumes.'''
-        #pylint: disable=no-self-use
+        """Modify the package Distribution file so that installation is allowed
+        on non-boot volumes."""
+        # pylint: disable=no-self-use
         dist_file = os.path.join(expanded_pkg, "Distribution")
         if not os.path.exists(dist_file):
             raise ProcessorError("%s not found")
         try:
             dist = ElementTree.parse(dist_file)
-        except (OSError, IOError, ElementTree.ParseError), err:
+        except (OSError, IOError, ElementTree.ParseError) as err:
             raise ProcessorError("Can't read %s: %s" % (dist_file, err))
 
         dist_root = dist.getroot()
-        if not dist_root.tag in ["installer-script", "installer-gui-script"]:
-            raise ProcessorError(
-                "Distribution file is not in the expected format.")
+        if dist_root.tag not in ["installer-script", "installer-gui-script"]:
+            raise ProcessorError("Distribution file is not in the expected format.")
         domains = dist_root.find("domains")
         if domains is not None:
             dist_root.remove(domains)
             try:
                 dist.write(dist_file)
-            except (OSError, IOError), err:
-                raise ProcessorError(
-                    "Could not write %s: %s" % (dist_file, err))
+            except (OSError, IOError) as err:
+                raise ProcessorError("Could not write %s: %s" % (dist_file, err))
 
     def replace_app_preinstall(self, expanded_pkg):
-        '''Replace the preinstall script in application.pkg with our own'''
+        """Replace the preinstall script in application.pkg with our own"""
         pkg_name = os.path.basename(expanded_pkg)
         app_pkg = os.path.join(expanded_pkg, "application.pkg")
         if not os.path.exists(app_pkg):
@@ -160,25 +152,27 @@ class AdobeReaderRepackager(DmgMounter):
         if pkg_name.startswith("AcroRdrDC"):
             our_script = os.path.join(
                 os.path.dirname(__file__),
-                "package_resources/scripts/readerdc_preinstall")
+                "package_resources/scripts/readerdc_preinstall",
+            )
         else:
             our_script = os.path.join(
-                os.path.dirname(__file__),
-                "package_resources/scripts/reader_preinstall")
+                os.path.dirname(__file__), "package_resources/scripts/reader_preinstall"
+            )
         if not os.path.exists(our_script):
             raise ProcessorError("%s not found" % our_script)
         try:
             os.unlink(preinstall_script)
-        except (OSError, IOError), err:
+        except (OSError, IOError) as err:
             raise ProcessorError("%s removing %s" % (err, preinstall_script))
         try:
             shutil.copy(our_script, preinstall_script)
-        except (OSError, IOError), err:
+        except (OSError, IOError) as err:
             raise ProcessorError(
-                "%s copying %s to %s" % (err, our_script, preinstall_script))
+                "%s copying %s to %s" % (err, our_script, preinstall_script)
+            )
         self.output(
-            "Replaced pkg preinstall script with our custom script at %s"
-            % our_script)
+            "Replaced pkg preinstall script with our custom script at %s" % our_script
+        )
 
     def main(self):
         # Mount the image.
@@ -188,22 +182,22 @@ class AdobeReaderRepackager(DmgMounter):
         try:
             pkg = self.find_pkg(mount_point)
             pkg_name = os.path.splitext(os.path.basename(pkg))[0]
-            expand_dir = os.path.join(
-                self.env["RECIPE_CACHE_DIR"], pkg_name)
+            expand_dir = os.path.join(self.env["RECIPE_CACHE_DIR"], pkg_name)
             modified_pkg = os.path.join(
-                self.env["RECIPE_CACHE_DIR"], os.path.basename(pkg))
+                self.env["RECIPE_CACHE_DIR"], os.path.basename(pkg)
+            )
             expanded_pkg = self.expand(pkg, expand_dir)
             self.modify_distribution(expanded_pkg)
             self.replace_app_preinstall(expanded_pkg)
             self.flatten(expanded_pkg, modified_pkg)
             self.env["pkg_path"] = modified_pkg
 
-        except BaseException, err:
+        except Exception as err:
             raise ProcessorError(err)
         finally:
             self.unmount(self.env["dmg_path"])
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     PROCESSOR = AdobeReaderRepackager()
     PROCESSOR.execute_shell()

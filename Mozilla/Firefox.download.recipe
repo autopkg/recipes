@@ -3,13 +3,14 @@
 <plist version="1.0">
 <dict>
     <key>Description</key>
-    <string>Download recipe for Firefox. Finds and downloads a Firefox release.
-Values for RELEASE correspond to directories here: http://download-origin.cdn.mozilla.net/pub/mozilla.org/firefox/releases/
-Some useful values are: 'latest', 'latest-10.0esr', 'latest-esr', 'latest-3.6', 'latest-beta'
-LOCALE corresponds to directories at http://download-origin.cdn.mozilla.net/pub/mozilla.org/firefox/releases/$RELEASE/mac/
-Examples include 'en-US', 'de', 'ja-JP-mac', 'sv-SE', and 'zh-TW'
-No idea if all Firefox builds are available in all the same localizations, so you may need to verify that any particular
-combination is offered.</string>
+    <string>Download recipe for Firefox. Finds and downloads a Firefox release disk image.
+Some useful values for RELEASE are: 'latest', 'esr-latest', 'beta-latest'.
+LOCALE controls the language localization to be downloded.
+Examples include 'en-US', 'de', 'sv-SE', and 'zh-TW'
+See the following URLs for more info:
+    http://ftp.mozilla.org/pub/firefox/releases/latest/README.txt
+    http://ftp.mozilla.org/pub/firefox/releases/latest-esr/README.txt
+    http://ftp.mozilla.org/pub/firefox/releases/latest-beta/README.txt</string>
     <key>Identifier</key>
     <string>com.github.autopkg.download.firefox-rc-en_US</string>
     <key>Input</key>
@@ -17,12 +18,14 @@ combination is offered.</string>
         <key>RELEASE</key>
         <string>latest</string>
         <key>LOCALE</key>
-        <string>en_US</string>
+        <string>en-US</string>
         <key>NAME</key>
         <string>Firefox</string>
+        <key>DISABLE_CODE_SIGNATURE_VERIFICATION</key>
+        <false />
     </dict>
     <key>MinimumVersion</key>
-    <string>0.2.0</string>
+    <string>0.4.1</string>
     <key>Process</key>
     <array>
         <dict>
@@ -50,6 +53,19 @@ combination is offered.</string>
         <dict>
             <key>Processor</key>
             <string>EndOfCheckPhase</string>
+        </dict>
+        <dict>
+            <key>Processor</key>
+            <string>CodeSignatureVerifier</string>
+            <key>Arguments</key>
+            <dict>
+                <key>comment</key>
+                <string>Use wildcard matching for the app so it will also match FirefoxDeveloperEdition.app and FirefoxNightly.app</string>
+                <key>input_path</key>
+                <string>%pathname%/Firefox*.app</string>
+                <key>requirement</key>
+                <string>anchor apple generic and certificate leaf[field.1.2.840.113635.100.6.1.9] /* exists */ or anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = "43AQ936H96"</string>
+            </dict>
         </dict>
     </array>
 </dict>

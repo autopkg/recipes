@@ -15,11 +15,12 @@
 # limitations under the License.
 """See docstring for PuppetlabsProductsURLProvider class"""
 
-import urllib2
 import re
+from builtins import str
 from distutils.version import LooseVersion
 
-from autopkglib import Processor, ProcessorError
+from autopkglib import ProcessorError
+from autopkglib.URLGetter import URLGetter
 
 __all__ = ["PuppetlabsProductsURLProvider"]
 
@@ -27,74 +28,74 @@ DL_INDEX = "https://downloads.puppetlabs.com/mac"
 DEFAULT_VERSION = "latest"
 OS_VERSION = "10.10"
 
-class PuppetlabsProductsURLProvider(Processor):
+
+class PuppetlabsProductsURLProvider(URLGetter):
     """Extracts a URL for a Puppet Labs item."""
+
     description = __doc__
     input_variables = {
         "product_name": {
             "required": True,
-            "description":
+            "description": (
                 "Product to fetch URL for. One of 'puppet', 'facter', 'hiera',"
-                "or 'agent'.",
+                "or 'agent'."
+            ),
         },
         "get_version": {
             "required": False,
-            "description":
-                ("Specific version to request. Defaults to '%s', which "
-                 "automatically finds the highest available release version."
-                 % (DEFAULT_VERSION)),
+            "description": (
+                "Specific version to request. Defaults to '%s', which "
+                "automatically finds the highest available release version."
+                % (DEFAULT_VERSION)
+            ),
         },
         "get_os_version": {
             "required": False,
-            "description":
-                ("When fetching the puppet-agent, collection-style pkg, "
-                 "designates OS. Defaults to '%s'. Currently only 10.9 "
-                 "or 10.10 packages are available."
-                 % (OS_VERSION)),
+            "description": (
+                "When fetching the puppet-agent, collection-style pkg, "
+                "designates OS. Defaults to '%s'. Currently only 10.9 "
+                "or 10.10 packages are available." % (OS_VERSION)
+            ),
         },
     }
     output_variables = {
-        "version": {
-            "description": "Version of the product.",
-        },
-        "url": {
-            "description": "Download URL.",
-        },
+        "version": {"description": "Version of the product."},
+        "url": {"description": "Download URL."},
     }
 
     def main(self):
         """Return a download URL for a PuppetLabs item"""
         download_url = DL_INDEX
         prod = self.env["product_name"]
-        if prod == 'agent':
+        if prod == "agent":
             os_version = self.env.get("get_os_version", OS_VERSION)
-            version_re = r"\d+\.\d+\.\d+" # e.g.: puppet-agent-1.2.0-osx-10.9-x86_64.dmg
-            re_download = ("href=\"(puppet-agent-(%s)-osx-(%s)-x86_64.dmg)\"" % (version_re, os_version))
-            download_url += "/PC1"
+            version_re = (
+                r"\d+\.\d+\.\d+"
+            )  # e.g.: 10.10/PC1/x86_64/puppet-agent-1.2.5-1.osx10.10.dmg
+            download_url += str("/" + os_version + "/PC1/x86_64")
+            re_download = 'href="(puppet-agent-(%s)-1.osx(%s).dmg)"' % (
+                version_re,
+                os_version,
+            )
         else:
             # look for "product-1.2.3.dmg"
             # skip anything with a '-' following the version no. ('rc', etc.)
             version_re = self.env.get("get_version")
             if not version_re or version_re == DEFAULT_VERSION:
                 version_re = r"\d+[\.\d]+"
-            re_download = ("href=\"(%s-(%s)+.dmg)\""
-                           % (self.env["product_name"].lower(), version_re))
-
-        try:
-            data = urllib2.urlopen(download_url).read()
-        except BaseException as err:
-            raise ProcessorError(
-                "Unexpected error retrieving download index: '%s'" % err)
-
+            re_download = 'href="(%s-(%s)+.dmg)"' % (
+                self.env["product_name"].lower(),
+                version_re,
+            )
+        data = self.download(download_url, text=True)
         # (dmg, version)
         candidates = re.findall(re_download, data)
         if not candidates:
-            raise ProcessorError(
-                "Unable to parse any products from download index.")
+            raise ProcessorError("Unable to parse any products from download index.")
 
         # sort to get the highest version
         highest = candidates[0]
-        if  len(candidates) > 1:
+        if len(candidates) > 1:
             for prod in candidates:
                 if LooseVersion(prod[1]) > LooseVersion(highest[1]):
                     highest = prod

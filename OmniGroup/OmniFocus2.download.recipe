@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
     <key>Description</key>
-    <string>Downloads latest OmniFocus2 disk image and imports into Munki.</string>
+    <string>Downloads latest OmniFocus2 disk image.</string>
     <key>Identifier</key>
     <string>com.github.autopkg.download.omnifocus2</string>
     <key>Input</key>
@@ -12,8 +12,22 @@
         <string>OmniFocus2</string>
     </dict>
     <key>MinimumVersion</key>
-    <string>0.2.0</string>
+    <string>0.6.1</string>
     <key>ParentRecipe</key>
     <string>com.github.autopkg.download.omnigroupproduct</string>
+    <key>Process</key>
+    <array>
+        <dict>
+            <key>Processor</key>
+            <string>CodeSignatureVerifier</string>
+            <key>Arguments</key>
+            <dict>
+                <key>input_path</key>
+                <string>%pathname%/OmniFocus.app</string>
+                <key>requirement</key>
+                <string>identifier "com.omnigroup.OmniFocus2" and anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = "34YW5XSRB7"</string>
+            </dict>
+        </dict>
+    </array>
 </dict>
 </plist>

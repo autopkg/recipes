@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Description</key>
+	<string>This recipe downloads the signed installer package that Mozilla made available starting in Firefox 69.0 and 68.1esr.
+
+You may choose a specific release stream by placing the appropriate key in the 
+LATEST_RELEASE input variable. The two most common are:
+    LATEST_FIREFOX_VERSION for the latest (regular) release (this is the default), and
+    FIREFOX_ESR for latest ESR release.
+Other values to try can be found by examining the JSON file at:
+    https://product-details.mozilla.org/1.0/firefox_versions.json
+(Not all will work.)
+
+LOCALE controls the language localization to be downloded.
+Examples include 'en-US', 'de', 'sv-SE', and 'zh-TW'
+See the following URL for possible LOCALE values:
+    http://ftp.mozilla.org/pub/firefox/releases/latest/README.txt
+</string>
+	<key>Identifier</key>
+	<string>com.github.autopkg.download.FirefoxSignedPkg</string>
+	<key>Input</key>
+	<dict>
+		<key>LOCALE</key>
+		<string>en-US</string>
+		<key>NAME</key>
+		<string>Firefox</string>
+		<key>LATEST_RELEASE</key>
+		<string>LATEST_FIREFOX_VERSION</string>
+	</dict>
+	<key>MinimumVersion</key>
+	<string>1.1</string>
+	<key>Process</key>
+	<array>
+		<dict>
+			<key>Arguments</key>
+			<dict>
+				<key>re_pattern</key>
+				<string>"%LATEST_RELEASE%": "([\d\.abesr]+)"</string>
+				<key>result_output_var_name</key>
+				<string>version</string>
+				<key>url</key>
+				<string>https://product-details.mozilla.org/1.0/firefox_versions.json</string>
+			</dict>
+			<key>Processor</key>
+			<string>URLTextSearcher</string>
+		</dict>
+		<dict>
+			<key>Arguments</key>
+			<dict>
+				<key>filename</key>
+				<string>%NAME%-%version%.pkg</string>
+				<key>url</key>
+				<string>http://releases.mozilla.org/pub/firefox/releases/%version%/mac/%LOCALE%/Firefox%20%version%.pkg</string>
+			</dict>
+			<key>Processor</key>
+			<string>URLDownloader</string>
+		</dict>
+		<dict>
+			<key>Processor</key>
+			<string>EndOfCheckPhase</string>
+		</dict>
+		<dict>
+			<key>Arguments</key>
+			<dict>
+				<key>expected_authority_names</key>
+				<array>
+					<string>Developer ID Installer: Mozilla Corporation (43AQ936H96)</string>
+					<string>Developer ID Certification Authority</string>
+					<string>Apple Root CA</string>
+				</array>
+				<key>input_path</key>
+				<string>%pathname%</string>
+			</dict>
+			<key>Processor</key>
+			<string>CodeSignatureVerifier</string>
+		</dict>
+	</array>
+</dict>
+</plist>

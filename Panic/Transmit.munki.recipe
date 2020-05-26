@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
     <key>Description</key>
-    <string>Downloads the latest Transmit using Panic's Sparkle feed, and imports into Munki.</string>
+    <string>Downloads the latest Transmit 4 using Panic's Sparkle feed, and imports into Munki.</string>
     <key>Identifier</key>
     <string>com.github.autopkg.munki.transmit</string>
     <key>Input</key>

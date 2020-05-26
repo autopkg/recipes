@@ -8,34 +8,36 @@
 BRANCH can be one of 'release' or 'beta', which correspond respectively
 to the 'Normal' and 'Nightly' options in TextMate 2's Software Update
 preferences panel.
+
+MACOS corresponds to the macOS version. TextMate API currently offers options
+from 10.12 to 10.latest.
 </string>
     <key>Identifier</key>
     <string>com.github.autopkg.download.TextMate2</string>
     <key>Input</key>
     <dict>
+        <key>BASE_URL</key>
+        <string>https://api.textmate.org/downloads</string>
         <key>NAME</key>
         <string>TextMate2</string>
         <key>BRANCH</key>
         <string>release</string>
+        <key>MACOS</key>
+        <string>10.15</string>
+        <key>FILENAME</key>
+        <string>TextMate_2.0.tbz</string>
     </dict>
     <key>MinimumVersion</key>
-    <string>0.4.0</string>
+    <string>1.3</string>
     <key>Process</key>
     <array>
-        <dict>
-            <key>Processor</key>
-            <string>TextMateURLProvider</string>
-            <key>Arguments</key>
-            <dict>
-                <key>branch</key>
-                <string>%BRANCH%</string>
-            </dict>
-        </dict>
         <dict>
             <key>Arguments</key>
             <dict>
                 <key>filename</key>
-                <string>TextMate2.tar.bz2</string>
+                <string>%FILENAME%</string>
+                <key>url</key>
+                <string>%BASE_URL%/%BRANCH%?os=%MACOS%</string>
             </dict>
             <key>Processor</key>
             <string>URLDownloader</string>
@@ -67,7 +69,7 @@ preferences panel.
                 <key>input_path</key>
                 <string>%RECIPE_CACHE_DIR%/%NAME%/TextMate.app</string>
                 <key>requirement</key>
-                <string>identifier "com.macromates.TextMate.preview" and anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = "45TL96F76G"</string>
+                <string>identifier "com.macromates.TextMate" and anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = "45TL96F76G"</string>
             </dict>
         </dict>
     </array>

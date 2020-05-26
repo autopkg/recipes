@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Description</key>
+    <string>Downloads a Microsoft Office Mac product. This recipe should only
+ever be used as a child recipe with specific values overridden.
+
+PRODUCT is one of the keys defined in PROD_DICT in the
+MSOfficeMacURLandUpdateInfoProvider processor. Common values are:
+Excel2016, Excel2019, Word2016, Word2019, etc
+
+CHANNEL can be set to several values in order to get more frequent updates
+that can be used for testing purposes. See the explanations in the 'Channel'
+table at http://macadmins.software/docs/MAU_ManifestServer.pdf. Supported
+values are 'Production', 'InsiderSlow', 'InsiderFast', or a custom UUID to be
+inserted into the Base URL.
+
+LOCALE_ID sets the locale for a descriptive text that will be
+extracted from the Microsoft update metadata. See
+https://msdn.microsoft.com/en-us/goglobal/bb964664.aspx
+for more information about locale IDs.
+
+VERSION supports three values: 'latest', which will download
+the latest full update for the given CHANNEL, 'latest-delta',
+which will download the latest delta update for the given CHANNEL,
+and 'latest-standalone' which will download the latest standalone
+installer for the given CHANNEL. 'latest-standalone' does not support
+'InsiderFast' CHANNEL.
+</string>
+    <key>Identifier</key>
+    <string>com.github.autopkg.download.MSOfficeMacProduct</string>
+    <key>MinimumVersion</key>
+    <string>1.4</string>
+    <key>Input</key>
+    <dict>
+        <key>CHANNEL</key>
+        <string>Production</string>
+        <key>LOCALE_ID</key>
+        <string>1033</string>
+        <key>NAME</key>
+        <string>MicrosoftOfficeMacProduct</string>
+        <key>PRODUCT</key>
+        <string>MicrosoftOfficeMacProduct</string>
+        <key>VERSION</key>
+        <string>latest</string>
+    </dict>
+    <key>Process</key>
+    <array>
+        <dict>
+            <key>Processor</key>
+            <string>MSOfficeMacURLandUpdateInfoProvider</string>
+            <key>Arguments</key>
+            <dict>
+                <key>channel</key>
+                <string>%CHANNEL%</string>
+                <key>locale_id</key>
+                <string>%LOCALE_ID%</string>
+                <key>product</key>
+                <string>%PRODUCT%</string>
+                <key>version</key>
+                <string>%VERSION%</string>
+            </dict>
+        </dict>
+        <dict>
+            <key>Processor</key>
+            <string>URLDownloader</string>
+            <key>Arguments</key>
+            <dict>
+              <key>filename</key>
+              <string>%NAME%-%version%.pkg</string>
+            </dict>
+        </dict>
+        <dict>
+            <key>Processor</key>
+            <string>EndOfCheckPhase</string>
+        </dict>
+        <dict>
+            <key>Processor</key>
+            <string>CodeSignatureVerifier</string>
+            <key>Arguments</key>
+            <dict>
+                <key>input_path</key>
+                <string>%pathname%</string>
+                <key>expected_authority_names</key>
+                <array>
+                    <string>Developer ID Installer: Microsoft Corporation (UBF8T346G9)</string>
+                    <string>Developer ID Certification Authority</string>
+                    <string>Apple Root CA</string>
+                </array>
+            </dict>
+        </dict>
+    </array>
+</dict>
+</plist>

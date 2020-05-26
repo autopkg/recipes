@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
     <key>Description</key>
-    <string>Downloads the latest Transmit and creates a package.</string>
+    <string>Downloads the latest Transmit 4 and creates a package.</string>
     <key>Identifier</key>
     <string>com.github.autopkg.pkg.transmit</string>
     <key>Input</key>

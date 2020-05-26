@@ -3,39 +3,20 @@
 <plist version="1.0">
 <dict>
     <key>Description</key>
-    <string>Downloads latest OmniPlan disk image builds a package.</string>
+    <string>Downloads latest OmniPlan 2 disk image builds a package.</string>
     <key>Identifier</key>
     <string>com.github.autopkg.pkg.omniplan</string>
     <key>Input</key>
     <dict>
         <key>NAME</key>
         <string>OmniPlan</string>
-        <key>APPCAST_URL</key>
-        <string>http://update.omnigroup.com/appcast/com.omnigroup.OmniPlan2</string>
     </dict>
     <key>MinimumVersion</key>
     <string>0.2.0</string>
+    <key>ParentRecipe</key>
+    <string>com.github.autopkg.download.omniplan</string>
     <key>Process</key>
     <array>
-        <dict>
-            <key>Processor</key>
-            <string>SparkleUpdateInfoProvider</string>
-            <key>Arguments</key>
-            <dict>
-                <key>appcast_url</key>
-                <string>%APPCAST_URL%</string>
-                <key>alternate_xmlns_url</key>
-                <string>http://www.omnigroup.com/namespace/omniappcast/v1</string>
-            </dict>
-        </dict>
-        <dict>
-            <key>Processor</key>
-            <string>URLDownloader</string>
-        </dict>
-        <dict>
-            <key>Processor</key>
-            <string>EndOfCheckPhase</string>
-        </dict>
         <dict>
             <key>Processor</key>
             <string>AppDmgVersioner</string>

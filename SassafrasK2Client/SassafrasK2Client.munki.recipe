@@ -83,10 +83,12 @@ we use its version in the pkginfo.
             <key>Arguments</key>
             <dict>
                 <key>url</key>
-                <string>http://www.sassafras.com/k2/revisions72/current/Installers/Macintosh%20Installers/Misc/k2clientconfig</string>
+                <string>https://www.sassafras.com/k2/revisions%REVISION%/current/Installers/Macintosh%20Installers/Misc/k2clientconfig</string>
                 <key>download_dir</key>
                 <string>%RECIPE_CACHE_DIR%/k2clientconfig</string>
             </dict>
+            <key>Comment</key>
+            <string>Using REVISION variable to ensure we're downloading the k2clientconfig that matches our major revision.</string>
             <key>Processor</key>
             <string>URLDownloader</string>
         </dict>

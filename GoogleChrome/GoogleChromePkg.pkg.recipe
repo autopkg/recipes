@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Description</key>
+    <string>Downloads latest Google Chrome enterprise package and renames it based on the Chrome version.</string>
+    <key>Identifier</key>
+    <string>com.github.autopkg.pkg.googlechromepkg</string>
+    <key>Input</key>
+    <dict>
+        <key>NAME</key>
+        <string>GoogleChrome</string>
+    </dict>
+    <key>MinimumVersion</key>
+    <string>1.4.1</string>
+    <key>ParentRecipe</key>
+    <string>com.github.autopkg.download.googlechromepkg</string>
+    <key>Process</key>
+    <array>
+        <dict>
+            <key>Processor</key>
+            <string>FlatPkgUnpacker</string>
+            <key>Arguments</key>
+            <dict>
+                <key>flat_pkg_path</key>
+                <string>%pathname%</string>
+                <key>destination_path</key>
+                <string>%RECIPE_CACHE_DIR%/unpack</string>
+            </dict>
+        </dict>
+        <dict>
+            <key>Processor</key>
+            <string>PkgPayloadUnpacker</string>
+            <key>Arguments</key>
+            <dict>
+                <key>pkg_payload_path</key>
+                <string>%RECIPE_CACHE_DIR%/unpack/GoogleChrome.pkg/Payload</string>
+                <key>destination_path</key>
+                <string>%RECIPE_CACHE_DIR%/unpack</string>
+            </dict>
+        </dict>
+        <dict>
+            <key>Processor</key>
+            <string>PlistReader</string>
+            <key>Arguments</key>
+            <dict>
+                <key>info_path</key>
+                <string>%RECIPE_CACHE_DIR%/unpack/Google Chrome.app</string>
+            </dict>
+        </dict>
+        <dict>
+            <key>Processor</key>
+            <string>PkgCopier</string>
+            <key>Arguments</key>
+            <dict>
+                <key>source_pkg</key>
+                <string>%pathname%</string>
+                <key>pkg_path</key>
+                <string>%RECIPE_CACHE_DIR%/GoogleChrome-%version%.pkg</string>
+            </dict>
+        </dict>
+        <dict>
+            <key>Processor</key>
+            <string>PathDeleter</string>
+            <key>Arguments</key>
+            <dict>
+                <key>path_list</key>
+                <array>
+                    <string>%RECIPE_CACHE_DIR%/unpack</string>
+                </array>
+            </dict>
+        </dict>
+    </array>
+</dict>
+</plist>

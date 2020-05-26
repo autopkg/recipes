@@ -15,80 +15,78 @@
 # limitations under the License.
 """See docstring for AdobeReaderURLProvider class"""
 
-
 import json
-import urllib2
 
-from autopkglib import Processor, ProcessorError
-
+from autopkglib import ProcessorError
+from autopkglib.URLGetter import URLGetter
 
 __all__ = ["AdobeReaderURLProvider"]
-
 
 AR_BASE_URL = (
     "http://get.adobe.com/reader/webservices/json/standalone/"
     "?platform_type=Macintosh&platform_dist=OSX&platform_arch=x86-32"
-    "&platform_misc=%s&language=%s&eventname=readerotherversions")
+    "&platform_misc=%s&language=%s&eventname=readerotherversions"
+)
 
 LANGUAGE_DEFAULT = "English"
 MAJOR_VERSION_DEFAULT = "11"
-OS_VERSION_DEFAULT = '10.8.0'
+OS_VERSION_DEFAULT = "10.8.0"
 
 MAJOR_VERSION_MATCH_STR = "adobe/reader/mac/%s"
 
-class AdobeReaderURLProvider(Processor):
+
+class AdobeReaderURLProvider(URLGetter):
     """Provides URL to the latest Adobe Reader release."""
+
     description = __doc__
     input_variables = {
         "language": {
             "required": False,
-            "description": ("Which language to download. Examples: 'English', "
-                            "'German', 'Japanese', 'Swedish'. Default is %s."
-                            % LANGUAGE_DEFAULT),
+            "description": (
+                "Which language to download. Examples: 'English', "
+                "'German', 'Japanese', 'Swedish'. Default is %s." % LANGUAGE_DEFAULT
+            ),
         },
         "os_version": {
             "required": False,
-            "description": ("OS X version to use in URL search. Defaults to %s."
-                            " Reader DC requires '10.9.0'" % OS_VERSION_DEFAULT)
+            "description": (
+                "OS X version to use in URL search. Defaults to %s."
+                " Reader DC requires '10.9.0'" % OS_VERSION_DEFAULT
+            ),
         },
         "major_version": {
             "required": False,
-            "description": ("Major version. Examples: '10', '11', 'AcrobatDC'. "
-                            "Defaults to %s" % MAJOR_VERSION_DEFAULT)
+            "description": (
+                "Major version. Examples: '10', '11', 'AcrobatDC'. "
+                "Defaults to %s" % MAJOR_VERSION_DEFAULT
+            ),
         },
-        "base_url": {
-            "required": False,
-            "description": "Default is %s" % AR_BASE_URL,
-        },
+        "base_url": {"required": False, "description": "Default is %s" % AR_BASE_URL},
     }
     output_variables = {
-        "url": {
-            "description": "URL to the latest Adobe Reader release.",
-        },
+        "url": {"description": "URL to the latest Adobe Reader release."}
     }
 
     def get_reader_dmg_url(self, base_url, language, major_version, os_version):
-        '''Returns download URL for Adobe Reader DMG'''
-        #pylint: disable=no-self-use
+        """Returns download URL for Adobe Reader DMG"""
         request_url = base_url % (os_version, language)
-        request = urllib2.Request(request_url)
-        request.add_header("x-requested-with", "XMLHttpRequest")
-        try:
-            url_handle = urllib2.urlopen(request)
-            json_response = url_handle.read()
-            url_handle.close()
-        except BaseException as err:
-            raise ProcessorError("Can't open %s: %s" % (base_url, err))
+        header = {"x-requested-with": "XMLHttpRequest"}
+        json_response = self.download(request_url, headers=header)
+
         reader_info = json.loads(json_response)
         major_version_string = MAJOR_VERSION_MATCH_STR % major_version
-        matches = [item["download_url"] for item in reader_info
-                   if major_version_string in item["download_url"]]
+        matches = [
+            item["download_url"]
+            for item in reader_info
+            if major_version_string in item["download_url"]
+        ]
         try:
             return matches[0]
         except IndexError:
             raise ProcessorError(
                 "Can't find Adobe Reader download URL for %s, version %s"
-                % (language, major_version))
+                % (language, major_version)
+            )
 
     def main(self):
         # Determine base_url, language and major_version.
@@ -98,11 +96,11 @@ class AdobeReaderURLProvider(Processor):
         os_version = self.env.get("os_version", OS_VERSION_DEFAULT)
 
         self.env["url"] = self.get_reader_dmg_url(
-            base_url, language, major_version, os_version)
+            base_url, language, major_version, os_version
+        )
         self.output("Found URL %s" % self.env["url"])
 
 
 if __name__ == "__main__":
     PROCESSOR = AdobeReaderURLProvider()
     PROCESSOR.execute_shell()
-

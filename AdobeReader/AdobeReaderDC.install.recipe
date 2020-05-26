@@ -14,8 +14,6 @@
         <string>English</string>
         <key>MAJOR_VERSION</key>
         <string>AcrobatDC</string>
-        <key>OS_VERSION</key>
-        <string>10.9.0</string>
     </dict>
     <key>MinimumVersion</key>
     <string>0.4.0</string>

@@ -3,7 +3,16 @@
 <plist version="1.0">
 <dict>
     <key>Description</key>
-    <string>Downloads the latest 'The Unarchiver' and imports into Munki.</string>
+    <string>Downloads the latest 'The Unarchiver' and imports into Munki.
+
+Note: this recipe has issues with repeated runs due to a bug in curl starting
+with OS X 10.10.5. This has been fixed for the next version of AutoPkg, but not
+yet in a released version. It should still download and unzip properly if is it is the first run, without an already-downloaded file.
+
+The application's LSMinimumSystemVersion is currently inaccurate, but the
+sparkle:minimumSystemVersion element is correct, so we use MunkiPkginfoMerger
+to merge the minimum_os_version that is output from SparkleUpdateInfoProvider
+in the .download ParentRecipe.</string>
     <key>Identifier</key>
     <string>com.github.autopkg.munki.TheUnarchiver</string>
     <key>Input</key>
@@ -27,6 +36,10 @@
             <key>unattended_install</key>
             <true/>
         </dict>
+        <key>pkginfo_keys_to_copy_from_sparkle_feed</key>
+        <array>
+            <string>minimum_os_version</string>
+        </array>
     </dict>
     <key>MinimumVersion</key>
     <string>0.2.0</string>
@@ -37,19 +50,6 @@
         <dict>
             <key>Arguments</key>
             <dict>
-                <key>archive_path</key>
-                <string>%pathname%</string>
-                <key>destination_path</key>
-                <string>%RECIPE_CACHE_DIR%/%NAME%</string>
-                <key>purge_destination</key>
-                <true/>
-            </dict>
-            <key>Processor</key>
-            <string>Unarchiver</string>
-        </dict>
-        <dict>
-            <key>Arguments</key>
-            <dict>
                 <key>dmg_root</key>
                 <string>%RECIPE_CACHE_DIR%/%NAME%</string>
                 <key>dmg_path</key>
@@ -57,6 +57,10 @@
             </dict>
             <key>Processor</key>
             <string>DmgCreator</string>
+        </dict>
+        <dict>
+            <key>Processor</key>
+            <string>MunkiPkginfoMerger</string>
         </dict>
         <dict>
             <key>Arguments</key>

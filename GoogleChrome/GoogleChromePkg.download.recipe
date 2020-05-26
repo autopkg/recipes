@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Description</key>
+    <string>Downloads latest Google Chrome enterprise package.</string>
+    <key>Identifier</key>
+    <string>com.github.autopkg.download.googlechromepkg</string>
+    <key>Input</key>
+    <dict>
+        <key>NAME</key>
+        <string>GoogleChrome</string>
+        <key>DOWNLOAD_URL</key>
+        <string>https://dl.google.com/chrome/mac/stable/gcem/GoogleChrome.pkg</string>
+    </dict>
+    <key>MinimumVersion</key>
+    <string>1.4.1</string>
+    <key>Process</key>
+    <array>
+        <dict>
+            <key>Processor</key>
+            <string>URLDownloader</string>
+            <key>Arguments</key>
+            <dict>
+                <key>url</key>
+                <string>%DOWNLOAD_URL%</string>
+                <key>filename</key>
+                <string>GoogleChrome.pkg</string>
+            </dict>
+        </dict>
+        <dict>
+            <key>Processor</key>
+            <string>EndOfCheckPhase</string>
+        </dict>
+		<dict>
+			<key>Arguments</key>
+			<dict>
+				<key>expected_authority_names</key>
+				<array>
+					<string>Developer ID Installer: Google LLC (EQHXZ8M8AV)</string>
+					<string>Developer ID Certification Authority</string>
+					<string>Apple Root CA</string>
+				</array>
+				<key>input_path</key>
+				<string>%pathname%</string>
+			</dict>
+			<key>Processor</key>
+			<string>CodeSignatureVerifier</string>
+		</dict>
+    </array>
+</dict>
+</plist>

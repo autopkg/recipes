@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Description</key>
+    <string>Downloads the latest Skype for Business multilingual update pkg,
+and appends the version to the end of the filename.
+
+CHANNEL can be set to several values in order to get more frequent updates
+that can be used for testing purposes. See the explanations in the 'Channel'
+table at http://macadmins.software/docs/MAU_ManifestServer.pdf. Supported
+values are 'Production', 'InsiderSlow', 'InsiderFast', or a custom UUID to be
+inserted into the Base URL.
+
+LOCALE_ID sets the locale for a descriptive text that will be
+extracted from the Microsoft update metadata. See
+https://msdn.microsoft.com/en-us/goglobal/bb964664.aspx
+for more information about locale IDs.
+
+VERSION currently only supports one value: 'latest', which will download
+the latest full update for the given CHANNEL.
+</string>
+    <key>Identifier</key>
+    <string>com.github.autopkg.download.SkypeForBusiness</string>
+    <key>MinimumVersion</key>
+    <string>1.4</string>
+    <key>Input</key>
+    <dict>
+        <key>CHANNEL</key>
+        <string>Production</string>
+        <key>LOCALE_ID</key>
+        <string>1033</string>
+        <key>NAME</key>
+        <string>SkypeForBusiness</string>
+        <key>PRODUCT</key>
+        <string>SkypeForBusiness</string>
+        <key>VERSION</key>
+        <string>latest</string>
+    </dict>
+    <key>ParentRecipe</key>
+    <string>com.github.autopkg.download.MSOfficeMacProduct</string>
+</dict>
+</plist>

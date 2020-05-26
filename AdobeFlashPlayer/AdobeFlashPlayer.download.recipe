@@ -12,7 +12,7 @@
         <string>AdobeFlashPlayer</string>
     </dict>
     <key>MinimumVersion</key>
-    <string>0.3.1</string>
+    <string>1.4</string>
     <key>Process</key>
     <array>
         <dict>
@@ -41,7 +41,7 @@
                 <string>%pathname%/Install Adobe Flash Player.app/Contents/Resources/Adobe Flash Player.pkg</string>
                 <key>expected_authority_names</key>
                 <array>
-                    <string>Developer ID Installer: Adobe Systems, Inc.</string>
+                    <string>Developer ID Installer: Adobe Systems, Inc. (JQ525L2MZD)</string>
                     <string>Developer ID Certification Authority</string>
                     <string>Apple Root CA</string>
                 </array>

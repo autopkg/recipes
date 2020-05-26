@@ -14,91 +14,66 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 """See docstring for BarebonesURLProvider class"""
-# suppress 'missing class member env'
-#pylint: disable=e1101
 
-import urllib2
-import plistlib
 from distutils.version import LooseVersion
-from operator import itemgetter
 
-from autopkglib import Processor, ProcessorError
+from autopkglib import ProcessorError
+from autopkglib.URLGetter import URLGetter
+
+try:
+    from plistlib import readPlistFromString
+except ImportError:
+    from plistlib import readPlistFromBytes as readPlistFromString
 
 __all__ = ["BarebonesURLProvider"]
 
-URLS = {"textwrangler": "https://versioncheck.barebones.com/TextWrangler.xml",
-        "bbedit": "https://versioncheck.barebones.com/BBEdit.xml"}
+URLS = {"bbedit": "https://versioncheck.barebones.com/BBEdit.xml"}
 
-import ssl
-from functools import wraps
-def sslwrap(func):
-    """http://stackoverflow.com/a/24175862"""
-    @wraps(func)
-    def wraps_sslwrap(*args, **kw):
-        """Monkey-patch for sslwrap to force TLSv1"""
-        kw['ssl_version'] = ssl.PROTOCOL_TLSv1
-        return func(*args, **kw)
-    return wraps_sslwrap
 
-ssl.wrap_socket = sslwrap(ssl.wrap_socket)
-
-class BarebonesURLProvider(Processor):
+class BarebonesURLProvider(URLGetter):
     """Provides a version and dmg download for the Barebones product given."""
+
     description = __doc__
     input_variables = {
         "product_name": {
             "required": True,
-            "description":
-                "Product to fetch URL for. One of 'textwrangler', 'bbedit'.",
-        },
+            "description": "Product to fetch URL for. One of 'textwrangler', 'bbedit'.",
+        }
     }
     output_variables = {
-        "version": {
-            "description": "Version of the product.",
-        },
-        "url": {
-            "description": "Download URL.",
-        },
+        "version": {"description": "Version of the product."},
+        "url": {"description": "Download URL."},
         "minimum_os_version": {
-            "description":
-                "Minimum OS version supported according to product metadata."
-        }
+            "description": "Minimum OS version supported according to product metadata."
+        },
     }
 
     def main(self):
-        '''Find the download URL'''
-        def compare_version(this, that):
-            '''compare LooseVersions'''
-            return cmp(LooseVersion(this), LooseVersion(that))
+        """Find the download URL"""
 
-        valid_prods = URLS.keys()
         prod = self.env.get("product_name")
-        if prod not in valid_prods:
+        if prod not in URLS:
             raise ProcessorError(
                 "product_name %s is invalid; it must be one of: %s"
-                % (prod, valid_prods))
+                % (prod, ", ".join(URLS))
+            )
         url = URLS[prod]
-        try:
-            manifest_str = urllib2.urlopen(url).read()
-        except BaseException as err:
-            raise ProcessorError(
-                "Unexpected error retrieving product manifest: '%s'" % err)
+        manifest_str = self.download(url)
 
         try:
-            plist = plistlib.readPlistFromString(manifest_str)
-        except BaseException as err:
+            plist = readPlistFromString(manifest_str)
+        except Exception as err:
             raise ProcessorError(
-                "Unexpected error parsing manifest as a plist: '%s'" % err)
+                "Unexpected error parsing manifest as a plist: '%s'" % err
+            )
 
         entries = plist.get("SUFeedEntries")
         if not entries:
-            raise ProcessorError(
-                "Expected 'SUFeedEntries' manifest key wasn't found.")
+            raise ProcessorError("Expected 'SUFeedEntries' manifest key wasn't found.")
 
         sorted_entries = sorted(
-            entries,
-            key=itemgetter("SUFeedEntryShortVersionString"),
-            cmp=compare_version)
+            entries, key=lambda a: LooseVersion(a["SUFeedEntryShortVersionString"])
+        )
         metadata = sorted_entries[-1]
         url = metadata["SUFeedEntryDownloadURL"]
         min_os_version = metadata["SUFeedEntryMinimumSystemVersion"]
@@ -108,6 +83,7 @@ class BarebonesURLProvider(Processor):
         self.env["minimum_os_version"] = min_os_version
         self.env["url"] = url
         self.output("Found URL %s" % self.env["url"])
+
 
 if __name__ == "__main__":
     PROCESSOR = BarebonesURLProvider()
