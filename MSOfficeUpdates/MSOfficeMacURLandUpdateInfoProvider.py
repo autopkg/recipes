@@ -48,18 +48,21 @@ PROD_DICT = {
         "id": "XCEL2019",
         "path": "/Applications/Microsoft Excel.app",
         "minimum_os": "10.12",
+        "minimum_update_version": "16.17",
     },
     "OneNote2016": {"id": "ONMC15", "path": "/Applications/Microsoft OneNote.app"},
     "OneNote2019": {
         "id": "ONMC2019",
         "path": "/Applications/Microsoft OneNote.app",
         "minimum_os": "10.12",
+        "minimum_update_version": "16.17",
     },
     "Outlook2016": {"id": "OPIM15", "path": "/Applications/Microsoft Outlook.app"},
     "Outlook2019": {
         "id": "OPIM2019",
         "path": "/Applications/Microsoft Outlook.app",
         "minimum_os": "10.12",
+        "minimum_update_version": "16.17",
     },
     "PowerPoint2016": {
         "id": "PPT315",
@@ -69,12 +72,14 @@ PROD_DICT = {
         "id": "PPT32019",
         "path": "/Applications/Microsoft PowerPoint.app",
         "minimum_os": "10.12",
+        "minimum_update_version": "16.17",
     },
     "Word2016": {"id": "MSWD15", "path": "/Applications/Microsoft Word.app"},
     "Word2019": {
         "id": "MSWD2019",
         "path": "/Applications/Microsoft Word.app",
         "minimum_os": "10.12",
+        "minimum_update_version": "16.17",
     },
     "SkypeForBusiness": {
         "id": "MSFB16",
@@ -363,6 +368,10 @@ class MSOfficeMacURLandUpdateInfoProvider(URLGetter):
             pkginfo["requires"] = [
                 "%s-%s" % (required_update_name, self.min_delta_version)
             ]
+        elif PROD_DICT[self.env["product"]].get("minimum_update_version"):
+            # Put minimum_update_version into installs item as it is specified in PROD_DICT
+            self.output("Adding minimum required version: %s" % PROD_DICT[self.env["product"]].get("minimum_update_version"))
+            pkginfo["installs"][0]["minimum_update_version"] = PROD_DICT[self.env["product"]].get("minimum_update_version")
 
         self.env["version"] = self.get_version(item)
         self.env["minimum_os_version"] = pkginfo["minimum_os_version"]
