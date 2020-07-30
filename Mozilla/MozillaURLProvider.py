@@ -21,9 +21,8 @@ import json
 import re
 import ssl
 from typing import List, Tuple
-from urllib.request import urlopen
 
-from autopkglib import Processor
+from autopkglib import URLGetter
 
 __all__: List[str] = ["MozillaURLProvider"]
 
@@ -73,7 +72,7 @@ MOZ_PRODUCT_VERSIONS_URL: str = (
 #    https://product-details.mozilla.org/1.0/thunderbird_versions.json
 
 
-class MozillaURLProvider(Processor):
+class MozillaURLProvider(URLGetter):
     """Provides URL to the latest Firefox release."""
 
     description = __doc__
@@ -164,11 +163,6 @@ class MozillaURLProvider(Processor):
     ) -> Tuple[str, str]:
         """Resolves a symbolic release like 'latest' to a normalized version number.
         Returns a tuple of (normalized version, original version from web api)"""
-        context = ssl.SSLContext()
-        context.verify_mode = ssl.CERT_REQUIRED
-        context.check_hostname = True
-        context.load_default_certs()
-
         if "firefox" in product:
             simple_product = "firefox"
         elif "thunderbird" in product:
@@ -193,10 +187,10 @@ class MozillaURLProvider(Processor):
             # releases more or less untouched.
             return (self.normalize_version(release), release)
 
-        with urlopen(base_url.format(product=simple_product), context=context) as res:
-            release_data = json.loads(res.read())
-            orig_version = release_data[release_key]
-            return (self.normalize_version(orig_version), orig_version)
+        json_data = self.download(base_url.format(product=simple_product))
+        release_data = json.loads(json_data)
+        orig_version = release_data[release_key]
+        return (self.normalize_version(orig_version), orig_version)
 
     def main(self):
         """Provide a Mozilla download URL"""
