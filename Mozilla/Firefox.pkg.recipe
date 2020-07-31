@@ -19,7 +19,7 @@ See the following URLs for more info:
         <string>Firefox</string>
     </dict>
     <key>MinimumVersion</key>
-    <string>0.2.0</string>
+    <string>2.0</string>
     <key>ParentRecipe</key>
     <string>com.github.autopkg.download.firefox-rc-en_US</string>
     <key>Process</key>

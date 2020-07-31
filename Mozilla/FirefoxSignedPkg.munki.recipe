@@ -42,7 +42,7 @@ See the following URL for possible LOCALE values:
 		</dict>
 	</dict>
 	<key>MinimumVersion</key>
-	<string>1.1</string>
+    <string>2.0</string>
 	<key>ParentRecipe</key>
 	<string>com.github.autopkg.download.FirefoxSignedPkg</string>
 	<key>Process</key>

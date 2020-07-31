@@ -13,7 +13,7 @@
             <!-- All relevant inputs inherited from parent recipe. -->
         </dict>
         <key>MinimumVersion</key>
-        <string>1.1</string>
+        <string>2.0</string>
         <key>SupportedPlatforms</key>
         <array>
             <string>Windows</string>

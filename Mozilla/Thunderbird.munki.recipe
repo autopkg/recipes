@@ -34,7 +34,7 @@ See the following URLs for more info:
         </dict>
     </dict>
     <key>MinimumVersion</key>
-    <string>0.2.0</string>
+    <string>2.0</string>
     <key>ParentRecipe</key>
     <string>com.github.autopkg.download.thunderbird</string>
     <key>Process</key>
