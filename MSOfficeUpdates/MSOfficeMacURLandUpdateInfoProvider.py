@@ -312,20 +312,6 @@ class MSOfficeMacURLandUpdateInfoProvider(URLGetter):
         # now extract useful info from the rest of the metadata that could
         # be used in a pkginfo
         pkginfo = {}
-        # Get a copy of the description in our locale_id
-        all_localizations = item.get("Localized")
-        lcid = self.env["locale_id"]
-        if lcid not in all_localizations:
-            raise ProcessorError(
-                "Locale ID %s not found in manifest metadata. Available IDs: "
-                "%s. See %s for more details."
-                % (lcid, ", ".join(all_localizations), LOCALE_ID_INFO_URL)
-            )
-        manifest_description = all_localizations[lcid]["Short Description"]
-        # Store the description in a separate output variable and in our pkginfo
-        # directly.
-        pkginfo["description"] = "<html>%s</html>" % manifest_description
-        self.env["description"] = manifest_description
 
         # Minimum OS version key should exist!
         pkginfo["minimum_os_version"] = (
