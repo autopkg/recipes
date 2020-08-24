@@ -3,20 +3,15 @@
 <plist version="1.0">
 <dict>
     <key>Description</key>
-    <string>Downloads Thunderbird disk image and imports into Munki.
-Some useful values for RELEASE are: 'latest', 'beta-latest'.
-LOCALE controls the language localization to be downloded.
-Examples include 'en-US', 'de', 'sv-SE', and 'zh-TW'
-See the following URLs for more info:
-    http://ftp.mozilla.org/pub/thunderbird/releases/latest/README.txt
-    http://ftp.mozilla.org/pub/thunderbird/releases/latest-beta/README.txt</string>
+    <string>Downloads latest OmniOutliner 5 disk image and imports into Munki.</string>
     <key>Identifier</key>
-    <string>com.github.autopkg.munki.thunderbird</string><key>Input</key>
+    <string>com.github.autopkg.munki.omnioutliner5</string>
+    <key>Input</key>
     <dict>
-        <key>MUNKI_REPO_SUBDIR</key>
-        <string>apps/thunderbird</string>
         <key>NAME</key>
-        <string>Thunderbird</string>
+        <string>OmniOutliner5</string>
+        <key>MUNKI_REPO_SUBDIR</key>
+        <string>apps</string>
         <key>pkginfo</key>
         <dict>
             <key>catalogs</key>
@@ -24,9 +19,9 @@ See the following URLs for more info:
                 <string>testing</string>
             </array>
             <key>description</key>
-            <string>Mozilla Thunderbird is a free and open source mail client.</string>
+            <string>OmniOutliner is a start-to-finish writing app. Perfect for collecting information, outlining Big Ideas, adding structure to any sort of writing, and much more. From grocery lists to email drafts to long-form composition.</string>
             <key>display_name</key>
-            <string>Mozilla Thunderbird</string>
+            <string>OmniOutliner 5</string>
             <key>name</key>
             <string>%NAME%</string>
             <key>unattended_install</key>
@@ -34,9 +29,9 @@ See the following URLs for more info:
         </dict>
     </dict>
     <key>MinimumVersion</key>
-    <string>2.0</string>
+    <string>0.2.0</string>
     <key>ParentRecipe</key>
-    <string>com.github.autopkg.download.thunderbird</string>
+    <string>com.github.autopkg.download.omnioutliner5</string>
     <key>Process</key>
     <array>
         <dict>

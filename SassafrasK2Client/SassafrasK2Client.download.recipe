@@ -7,9 +7,8 @@
 
 REVISION is the major version without a decimal, for example:
 7.0: 70
-7.1: 71
-7.2: 72
-7.3: 73
+7.5: 75
+7.6: 76
 
 This recipe supports only a REVISION of 70 and up. If REVISION
 is set to an empty string, the latest version will be retrieved.
@@ -19,7 +18,7 @@ is set to an empty string, the latest version will be retrieved.
     <key>Input</key>
     <dict>
         <key>REVISION</key>
-        <string>74</string>
+        <string></string>
         <key>NAME</key>
         <string>K2Client</string>
     </dict>

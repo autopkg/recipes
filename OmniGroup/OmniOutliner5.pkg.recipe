@@ -3,25 +3,18 @@
 <plist version="1.0">
 <dict>
     <key>Description</key>
-    <string>Downloads Firefox disk image and builds a package.
-Some useful values for RELEASE are: 'latest', 'esr-latest', 'beta-latest'.
-LOCALE controls the language localization to be downloded.
-Examples include 'en-US', 'de', 'sv-SE', and 'zh-TW'
-See the following URLs for more info:
-    http://ftp.mozilla.org/pub/firefox/releases/latest/README.txt
-    http://ftp.mozilla.org/pub/firefox/releases/latest-esr/README.txt
-    http://ftp.mozilla.org/pub/firefox/releases/latest-beta/README.txt</string>
+    <string>Downloads latest OmniOutliner 5 disk image builds a package.</string>
     <key>Identifier</key>
-    <string>com.github.autopkg.pkg.Firefox_EN</string>
+    <string>com.github.autopkg.pkg.omnioutliner5</string>
     <key>Input</key>
     <dict>
         <key>NAME</key>
-        <string>Firefox</string>
+        <string>OmniOutliner5</string>
     </dict>
     <key>MinimumVersion</key>
-    <string>2.0</string>
+    <string>0.2.0</string>
     <key>ParentRecipe</key>
-    <string>com.github.autopkg.download.firefox-rc-en_US</string>
+    <string>com.github.autopkg.download.omnioutliner5</string>
     <key>Process</key>
     <array>
         <dict>
@@ -53,9 +46,9 @@ See the following URLs for more info:
             <key>Arguments</key>
             <dict>
                 <key>source_path</key>
-                <string>%pathname%/Firefox.app</string>
+                <string>%pathname%/%app_name%</string>
                 <key>destination_path</key>
-                <string>%pkgroot%/Applications/Firefox.app</string>
+                <string>%pkgroot%/Applications/%app_name%</string>
             </dict>
         </dict>
         <dict>
@@ -63,14 +56,14 @@ See the following URLs for more info:
             <string>PkgCreator</string>
             <key>Arguments</key>
             <dict>
-                <key>pkgname</key>
-                <string>%NAME%-%version%</string>
                 <key>pkg_request</key>
                 <dict>
-                    <key>pkgdir</key>
-                    <string>%RECIPE_CACHE_DIR%</string>
+                    <key>pkgname</key>
+                    <string>%NAME%-%version%</string>
+                    <key>version</key>
+                    <string>%version%</string>
                     <key>id</key>
-                    <string>org.mozilla.firefox.pkg</string>
+                    <string>%bundleid%</string>
                     <key>options</key>
                     <string>purge_ds_store</string>
                     <key>chown</key>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+    <dict>
+        <key>Description</key>
+        <string>This recipe creates a Chocolatey package from the downloaded Windows MSI
+    installer obtained from the com.github.autopkg.download.FirefoxWindows recipe.
+        </string>
+        <key>Identifier</key>
+        <string>com.github.autopkg.nupkg.Firefox</string>
+        <key>Input</key>
+        <dict>
+            <!-- All relevant inputs inherited from parent recipe. -->
+        </dict>
+        <key>MinimumVersion</key>
+        <string>2.0</string>
+        <key>SupportedPlatforms</key>
+        <array>
+            <string>Windows</string>
+        </array>
+        <key>ParentRecipe</key>
+        <string>com.github.autopkg.download.FirefoxWindows</string>
+        <key>Process</key>
+        <array>
+            <dict>
+                <key>Arguments</key>
+                <dict>
+                    <key>id</key>
+                    <string>firefox-%moz_locale%</string>
+                    <key>version</key>
+                    <string>%moz_version%</string>
+                    <key>title</key>
+                    <string>Firefox</string>
+                    <key>authors</key>
+                    <string>Mozilla</string>
+                    <key>description</key>
+                    <string>Firefox Web Browser</string>
+                    <key>installer_type</key>
+                    <string>msi</string>
+                </dict>
+                <key>Processor</key>
+                <string>ChocolateyPackager</string>
+            </dict>
+        </array>
+    </dict>
+</plist>

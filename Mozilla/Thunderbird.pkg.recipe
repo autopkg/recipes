@@ -18,7 +18,7 @@ See the following URLs for more info:
 		<string>Thunderbird</string>
 	</dict>
 	<key>MinimumVersion</key>
-	<string>1.0.0</string>
+    <string>2.0</string>
 	<key>ParentRecipe</key>
 	<string>com.github.autopkg.download.thunderbird</string>
 	<key>Process</key>

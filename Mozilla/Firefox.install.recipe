@@ -21,7 +21,7 @@ See the following URLs for more info:
         <string>en_US</string>
     </dict>
     <key>MinimumVersion</key>
-    <string>0.4.0</string>
+    <string>2.0</string>
     <key>ParentRecipe</key>
     <string>com.github.autopkg.download.firefox-rc-en_US</string>
     <key>Process</key>

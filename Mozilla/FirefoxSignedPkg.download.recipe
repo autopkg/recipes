@@ -30,7 +30,7 @@ See the following URL for possible LOCALE values:
 		<string>LATEST_FIREFOX_VERSION</string>
 	</dict>
 	<key>MinimumVersion</key>
-	<string>1.1</string>
+    <string>2.0</string>
 	<key>Process</key>
 	<array>
 		<dict>
