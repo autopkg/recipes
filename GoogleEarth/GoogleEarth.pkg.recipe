@@ -36,7 +36,7 @@
                 <key>destination_path</key>
                 <string>%RECIPE_CACHE_DIR%/unpack</string>
                 <key>pkg_payload_path</key>
-                <string>%RECIPE_CACHE_DIR%/expanded/Google_Earth.pkg/Payload</string>
+                <string>%RECIPE_CACHE_DIR%/expanded/Google_Earth_Pro.pkg/Payload</string>
             </dict>
         </dict>
         <dict>
@@ -45,7 +45,7 @@
             <key>Arguments</key>
             <dict>
                 <key>input_plist_path</key>
-                <string>%RECIPE_CACHE_DIR%/unpack/Google Earth.app/Contents/Info.plist</string>
+                <string>%RECIPE_CACHE_DIR%/unpack/Google Earth Pro.app/Contents/Info.plist</string>
                 <key>plist_version_key</key>
                 <string>CFBundleVersion</string>
             </dict>
