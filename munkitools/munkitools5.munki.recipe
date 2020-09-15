@@ -146,7 +146,7 @@ MUNKI_ICON should be overridden with your icon name.
             <key>Arguments</key>
             <dict>
                 <key>pattern</key>
-                <string>%RECIPE_CACHE_DIR%/unpack/munkitools_core-*</string>
+                <string>%RECIPE_CACHE_DIR%/unpack/munkitools_core*.pkg</string>
             </dict>
         </dict>
         <dict>
@@ -166,7 +166,7 @@ MUNKI_ICON should be overridden with your icon name.
             <key>Arguments</key>
             <dict>
                 <key>pattern</key>
-                <string>%RECIPE_CACHE_DIR%/unpack/munkitools_admin-*</string>
+                <string>%RECIPE_CACHE_DIR%/unpack/munkitools_admin*.pkg</string>
             </dict>
         </dict>
         <dict>
@@ -186,7 +186,7 @@ MUNKI_ICON should be overridden with your icon name.
             <key>Arguments</key>
             <dict>
                 <key>pattern</key>
-                <string>%RECIPE_CACHE_DIR%/unpack/munkitools_app-*</string>
+                <string>%RECIPE_CACHE_DIR%/unpack/munkitools_app*.pkg</string>
             </dict>
         </dict>
         <dict>
@@ -206,7 +206,7 @@ MUNKI_ICON should be overridden with your icon name.
             <key>Arguments</key>
             <dict>
                 <key>pattern</key>
-                <string>%RECIPE_CACHE_DIR%/unpack/munkitools_app_usage-*</string>
+                <string>%RECIPE_CACHE_DIR%/unpack/munkitools_app_usage*.pkg</string>
             </dict>
         </dict>
         <dict>
@@ -226,7 +226,7 @@ MUNKI_ICON should be overridden with your icon name.
             <key>Arguments</key>
             <dict>
                 <key>pattern</key>
-                <string>%RECIPE_CACHE_DIR%/unpack/munkitools_launchd-*</string>
+                <string>%RECIPE_CACHE_DIR%/unpack/munkitools_launchd*.pkg</string>
             </dict>
         </dict>
         <dict>
@@ -246,7 +246,7 @@ MUNKI_ICON should be overridden with your icon name.
             <key>Arguments</key>
             <dict>
                 <key>pattern</key>
-                <string>%RECIPE_CACHE_DIR%/unpack/munkitools_python-*</string>
+                <string>%RECIPE_CACHE_DIR%/unpack/munkitools_python*.pkg</string>
             </dict>
         </dict>
         <dict>
