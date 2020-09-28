@@ -41,7 +41,7 @@
                 <string>%pathname%/Install Google Earth*.pkg</string>
                 <key>expected_authority_names</key>
                 <array>
-                    <string>Developer ID Installer: Google LLC (EQHXZ8M8AV)</string>
+                    <string>Developer ID Installer: Google, Inc. (EQHXZ8M8AV)</string>
                     <string>Developer ID Certification Authority</string>
                     <string>Apple Root CA</string>
                 </array>
