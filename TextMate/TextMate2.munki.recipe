@@ -21,8 +21,6 @@ i.e.: `-k PRERELEASE=yes`
         <string>apps/TextMate2</string>
         <key>NAME</key>
         <string>TextMate2</string>
-        <key>PRERELEASE</key>
-        <string></string>
         <key>pkginfo</key>
         <dict>
             <key>catalogs</key>
