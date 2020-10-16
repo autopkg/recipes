@@ -34,19 +34,6 @@ i.e.: `-k PRERELEASE=yes`</string>
 		</dict>
 		<dict>
 			<key>Processor</key>
-			<string>GitHubReleasesInfoProvider</string>
-			<key>Arguments</key>
-			<dict>
-				<key>github_repo</key>
-				<string>textmate/textmate</string>
-				<key>include_prereleases</key>
-				<string>%PRERELEASE%</string>
-				<key>asset_regex</key>
-				<string>TextMate_%version%.tbz</string>
-			</dict>
-		</dict>
-		<dict>
-			<key>Processor</key>
 			<string>URLDownloader</string>
 			<key>Arguments</key>
 			<dict>
