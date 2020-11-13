@@ -3,53 +3,48 @@
 <plist version="1.0">
 <dict>
     <key>Description</key>
-    <string>Downloads the current release version of Evernote
-
-Alternate Beta URL that can be used for SPARKLE_FEED_URL:
-http://update.evernote.com/prerelease/ENMac/EvernoteMacUpdate.xml
-</string>
+    <string>Downloads the latest verison of Evernote</string>
     <key>Identifier</key>
     <string>com.github.autopkg.download.Evernote</string>
     <key>Input</key>
-    <dict>
-        <key>NAME</key>
-        <string>Evernote</string>
-        <key>SPARKLE_FEED_URL</key>
-        <string>https://update.evernote.com/public/ENMacSMD/EvernoteMacUpdate.xml</string>
-    </dict>
-    <key>MinimumVersion</key>
-    <string>0.4.0</string>
-    <key>Process</key>
-    <array>
+	<dict>
+		<key>NAME</key>
+		<string>Evernote</string>
+		<key>SEARCH_URL</key>
+		<string>https://evernote.com/download</string>
+        <key>USER_AGENT</key>
+        <string>Mozilla/5.0 (Macintosh; Intel Mac OS X 11_0_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.193 Safari/537.36 Edg/86.0.622.68</string>
+	</dict>
+	<key>MinimumVersion</key>
+	<string>2.0.0</string>
+	<key>Process</key>
+	<array>
         <dict>
             <key>Processor</key>
-            <string>SparkleUpdateInfoProvider</string>
+            <string>URLTextSearcher</string>
             <key>Arguments</key>
             <dict>
-                <key>appcast_url</key>
-                <string>%SPARKLE_FEED_URL%</string>
+                <key>url</key>
+                <string>%SEARCH_URL%</string>
+                <key>request_headers</key>
+                <dict>
+                        <key>user-agent</key>
+                        <string>%USER_AGENT%</string>
+                </dict>
+                <key>re_pattern</key>
+                <string>(?P&lt;url&gt;https:\/\/cdn1\.evernote\.com\/boron\/mac\/builds\/Evernote-[\d.]+-[\d]+\.dmg)</string>
             </dict>
         </dict>
         <dict>
-            <key>Processor</key>
-            <string>URLDownloader</string>
-        </dict>
-        <dict>
-            <key>Processor</key>
-            <string>EndOfCheckPhase</string>
-        </dict>
-        <dict>
-            <key>Processor</key>
-            <string>Unarchiver</string>
-            <key>Arguments</key>
-            <dict>
-                <key>archive_path</key>
-                <string>%pathname%</string>
-                <key>destination_path</key>
-                <string>%RECIPE_CACHE_DIR%/%NAME%</string>
-                <key>purge_destination</key>
-                <true/>
-            </dict>
+        	<key>Processor</key>
+        	<string>URLDownloader</string>
+        	<key>Arguments</key>
+        	<dict>
+        	   <key>url</key>
+        	   <string>%url%</string>
+        	   <key>filename</key>
+        	   <string>%NAME%.dmg</string>
+        	</dict>
         </dict>
         <dict>
             <key>Processor</key>
@@ -57,11 +52,15 @@ http://update.evernote.com/prerelease/ENMac/EvernoteMacUpdate.xml
             <key>Arguments</key>
             <dict>
                 <key>input_path</key>
-                <string>%RECIPE_CACHE_DIR%/%NAME%/Evernote.app</string>
+                <string>%pathname%/Evernote.app</string>
                 <key>requirement</key>
-                <string>(anchor apple generic and certificate leaf[field.1.2.840.113635.100.6.1.9] /* exists */ or anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = Q79WDW8YH9) and identifier "com.evernote.Evernote"</string>
+                <string>identifier "com.evernote.Evernote" and anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = Q79WDW8YH9</string>
             </dict>
         </dict>
-    </array>
+		<dict>
+			<key>Processor</key>
+			<string>EndOfCheckPhase</string>
+		</dict>
+	</array>
 </dict>
 </plist>

@@ -3,11 +3,7 @@
 <plist version="1.0">
 <dict>
     <key>Description</key>
-    <string>Downloads the current release version of Evernote and imports into Munki.
-
-Alternate Beta URL that can be used for SPARKLE_FEED_URL:
-http://update.evernote.com/prerelease/ENMac/EvernoteMacUpdate.xml
-</string>
+    <string>Downloads the current release version of Evernote and imports into Munki.</string>
     <key>Identifier</key>
     <string>com.github.autopkg.munki.Evernote</string>
     <key>Input</key>
@@ -16,6 +12,8 @@ http://update.evernote.com/prerelease/ENMac/EvernoteMacUpdate.xml
         <string>Evernote</string>
         <key>MUNKI_REPO_SUBDIR</key>
         <string>apps/Evernote</string>
+        <key>MUNKI_CATEGORY</key>
+        <string>Reference</string>
         <key>pkginfo</key>
         <dict>
             <key>catalogs</key>
@@ -23,41 +21,84 @@ http://update.evernote.com/prerelease/ENMac/EvernoteMacUpdate.xml
                 <string>testing</string>
             </array>
             <key>description</key>
-            <string>Evernote makes it easy to remember things big and small from your everyday life using your computer, phone, tablet and the web.</string>
+        	<string>
+&lt;html&gt;
+&lt;p&gt;
+Evernote makes it easy to remember things big and small from your everyday life using your computer, phone, tablet and the web.
+&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;
+&lt;b&gt;
+Keep everything in sync
+&lt;/b&gt;
+&lt;br&gt;
+With Evernote, all of your notes, web clips, files and images are made available on every device and computer you use.
+&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;
+&lt;b&gt;
+Remember things you like
+&lt;/b&gt;
+&lt;br&gt;
+Save everything cool and exciting you see online and in the real world. Snap a photo, record some audio and save it.
+&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;
+&lt;b&gt;
+Save favorite webpages
+&lt;/b&gt;
+&lt;br&gt;
+Save entire webpages to your Evernote account with our nifty web clipper browser extensions. You get the whole page: text, images and links.
+&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;
+&lt;b&gt;
+Research better
+&lt;/b&gt;
+&lt;br&gt;
+Collect information from anywhere into a single place. From text notes to web pages to files to snapshots, everything is always at your fingertips.
+&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;
+&lt;b&gt;
+Work with friends and colleagues
+&lt;/b&gt;
+&lt;br&gt;
+Share your notes and collaborate on projects with friends, colleagues and classmates.
+&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;
+&lt;b&gt;
+Plan your next trip
+&lt;/b&gt;
+&lt;br&gt;
+Keep all of your itineraries, confirmations, scanned travel documents, maps, and plans in Evernote, so you will have them when you need them.
+&lt;/p&gt;
+&lt;/html&gt;
+            </string>
             <key>display_name</key>
-            <string>Evernote</string>
+            <string>%NAME%</string>
             <key>name</key>
             <string>%NAME%</string>
             <key>unattended_install</key>
             <true/>
+            <key>category</key>
+            <string>%MUNKI_CATEGORY%</string>
+            <key>developer</key>
+            <string>Evernote Corporation</string>
         </dict>
     </dict>
     <key>MinimumVersion</key>
-    <string>0.2.0</string>
+    <string>2.0.0</string>
     <key>ParentRecipe</key>
 	<string>com.github.autopkg.download.Evernote</string>
     <key>Process</key>
 	<array>
         <dict>
-            <key>Processor</key>
-            <string>DmgCreator</string>
-            <key>Arguments</key>
-            <dict>
-                <key>dmg_root</key>
-                <string>%RECIPE_CACHE_DIR%/%NAME%</string>
-                <key>dmg_path</key>
-                <string>%RECIPE_CACHE_DIR%/%NAME%.dmg</string>
-            </dict>
-        </dict>
-        <dict>
-            <key>Processor</key>
-            <string>MunkiPkginfoMerger</string>
-        </dict>
-        <dict>
             <key>Arguments</key>
             <dict>
                 <key>pkg_path</key>
-                <string>%dmg_path%</string>
+                <string>%pathname%</string>
                 <key>repo_subdirectory</key>
                 <string>%MUNKI_REPO_SUBDIR%</string>
             </dict>
