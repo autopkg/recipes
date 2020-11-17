@@ -69,9 +69,7 @@ class PuppetlabsProductsURLProvider(URLGetter):
         prod = self.env["product_name"]
         if prod == "agent":
             os_version = self.env.get("get_os_version", OS_VERSION)
-            version_re = (
-                r"\d+\.\d+\.\d+"
-            )  # e.g.: 10.10/PC1/x86_64/puppet-agent-1.2.5-1.osx10.10.dmg
+            version_re = r"\d+\.\d+\.\d+"  # e.g.: 10.10/PC1/x86_64/puppet-agent-1.2.5-1.osx10.10.dmg
             download_url += str("/" + os_version + "/PC1/x86_64")
             re_download = 'href="(puppet-agent-(%s)-1.osx(%s).dmg)"' % (
                 version_re,
