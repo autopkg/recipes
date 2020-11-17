@@ -19,7 +19,6 @@ from __future__ import absolute_import
 
 import json
 import re
-import ssl
 from typing import List, Tuple
 
 from autopkglib import URLGetter
