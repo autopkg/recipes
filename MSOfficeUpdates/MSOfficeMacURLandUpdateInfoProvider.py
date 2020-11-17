@@ -356,8 +356,13 @@ class MSOfficeMacURLandUpdateInfoProvider(URLGetter):
             ]
         elif PROD_DICT[self.env["product"]].get("minimum_update_version"):
             # Put minimum_update_version into installs item as it is specified in PROD_DICT
-            self.output("Adding minimum required version: %s" % PROD_DICT[self.env["product"]].get("minimum_update_version"))
-            pkginfo["installs"][0]["minimum_update_version"] = PROD_DICT[self.env["product"]].get("minimum_update_version")
+            self.output(
+                "Adding minimum required version: %s"
+                % PROD_DICT[self.env["product"]].get("minimum_update_version")
+            )
+            pkginfo["installs"][0]["minimum_update_version"] = PROD_DICT[
+                self.env["product"]
+            ].get("minimum_update_version")
 
         self.env["version"] = self.get_version(item)
         self.env["minimum_os_version"] = pkginfo["minimum_os_version"]
