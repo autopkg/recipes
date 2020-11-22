@@ -27,7 +27,7 @@ causing the CodeSignatureVerifier step to fail and print a warning.</string>
 			<key>Arguments</key>
 			<dict>
 				<key>re_pattern</key>
-				<string>a href="?(praat\d+_mac%ARCH_EDITION%.dmg)"?</string>
+				<string>a href="?(praat\d+_mac.dmg)"?</string>
 				<key>result_output_var_name</key>
 				<string>dl_filename</string>
 				<key>url</key>
