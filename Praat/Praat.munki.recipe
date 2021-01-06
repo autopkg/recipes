@@ -3,16 +3,11 @@
 <plist version="1.0">
 <dict>
 	<key>Description</key>
-	<string>Downloads the latest version of Praat and imports into Munki.
-
-There are two editions that can be downloaded: 32-bit or 64-bit, which
-can be overridden by setting ARCH_EDITION to either '32' or '64'.</string>
+	<string>Downloads the latest version of Praat and imports into Munki.</string>
 	<key>Identifier</key>
 	<string>com.github.autopkg.munki.Praat</string>
 	<key>Input</key>
 	<dict>
-		<key>ARCH_EDITION</key>
-		<string>64</string>
 		<key>MUNKI_REPO_SUBDIR</key>
 		<string>apps</string>
 		<key>NAME</key>
