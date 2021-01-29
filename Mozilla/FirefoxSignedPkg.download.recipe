@@ -52,7 +52,7 @@ See the following URL for possible LOCALE values:
 				<key>filename</key>
 				<string>%NAME%-%version%.pkg</string>
 				<key>url</key>
-				<string>http://releases.mozilla.org/pub/firefox/releases/%version%/mac/%LOCALE%/Firefox%20%version%.pkg</string>
+				<string>https://releases.mozilla.org/pub/firefox/releases/%version%/mac/%LOCALE%/Firefox%20%version%.pkg</string>
 			</dict>
 			<key>Processor</key>
 			<string>URLDownloader</string>
