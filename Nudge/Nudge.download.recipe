@@ -54,11 +54,17 @@ i.e.: `-k PRERELEASE=yes`</string>
             <key>Arguments</key>
             <dict>
                 <key>input_path</key>
-                <string>%pathname%/Nudge.app</string>
+                <string>%pathname%</string>
                 <key>requirement</key>
                 <string>identifier "com.github.macadmins.Nudge"</string>
                 <key>strict_verification</key>
                 <true />
+                <key>expected_authority_names</key>
+                <array>
+                    <string>Developer ID Installer: Clever DevOps Co. (9GQZ7KUFR6)</string>
+                    <string>Developer ID Certification Authority</string>
+                    <string>Apple Root CA</string>
+                </array>
             </dict>
         </dict>
     </array>
