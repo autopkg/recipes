@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
     <key>Description</key>
-    <string>TODO
+    <string>Nudge is application for enforcing macOS updates
 Set PRERELEASE to a non-empty string to download prereleases, either
 via Input in an override or via the -k option,
 i.e.: `-k PRERELEASE=yes`</string>
