@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Description</key>
+    <string>TODO
+Set PRERELEASE to a non-empty string to download prereleases, either
+via Input in an override or via the -k option,
+i.e.: `-k PRERELEASE=yes`</string>
+    <key>Identifier</key>
+    <string>com.github.autopkg.download.Nudge</string>
+    <key>Input</key>
+    <dict>
+        <key>NAME</key>
+        <string>Nudge</string>
+        <key>PRERELEASE</key>
+        <string></string>
+    </dict>
+    <key>MinimumVersion</key>
+    <string>1.0.0</string>
+    <key>Process</key>
+    <array>
+        <dict>
+            <key>Processor</key>
+            <string>GitHubReleasesInfoProvider</string>
+            <key>Arguments</key>
+            <dict>
+                <key>github_repo</key>
+                <string>macadmins/nudge</string>
+                <key>include_prereleases</key>
+                <string>%PRERELEASE%</string>
+                <key>sort_by_highest_tag_names</key>
+                <string>True</string>
+                <key>asset_regex</key>
+                <string>Nudge-\S.*?.pkg</string>
+            </dict>
+        </dict>
+        <dict>
+            <key>Processor</key>
+            <string>URLDownloader</string>
+            <key>Arguments</key>
+            <dict>
+                <key>filename</key>
+                <string>%NAME%.pkg</string>
+            </dict>
+        </dict>
+        <dict>
+            <key>Processor</key>
+            <string>EndOfCheckPhase</string>
+        </dict>
+        <dict>
+            <key>Processor</key>
+            <string>CodeSignatureVerifier</string>
+            <key>Arguments</key>
+            <dict>
+                <key>input_path</key>
+                <string>%pathname%/Nudge.app</string>
+                <key>requirement</key>
+                <string>identifier "com.github.macadmins.Nudge"</string>
+                <key>strict_verification</key>
+                <true />
+            </dict>
+        </dict>
+    </array>
+</dict>
+</plist>

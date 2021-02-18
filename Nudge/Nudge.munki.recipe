@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Description</key>
+    <string>Downloads latest Nudge release and imports into Munki.</string>
+    <key>Identifier</key>
+    <string>com.github.autopkg.munki.Nudge</string>
+    <key>Input</key>
+    <dict>
+        <key>NAME</key>
+        <string>Nudge</string>
+        <key>MUNKI_REPO_SUBDIR</key>
+        <string>apps/Nudge</string>
+        <key>pkginfo</key>
+        <dict>
+            <key>catalogs</key>
+            <array>
+                <string>testing</string>
+            </array>
+            <key>description</key>
+            <string>TODO</string>
+            <key>display_name</key>
+            <string>Nudge</string>
+            <key>name</key>
+            <string>%NAME%</string>
+            <key>unattended_install</key>
+            <true/>
+        </dict>
+    </dict>
+    <key>MinimumVersion</key>
+    <string>1.0.0</string>
+    <key>ParentRecipe</key>
+    <string>com.github.autopkg.download.Nudge</string>
+    <key>Process</key>
+    <array>
+        <dict>
+            <key>Arguments</key>
+            <dict>
+                <key>pkg_path</key>
+                <string>%pathname%</string>
+                <key>repo_subdirectory</key>
+                <string>%MUNKI_REPO_SUBDIR%</string>
+                <key>version_comparison_key</key>
+                <string>CFBundleVersion</string>
+            </dict>
+            <key>Processor</key>
+            <string>MunkiImporter</string>
+        </dict>
+    </array>
+</dict>
+</plist>
