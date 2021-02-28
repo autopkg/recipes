@@ -5,7 +5,7 @@
     <key>Description</key>
     <string>Downloads Firefox disk image and builds a package.
 Some useful values for RELEASE are: 'latest', 'esr-latest', 'beta-latest'.
-LOCALE controls the language localization to be downloded.
+LOCALE controls the language localization to be downloaded.
 Examples include 'en-US', 'de', 'sv-SE', and 'zh-TW'
 See the following URLs for more info:
     http://ftp.mozilla.org/pub/firefox/releases/latest/README.txt
