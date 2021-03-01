@@ -13,7 +13,7 @@ Other values to try can be found by examining the JSON file at:
     https://product-details.mozilla.org/1.0/firefox_versions.json
 (Not all will work.)
 
-LOCALE controls the language localization to be downloded.
+LOCALE controls the language localization to be downloaded.
 Examples include 'en-US', 'de', 'sv-SE', and 'zh-TW'
 See the following URL for possible LOCALE values:
     http://ftp.mozilla.org/pub/firefox/releases/latest/README.txt
