@@ -21,8 +21,6 @@ See the following URLs for more info:
         <string>en-US</string>
         <key>NAME</key>
         <string>Firefox</string>
-        <key>DISABLE_CODE_SIGNATURE_VERIFICATION</key>
-        <false />
     </dict>
     <key>MinimumVersion</key>
     <string>2.0</string>
