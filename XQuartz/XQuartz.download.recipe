@@ -22,15 +22,6 @@ Override BRANCH with either 'beta' or 'release' for the applicable Sparkle feed.
         <array>
             <dict>
                 <key>Processor</key>
-                <string>DeprecationWarning</string>
-                <key>Arguments</key>
-                <dict>
-                    <key>warning_message</key>
-                    <string>This recipe will soon be removed. Please remove it from your list of recipes.</string>
-                </dict>
-            </dict>
-            <dict>
-                <key>Processor</key>
                 <string>SparkleUpdateInfoProvider</string>
                 <key>Arguments</key>
                 <dict>
