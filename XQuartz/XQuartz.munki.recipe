@@ -44,15 +44,6 @@ The XQuartz project is an open-source effort to develop a version of the X.Org X
         <array>
             <dict>
                 <key>Processor</key>
-                <string>DeprecationWarning</string>
-                <key>Arguments</key>
-                <dict>
-                    <key>warning_message</key>
-                    <string>This recipe will soon be removed. Please remove it from your list of recipes.</string>
-                </dict>
-            </dict>
-            <dict>
-                <key>Processor</key>
                 <string>MunkiPkginfoMerger</string>
             </dict>
             <dict>
