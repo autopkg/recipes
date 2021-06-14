@@ -102,6 +102,11 @@ PROD_DICT = {
         "path": "/Applications/Microsoft Defender ATP.app",
         "minimum_os": "10.12",
     },
+    "Teams": {
+        "id": "TEAM01",
+        "path": "/Applications/Microsoft Teams.app",
+        "minimum_os": "10.10",
+    },
 }
 LOCALE_ID_INFO_URL = "https://msdn.microsoft.com/en-us/goglobal/bb964664.aspx"
 SUPPORTED_VERSIONS = ["latest", "latest-delta", "latest-standalone"]
@@ -210,9 +215,9 @@ class MSOfficeMacURLandUpdateInfoProvider(URLGetter):
     def get_installs_items(self, item):
         """Attempts to parse the Triggers to create an installs item using
         only manifest data, making the assumption that CFBundleVersion and
-        CFBundleShortVersionString are equal. Skip SkypeForBusiness as its
+        CFBundleShortVersionString are equal. Skip SkypeForBusiness and Teams as their
         xml does not contain a 'Trigger Condition'"""
-        if self.env["product"] != "SkypeForBusiness":
+        if self.env["product"] != "SkypeForBusiness" and self.env["product"] != "Teams":
             self.sanity_check_expected_triggers(item)
         version = self.get_version(item)
         # Skipping CFBundleShortVersionString because it doesn't contain
