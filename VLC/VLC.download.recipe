@@ -5,8 +5,8 @@
     <key>Description</key>
     <string>Downloads latest VLC disk image.
 
-Default SPARKLE_FEED_URL is the universal Intel build, but path 'vlc-intel64.xml' may be 
-substituted for 'vlc-arm64.xml' to retrieve M1 build.
+Default SPARKLE_FEED_URL is the Intel build, but path 'vlc-intel64.xml' may be 
+substituted with 'vlc-arm64.xml' to retrieve the M1 build.
 </string>
     <key>Identifier</key>
     <string>com.github.autopkg.download.VLC</string>
