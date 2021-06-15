@@ -5,8 +5,9 @@
     <key>Description</key>
     <string>Downloads latest VLC disk image and imports into Munki.
         This recipe defaults supported_architectures to x86_64. 
-        If you override VLC.download.recipe to %SPARKLE_FEED_URL% to 
-        "https://update.videolan.org/vlc/sparkle/vlc-intel64.xml", update %ARCH% to "arm64".</string>
+        If you override SPARKLE_FEED_URL to 
+        "https://update.videolan.org/vlc/sparkle/vlc-intel64.xml", be sure to
+        adjust ARCH to "arm64".</string>
     <key>Identifier</key>
     <string>com.github.autopkg.munki.VLC</string>
     <key>Input</key>
