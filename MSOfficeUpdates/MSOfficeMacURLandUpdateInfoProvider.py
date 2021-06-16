@@ -102,6 +102,11 @@ PROD_DICT = {
         "path": "/Applications/Microsoft Defender ATP.app",
         "minimum_os": "10.12",
     },
+    "Edge": {
+        "id": "EDGE01",
+        "path": "/Applications/Microsoft Edge.app",
+        "minimum_os": "10.11",
+    },
     "Teams": {
         "id": "TEAM01",
         "path": "/Applications/Microsoft Teams.app",
@@ -117,6 +122,7 @@ CHANNELS = {
     "InsiderFast": "4B2D7701-0A4F-49C8-B4CB-0C2D4043F51F",
 }
 DEFAULT_CHANNEL = "Production"
+NO_TRIGGER_CONDITIONS = ["SkypeForBusiness", "Teams", "Edge"]
 
 
 class MSOfficeMacURLandUpdateInfoProvider(URLGetter):
@@ -215,9 +221,9 @@ class MSOfficeMacURLandUpdateInfoProvider(URLGetter):
     def get_installs_items(self, item):
         """Attempts to parse the Triggers to create an installs item using
         only manifest data, making the assumption that CFBundleVersion and
-        CFBundleShortVersionString are equal. Skip SkypeForBusiness and Teams as their
-        xml does not contain a 'Trigger Condition'"""
-        if self.env["product"] != "SkypeForBusiness" and self.env["product"] != "Teams":
+        CFBundleShortVersionString are equal. Skip SkypeForBusiness, Teams, 
+        and Edge as their xml does not contain a 'Trigger Condition'"""
+        if self.env["product"] not in NO_TRIGGER_CONDITIONS:
             self.sanity_check_expected_triggers(item)
         version = self.get_version(item)
         # Skipping CFBundleShortVersionString because it doesn't contain
