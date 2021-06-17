@@ -3,19 +3,15 @@
 <plist version="1.0">
 <dict>
     <key>Description</key>
-    <string>Downloads the current release version of Evernote and imports into Munki.
-
-Alternate Beta URL that can be used for SPARKLE_FEED_URL:
-http://update.evernote.com/prerelease/ENMac/EvernoteMacUpdate.xml
-</string>
+    <string>Downloads the current release version of Evernote and imports into Munki.</string>
     <key>Identifier</key>
     <string>com.github.autopkg.munki.Evernote</string>
     <key>Input</key>
     <dict>
-        <key>NAME</key>
-        <string>Evernote</string>
         <key>MUNKI_REPO_SUBDIR</key>
         <string>apps/Evernote</string>
+        <key>NAME</key>
+        <string>Evernote</string>
         <key>pkginfo</key>
         <dict>
             <key>catalogs</key>
@@ -35,34 +31,19 @@ http://update.evernote.com/prerelease/ENMac/EvernoteMacUpdate.xml
     <key>MinimumVersion</key>
     <string>0.2.0</string>
     <key>ParentRecipe</key>
-	<string>com.github.autopkg.download.Evernote</string>
+    <string>com.github.autopkg.download.Evernote</string>
     <key>Process</key>
-	<array>
+    <array>
         <dict>
             <key>Processor</key>
-            <string>DmgCreator</string>
-            <key>Arguments</key>
-            <dict>
-                <key>dmg_root</key>
-                <string>%RECIPE_CACHE_DIR%/%NAME%</string>
-                <key>dmg_path</key>
-                <string>%RECIPE_CACHE_DIR%/%NAME%.dmg</string>
-            </dict>
-        </dict>
-        <dict>
-            <key>Processor</key>
-            <string>MunkiPkginfoMerger</string>
-        </dict>
-        <dict>
+            <string>MunkiImporter</string>
             <key>Arguments</key>
             <dict>
                 <key>pkg_path</key>
-                <string>%dmg_path%</string>
+                <string>%pathname%</string>
                 <key>repo_subdirectory</key>
                 <string>%MUNKI_REPO_SUBDIR%</string>
             </dict>
-            <key>Processor</key>
-            <string>MunkiImporter</string>
         </dict>
     </array>
 </dict>
