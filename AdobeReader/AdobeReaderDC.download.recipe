@@ -8,14 +8,14 @@
 	<string>com.github.autopkg.download.AdobeReaderDC</string>
 	<key>Input</key>
 	<dict>
-        <key>LANGUAGE</key>
-        <string>English</string>
-        <key>MAJOR_VERSION</key>
-        <string>AcrobatDC</string>
-        <key>OS_VERSION</key>
-        <string>10.13.0</string>
-		<key>NAME</key>
-		<string>AdobeReaderDC</string>
+            <key>LANGUAGE</key>
+            <string>English</string>
+            <key>MAJOR_VERSION</key>
+            <string>AcrobatDC</string>
+            <key>OS_VERSION</key>
+            <string>11.0</string>
+	    <key>NAME</key>
+	    <string>AdobeReaderDC</string>
 	</dict>
     <key>MinimumVersion</key>
     <string>1.4</string>
