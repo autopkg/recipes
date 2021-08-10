@@ -29,7 +29,7 @@ The XQuartz project is an open-source effort to develop a version of the X.Org X
                 <key>display_name</key>
                 <string>%NAME%</string>
                 <key>minimum_os_version</key>
-                <string>10.6.3</string>
+                <string>10.9.0</string>
                 <key>name</key>
                 <string>%NAME%</string>
                 <key>unattended_install</key>
@@ -42,21 +42,98 @@ The XQuartz project is an open-source effort to develop a version of the X.Org X
         <string>com.github.autopkg.download.xquartz</string>
         <key>Process</key>
         <array>
+        <dict>
+            <key>Processor</key>
+            <string>FlatPkgUnpacker</string>
+            <key>Arguments</key>
             <dict>
-                <key>Processor</key>
-                <string>MunkiPkginfoMerger</string>
+                <key>flat_pkg_path</key>
+                <string>%pathname%/XQuartz.pkg</string>
+                <key>destination_path</key>
+                <string>%RECIPE_CACHE_DIR%/unpack</string>
             </dict>
+        </dict>
+        <dict>
+            <key>Processor</key>
+            <string>PkgPayloadUnpacker</string>
+            <key>Arguments</key>
             <dict>
-                <key>Arguments</key>
+                <key>pkg_payload_path</key>
+                <string>%RECIPE_CACHE_DIR%/unpack/XQuartzComponent.pkg/Payload</string>
+                <key>destination_path</key>
+                <string>%RECIPE_CACHE_DIR%/%NAME%</string>
+                <key>purge_destination</key>
+                <true/>
+            </dict>
+        </dict>
+        <dict>
+            <key>Processor</key>
+            <string>MunkiInstallsItemsCreator</string>
+            <key>Arguments</key>
+            <dict>
+                <key>faux_root</key>
+                <string>%RECIPE_CACHE_DIR%/%NAME%/</string>
+                <key>installs_item_paths</key>
+                <array>
+                    <string>/Applications/Utilities/XQuartz.app</string>
+                </array>
+                <key>version_comparison_key</key>
+                <string>CFBundleShortVersionString</string>
+            </dict>
+        </dict>
+        <dict>
+            <key>Processor</key>
+            <string>MunkiPkginfoMerger</string>
+        </dict>
+        <dict>
+            <key>Processor</key>
+            <string>PlistReader</string>
+            <key>Arguments</key>
+            <dict>
+                <key>info_path</key>
+                <string>%RECIPE_CACHE_DIR%/%NAME%/Applications/Utilities/XQuartz.app/Contents/Info.plist</string>
+                <key>plist_keys</key>
                 <dict>
-                    <key>pkg_path</key>
-                    <string>%pathname%</string>
-                    <key>repo_subdirectory</key>
-                    <string>%MUNKI_REPO_SUBDIR%</string>
+                    <key>CFBundleShortVersionString</key>
+                    <string>version</string>
                 </dict>
-                <key>Processor</key>
-                <string>MunkiImporter</string>
             </dict>
+        </dict>
+        <dict>
+            <key>Processor</key>
+            <string>MunkiPkginfoMerger</string>
+            <key>Arguments</key>
+            <dict>
+                <key>additional_pkginfo</key>
+                <dict>
+                    <key>version</key>
+                    <string>%version%</string>
+                </dict>
+            </dict>
+        </dict>
+        <dict>
+            <key>Processor</key>
+            <string>MunkiImporter</string>
+            <key>Arguments</key>
+            <dict>
+                <key>pkg_path</key>
+                <string>%pathname%</string>
+                <key>repo_subdirectory</key>
+                <string>%MUNKI_REPO_SUBDIR%</string>
+            </dict>
+        </dict>
+        <dict>
+            <key>Processor</key>
+            <string>PathDeleter</string>
+            <key>Arguments</key>
+            <dict>
+                <key>path_list</key>
+                <array>
+                    <string>%RECIPE_CACHE_DIR%/%NAME%/</string>  
+                    <string>%RECIPE_CACHE_DIR%/unpack/</string>                      
+                </array>
+            </dict>
+        </dict>
         </array>
     </dict>
 </plist>
