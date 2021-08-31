@@ -5,7 +5,7 @@
         <key>Description</key>
         <string>Downloads the latest version of Dropbox and makes a pkg of it.</string>
         <key>Identifier</key>
-        <string>com.github.autopkg.pkg.Dropbox</string>
+        <string>com.github.autopkg.pkg.dropbox</string>
         <key>Input</key>
         <dict>
             <key>NAME</key>
