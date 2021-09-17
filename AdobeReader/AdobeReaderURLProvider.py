@@ -50,7 +50,7 @@ class AdobeReaderURLProvider(URLGetter):
         "os_version": {
             "required": False,
             "description": (
-                "OS X version to use in URL search. Defaults to %s."
+                "macOS version to use in URL search. Defaults to %s."
                 " Reader DC requires '10.9.0'" % OS_VERSION_DEFAULT
             ),
         },
