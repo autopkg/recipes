@@ -2,18 +2,20 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>Comment</key>
+	<string>For OS_Version, 10.14.0 or 10.15.0 are valid, not 10.14 or 10.15</string>
     <key>Description</key>
     <string>Downloads the latest Adobe Reader DC.</string>
 	<key>Identifier</key>
 	<string>com.github.autopkg.download.AdobeReaderDC</string>
 	<key>Input</key>
 	<dict>
-            <key>LANGUAGE</key>
-            <string>English</string>
-            <key>MAJOR_VERSION</key>
-            <string>AcrobatDC</string>
-            <key>OS_VERSION</key>
-            <string>11.0</string>
+		<key>LANGUAGE</key>
+		<string>English</string>
+		<key>MAJOR_VERSION</key>
+		<string>AcrobatDC</string>
+		<key>OS_VERSION</key>
+		<string>10.15.0</string>
 	    <key>NAME</key>
 	    <string>AdobeReaderDC</string>
 	</dict>
@@ -56,7 +58,7 @@
                 <string>%pathname%/*.pkg</string>
                 <key>expected_authority_names</key>
                 <array>
-                    <string>Developer ID Installer: Adobe Systems, Inc. (JQ525L2MZD)</string>
+                    <string>Developer ID Installer: Adobe Inc. (JQ525L2MZD)</string>
                     <string>Developer ID Certification Authority</string>
                     <string>Apple Root CA</string>
                 </array>
