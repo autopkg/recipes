@@ -40,7 +40,7 @@
             <key>Arguments</key>
             <dict>
                 <key>filename</key>
-                <string>%NAME%.dmg</string>
+                <string>%NAME%-%version%.dmg</string>
             </dict>
             <key>Processor</key>
             <string>URLDownloader</string>
