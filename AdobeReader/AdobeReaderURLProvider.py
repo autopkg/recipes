@@ -17,7 +17,7 @@
 
 import json
 
-from autopkglib import ProcessorError
+from autopkglib import APLooseVersion, ProcessorError
 from autopkglib.URLGetter import URLGetter
 
 __all__ = ["AdobeReaderURLProvider"]
@@ -29,8 +29,8 @@ AR_BASE_URL = (
 )
 
 LANGUAGE_DEFAULT = "English"
-MAJOR_VERSION_DEFAULT = "11"
-OS_VERSION_DEFAULT = "10.8.0"
+MAJOR_VERSION_DEFAULT = "AcrobatDC"
+OS_VERSION_DEFAULT = "10.15.0"
 
 MAJOR_VERSION_MATCH_STR = "adobe/reader/mac/%s"
 
@@ -50,7 +50,7 @@ class AdobeReaderURLProvider(URLGetter):
         "os_version": {
             "required": False,
             "description": (
-                "OS X version to use in URL search. Defaults to %s."
+                "macOS version to use in URL search. Defaults to %s."
                 " Reader DC requires '10.9.0'" % OS_VERSION_DEFAULT
             ),
         },
@@ -64,10 +64,11 @@ class AdobeReaderURLProvider(URLGetter):
         "base_url": {"required": False, "description": "Default is %s" % AR_BASE_URL},
     }
     output_variables = {
-        "url": {"description": "URL to the latest Adobe Reader release."}
+        "url": {"description": "URL to the latest Adobe Reader release."},
+        "version": {"description": "Version of the latest Adobe Reader release."},
     }
 
-    def get_reader_dmg_url(self, base_url, language, major_version, os_version):
+    def get_reader_dmg_info(self, base_url, language, major_version, os_version):
         """Returns download URL for Adobe Reader DMG"""
         request_url = base_url % (os_version, language)
         header = {"x-requested-with": "XMLHttpRequest"}
@@ -75,13 +76,14 @@ class AdobeReaderURLProvider(URLGetter):
 
         reader_info = json.loads(json_response)
         major_version_string = MAJOR_VERSION_MATCH_STR % major_version
-        matches = [
-            item["download_url"]
+        matches = {
+            item["Version"]: item["download_url"]
             for item in reader_info
             if major_version_string in item["download_url"]
-        ]
+        }
         try:
-            return matches[0]
+            version = max(matches, key=lambda x: APLooseVersion(x))
+            return matches[version], version
         except IndexError:
             raise ProcessorError(
                 "Can't find Adobe Reader download URL for %s, version %s"
@@ -95,10 +97,11 @@ class AdobeReaderURLProvider(URLGetter):
         major_version = self.env.get("major_version", MAJOR_VERSION_DEFAULT)
         os_version = self.env.get("os_version", OS_VERSION_DEFAULT)
 
-        self.env["url"] = self.get_reader_dmg_url(
+        self.env["url"], self.env["version"] = self.get_reader_dmg_info(
             base_url, language, major_version, os_version
         )
         self.output("Found URL %s" % self.env["url"])
+        self.output("Found version %s" % self.env["version"])
 
 
 if __name__ == "__main__":
