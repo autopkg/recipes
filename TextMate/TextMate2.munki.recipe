@@ -38,7 +38,7 @@ i.e.: `-k PRERELEASE=yes`
             <key>postinstall_script</key>
             <string>#!/bin/sh
 [ -d /usr/local/bin ] || mkdir -p /usr/local/bin
-/bin/cp -f -p /Applications/TextMate.app/Contents/Resources/mate /usr/local/bin/mate
+/bin/cp -f -p /Applications/TextMate.app/Contents/MacOS/mate /usr/local/bin/mate
 </string>
             <key>postuninstall_script</key>
             <string>#!/bin/sh
