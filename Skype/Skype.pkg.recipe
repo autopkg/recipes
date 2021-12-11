@@ -17,10 +17,29 @@
 	<string>com.github.autopkg.download.Skype</string>
 	<key>Process</key>
 	<array>
-		<dict>
-			<key>Processor</key>
-			<string>AppPkgCreator</string>
-		</dict>
+	    <dict>
+                <key>Processor</key>
+            	<string>PlistReader</string>
+           	<key>Arguments</key>
+                <dict>
+                    <key>info_path</key>
+                    <string>%pathname%/Skype.app</string>
+                    <key>plist_keys</key>
+                    <dict>
+                        <key>CFBundleVersion</key>
+                        <string>version</string>
+                    </dict>
+                </dict>
+    	    </dict>
+	    <dict>
+	        <key>Processor</key>
+		<string>AppPkgCreator</string>
+		<key>Arguments</key>
+                <dict>
+                    <key>pkgname</key>
+                    <string>%NAME%-%version%</string>
+	        </dict>
+	    </dict>
 	</array>
 </dict>
 </plist>
