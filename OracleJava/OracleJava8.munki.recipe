@@ -46,8 +46,9 @@ the prefPane bundle, which has historically had consistent versioning.
             <string>uninstall_script</string>
             <key>uninstall_script</key>
             <string>#!/bin/sh
-            # From http://www.java.com/en/download/help/mac_uninstall_java.xml
+            # From https://www.java.com/en/download/help/mac_uninstall_java.html
             rm -fr /Library/Internet\ Plug-Ins/JavaAppletPlugin.plugin
+            rm -fr /Library/PreferencePanes/JavaControlPanel.prefPane
             pkgutil --forget com.oracle.jre
             </string>
         </dict>
