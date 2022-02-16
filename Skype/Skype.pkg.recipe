@@ -1,45 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
-<dict>
-	<key>Description</key>
-	<string>Downloads latest Skype disk image and builds a package.</string>
-	<key>Identifier</key>
-	<string>com.github.autopkg.pkg.Skype</string>
-	<key>Input</key>
-	<dict>
-		<key>NAME</key>
-		<string>Skype</string>
-	</dict>
-	<key>MinimumVersion</key>
-	<string>1.0.0</string>
-	<key>ParentRecipe</key>
-	<string>com.github.autopkg.download.Skype</string>
-	<key>Process</key>
-	<array>
-	    <dict>
-                <key>Processor</key>
-            	<string>PlistReader</string>
-           	<key>Arguments</key>
+    <dict>
+        <key>Description</key>
+        <string>Downloads latest Skype disk image and builds a package.</string>
+        <key>Identifier</key>
+        <string>com.github.autopkg.pkg.Skype</string>
+        <key>Input</key>
+        <dict>
+            <key>NAME</key>
+            <string>Skype</string>
+            <key>VERSIONTYPE</key>
+            <string>CFBundleVersion</string>
+        </dict>
+        <key>MinimumVersion</key>
+        <string>1.0.0</string>
+        <key>ParentRecipe</key>
+        <string>com.github.autopkg.download.Skype</string>
+        <key>Process</key>
+        <array>
+            <dict>
+                <key>Arguments</key>
                 <dict>
-                    <key>info_path</key>
-                    <string>%pathname%/Skype.app</string>
-                    <key>plist_keys</key>
-                    <dict>
-                        <key>CFBundleVersion</key>
-                        <string>version</string>
-                    </dict>
+                    <key>input_plist_path</key>
+                    <string>%pathname%/Skype.app/Contents/Info.plist</string>
+                    <key>plist_version_key</key>
+                    <string>%VERSIONTYPE%</string>
                 </dict>
-    	    </dict>
-	    <dict>
-	        <key>Processor</key>
-		<string>AppPkgCreator</string>
-		<key>Arguments</key>
+                <key>Processor</key>
+                <string>Versioner</string>
+            </dict>
+            <dict>
+                <key>Processor</key>
+                <string>AppPkgCreator</string>
+                <key>Arguments</key>
                 <dict>
                     <key>pkgname</key>
                     <string>%NAME%-%version%</string>
-	        </dict>
-	    </dict>
-	</array>
-</dict>
+                </dict>
+            </dict>
+        </array>
+    </dict>
 </plist>
