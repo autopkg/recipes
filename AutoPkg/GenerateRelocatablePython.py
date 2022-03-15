@@ -51,7 +51,7 @@ class GenerateRelocatablePython(Processor):
         git_repo = "https://github.com/gregneagle/relocatable-python.git"
         cmd = ["git", "clone", git_repo, target_dir]
         self.output(f"Cloning Relocatable Python into {target_dir}")
-        print(f"Command: {' '.join(cmd)}", verbose_level=4)
+        self.output(f"Command: {' '.join(cmd)}", verbose_level=4)
         try:
             subprocess.run(cmd, timeout=3600, check=True)
         except subprocess.CalledProcessError as e:
@@ -74,7 +74,7 @@ class GenerateRelocatablePython(Processor):
             dest,
         ]
         self.output("Building relocatable python framework...")
-        print(f"Command: {' '.join(cmd)}", verbose_level=4)
+        self.output(f"Command: {' '.join(cmd)}", verbose_level=4)
         try:
             results = subprocess.run(cmd, text=True, check=True)
         except subprocess.CalledProcessError as e:
