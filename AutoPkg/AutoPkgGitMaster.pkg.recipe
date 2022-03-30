@@ -89,7 +89,7 @@ This is not used to obtain the latest released version.
                     <key>python_version</key>
                     <string>%PYTHON_VERSION%</string>
                     <key>os_version</key>
-                    <string>%PYTHON_VERSION%</string>
+                    <string>%OS_VERSION%</string>
                 </dict>
                 <key>Processor</key>
                 <string>GenerateRelocatablePython</string>
