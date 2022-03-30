@@ -20,6 +20,8 @@ This is not used to obtain the latest released version.
             <string>3.7.5</string>
             <key>REQUIREMENTS_FILENAME</key>
             <string>requirements.txt</string>
+            <key>OS_VERSION</key>
+            <string>10.9</string>
         </dict>
         <key>MinimumVersion</key>
         <string>0.2.1</string>
@@ -85,6 +87,8 @@ This is not used to obtain the latest released version.
                     <key>requirements_path</key>
                     <string>%autopkg_path%/%REQUIREMENTS_FILENAME%</string>
                     <key>python_version</key>
+                    <string>%PYTHON_VERSION%</string>
+                    <key>os_version</key>
                     <string>%PYTHON_VERSION%</string>
                 </dict>
                 <key>Processor</key>

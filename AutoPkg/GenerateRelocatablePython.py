@@ -39,6 +39,10 @@ class GenerateRelocatablePython(Processor):
             "required": True,
             "description": "What version of Python to build.",
         },
+        "os_version": {
+            "required": True,
+            "description": "What OS to fetch.",
+        }
     }
     output_variables = {
         "python_path": {"description": "Path to built Python framework."}
@@ -71,6 +75,8 @@ class GenerateRelocatablePython(Processor):
             self.env["python_version"],
             "--pip-requirements",
             self.env["requirements_path"],
+            "--os-version",
+            self.env["os_version"],
             "--destination",
             dest,
         ]
