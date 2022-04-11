@@ -67,7 +67,7 @@ jobs:
         # - See Here: https://community.chocolatey.org/packages/python#versionhistory
         run: choco install python3 --version 3.9.12 --no-progress --yes --force --force-dependencies
       - name: test chocolately install autopkg.nupkg
-        run: choco install autopkg -s "C:\Users\runneradmin\Library\AutoPkg\Cache\com.github.jgstew.nupkg.AutoPkg\nupkgs\" --no-progress --yes --force --force-dependencies
+        run: choco install autopkg -s "$env:USERPROFILE\Library\AutoPkg\Cache\com.github.autopkg.nupkg.AutoPkgRelease\nupkgs" --no-progress --yes --force --force-dependencies
       - name: test autopkg chocolately install
         run: autopkg help
 # Related:
