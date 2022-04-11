@@ -71,6 +71,6 @@ jobs:
       - name: test chocolately install autopkg.nupkg
         run: choco install autopkg -s "$env:USERPROFILE\Library\AutoPkg\Cache\com.github.autopkg.nupkg.AutoPkgRelease\nupkgs" --no-progress --yes --force --force-dependencies
       - name: test autopkg chocolately install
-        run: autopkg run -v com.github.autopkg.test.AutoPkgCoreProcessors
+        run: autopkg run -vv com.github.autopkg.test.AutoPkgCoreProcessors
 # Related:
 # - https://github.com/jgstew/bigfix-content/blob/master/.github/workflows/autopkg.yaml
