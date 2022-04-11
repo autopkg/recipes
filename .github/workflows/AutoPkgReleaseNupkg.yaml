@@ -58,6 +58,8 @@ jobs:
         run: |
           cd ~ && mkdir -p .config/Autopkg
           cd ~ && echo {} > .config/Autopkg/config.json
+      - name: run test recipe
+        run: python autopkg/Code/autopkg run -v com.github.autopkg.test.AutoPkgCoreProcessors
       - name: run nupkg recipe
         run: python autopkg/Code/autopkg run -v AutoPkgRecipe/AutoPkg-Release-Source.nupkg.recipe.yaml
         env:
@@ -69,6 +71,6 @@ jobs:
       - name: test chocolately install autopkg.nupkg
         run: choco install autopkg -s "$env:USERPROFILE\Library\AutoPkg\Cache\com.github.autopkg.nupkg.AutoPkgRelease\nupkgs" --no-progress --yes --force --force-dependencies
       - name: test autopkg chocolately install
-        run: autopkg help
+        run: autopkg run -v com.github.autopkg.test.AutoPkgCoreProcessors
 # Related:
 # - https://github.com/jgstew/bigfix-content/blob/master/.github/workflows/autopkg.yaml
