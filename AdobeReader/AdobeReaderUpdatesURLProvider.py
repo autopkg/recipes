@@ -16,12 +16,9 @@
 # limitations under the License.
 """See docstring for AdobeReaderURLProvider class"""
 
-from autopkglib.URLGetter import URLGetter
+import plistlib
 
-try:
-    from plistlib import readPlistFromString
-except ImportError:
-    from plistlib import readPlistFromBytes as readPlistFromString
+from autopkglib.URLGetter import URLGetter
 
 __all__ = ["AdobeReaderUpdatesURLProvider"]
 
@@ -86,7 +83,7 @@ class AdobeReaderUpdatesURLProvider(URLGetter):
 
         url = AR_UPDATER_BASE_URL + version_string
         data = self.download(url)
-        plist = readPlistFromString(data)
+        plist = plistlib.loads(data)
 
         url = AR_UPDATER_DOWNLOAD_URL2 + plist["PatchURL"]
         return url

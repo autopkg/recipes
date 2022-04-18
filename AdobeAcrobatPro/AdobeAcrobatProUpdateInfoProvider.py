@@ -15,15 +15,11 @@
 # limitations under the License.
 """See docstring for AdobeAcrobatProUpdateInfoProvider class"""
 
+import plistlib
 import re
 
 from autopkglib import ProcessorError
 from autopkglib.URLGetter import URLGetter
-
-try:
-    from plistlib import readPlistFromString
-except ImportError:
-    from plistlib import readPlistFromBytes as readPlistFromString
 
 __all__ = ["AdobeAcrobatProUpdateInfoProvider"]
 
@@ -105,7 +101,7 @@ class AdobeAcrobatProUpdateInfoProvider(URLGetter):
         """Get manifest(plist) data from a url"""
         manifest_plist_response = self.download(manifest_plist_url)
         try:
-            manifest_data = readPlistFromString(manifest_plist_response)
+            manifest_data = plistlib.loads(manifest_plist_response)
         except Exception as err:
             raise ProcessorError(
                 "Can't parse manifest plist at %s: %s" % (manifest_plist_url, err)
@@ -130,7 +126,7 @@ class AdobeAcrobatProUpdateInfoProvider(URLGetter):
             template_response = re.sub(r"\d+\.\d+\.\d+", get_version, template_response)
 
         manifest_url = self.process_url_vars(
-            META_BASE_URL + template_response.decode("utf-8")
+            META_BASE_URL + template_response
         )
         manifest_data = self.get_manifest_data(manifest_url)
 

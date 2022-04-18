@@ -16,14 +16,10 @@
 """See docstring for BarebonesURLProvider class"""
 
 from distutils.version import LooseVersion
+import plistlib
 
 from autopkglib import ProcessorError
 from autopkglib.URLGetter import URLGetter
-
-try:
-    from plistlib import readPlistFromString
-except ImportError:
-    from plistlib import readPlistFromBytes as readPlistFromString
 
 __all__ = ["BarebonesURLProvider"]
 
@@ -61,7 +57,7 @@ class BarebonesURLProvider(URLGetter):
         manifest_str = self.download(url)
 
         try:
-            plist = readPlistFromString(manifest_str)
+            plist = plistlib.loads(manifest_str)
         except Exception as err:
             raise ProcessorError(
                 "Unexpected error parsing manifest as a plist: '%s'" % err

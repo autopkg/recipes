@@ -59,7 +59,8 @@ class MakeCatalogsProcessor(Processor):
         )
         current_run_results_plist = os.path.join(cache_dir, "autopkg_results.plist")
         try:
-            run_results = plistlib.readPlist(current_run_results_plist)
+            with open(current_run_results_plist, "rb") as f:
+                run_results = plistlib.load(f)
         except (IOError, OSError):
             run_results = []
 
