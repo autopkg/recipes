@@ -15,18 +15,13 @@
 # limitations under the License.
 """See docstring for MSOffice2011UpdateInfoProvider class"""
 
+import plistlib
 from builtins import hex
 from distutils.version import LooseVersion
-import plistlib
+from urllib.parse import urlparse, urlunparse
 
 from autopkglib import ProcessorError
 from autopkglib.URLGetter import URLGetter
-from past.builtins import basestring
-
-try:
-    from urlparse import urlparse, urlunparse
-except ImportError:
-    from urllib.parse import urlparse, urlunparse
 
 __all__ = ["MSOffice2011UpdateInfoProvider"]
 
