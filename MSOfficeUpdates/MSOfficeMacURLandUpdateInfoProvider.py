@@ -17,15 +17,11 @@
 # limitations under the License.
 """See docstring for MSOfficeMacURLandUpdateInfoProvider class"""
 
+import plistlib
 import re
 
 from autopkglib import ProcessorError
 from autopkglib.URLGetter import URLGetter
-
-try:
-    from plistlib import readPlistFromString
-except ImportError:
-    from plistlib import readPlistFromBytes as readPlistFromString
 
 __all__ = ["MSOfficeMacURLandUpdateInfoProvider"]
 
@@ -285,7 +281,7 @@ class MSOfficeMacURLandUpdateInfoProvider(URLGetter):
         }
         data = self.download(base_url, headers)
 
-        metadata = readPlistFromString(data)
+        metadata = plistlib.loads(data)
         item = {}
         # Update feeds for a given 'channel' will have either combo or delta
         # pkg urls, with delta's additionally having a 'FullUpdaterLocation'
