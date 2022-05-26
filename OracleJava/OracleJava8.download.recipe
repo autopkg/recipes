@@ -25,6 +25,15 @@ http://www.oracle.com/technetwork/java/javase/terms/license/index.html
     <array>
         <dict>
             <key>Processor</key>
+            <string>DeprecationWarning</string>
+            <key>Arguments</key>
+            <dict>
+                <key>warning_message</key>
+                <string>This recipe will soon be removed. Please remove it from your list of recipes.</string>
+            </dict>
+        </dict>
+        <dict>
+            <key>Processor</key>
             <string>URLTextSearcher</string>
             <key>Arguments</key>
             <dict>
