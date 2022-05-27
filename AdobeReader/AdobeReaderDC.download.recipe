@@ -3,19 +3,15 @@
 <plist version="1.0">
 <dict>
 	<key>Comment</key>
-	<string>For OS_Version, 10.14.0 or 10.15.0 are valid, not 10.14 or 10.15</string>
+	<string>For OS_VERSION, 'Mac OS 10.14.0' or 'Mac OS 10.15.0' are valid, not 10.14 or 10.15</string>
     <key>Description</key>
-    <string>Downloads the latest Adobe Reader DC.</string>
+    <string>Downloads the latest Adobe Acrobat Reader DC.</string>
 	<key>Identifier</key>
 	<string>com.github.autopkg.download.AdobeReaderDC</string>
 	<key>Input</key>
 	<dict>
-		<key>LANGUAGE</key>
-		<string>English</string>
-		<key>MAJOR_VERSION</key>
-		<string>AcrobatDC</string>
 		<key>OS_VERSION</key>
-		<string>10.15.0</string>
+		<string>Mac OS 10.14.0</string>
 	    <key>NAME</key>
 	    <string>AdobeReaderDC</string>
 	</dict>
@@ -26,10 +22,6 @@
         <dict>
             <key>Arguments</key>
             <dict>
-                <key>language</key>
-                <string>%LANGUAGE%</string>
-                <key>major_version</key>
-                <string>%MAJOR_VERSION%</string>
                 <key>os_version</key>
                 <string>%OS_VERSION%</string>
             </dict>
@@ -37,11 +29,6 @@
             <string>AdobeReaderURLProvider</string>
         </dict>
         <dict>
-            <key>Arguments</key>
-            <dict>
-                <key>filename</key>
-                <string>%NAME%-%version%.dmg</string>
-            </dict>
             <key>Processor</key>
             <string>URLDownloader</string>
         </dict>
