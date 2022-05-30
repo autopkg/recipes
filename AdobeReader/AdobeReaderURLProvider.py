@@ -17,8 +17,8 @@
 """See docstring for AdobeReaderURLProvider class"""
 
 import json
-
 from urllib.parse import quote
+
 from autopkglib.URLGetter import URLGetter
 
 __all__ = ["AdobeReaderURLProvider"]
@@ -91,6 +91,7 @@ class AdobeReaderURLProvider(URLGetter):
         return download_url, filename
 
     def main(self):
+        """Main process"""
         base_url = self.env.get("base_url", RDC_PRODUCTS_URL)
         rdc_download_url = self.env.get("download_url", RDC_DOWNLOAD_URL)
         os_version = self.env.get("os_version", OS_VERSION_DEFAULT)
