@@ -95,6 +95,12 @@ class AdobeReaderURLProvider(URLGetter):
         base_url = self.env.get("base_url", RDC_PRODUCTS_URL)
         rdc_download_url = self.env.get("download_url", RDC_DOWNLOAD_URL)
         os_version = self.env.get("os_version", OS_VERSION_DEFAULT)
+        if not os_version.startswith("Mac OS"):
+            self.output(
+                "WARNING: Please update the OS_VERSION in your override "
+                f"from '{os_version}' to 'Mac OS {os_version}'"
+            )
+            os_version = f"Mac OS {os_version}"
         # Quote those os_version to make it a URL safe string
         os_version = quote(os_version)
         display_name, self.env["version"] = self.get_reader_download_info(
