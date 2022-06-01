@@ -1,6 +1,7 @@
 #!/usr/bin/python
 #
 # Copyright 2010 Per Olofsson
+#           2022 Nate Felton <n8felton>
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -16,92 +17,100 @@
 """See docstring for AdobeReaderURLProvider class"""
 
 import json
+from urllib.parse import quote
 
-from autopkglib import APLooseVersion, ProcessorError
 from autopkglib.URLGetter import URLGetter
 
 __all__ = ["AdobeReaderURLProvider"]
 
-AR_BASE_URL = (
-    "http://get.adobe.com/reader/webservices/json/standalone/"
-    "?platform_type=Macintosh&platform_dist=OSX&platform_arch=x86-32"
-    "&platform_misc=%s&language=%s&eventname=readerotherversions"
-)
+# https://rdc.adobe.io/reader/products?os=Mac%20OS%2010.14.0&api_key=dc-get-adobereader-cdn
+# {"products":{"reader":[{"displayName":"Reader DC 2022.001.20112 for Mac","fileSize":327.5,"version":"22.001.20112"}],"dcPro":[]},"addons":[]}
+RDC_PRODUCTS_URL = "https://rdc.adobe.io/reader/products?os={OS_VERSION}&api_key=dc-get-adobereader-cdn"
+# https://rdc.adobe.io/reader/downloadUrl?name=Reader%20DC%202022.001.20112%20for%20Mac&os=Mac%20OS%2010.14.0&api_key=dc-get-adobereader-cdn
+# {"downloadURL":"https://ardownload2.adobe.com/pub/adobe/reader/mac/AcrobatDC/2200120112/AcroRdrDC_2200120112_MUI.dmg","installer":"standalone","saveName":"AcroRdrDC_2200120112_MUI.dmg"}
+RDC_DOWNLOAD_URL = "https://rdc.adobe.io/reader/downloadUrl?name={DISPLAY_NAME}&os={OS_VERSION}&api_key=dc-get-adobereader-cdn"
 
-LANGUAGE_DEFAULT = "English"
-MAJOR_VERSION_DEFAULT = "AcrobatDC"
-OS_VERSION_DEFAULT = "10.15.0"
-
-MAJOR_VERSION_MATCH_STR = "adobe/reader/mac/%s"
+OS_VERSION_DEFAULT = "Mac OS 10.14.0"
 
 
 class AdobeReaderURLProvider(URLGetter):
-    """Provides URL to the latest Adobe Reader release."""
+    """Provides URL to the latest Adobe Acrobat Reader DC release."""
 
     description = __doc__
     input_variables = {
-        "language": {
-            "required": False,
-            "description": (
-                "Which language to download. Examples: 'English', "
-                "'German', 'Japanese', 'Swedish'. Default is %s." % LANGUAGE_DEFAULT
-            ),
-        },
         "os_version": {
             "required": False,
             "description": (
-                "macOS version to use in URL search. Defaults to %s."
-                " Reader DC requires '10.9.0'" % OS_VERSION_DEFAULT
+                f"macOS version to use in URL search. Defaults to '{OS_VERSION_DEFAULT}'."
             ),
         },
-        "major_version": {
+        "base_url": {
             "required": False,
-            "description": (
-                "Major version. Examples: '10', '11', 'AcrobatDC'. "
-                "Defaults to %s" % MAJOR_VERSION_DEFAULT
-            ),
+            "description": f"Default is {RDC_PRODUCTS_URL}",
         },
-        "base_url": {"required": False, "description": "Default is %s" % AR_BASE_URL},
+        "download_url": {
+            "required": False,
+            "description": f"Default is {RDC_DOWNLOAD_URL}",
+        },
     }
     output_variables = {
-        "url": {"description": "URL to the latest Adobe Reader release."},
-        "version": {"description": "Version of the latest Adobe Reader release."},
+        "url": {"description": "URL to the latest Adobe Acrobat Reader DC release."},
+        "filename": {
+            "description": "The Adobe provided filename to save the download as."
+        },
+        "version": {
+            "description": "Version of the latest Adobe Acrobat Reader DC release."
+        },
     }
 
-    def get_reader_dmg_info(self, base_url, language, major_version, os_version):
-        """Returns download URL for Adobe Reader DMG"""
-        request_url = base_url % (os_version, language)
-        header = {"x-requested-with": "XMLHttpRequest"}
-        json_response = self.download(request_url, headers=header)
-
+    def get_reader_download_info(self, base_url, os_version):
+        """Returns information required to download Adobe Acrobat Reader DC"""
+        request_url = base_url.format(OS_VERSION=os_version)
+        self.output(f"RDC_PRODUCTS_URL: {request_url}", 3)
+        json_response = self.download(request_url)
         reader_info = json.loads(json_response)
-        major_version_string = MAJOR_VERSION_MATCH_STR % major_version
-        matches = {
-            item["Version"]: item["download_url"]
-            for item in reader_info
-            if major_version_string in item["download_url"]
-        }
-        try:
-            version = max(matches, key=lambda x: APLooseVersion(x))
-            return matches[version], version
-        except IndexError:
-            raise ProcessorError(
-                "Can't find Adobe Reader download URL for %s, version %s"
-                % (language, major_version)
-            )
+        self.output(reader_info, 3)
+        display_name = reader_info["products"]["reader"][0]["displayName"]
+        version = reader_info["products"]["reader"][0]["version"]
+        self.output(f"[displayName] : {display_name}")
+        self.output(f"[version]     : {version}")
+        return display_name, version
+
+    def get_reader_download_url(self, rdc_download_url, os_version, display_name):
+        """Returns the download URL for the latest version of Adobe Acrobat Reader DC"""
+        rdc_download_url = rdc_download_url.format(
+            OS_VERSION=os_version, DISPLAY_NAME=display_name
+        )
+        self.output(f"RDC_DOWNLOAD_URL: {rdc_download_url}", 3)
+        json_response = self.download(rdc_download_url)
+        download_info = json.loads(json_response)
+        self.output(download_info, 3)
+        download_url = download_info["downloadURL"]
+        filename = download_info["saveName"]
+        self.output(f"[download_url]: {download_url}")
+        return download_url, filename
 
     def main(self):
-        # Determine base_url, language and major_version.
-        base_url = self.env.get("base_url", AR_BASE_URL)
-        language = self.env.get("language", LANGUAGE_DEFAULT)
-        major_version = self.env.get("major_version", MAJOR_VERSION_DEFAULT)
+        """Main process"""
+        base_url = self.env.get("base_url", RDC_PRODUCTS_URL)
+        rdc_download_url = self.env.get("download_url", RDC_DOWNLOAD_URL)
         os_version = self.env.get("os_version", OS_VERSION_DEFAULT)
-
-        self.env["url"], self.env["version"] = self.get_reader_dmg_info(
-            base_url, language, major_version, os_version
+        if not os_version.startswith("Mac OS"):
+            self.output(
+                "WARNING: Please update the OS_VERSION in your override "
+                f"from '{os_version}' to 'Mac OS {os_version}'"
+            )
+            os_version = f"Mac OS {os_version}"
+        # Quote those os_version to make it a URL safe string
+        os_version = quote(os_version)
+        display_name, self.env["version"] = self.get_reader_download_info(
+            base_url, os_version
         )
-        self.output("Found URL %s" % self.env["url"])
-        self.output("Found version %s" % self.env["version"])
+        # Quote those display_name to make it a URL safe string
+        display_name = quote(display_name)
+        self.env["url"], self.env["filename"] = self.get_reader_download_url(
+            rdc_download_url, os_version, display_name
+        )
 
 
 if __name__ == "__main__":
