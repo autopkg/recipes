@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+    <dict>
+        <key>Description</key>
+        <string>This recipe downloads the signed installer package that Mozilla made available starting in Firefox 69.0. Because the downloaded file is already a package, this pkg recipe does not add any further actions.
+
+Downloads the latest version of Amazon Corretto JDK. Requires ARCH (x64 [Intel], or aarch64 [Apple Silicon]) and MAJOR_VERSION (8,11,17,18).</string>
+        <key>Identifier</key>
+        <string>com.github.autopkg.install.amazoncorretto</string>
+        <key>Input</key>
+        <dict>
+            <key>NAME</key>
+            <string>Amazon Corretto %MAJOR_VERSION%</string>
+            <key>MAJOR_VERSION</key>
+            <string>8</string>
+            <key>ARCH</key>
+            <string>x64</string>
+        </dict>
+        <key>MinimumVersion</key>
+        <string>1.4.0</string>
+        <key>ParentRecipe</key>
+        <string>com.github.autopkg.download.amazoncorretto</string>
+        <key>Process</key>
+        <array>
+            <dict>
+                <key>Arguments</key>
+                <dict>
+                    <key>pkg_path</key>
+                    <string>%pathname%</string>
+                </dict>
+                <key>Processor</key>
+                <string>Installer</string>
+            </dict>
+        </array>
+    </dict>
+</plist>

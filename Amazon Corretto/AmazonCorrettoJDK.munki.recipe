@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+    <dict>
+        <key>Description</key>
+        <string>Downloads the latest version of Amazon Corretto JDK and imports it into Munki. Requires ARCH (x64 [Intel], or aarch64 [Apple Silicon]) and MAJOR_VERSION (8,11,17,18). Will also specify the supported_architecture for Munki</string>
+        <key>Identifier</key>
+        <string>com.github.autopkg.munki.amazoncorretto</string>
+        <key>Input</key>
+        <dict>
+            <key>NAME</key>
+            <string>Corretto%MAJOR_VERSION%</string>
+            <key>MAJOR_VERSION</key>
+            <string>8</string>
+            <key>ARCH</key>
+            <string>x64</string>
+            <key>MUNKI_REPO_SUBDIR</key>
+            <string>jdk</string>
+            <key>pkginfo</key>
+            <dict>
+                <key>catalogs</key>
+                <array>
+                    <string>testing</string>
+                </array>
+                <key>description</key>
+                <string>Amazon Corretto is a no-cost, multiplatform, production-ready distribution of the Open Java Development Kit (OpenJDK).</string>
+                <key>display_name</key>
+                <string>Amazon Corretto %MAJOR_VERSION%</string>
+                <key>minimum_os_version</key>
+                <string>10.9</string>
+                <key>name</key>
+                <string>%NAME%</string>
+                <key>unattended_install</key>
+                <true/>
+            </dict>
+        </dict>
+        <key>MinimumVersion</key>
+        <string>2.0</string>
+        <key>ParentRecipe</key>
+        <string>com.github.autopkg.download.amazoncorretto</string>
+        <key>Process</key>
+        <array>
+            <dict>
+                <key>Arguments</key>
+                <dict>
+                    <key>additional_pkginfo</key>
+                    <dict>
+                        <key>version</key>
+                        <string>%version%</string>
+                        <key>supported_architectures</key>
+                        <string>%supported_architectures%</string>
+                    </dict>
+                </dict>
+                <key>Processor</key>
+                <string>MunkiPkginfoMerger</string>
+            </dict>
+            <dict>
+                <key>Arguments</key>
+                <dict>
+                    <key>pkg_path</key>
+                    <string>%pathname%</string>
+                    <key>repo_subdirectory</key>
+                    <string>%MUNKI_REPO_SUBDIR%</string>
+                </dict>
+                <key>Processor</key>
+                <string>MunkiImporter</string>
+            </dict>
+        </array>
+    </dict>
+</plist>
