@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/local/autopkg/python
 #
 # Copyright 2010 Per Olofsson
 #           2022 Nate Felton <n8felton>

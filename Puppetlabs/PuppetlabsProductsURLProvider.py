@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/local/autopkg/python
 #
 # Copyright 2015 Timothy Sutton, w/ insignificant contributions by Allister Banks
 #
