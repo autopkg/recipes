@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/local/autopkg/python
 #
 # Copyright 2015 Allister Banks and Tim Sutton,
 # based on MSOffice2011UpdateInfoProvider by Greg Neagle
