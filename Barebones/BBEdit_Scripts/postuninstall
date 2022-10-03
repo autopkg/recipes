@@ -1,0 +1,12 @@
+#!/bin/sh
+# Delete BBEdit command-line tool resources if they exist
+
+CMD_TOOL_DIR=/usr/local/bin
+CMD_MAN_DIR=/usr/local/share/man/man1
+RM=/bin/rm
+
+# Delete symlinks to binaries and man pages
+for TOOL in bbdiff bbfind bbresults bbedit; do
+	[ -e "$CMD_TOOL_DIR/$TOOL" ] && "$RM" "$CMD_TOOL_DIR/$TOOL"
+	[ -e "$CMD_MAN_DIR/$TOOL.1" ] && "$RM" "$CMD_MAN_DIR/$TOOL.1"
+done
