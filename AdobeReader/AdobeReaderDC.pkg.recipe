@@ -39,6 +39,8 @@ and enabling installation on non-boot volumes.</string>
                 <key>pattern</key>
                 <string>%RECIPE_CACHE_DIR%/*/application.pkg</string>
             </dict>
+            <key>Comment</key>
+            <string>Locates file path of installer package.</string>
         </dict>
         <dict>
             <key>Processor</key>
@@ -53,11 +55,22 @@ and enabling installation on non-boot volumes.</string>
         </dict>
         <dict>
             <key>Processor</key>
+            <string>FileFinder</string>
+            <key>Arguments</key>
+            <dict>
+                <key>pattern</key>
+                <string>%RECIPE_CACHE_DIR%/*.app</string>
+            </dict>
+            <key>Comment</key>
+            <string>Locates file path of app bundle.</string>
+        </dict>
+        <dict>
+            <key>Processor</key>
             <string>Versioner</string>
             <key>Arguments</key>
             <dict>
                 <key>input_plist_path</key>
-                <string>%RECIPE_CACHE_DIR%/Adobe Acrobat Reader DC.app/Contents/Info.plist</string>
+                <string>%found_filename%/Contents/Info.plist</string>
             </dict>
         </dict>
         <dict>
@@ -67,7 +80,7 @@ and enabling installation on non-boot volumes.</string>
             <dict>
                 <key>path_list</key>
                 <array>
-                    <string>%RECIPE_CACHE_DIR%/Adobe Acrobat Reader DC.app</string>
+                    <string>%found_filename%</string>
                 </array>
             </dict>
         </dict>
