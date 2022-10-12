@@ -106,11 +106,20 @@ exit 0
 		<dict>
 			<key>Arguments</key>
 			<dict>
+				<key>pattern</key>
+				<string>%RECIPE_CACHE_DIR%/application_payload/Applications/*.app</string>
+			</dict>
+			<key>Processor</key>
+			<string>FileFinder</string>
+		</dict>
+		<dict>
+			<key>Arguments</key>
+			<dict>
 				<key>faux_root</key>
 				<string>%RECIPE_CACHE_DIR%/application_payload</string>
 				<key>installs_item_paths</key>
 				<array>
-					<string>/Applications/Adobe Reader.app</string>
+					<string>/Applications/%found_basename%</string>
 				</array>
 			</dict>
 			<key>Processor</key>
