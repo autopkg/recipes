@@ -67,15 +67,6 @@ exit 0
 		<dict>
 			<key>Arguments</key>
 			<dict>
-				<key>warning_message</key>
-				<string>This recipe will soon be removed. Please remove it from your list of recipes.</string>
-			</dict>
-			<key>Processor</key>
-			<string>DeprecationWarning</string>
-		</dict>
-		<dict>
-			<key>Arguments</key>
-			<dict>
 				<key>destination_path</key>
 				<string>%RECIPE_CACHE_DIR%/pkg_unpack</string>
 				<key>flat_pkg_path</key>

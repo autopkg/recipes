@@ -27,15 +27,6 @@ latest/last version of Adobe Reader 10, but the repackager is unlikely to operat
 		<dict>
 			<key>Arguments</key>
 			<dict>
-				<key>warning_message</key>
-				<string>This recipe will soon be removed. Please remove it from your list of recipes.</string>
-			</dict>
-			<key>Processor</key>
-			<string>DeprecationWarning</string>
-		</dict>
-		<dict>
-			<key>Arguments</key>
-			<dict>
 				<key>dmg_path</key>
 				<string>%pathname%</string>
 			</dict>
