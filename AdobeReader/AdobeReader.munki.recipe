@@ -18,20 +18,19 @@ preflight script, looking to find a user's trash folder to copy the .app into.
 	<string>com.github.autopkg.munki.AdobeReader</string>
 	<key>Input</key>
 	<dict>
-		<key>LANGUAGE</key>
-		<string>English</string>
-		<key>MAJOR_VERSION</key>
-		<string>11</string>
 		<key>MUNKI_REPO_SUBDIR</key>
 		<string>apps/Adobe</string>
 		<key>NAME</key>
 		<string>AdobeReader</string>
+		<key>OS_VERSION</key>
+		<string>Mac OS 12.0</string>
 		<key>pkginfo</key>
 		<dict>
 			<key>blocking_applications</key>
 			<array>
 				<string>Adobe Acrobat Pro.app</string>
 				<string>Adobe Acrobat Reader DC.app</string>
+				<string>Adobe Acrobat Reader.app</string>
 				<string>Adobe Acrobat.app</string>
 				<string>Adobe Reader.app</string>
 			</array>
@@ -44,16 +43,19 @@ preflight script, looking to find a user's trash folder to copy the .app into.
 			<key>display_name</key>
 			<string>Adobe Reader</string>
 			<key>minimum_os_version</key>
-			<string>10.6.4</string>
+			<string>10.15.0</string>
 			<key>name</key>
 			<string>%NAME%</string>
 			<key>preinstall_script</key>
 			<string>#!/bin/sh
-if [ -e "/Applications/Adobe Reader.app" ]; then
-rm -r "/Applications/Adobe Reader.app"
+if [ -e "/Applications/Adobe Acrobat Reader.app" ]; then
+	rm -r "/Applications/Adobe Acrobat Reader.app"
+fi
+if [ -e "/Applications/Adobe Acrobat Reader DC.app" ]; then
+	rm -r "/Applications/Adobe Acrobat Reader DC.app"
 fi
 exit 0
-                </string>
+</string>
 			<key>unattended_install</key>
 			<true/>
 		</dict>
