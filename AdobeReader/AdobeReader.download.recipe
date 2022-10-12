@@ -46,7 +46,7 @@
 			<dict>
 				<key>expected_authority_names</key>
 				<array>
-					<string>Developer ID Installer: Adobe Systems, Inc. (JQ525L2MZD)</string>
+					<string>Developer ID Installer: Adobe Inc. (JQ525L2MZD)</string>
 					<string>Developer ID Certification Authority</string>
 					<string>Apple Root CA</string>
 				</array>
