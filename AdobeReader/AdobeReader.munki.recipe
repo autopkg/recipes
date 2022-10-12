@@ -4,16 +4,15 @@
 <dict>
 	<key>Description</key>
 	<string>Downloads the latest Adobe Reader and imports into Munki.
-Set MAJOR_VERSION to "10" to get the latest/last version of Adobe Reader 10 instead of 11.
+For OS_VERSION, 'Mac OS 10.15.0' or 'Mac OS 12.0' are valid, not 10.15 or 12.0
 
 Additional notes:
-- Reader ships as an installer pkg that deploys a .app, so we add it and
-Adobe Acrobat Pro.app to blocking_applications.
-- An installs array is also generated for the above .app.
-- The Reader website states that 10.6.4 is a minimum requirement for 11.
+- Reader ships as an installer pkg that deploys a .app
+- Do to name changes, we add multiple variations on .app names to blocking_applications.
+- An installs array is also generated for the .app.
 - The preinstall_script is there to get around an oversight in the package's
 preflight script, looking to find a user's trash folder to copy the .app into.
-        </string>
+</string>
 	<key>Identifier</key>
 	<string>com.github.autopkg.munki.AdobeReader</string>
 	<key>Input</key>
