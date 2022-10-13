@@ -8,7 +8,7 @@ For OS_VERSION, 'Mac OS 10.15.0' or 'Mac OS 12.0' are valid, not 10.15 or 12.0
 
 Additional notes:
 - Reader ships as an installer pkg that deploys a .app
-- Do to name changes, we add multiple variations on .app names to blocking_applications.
+- Due to name changes, we add multiple variations on .app names to blocking_applications.
 - An installs array is also generated for the .app.
 - The preinstall_script is there to get around an oversight in the package's
 preflight script, looking to find a user's trash folder to copy the .app into.
