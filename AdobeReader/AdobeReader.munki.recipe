@@ -60,7 +60,7 @@ exit 0
 		</dict>
 	</dict>
 	<key>MinimumVersion</key>
-	<string>0.2.0</string>
+	<string>1.4</string>
 	<key>ParentRecipe</key>
 	<string>com.github.autopkg.download.AdobeReader</string>
 	<key>Process</key>

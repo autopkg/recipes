@@ -17,7 +17,7 @@ latest/last version of Adobe Reader 10, but the repackager is unlikely to operat
 		<string>Mac OS 12.0</string>
 	</dict>
 	<key>MinimumVersion</key>
-	<string>0.4.0</string>
+	<string>1.4</string>
 	<key>ParentRecipe</key>
 	<string>com.github.autopkg.pkg.AdobeReader</string>
 	<key>Process</key>
