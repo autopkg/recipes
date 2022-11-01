@@ -1,47 +1,87 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
-    <dict>
-        <key>Description</key>
-        <string>Downloads the current Adobe Reader pkg and repackages, replacing a problematic preinstall script,
-and enabling installation on non-boot volumes. Setting MAJOR_VERSION to "10" will cause a download of the
-latest/last version of Adobe Reader 10, but the repackager is unlikely to operate properly with that version.
-        </string>
-        <key>Identifier</key>
-        <string>com.github.autopkg.pkg.AdobeReader</string>
-        <key>Input</key>
-        <dict>
-            <key>NAME</key>
-            <string>AdobeReader</string>
-            <key>LANGUAGE</key>
-            <string>English</string>
-            <key>MAJOR_VERSION</key>
-            <string>11</string>
-        </dict>
-        <key>MinimumVersion</key>
-        <string>0.2.0</string>
-        <key>ParentRecipe</key>
-        <string>com.github.autopkg.download.AdobeReader</string>
-        <key>Process</key>
-        <array>
-            <dict>
-                <key>Processor</key>
-                <string>DeprecationWarning</string>
-                <key>Arguments</key>
-                <dict>
-                    <key>warning_message</key>
-                    <string>This recipe will soon be removed. Please remove it from your list of recipes.</string>
-                </dict>
-            </dict>
-            <dict>
-                <key>Processor</key>
-                <string>AdobeReaderRepackager</string>
-                <key>Arguments</key>
-                <dict>
-                    <key>dmg_path</key>
-                    <string>%pathname%</string>
-                </dict>
-            </dict>
-        </array>
-    </dict>
+<dict>
+	<key>Description</key>
+	<string>Downloads the current Adobe Acrobat Reader pkg and repackages, replacing a problematic preinstall script,
+and enabling installation on non-boot volumes.</string>
+	<key>Identifier</key>
+	<string>com.github.autopkg.pkg.AdobeReader</string>
+	<key>Input</key>
+	<dict>
+		<key>NAME</key>
+		<string>AdobeReader</string>
+		<key>OS_VERSION</key>
+		<string>Mac OS 12.0</string>
+	</dict>
+	<key>MinimumVersion</key>
+	<string>1.4</string>
+	<key>ParentRecipe</key>
+	<string>com.github.autopkg.download.AdobeReader</string>
+	<key>Process</key>
+	<array>
+		<dict>
+			<key>Arguments</key>
+			<dict>
+				<key>dmg_path</key>
+				<string>%pathname%</string>
+			</dict>
+			<key>Processor</key>
+			<string>AdobeReaderRepackager</string>
+		</dict>
+		<dict>
+			<key>Processor</key>
+			<string>FileFinder</string>
+			<key>Arguments</key>
+			<dict>
+				<key>pattern</key>
+				<string>%RECIPE_CACHE_DIR%/*/application.pkg</string>
+			</dict>
+			<key>Comment</key>
+			<string>Locates file path of installer package.</string>
+		</dict>
+		<dict>
+			<key>Processor</key>
+			<string>PkgPayloadUnpacker</string>
+			<key>Arguments</key>
+			<dict>
+				<key>destination_path</key>
+				<string>%RECIPE_CACHE_DIR%</string>
+				<key>pkg_payload_path</key>
+				<string>%found_filename%/Payload</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>Processor</key>
+			<string>FileFinder</string>
+			<key>Arguments</key>
+			<dict>
+				<key>pattern</key>
+				<string>%RECIPE_CACHE_DIR%/*.app</string>
+			</dict>
+			<key>Comment</key>
+			<string>Locates file path of app bundle.</string>
+		</dict>
+		<dict>
+			<key>Processor</key>
+			<string>Versioner</string>
+			<key>Arguments</key>
+			<dict>
+				<key>input_plist_path</key>
+				<string>%found_filename%/Contents/Info.plist</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>Processor</key>
+			<string>PathDeleter</string>
+			<key>Arguments</key>
+			<dict>
+				<key>path_list</key>
+				<array>
+					<string>%found_filename%</string>
+				</array>
+			</dict>
+		</dict>
+	</array>
+</dict>
 </plist>
