@@ -11,7 +11,7 @@ repos:
     rev: v2.2.0
     hooks:
     -   id: seed-isort-config
--   repo: https://gitlab.com/pycqa/flake8
-    rev: 3.8.4
+-   repo: https://github.com/pycqa/flake8
+    rev: 5.0.4
     hooks:
     - id: flake8
