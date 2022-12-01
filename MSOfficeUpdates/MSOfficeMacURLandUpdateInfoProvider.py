@@ -104,9 +104,9 @@ PROD_DICT = {
         "minimum_os": "10.11",
     },
     "Teams": {
-        "id": "TEAM01",
+        "id": "TEAMS10",
         "path": "/Applications/Microsoft Teams.app",
-        "minimum_os": "10.10",
+        "minimum_os": "10.11",
     },
     "CompanyPortal": {
         "id": "IMCP01",
