@@ -3,7 +3,7 @@
 <plist version="1.0">
     <dict>
         <key>Description</key>
-        <string>Download recipe for XQuartz. Downloads latest XQuartz disk image.
+        <string>Download recipe for XQuartz. Downloads latest XQuartz package.
 
 Override BRANCH with either 'alpha', 'beta', or 'release' for the applicable Sparkle feed.
         </string>
