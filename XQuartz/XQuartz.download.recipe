@@ -53,7 +53,7 @@ Override BRANCH with either 'alpha', 'beta', or 'release' for the applicable Spa
                 <key>Arguments</key>
                 <dict>
                     <key>input_path</key>
-                    <string>%pathname%/XQuartz.pkg</string>
+                    <string>%pathname%</string>
                     <key>expected_authority_names</key>
                     <array>
                         <string>Developer ID Installer: Apple Inc. - XQuartz (NA574AWV7E)</string>
