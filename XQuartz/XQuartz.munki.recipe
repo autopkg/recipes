@@ -3,7 +3,7 @@
 <plist version="1.0">
     <dict>
         <key>Description</key>
-        <string>Downloads latest XQuartz disk image and imports into Munki.</string>
+        <string>Downloads latest XQuartz package and imports into Munki.</string>
         <key>Identifier</key>
         <string>com.github.autopkg.munki.xquartz</string>
         <key>Input</key>
