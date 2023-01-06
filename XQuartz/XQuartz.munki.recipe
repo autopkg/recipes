@@ -48,7 +48,7 @@ The XQuartz project is an open-source effort to develop a version of the X.Org X
             <key>Arguments</key>
             <dict>
                 <key>flat_pkg_path</key>
-                <string>%pathname%/XQuartz.pkg</string>
+                <string>%pathname%</string>
                 <key>destination_path</key>
                 <string>%RECIPE_CACHE_DIR%/unpack</string>
             </dict>
