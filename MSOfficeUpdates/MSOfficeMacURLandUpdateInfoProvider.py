@@ -117,6 +117,7 @@ PROD_DICT = {
         "id": "ONDR18",
         "path": "/Applications/OneDrive.app",
         "minimum_os":"10.15",
+    },
 }
 LOCALE_ID_INFO_URL = "https://msdn.microsoft.com/en-us/goglobal/bb964664.aspx"
 SUPPORTED_VERSIONS = ["latest", "latest-delta", "latest-standalone"]
