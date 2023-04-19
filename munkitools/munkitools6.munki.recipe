@@ -281,7 +281,7 @@ MUNKI_ICON should be overridden with your icon name.
                     <key>icon_name</key>
                     <string>%MUNKI_ICON%</string>
                     <key>minimum_os_version</key>
-                    <string>10.11</string>
+                    <string>10.13</string>
                     <key>name</key>
                     <string>%MUNKITOOLS_CORE_NAME%</string>
                     <key>requires</key>
@@ -320,7 +320,7 @@ MUNKI_ICON should be overridden with your icon name.
                     <key>icon_name</key>
                     <string>%MUNKI_ICON%</string>
                     <key>minimum_os_version</key>
-                    <string>10.11</string>
+                    <string>10.13</string>
                     <key>name</key>
                     <string>%MUNKITOOLS_ADMIN_NAME%</string>
                     <key>unattended_install</key>
@@ -359,7 +359,7 @@ MUNKI_ICON should be overridden with your icon name.
                     <key>icon_name</key>
                     <string>%MUNKI_ICON%</string>
                     <key>minimum_os_version</key>
-                    <string>10.11</string>
+                    <string>10.13</string>
                     <key>name</key>
                     <string>%MUNKITOOLS_APP_NAME%</string>
                     <key>requires</key>
@@ -399,7 +399,7 @@ MUNKI_ICON should be overridden with your icon name.
                     <key>icon_name</key>
                     <string>%MUNKI_ICON%</string>
                     <key>minimum_os_version</key>
-                    <string>10.11</string>
+                    <string>10.13</string>
                     <key>name</key>
                     <string>%MUNKITOOLS_APP_USAGE_NAME%</string>
                     <key>requires</key>
@@ -439,7 +439,7 @@ MUNKI_ICON should be overridden with your icon name.
                     <key>icon_name</key>
                     <string>%MUNKI_ICON%</string>
                     <key>minimum_os_version</key>
-                    <string>10.11</string>
+                    <string>10.13</string>
                     <key>name</key>
                     <string>%MUNKITOOLS_LAUNCHD_NAME%</string>
                 </dict>
@@ -471,7 +471,7 @@ MUNKI_ICON should be overridden with your icon name.
                     <key>icon_name</key>
                     <string>%MUNKI_ICON%</string>
                     <key>minimum_os_version</key>
-                    <string>10.11</string>
+                    <string>10.13</string>
                     <key>name</key>
                     <string>%MUNKITOOLS_PYTHON_NAME%</string>
                     <key>unattended_install</key>
