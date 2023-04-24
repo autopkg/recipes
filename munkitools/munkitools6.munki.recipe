@@ -87,6 +87,9 @@ MUNKI_ICON should be overridden with your icon name.
         <string>Managed Software Center embedded python</string>
         <key>MUNKITOOLS_PYTHON_DESCRIPTION</key>
         <string>Embedded Python tools used by Managed Software Center.</string>
+        <!--  -->
+        <key>MUNKITOOLS_GITHUB_REPO</key>
+        <string>munki/munki</string>
     </dict>
     <key>MinimumVersion</key>
     <string>0.5.0</string>
@@ -100,7 +103,7 @@ MUNKI_ICON should be overridden with your icon name.
                 <key>asset_regex</key>
                 <string>^munkitools-6.*?pkg$</string>
                 <key>github_repo</key>
-                <string>munki/munki</string>
+                <string>%MUNKITOOLS_GITHUB_REPO%</string>
                 <key>include_prereleases</key>
                 <string>%INCLUDE_PRERELEASES%</string>
             </dict>
