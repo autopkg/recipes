@@ -3,13 +3,14 @@
 <plist version="1.0">
 <dict>
     <key>Description</key>
-    <string>Note: munkitools does not include a code signature. If your
-organization requires code signature, it is recommend to internally sign
-the application.
+    <string>Downloads and imports version 6 of the Munki tools via GitHub from the
+official releases listing by default.
 
-Downloads and imports version 6 of the Munki tools via
-the official releases listing on GitHub. You can set INCLUDE_PRERELEASES
-to any value to have this recipe pull prerelease versions.
+To download the codesigned version of Munki change the "GITHUB_REPO" variable
+from the default of "munki/munki" to the alternative: macadmins/munki-builds
+
+If using the default "munki/munki" repo, you can set INCLUDE_PRERELEASES to
+any value to have this recipe pull prerelease versions.
 
 Note that Munki 6 includes an optional component pkg, munkitools_app_usage.
 This recipe imports this to the Munki with the appropriate 'requires' key,
@@ -17,8 +18,6 @@ however as it is considered an optional component, this recipe does not
 add it as an update_for any Munki component. Admins should add
 munkitools_app_usage to a manifest manually if its installation on clients
 is desired.
-
-This recipe cannot be overridden to pull a download from an alternate location.
 
 The GitHubReleasesInfoProvider processor used by this recipe also
 respects an input variable: 'sort_by_highest_tag_names', which
@@ -31,6 +30,8 @@ MUNKI_ICON should be overridden with your icon name.
     <string>com.github.autopkg.munki.munkitools6</string>
     <key>Input</key>
     <dict>
+        <key>GITHUB_REPO</key>
+        <string>munki/munki</string>
         <key>INCLUDE_PRERELEASES</key>
         <string></string>
         <key>NAME</key>
@@ -100,7 +101,7 @@ MUNKI_ICON should be overridden with your icon name.
                 <key>asset_regex</key>
                 <string>^munkitools-6.*?pkg$</string>
                 <key>github_repo</key>
-                <string>munki/munki</string>
+                <string>%GITHUB_REPO%</string>
                 <key>include_prereleases</key>
                 <string>%INCLUDE_PRERELEASES%</string>
             </dict>
