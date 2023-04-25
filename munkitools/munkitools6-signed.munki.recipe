@@ -3,12 +3,11 @@
 <plist version="1.0">
 <dict>
     <key>Description</key>
-    <string>Downloads and imports the unsigned release of Munki tools version 6
-via the official releases listing on GitHub. You can set INCLUDE_PRERELEASES
-to any value to have this recipe pull prerelease versions.
+    <string>Downloads and imports the signed release of Munki tools version 6
+via the Mac Admins Open Source repo on GitHub.
 
-NOTE: Use the "com.github.autopkg.munki.munkitools6-signed" recipe to
-download the code signed version of the Munki tools via Mac Admins Open Source.
+NOTE: Use the "com.github.autopkg.munki.munkitools6" recipe to
+download the unsigned version of Munki via the official repo releases.
 
 Note that Munki 6 includes an optional component pkg, munkitools_app_usage.
 This recipe imports this to the Munki with the appropriate 'requires' key,
@@ -27,11 +26,9 @@ descending by tag names according to LooseVersion semantics.
 MUNKI_ICON should be overridden with your icon name.
 </string>
     <key>Identifier</key>
-    <string>com.github.autopkg.munki.munkitools6</string>
+    <string>com.github.autopkg.munki.munkitools6-signed</string>
     <key>Input</key>
     <dict>
-        <key>INCLUDE_PRERELEASES</key>
-        <string></string>
         <key>NAME</key>
         <string>munkitools6</string>
         <key>MUNKI_CATALOG</key>
@@ -99,9 +96,7 @@ MUNKI_ICON should be overridden with your icon name.
                 <key>asset_regex</key>
                 <string>^munkitools-6.*?pkg$</string>
                 <key>github_repo</key>
-                <string>munki/munki</string>
-                <key>include_prereleases</key>
-                <string>%INCLUDE_PRERELEASES%</string>
+                <string>macadmins/munki-builds</string>
             </dict>
         </dict>
         <dict>
@@ -111,6 +106,21 @@ MUNKI_ICON should be overridden with your icon name.
         <dict>
             <key>Processor</key>
             <string>EndOfCheckPhase</string>
+        </dict>
+        <dict>
+            <key>Processor</key>
+            <string>CodeSignatureVerifier</string>
+            <key>Arguments</key>
+            <dict>
+                <key>expected_authority_names</key>
+                <array>
+                    <string>Developer ID Installer: Mac Admins Open Source (T4SK8ZXCXG)</string>
+                    <string>Developer ID Certification Authority</string>
+                    <string>Apple Root CA</string>
+                </array>
+                <key>input_path</key>
+                <string>%pathname%</string>
+            </dict>
         </dict>
         <dict>
             <key>Processor</key>
