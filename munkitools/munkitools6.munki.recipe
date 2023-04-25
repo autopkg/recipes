@@ -9,6 +9,9 @@ official releases listing by default.
 To download the codesigned version of Munki change the "GITHUB_REPO" variable
 from the default of "munki/munki" to the alternative: macadmins/munki-builds
 
+If using "macadmins/munki-builds" you can also set "DISABLE_CODE_SIGNATURE_VERIFICATION"
+to an empty value to verify the signature on the downloaded package.
+
 If using the default "munki/munki" repo, you can set INCLUDE_PRERELEASES to
 any value to have this recipe pull prerelease versions.
 
@@ -32,6 +35,8 @@ MUNKI_ICON should be overridden with your icon name.
     <dict>
         <key>GITHUB_REPO</key>
         <string>munki/munki</string>
+        <key>DISABLE_CODE_SIGNATURE_VERIFICATION</key>
+        <string>yes</string>
         <key>INCLUDE_PRERELEASES</key>
         <string></string>
         <key>NAME</key>
@@ -113,6 +118,21 @@ MUNKI_ICON should be overridden with your icon name.
         <dict>
             <key>Processor</key>
             <string>EndOfCheckPhase</string>
+        </dict>
+        <dict>
+            <key>Processor</key>
+            <string>CodeSignatureVerifier</string>
+            <key>Arguments</key>
+            <dict>
+                <key>expected_authority_names</key>
+                <array>
+                    <string>Developer ID Installer: Mac Admins Open Source (T4SK8ZXCXG)</string>
+                    <string>Developer ID Certification Authority</string>
+                    <string>Apple Root CA</string>
+                </array>
+                <key>input_path</key>
+                <string>%pathname%</string>
+            </dict>
         </dict>
         <dict>
             <key>Processor</key>
@@ -287,7 +307,7 @@ MUNKI_ICON should be overridden with your icon name.
                     <string>%MUNKITOOLS_CORE_NAME%</string>
                     <key>requires</key>
                     <array>
-                    	<string>%MUNKITOOLS_PYTHON_NAME%</string>
+                        <string>%MUNKITOOLS_PYTHON_NAME%</string>
                         <string>%MUNKITOOLS_LAUNCHD_NAME%</string>
                     </array>
                     <key>unattended_install</key>
@@ -328,8 +348,8 @@ MUNKI_ICON should be overridden with your icon name.
                     <true/>
                     <key>update_for</key>
                     <array>
-                     	<string>%MUNKITOOLS_PYTHON_NAME%</string>
-                       <string>%MUNKITOOLS_CORE_NAME%</string>
+                        <string>%MUNKITOOLS_PYTHON_NAME%</string>
+                        <string>%MUNKITOOLS_CORE_NAME%</string>
                     </array>
                 </dict>
             </dict>
@@ -365,7 +385,7 @@ MUNKI_ICON should be overridden with your icon name.
                     <string>%MUNKITOOLS_APP_NAME%</string>
                     <key>requires</key>
                     <array>
-                    	<string>%MUNKITOOLS_PYTHON_NAME%</string>
+                        <string>%MUNKITOOLS_PYTHON_NAME%</string>
                         <string>%MUNKITOOLS_CORE_NAME%</string>
                         <string>%MUNKITOOLS_LAUNCHD_NAME%</string>
                     </array>
@@ -405,7 +425,7 @@ MUNKI_ICON should be overridden with your icon name.
                     <string>%MUNKITOOLS_APP_USAGE_NAME%</string>
                     <key>requires</key>
                     <array>
-                    	<string>%MUNKITOOLS_PYTHON_NAME%</string>
+                        <string>%MUNKITOOLS_PYTHON_NAME%</string>
                         <string>%MUNKITOOLS_CORE_NAME%</string>
                         <string>%MUNKITOOLS_LAUNCHD_NAME%</string>
                     </array>
