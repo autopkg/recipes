@@ -9,8 +9,8 @@ official releases listing by default.
 To download the codesigned version of Munki change the "GITHUB_REPO" variable
 from the default of "munki/munki" to the alternative: macadmins/munki-builds
 
-If using "macadmins/munki-builds" you can also set "DISABLE_CODE_SIGNATURE_VERIFICATION"
-to an empty value to verify the signature on the downloaded package.
+If using "macadmins/munki-builds" you can also change "DISABLE_CODE_SIGNATURE_VERIFICATION"
+to "false" to verify the signature of the downloaded package.
 
 If using the default "munki/munki" repo, you can set INCLUDE_PRERELEASES to
 any value to have this recipe pull prerelease versions.
@@ -36,7 +36,7 @@ MUNKI_ICON should be overridden with your icon name.
         <key>GITHUB_REPO</key>
         <string>munki/munki</string>
         <key>DISABLE_CODE_SIGNATURE_VERIFICATION</key>
-        <string>yes</string>
+        <true/>
         <key>INCLUDE_PRERELEASES</key>
         <string></string>
         <key>NAME</key>
