@@ -5,6 +5,8 @@
     <key>Description</key>
     <string>Downloads the current release version of Dropbox and imports into Munki.
 
+Use either x86_64 or arm64 for ARCHITECTURE key.
+
 Postinstall script extracts the DropboxHelperInstaller and sets the setuid
 bit so that it can perform its setup tasks as root without asking for admin
 privileges.
@@ -22,6 +24,8 @@ to quit Dropbox.</string>
     <string>com.github.autopkg.munki.dropbox</string>
     <key>Input</key>
     <dict>
+        <key>ARCHITECTURE</key>
+        <string>x86_64</string>
         <key>MUNKI_REPO_SUBDIR</key>
         <string>apps/Dropbox</string>
         <key>NAME</key>
@@ -38,6 +42,10 @@ to quit Dropbox.</string>
             <string>Dropbox</string>
             <key>name</key>
             <string>%NAME%</string>
+            <key>supported_architectures</key>
+            <array>
+                <string>%ARCHITECTURE%</string>
+            </array>
             <key>postinstall_script</key>
             <string>#!/bin/sh
 # based on Ruby postinstall script by Riley Shott:

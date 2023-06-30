@@ -3,13 +3,22 @@
 <plist version="1.0">
 <dict>
     <key>Description</key>
-    <string>Downloads the current release version of Dropbox</string>
+    <string>Downloads the current release version of Dropbox
+
+ARCHITECTURE
+- x86_64 (default)
+- arm64
+</string>
     <key>Identifier</key>
     <string>com.github.autopkg.download.dropbox</string>
     <key>Input</key>
     <dict>
         <key>NAME</key>
         <string>Dropbox</string>
+        <key>ARCHITECTURE</key>
+        <string>x86_64</string>
+        <key>DOWNLOAD_URL</key>
+        <string>https://www.dropbox.com/download?plat=mac&amp;arch=%ARCHITECTURE%&amp;full=1</string>
     </dict>
     <key>MinimumVersion</key>
     <string>0.4.0</string>
@@ -19,7 +28,7 @@
             <key>Arguments</key>
             <dict>
             	<key>url</key>
-            	<string>https://www.dropbox.com/download?plat=mac&amp;full=1</string>
+            	<string>%DOWNLOAD_URL%</string>
                 <key>filename</key>
                 <string>%NAME%.dmg</string>
             </dict>
