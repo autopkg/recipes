@@ -15,17 +15,6 @@
     <string>0.4.0</string>
     <key>Process</key>
     <array>
-		<dict>
-			<key>Processor</key>
-			<string>URLTextSearcher</string>
-			<key>Arguments</key>
-			<dict>
-				<key>url</key>
-				<string>https://evernote.com/download/</string>
-				<key>re_pattern</key>
-				<string>\.zip.*?(https://cdn1\.evernote\.com/boron/mac/builds/Evernote-.*?-mac-.*?\.dmg)\\n</string>
-			</dict>
-		</dict>
         <dict>
             <key>Processor</key>
             <string>URLDownloader</string>
@@ -34,7 +23,7 @@
                 <key>filename</key>
                 <string>%NAME%.dmg</string>
                 <key>url</key>
-                <string>%match%</string>
+                <string>https://evernote.com/download/get.php?file=EvernoteMac</string>
             </dict>
         </dict>
         <dict>
