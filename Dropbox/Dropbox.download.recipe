@@ -3,13 +3,19 @@
 <plist version="1.0">
 <dict>
     <key>Description</key>
-    <string>Downloads the current release version of Dropbox</string>
+    <string>Downloads the current release version of Dropbox.
+
+    By default, the Intel version flavor is downloaded.
+
+    To download the Apple Silicon flavor, set the input variable "DOWNLOAD_ARCH" to a value of "&amp;arch=arm64".</string>
     <key>Identifier</key>
     <string>com.github.autopkg.download.dropbox</string>
     <key>Input</key>
     <dict>
         <key>NAME</key>
         <string>Dropbox</string>
+        <key>DOWNLOAD_ARCH</key>
+        <string></string>
     </dict>
     <key>MinimumVersion</key>
     <string>0.4.0</string>
@@ -19,7 +25,7 @@
             <key>Arguments</key>
             <dict>
             	<key>url</key>
-            	<string>https://www.dropbox.com/download?plat=mac&amp;full=1</string>
+            	<string>https://www.dropbox.com/download?plat=mac&amp;full=1%DOWNLOAD_ARCH%</string>
                 <key>filename</key>
                 <string>%NAME%.dmg</string>
             </dict>
