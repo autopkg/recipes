@@ -108,6 +108,11 @@ PROD_DICT = {
         "path": "/Applications/Microsoft Teams classic.app",
         "minimum_os": "10.11",
     },
+    "Teams2": {
+        "id": "TEAMS21",
+        "path": "/Applications/Microsoft Teams (work or school).app",
+        "minimum_os": "10.15",
+    },
     "CompanyPortal": {
         "id": "IMCP01",
         "path": "/Applications/Company Portal.app",
@@ -123,7 +128,7 @@ CHANNELS = {
     "InsiderFast": "4B2D7701-0A4F-49C8-B4CB-0C2D4043F51F",
 }
 DEFAULT_CHANNEL = "Production"
-NO_TRIGGER_CONDITIONS = ["SkypeForBusiness", "Teams", "Edge", "CompanyPortal"]
+NO_TRIGGER_CONDITIONS = ["SkypeForBusiness", "Teams", "Teams2", "Edge", "CompanyPortal"]
 
 
 class MSOfficeMacURLandUpdateInfoProvider(URLGetter):
