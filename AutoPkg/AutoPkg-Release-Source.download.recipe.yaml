@@ -1,0 +1,23 @@
+---
+Description: Download Source zip for Released AutoPkg
+# based upon: https://github.com/jgstew/jgstew-recipes/blob/main/AutoPkgRecipe/AutoPkgRelease.download.recipe.yaml
+Identifier: com.github.autopkg.download.AutoPkgReleaseSource
+Input:
+  NAME: autopkg
+MinimumVersion: "2.3"
+Process:
+  - Processor: GitHubReleasesInfoProvider
+    Arguments:
+      # https://github.com/autopkg/autopkg/releases/tag/v2.4.1
+      # https://github.com/autopkg/autopkg/archive/refs/tags/v2.4.1.zip
+      github_repo: autopkg/autopkg
+      #asset_regex: ".*.zip"
+  - Processor: URLDownloader
+    Arguments:
+      url: "https://github.com/autopkg/autopkg/archive/refs/tags/v%version%.zip"
+      filename: autopkg.zip
+      # NOTE: a valid %GITHUB_TOKEN% is only required if running in a GitHub Action:
+      # - if run locally without %GITHUB_TOKEN% this should still work unless you hit API limits locally
+      # - https://github.community/t/using-github-token-in-http-call-to-api/16608/8?u=jgstew
+      request_headers: {"authorization": "Bearer %GITHUB_TOKEN%"}
+  - Processor: EndOfCheckPhase
