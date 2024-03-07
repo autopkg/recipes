@@ -21,6 +21,7 @@ import plistlib
 import re
 
 from autopkglib import ProcessorError
+from autopkglib import version_equal_or_greater
 from autopkglib.URLGetter import URLGetter
 
 __all__ = ["MSOfficeMacURLandUpdateInfoProvider"]
@@ -111,7 +112,7 @@ PROD_DICT = {
     "Teams2": {
         "id": "TEAMS21",
         "path": "/Applications/Microsoft Teams (work or school).app",
-        "minimum_os": "10.15",
+        "minimum_os": "12.0",
     },
     "CompanyPortal": {
         "id": "IMCP01",
@@ -336,6 +337,16 @@ class MSOfficeMacURLandUpdateInfoProvider(URLGetter):
             or PROD_DICT[self.env["product"]].get("minimum_os")
             or "10.10.5"
         )
+
+        # Make sure that the minimum_os_version is at least higher than the pre defined value
+        if not version_equal_or_greater(
+            pkginfo["minimum_os_version"],
+            PROD_DICT[self.env["product"]].get("minimum_os", "10.10.5")
+        ):
+            pkginfo["minimum_os_version"] = PROD_DICT[self.env["product"]].get(
+                "minimum_os",
+                "10.10.5"
+            )
 
         installs_items = self.get_installs_items(item)
         if installs_items:
