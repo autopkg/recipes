@@ -111,7 +111,7 @@ PROD_DICT = {
     },
     "Teams2": {
         "id": "TEAMS21",
-        "path": "/Applications/Microsoft Teams (work or school).app",
+        "path": "/Applications/Microsoft Teams.app",
         "minimum_os": "12.0",
     },
     "CompanyPortal": {
