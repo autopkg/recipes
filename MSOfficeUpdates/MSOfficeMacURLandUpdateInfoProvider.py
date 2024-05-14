@@ -119,6 +119,11 @@ PROD_DICT = {
         "path": "/Applications/Company Portal.app",
         "minimum_os": "10.15",
     },
+    "RemoteDesktop": {
+        "id": "MSRD10",
+        "path": "/Applications/Microsoft Remote Desktop.app",
+        "minimum_os": "12.0",
+    },
 }
 LOCALE_ID_INFO_URL = "https://msdn.microsoft.com/en-us/goglobal/bb964664.aspx"
 SUPPORTED_VERSIONS = ["latest", "latest-delta", "latest-standalone"]
