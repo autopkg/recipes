@@ -44,6 +44,7 @@ the latest full update for the given CHANNEL.
             <key>blocking_applications</key>
             <array>
                 <string>Microsoft Teams</string>
+                <string>Microsoft Teams (work or school)</string>
                 <string>Microsoft Error Reporting</string>
                 <string>Microsoft AutoUpdate</string>
             </array>
