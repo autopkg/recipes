@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
     <key>Description</key>
-    <string>Downloads the current release version of Dropbox</string>
+    <string>Downloads the current release version of Dropbox. Change the BUILD value from 'stable' to 'beta' for beta builds.</string>
     <key>Identifier</key>
     <string>com.github.autopkg.download.dropbox</string>
     <key>Input</key>
