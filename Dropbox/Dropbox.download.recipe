@@ -22,8 +22,8 @@
         <dict>
             <key>Arguments</key>
             <dict>
-            	<key>url</key>
-            	<string>https://www.dropbox.com/download?plat=mac&amp;full=1</string>
+                <key>url</key>
+                <string>%DOWNLOADURL%</string>
                 <key>filename</key>
                 <string>%NAME%.dmg</string>
             </dict>
