@@ -10,6 +10,10 @@
     <dict>
         <key>NAME</key>
         <string>Dropbox</string>
+        <key>DOWNLOADURL</key>
+        <string>https://www.dropbox.com/download?plat=mac&amp;full=1&amp;build=%BUILD%</string>
+        <key>BUILD</key>
+        <string>stable</string>
     </dict>
     <key>MinimumVersion</key>
     <string>0.4.0</string>
