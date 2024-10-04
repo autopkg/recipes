@@ -4,7 +4,7 @@
 <dict>
     <key>Description</key>
     <string>Downloads Thunderbird disk image.
-Some useful values for RELEASE are: 'latest', 'beta-latest'.
+Some useful values for RELEASE are: 'latest', 'esr-latest', 'beta-latest'.
 LOCALE controls the language localization to be downloaded.
 Examples include 'en-US', 'de', 'sv-SE', and 'zh-TW'
 See the following URLs for more info:
