@@ -121,7 +121,7 @@ PROD_DICT = {
     },
     "RemoteDesktop": {
         "id": "MSRD10",
-        "path": "/Applications/Microsoft Remote Desktop.app",
+        "path": "/Applications/Windows App.app",
         "minimum_os": "12.0",
     },
 }
