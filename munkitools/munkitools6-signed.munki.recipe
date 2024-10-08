@@ -28,7 +28,7 @@ descending by tag names according to LooseVersion semantics.
         <key>MUNKI_REPO_SUBDIR</key>
         <string>munkitools</string>
         <key>MUNKI_ICON</key>
-        <string>Managed Software Center.png</string>
+        <string>munkitools.png</string>
         <key>pkginfo</key>
         <dict>
             <key>catalogs</key>
@@ -91,18 +91,6 @@ descending by tag names according to LooseVersion semantics.
                 </array>
                 <key>input_path</key>
                 <string>%pathname%</string>
-            </dict>
-        </dict>
-        <dict>
-            <key>Processor</key>
-            <string>MunkiPkginfoMerger</string>
-            <key>Arguments</key>
-            <dict>
-                <key>additional_pkginfo</key>
-                <dict>
-                    <key>version</key>
-                    <string>%version%</string>
-                </dict>
             </dict>
         </dict>
         <dict>
