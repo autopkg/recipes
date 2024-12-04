@@ -42,6 +42,7 @@ BASE_URL = "https://officecdn.microsoft.com/pr/%s/MacAutoupdate/%s.xml"
 PROD_DICT = {
     "Excel2016": {"id": "XCEL15", "path": "/Applications/Microsoft Excel.app"},
     "Excel2019": {
+        "bundle_id": "com.microsoft.Excel",
         "id": "XCEL2019",
         "path": "/Applications/Microsoft Excel.app",
         "minimum_os": "10.12",
@@ -49,6 +50,7 @@ PROD_DICT = {
     },
     "OneNote2016": {"id": "ONMC15", "path": "/Applications/Microsoft OneNote.app"},
     "OneNote2019": {
+        "bundle_id": "com.microsoft.onenote.mac",
         "id": "ONMC2019",
         "path": "/Applications/Microsoft OneNote.app",
         "minimum_os": "10.12",
@@ -56,6 +58,7 @@ PROD_DICT = {
     },
     "Outlook2016": {"id": "OPIM15", "path": "/Applications/Microsoft Outlook.app"},
     "Outlook2019": {
+        "bundle_id": "com.microsoft.Outlook",
         "id": "OPIM2019",
         "path": "/Applications/Microsoft Outlook.app",
         "minimum_os": "10.12",
@@ -66,6 +69,7 @@ PROD_DICT = {
         "path": "/Applications/Microsoft PowerPoint.app",
     },
     "PowerPoint2019": {
+        "bundle_id": "com.microsoft.PowerPoint",
         "id": "PPT32019",
         "path": "/Applications/Microsoft PowerPoint.app",
         "minimum_os": "10.12",
@@ -73,6 +77,7 @@ PROD_DICT = {
     },
     "Word2016": {"id": "MSWD15", "path": "/Applications/Microsoft Word.app"},
     "Word2019": {
+        "bundle_id": "com.microsoft.Word",
         "id": "MSWD2019",
         "path": "/Applications/Microsoft Word.app",
         "minimum_os": "10.12",
@@ -357,6 +362,13 @@ class MSOfficeMacURLandUpdateInfoProvider(URLGetter):
         if installs_items:
             pkginfo["installs"] = installs_items
 
+        # If bundle_id is defined
+        if PROD_DICT[self.env["product"]].get("bundle_id"):
+            # Add to pkginfo
+            pkginfo["installs"][0]["CFBundleIdentifier"] = PROD_DICT[self.env["product"]].get(
+                "bundle_id"
+            )
+           
         # Extra work to do if this is a delta updater
         if self.env["version"] == "latest-delta":
             try:
