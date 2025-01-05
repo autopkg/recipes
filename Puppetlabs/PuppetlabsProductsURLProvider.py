@@ -17,10 +17,10 @@
 
 import re
 from builtins import str
-from distutils.version import LooseVersion
 
 from autopkglib import ProcessorError
 from autopkglib.URLGetter import URLGetter
+from distutils.version import LooseVersion
 
 __all__ = ["PuppetlabsProductsURLProvider"]
 

@@ -48,7 +48,7 @@ default, 'latest'.</string>
             </dict>
         </dict>
         <key>MinimumVersion</key>
-        <string>0.2.0</string>
+        <string>1.1</string>
         <key>ParentRecipe</key>
         <string>com.github.autopkg.download.AdobeAcrobatPro9Update</string>
         <key>Process</key>

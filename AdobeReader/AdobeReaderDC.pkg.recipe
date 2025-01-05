@@ -17,7 +17,7 @@ and enabling installation on non-boot volumes.</string>
 		<string>AdobeReaderDC</string>
 	</dict>
 	<key>MinimumVersion</key>
-	<string>0.4.0</string>
+	<string>1.1</string>
 	<key>ParentRecipe</key>
 	<string>com.github.autopkg.download.AdobeReaderDC</string>
 	<key>Process</key>

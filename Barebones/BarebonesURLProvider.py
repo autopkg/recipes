@@ -15,11 +15,11 @@
 # limitations under the License.
 """See docstring for BarebonesURLProvider class"""
 
-from distutils.version import LooseVersion
 import plistlib
 
 from autopkglib import ProcessorError
 from autopkglib.URLGetter import URLGetter
+from distutils.version import LooseVersion
 
 __all__ = ["BarebonesURLProvider"]
 

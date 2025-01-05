@@ -125,9 +125,7 @@ class AdobeAcrobatProUpdateInfoProvider(URLGetter):
             # /{MAJREV}/get_version/{PROD}_{PROD_ARCH}.plist
             template_response = re.sub(r"\d+\.\d+\.\d+", get_version, template_response)
 
-        manifest_url = self.process_url_vars(
-            META_BASE_URL + template_response
-        )
+        manifest_url = self.process_url_vars(META_BASE_URL + template_response)
         manifest_data = self.get_manifest_data(manifest_url)
 
         composed_dl_url = DL_BASE_URL + manifest_data["PatchURL"]

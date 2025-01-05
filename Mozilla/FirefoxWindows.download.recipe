@@ -19,7 +19,7 @@
 			<string>msi-latest</string>
 		</dict>
 		<key>MinimumVersion</key>
-		<string>2.0</string>
+		<string>2.3</string>
 		<key>SupportedPlatforms</key>
 		<array>
 			<string>Windows</string>

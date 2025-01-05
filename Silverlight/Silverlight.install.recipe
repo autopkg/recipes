@@ -9,7 +9,7 @@
         <key>Input</key>
         <dict/>
         <key>MinimumVersion</key>
-        <string>0.6.0</string>
+        <string>1.1</string>
         <key>ParentRecipe</key>
         <string>com.github.autopkg.download.Silverlight</string>
         <key>Process</key>
