@@ -4,6 +4,7 @@ repos:
     hooks:
       - id: check-autopkg-recipes
         args: ["--recipe-prefix=com.github.autopkg.", "--strict", "--"]
+        exclude: ^(MSOfficeUpdates|OmniGroup|munkitools|AutoPkg|Munki|Mozilla|SassafrasK2Client)/
       - id: forbid-autopkg-overrides
         exclude: ^(MSOfficeUpdates|OmniGroup)/
       - id: forbid-autopkg-trust-info
