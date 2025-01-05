@@ -17,11 +17,11 @@
 
 import plistlib
 from builtins import hex
-from distutils.version import LooseVersion
 from urllib.parse import urlparse, urlunparse
 
 from autopkglib import ProcessorError
 from autopkglib.URLGetter import URLGetter
+from distutils.version import LooseVersion
 
 __all__ = ["MSOffice2011UpdateInfoProvider"]
 
