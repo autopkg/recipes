@@ -53,7 +53,7 @@ the prefPane bundle, which has historically had consistent versioning.
 		</dict>
 	</dict>
 	<key>MinimumVersion</key>
-	<string>0.2.9</string>
+	<string>1.1</string>
 	<key>ParentRecipe</key>
 	<string>com.github.autopkg.download.OracleJava8</string>
 	<key>Process</key>

@@ -12,7 +12,7 @@
         <string>Transmit5</string>
     </dict>
     <key>MinimumVersion</key>
-    <string>0.2.0</string>
+    <string>0.2.5</string>
     <key>ParentRecipe</key>
     <string>com.github.autopkg.download.transmit5</string>
     <key>Process</key>

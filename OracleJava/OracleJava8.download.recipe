@@ -20,7 +20,7 @@ http://www.oracle.com/technetwork/java/javase/terms/license/index.html
 		<string>OracleJava8</string>
 	</dict>
 	<key>MinimumVersion</key>
-	<string>0.3.1</string>
+	<string>1.1</string>
 	<key>Process</key>
 	<array>
 		<dict>
