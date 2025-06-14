@@ -68,10 +68,10 @@ exit 0
 		<dict>
 			<key>Arguments</key>
 			<dict>
-				<key>destination_path</key>
-				<string>%RECIPE_CACHE_DIR%/pkg_unpack</string>
 				<key>flat_pkg_path</key>
 				<string>%pathname%/*.pkg</string>
+				<key>destination_path</key>
+				<string>%RECIPE_CACHE_DIR%/pkg_unpack</string>
 				<key>purge_destination</key>
 				<true/>
 			</dict>
@@ -81,10 +81,10 @@ exit 0
 		<dict>
 			<key>Arguments</key>
 			<dict>
-				<key>pkgdirs</key>
-				<dict/>
 				<key>pkgroot</key>
 				<string>%RECIPE_CACHE_DIR%/application_payload/Applications</string>
+				<key>pkgdirs</key>
+				<dict/>
 			</dict>
 			<key>Processor</key>
 			<string>PkgRootCreator</string>
@@ -92,10 +92,10 @@ exit 0
 		<dict>
 			<key>Arguments</key>
 			<dict>
-				<key>destination_path</key>
-				<string>%RECIPE_CACHE_DIR%/application_payload/Applications</string>
 				<key>pkg_payload_path</key>
 				<string>%RECIPE_CACHE_DIR%/pkg_unpack/application.pkg/Payload</string>
+				<key>destination_path</key>
+				<string>%RECIPE_CACHE_DIR%/application_payload/Applications</string>
 				<key>purge_destination</key>
 				<true/>
 			</dict>
@@ -105,20 +105,11 @@ exit 0
 		<dict>
 			<key>Arguments</key>
 			<dict>
-				<key>pattern</key>
-				<string>%RECIPE_CACHE_DIR%/application_payload/Applications/*.app</string>
-			</dict>
-			<key>Processor</key>
-			<string>FileFinder</string>
-		</dict>
-		<dict>
-			<key>Arguments</key>
-			<dict>
 				<key>faux_root</key>
 				<string>%RECIPE_CACHE_DIR%/application_payload</string>
 				<key>installs_item_paths</key>
 				<array>
-					<string>/Applications/%found_basename%</string>
+					<string>/Applications/Adobe Acrobat Reader.app</string>
 				</array>
 			</dict>
 			<key>Processor</key>
@@ -131,6 +122,132 @@ exit 0
 		<dict>
 			<key>Arguments</key>
 			<dict>
+				<key>info_path</key>
+				<string>%RECIPE_CACHE_DIR%/application_payload/Applications/Adobe Acrobat Reader.app/Contents/Info.plist</string>
+				<key>plist_keys</key>
+				<dict>
+					<key>CFBundleShortVersionString</key>
+					<string>app_version</string>
+				</dict>
+			</dict>
+			<key>Processor</key>
+			<string>PlistReader</string>
+		</dict>
+		<dict>
+			<key>Processor</key>
+			<string>MunkiPkginfoMerger</string>
+			<key>Arguments</key>
+			<dict>
+				<key>additional_pkginfo</key>
+				<dict>
+					<key>version</key>
+					<string>%app_version%</string>
+					<key>installcheck_script</key>
+					<string>#!/usr/local/munki/munki-python
+
+import os
+import plistlib
+import sys
+sys.path.insert(0, &apos;/usr/local/munki&apos;)
+from munkilib.pkgutils import MunkiLooseVersion as LooseVersion
+
+def read_plist(plist_path):
+	&quot;&quot;&quot;Reads a plist file and returns its contents as a dictionary.&quot;&quot;&quot;
+	print(f&quot;Reading plist from: {plist_path}&quot;)
+	if os.path.exists(plist_path):
+		with open(plist_path, &apos;rb&apos;) as plist_file:
+			return plistlib.load(plist_file)
+	else:
+		print(f&quot;Plist not found: {plist_path}&quot;)
+		return None
+
+def check_acrobat_installed():
+	&quot;&quot;&quot;Check if Adobe Acrobat.app exists and if AcroSCA key is True.&quot;&quot;&quot;
+	acrobat_app_path = &apos;/Applications/Adobe Acrobat DC/Adobe Acrobat.app&apos;
+	acrobat_plist_path = os.path.join(acrobat_app_path, &apos;Contents&apos;, &apos;Info.plist&apos;)
+
+	# Check if Adobe Acrobat.app exists
+	if not os.path.exists(acrobat_app_path):
+		print(&quot;Adobe Acrobat DC is not installed.&quot;)
+		return False
+
+	# Read the Info.plist of Adobe Acrobat.app
+	print(&quot;Adobe Acrobat DC is installed, checking Info.plist...&quot;)
+	acrobat_plist = read_plist(acrobat_plist_path)
+	if acrobat_plist is None:
+		print(&quot;Failed to read Info.plist for Adobe Acrobat DC.&quot;)
+		return False
+
+	# Check if the AcroSCA key exists and if it&apos;s True
+	acrosca = acrobat_plist.get(&apos;AcroSCA&apos;, False)
+	print(f&quot;AcroSCA value: {acrosca}&quot;)
+	return acrosca is True
+
+def main():
+	# Check if Adobe Acrobat is installed and the AcroSCA key is True
+	print(&quot;Checking if Adobe Acrobat is installed and AcroSCA key is True...&quot;)
+	if check_acrobat_installed():
+		print(&quot;AcroSCA key is True Unified App is installed. Exiting Install...&quot;)
+		sys.exit(1)
+
+	# Check if Adobe Acrobat Reader is installed
+	reader_app_path = &apos;/Applications/Adobe Acrobat Reader.app&apos;
+	reader_plist_path = os.path.join(reader_app_path, &apos;Contents&apos;, &apos;Info.plist&apos;)
+
+	# If Adobe Acrobat Reader.app is not installed, exit with status 0
+	if not os.path.exists(reader_app_path):
+		print(&quot;Adobe Acrobat Reader is not installed. Continuing with Install...&quot;)
+		sys.exit(0)
+
+	# Read the version of Adobe Acrobat Reader
+	print(f&quot;Adobe Acrobat Reader is installed. Reading version from: {reader_plist_path}...&quot;)
+	reader_plist = read_plist(reader_plist_path)
+	if reader_plist is None:
+		print(&quot;Failed to read Info.plist for Adobe Acrobat Reader.&quot;)
+		sys.exit(0)
+
+	reader_version = reader_plist.get(&apos;CFBundleShortVersionString&apos;, None)
+	if not reader_version:
+		print(&quot;No version found for Adobe Acrobat Reader. Continuing with Install...&quot;)
+		sys.exit(0)
+
+	print(f&quot;Found Adobe Acrobat Reader version: {reader_version}&quot;)
+
+	# Get the threshold version
+	threshold_version = &apos;%app_version%&apos;  # Replace with actual threshold version string
+
+	if not threshold_version:
+		print(&quot;Threshold version is not set. Exiting...&quot;)
+		sys.exit(1)
+
+	print(f&quot;Comparing against threshold version: {threshold_version}&quot;)
+
+	# Use MunkiLooseVersion for comparing the versions
+	try:
+		reader_version_obj = LooseVersion(reader_version)
+		threshold_version_obj = LooseVersion(threshold_version)
+
+		# If Reader version is less than the threshold version, exit with status 0 (no installation needed)
+		if reader_version_obj &lt; threshold_version_obj:
+			print(f&quot;Adobe Acrobat Reader version {reader_version} is less than the threshold version {threshold_version}. Continuing with Install....&quot;)
+			sys.exit(0)
+
+		# Otherwise, exit with status 1 (indicating an installation is needed)
+		print(f&quot;Adobe Acrobat Reader version {reader_version} is greater than or equal to the threshold version {threshold_version}. Exiting Install...&quot;)
+		sys.exit(1)
+
+	except ValueError as e:
+		print(f&quot;Error comparing versions: {e}. Exiting...&quot;)
+		sys.exit(1)
+
+if __name__ == &apos;__main__&apos;:
+	main()</string>
+				</dict>
+			</dict>
+		</dict>
+		<dict>
+			<key>Arguments</key>
+			<dict>
 				<key>pkg_path</key>
 				<string>%pathname%</string>
 				<key>repo_subdirectory</key>
@@ -138,6 +255,18 @@ exit 0
 			</dict>
 			<key>Processor</key>
 			<string>MunkiImporter</string>
+		</dict>
+		<dict>
+			<key>Arguments</key>
+			<dict>
+				<key>path_list</key>
+				<array>
+					<string>%RECIPE_CACHE_DIR%/pkg_unpack</string>
+					<string>%RECIPE_CACHE_DIR%/application_payload</string>
+				</array>
+			</dict>
+			<key>Processor</key>
+			<string>PathDeleter</string>
 		</dict>
 	</array>
 </dict>
