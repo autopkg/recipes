@@ -6,7 +6,7 @@
 	<string>This recipe downloads the signed installer package that Mozilla made available starting in Firefox 69.0. Because the downloaded file is already a package, this pkg recipe does not add any further actions.
 
 The RELEASE key used in the standard Firefox recipes are not yet supported.
-LOCALE controls the language localization to be downloded.
+LOCALE controls the language localization to be downloaded.
 Examples include 'en-US', 'de', 'sv-SE', and 'zh-TW'
 See the following URL for possible LOCALE values:
     http://ftp.mozilla.org/pub/firefox/releases/latest/README.txt
@@ -19,7 +19,7 @@ See the following URL for possible LOCALE values:
 		<string>Firefox</string>
 	</dict>
 	<key>MinimumVersion</key>
-	<string>1.1</string>
+    <string>2.0</string>
 	<key>ParentRecipe</key>
 	<string>com.github.autopkg.download.FirefoxSignedPkg</string>
 	<key>Process</key>

@@ -5,9 +5,10 @@
     <key>Description</key>
     <string>Downloads latest VLC disk image.
 
-Note that while VLC used to provide multiple Sparkle feeds for different architectures,
-they now support only a single OS X build architecture (Intel 64-bit) starting from
-version 2.1.0. For this reason, the appcast_url variable is now hardcoded in the recipe.
+Allowable ARCHITECTURE values (as of October 2021) include:
+- "universal" for the Universal build (this is the default)
+- "intel64" for the Intel build
+- "arm64" for the Apple Silicon build
 </string>
     <key>Identifier</key>
     <string>com.github.autopkg.download.VLC</string>
@@ -15,6 +16,8 @@ version 2.1.0. For this reason, the appcast_url variable is now hardcoded in the
     <dict>
         <key>NAME</key>
         <string>VLC</string>
+        <key>ARCHITECTURE</key>
+        <string>universal</string>
     </dict>
     <key>MinimumVersion</key>
     <string>0.4.0</string>
@@ -22,11 +25,15 @@ version 2.1.0. For this reason, the appcast_url variable is now hardcoded in the
     <array>
         <dict>
             <key>Processor</key>
-            <string>SparkleUpdateInfoProvider</string>
+            <string>URLTextSearcher</string>
             <key>Arguments</key>
             <dict>
-                <key>appcast_url</key>
-                <string>http://update.videolan.org/vlc/sparkle/vlc-intel64.xml</string>
+                <key>url</key>
+                <string>https://www.videolan.org/vlc/download-macosx.html</string>
+                <key>re_pattern</key>
+                <string>href="\/\/get\.videolan\.org\/vlc\/([\d\.]+)\/macosx\/vlc-[\d\.]+-%ARCHITECTURE%\.dmg"</string>
+                <key>result_output_var_name</key>
+                <string>version</string>
             </dict>
         </dict>
         <dict>
@@ -34,8 +41,10 @@ version 2.1.0. For this reason, the appcast_url variable is now hardcoded in the
             <string>URLDownloader</string>
             <key>Arguments</key>
             <dict>
+                <key>url</key>
+                <string>https://get.videolan.org/vlc/%version%/macosx/vlc-%version%-%ARCHITECTURE%.dmg</string>
                 <key>filename</key>
-                <string>%NAME%.dmg</string>
+                <string>%NAME%-%version%.dmg</string>
             </dict>
         </dict>
         <dict>

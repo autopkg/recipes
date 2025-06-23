@@ -20,6 +20,8 @@ This is not used to obtain the latest released version.
             <string>3.7.5</string>
             <key>REQUIREMENTS_FILENAME</key>
             <string>requirements.txt</string>
+            <key>OS_VERSION</key>
+            <string>10.9</string>
         </dict>
         <key>MinimumVersion</key>
         <string>0.2.1</string>
@@ -86,6 +88,8 @@ This is not used to obtain the latest released version.
                     <string>%autopkg_path%/%REQUIREMENTS_FILENAME%</string>
                     <key>python_version</key>
                     <string>%PYTHON_VERSION%</string>
+                    <key>os_version</key>
+                    <string>%OS_VERSION%</string>
                 </dict>
                 <key>Processor</key>
                 <string>GenerateRelocatablePython</string>
@@ -104,6 +108,8 @@ This is not used to obtain the latest released version.
                         <key>Library</key>
                         <string>01755</string>
                         <key>Library/AutoPkg</key>
+                        <string>0755</string>
+                        <key>Library/AutoPkg/autopkgcmd</key>
                         <string>0755</string>
                         <key>Library/AutoPkg/autopkglib</key>
                         <string>0755</string>
@@ -165,6 +171,21 @@ This is not used to obtain the latest released version.
             </dict>
             <dict>
                 <key>Comment</key>
+                <string>Copy autopkgcmd to /Library/AutoPkg</string>
+                <key>Processor</key>
+                <string>Copier</string>
+                <key>Arguments</key>
+                <dict>
+                    <key>source_path</key>
+                    <string>%autopkg_path%/Code/autopkgcmd</string>
+                    <key>destination_path</key>
+                    <string>%pkgroot%/Library/AutoPkg/autopkgcmd</string>
+                    <key>overwrite</key>
+                    <true/>
+                </dict>
+            </dict>
+            <dict>
+                <key>Comment</key>
                 <string>Copy autopkglib to /Library/AutoPkg</string>
                 <key>Processor</key>
                 <string>Copier</string>
@@ -189,6 +210,21 @@ This is not used to obtain the latest released version.
                     <string>%autopkg_path%/Code/autopkgserver</string>
                     <key>destination_path</key>
                     <string>%pkgroot%/Library/AutoPkg/autopkgserver</string>
+                    <key>overwrite</key>
+                    <true/>
+                </dict>
+            </dict>
+            <dict>
+                <key>Comment</key>
+                <string>Copy nuget to /Library/AutoPkg</string>
+                <key>Processor</key>
+                <string>Copier</string>
+                <key>Arguments</key>
+                <dict>
+                    <key>source_path</key>
+                    <string>%autopkg_path%/Code/nuget</string>
+                    <key>destination_path</key>
+                    <string>%pkgroot%/Library/AutoPkg/nuget</string>
                     <key>overwrite</key>
                     <true/>
                 </dict>
@@ -270,12 +306,12 @@ This is not used to obtain the latest released version.
                 <string>PkgCreator</string>
                 <key>Arguments</key>
                 <dict>
-                    <key>pkgname</key>
-                    <string>%NAME%-%version%</string>
                     <key>force_pkg_build</key>
                     <string>True</string>
                     <key>pkg_request</key>
                     <dict>
+                        <key>pkgname</key>
+                        <string>%NAME%-%version%</string>
                         <key>pkgdir</key>
                         <string>%RECIPE_CACHE_DIR%</string>
                         <key>id</key>

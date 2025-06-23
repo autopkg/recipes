@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+	<dict>
+		<key>Description</key>
+		<string>This recipe downloads the latest 64-bit or 32-bit Windows MSI installer.
+		</string>
+		<key>Identifier</key>
+		<string>com.github.autopkg.download.FirefoxWindows</string>
+		<key>Input</key>
+		<dict>
+			<key>LOCALE</key>
+			<string>en-US</string>
+			<key>NAME</key>
+			<string>Firefox</string>
+			<key>PLATFORM</key>
+			<string>win64</string>			<!-- default 64 bit, 'win' can be used for 32 bit. -->
+			<key>RELEASE</key>
+			<string>msi-latest</string>
+		</dict>
+		<key>MinimumVersion</key>
+		<string>2.0</string>
+		<key>SupportedPlatforms</key>
+		<array>
+			<string>Windows</string>
+		</array>
+		<key>Process</key>
+		<array>
+			<dict>
+				<key>Arguments</key>
+				<dict>
+					<key>product_name</key>
+					<string>firefox</string>
+					<key>release</key>
+					<string>%RELEASE%</string>
+					<key>locale</key>
+					<string>%LOCALE%</string>
+					<key>platform</key>
+					<string>%PLATFORM%</string>
+				</dict>
+				<key>Processor</key>
+				<string>MozillaURLProvider</string>
+			</dict>
+			<dict>
+				<key>Arguments</key>
+				<dict>
+					<key>prefetch_filename</key>
+					<string>True</string>
+				</dict>
+				<key>Processor</key>
+				<string>URLDownloader</string>
+			</dict>
+			<dict>
+				<key>Processor</key>
+				<string>EndOfCheckPhase</string>
+			</dict>
+			<dict>
+				<key>Arguments</key>
+				<dict>
+					<key>additional_arguments</key>
+					<array>
+						<!--
+						Validate the download has a signature from this explicitly:
+						Issued to: Mozilla Corporation
+						Issued by: DigiCert SHA2 Assured ID Code Signing CA
+						Expires:   Wed May 12 05:00:00 2021
+						SHA1 hash: 91CABEA509662626E34326687348CAF2DD3B4BBA
+						-->
+						<string>/sha1</string>
+						<string>91CABEA509662626E34326687348CAF2DD3B4BBA</string>
+					</array>
+					<key>input_path</key>
+					<string>%pathname%</string>
+				</dict>
+				<key>Processor</key>
+				<string>SignToolVerifier</string>
+			</dict>
+		</array>
+	</dict>
+</plist>

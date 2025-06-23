@@ -3,15 +3,21 @@
 <plist version="1.0">
 <dict>
     <key>Description</key>
-    <string>Downloads the latest Spotify.</string>
+    <string>Downloads the latest Spotify.
+
+For Apple Silicon set DOWNLOAD_ARCH to "ARM64" and SUPPORTED_ARCH to "arm64" (default)
+
+For Intel leave DOWNLOAD_ARCH empty and set SUPPORTED_ARCH to "x86_64"</string>
     <key>Identifier</key>
     <string>com.github.autopkg.download.Spotify</string>
     <key>Input</key>
     <dict>
         <key>NAME</key>
         <string>Spotify</string>
-        <key>DOWNLOAD_URL</key>
-        <string>https://download.scdn.co/Spotify.dmg</string>
+        <key>DOWNLOAD_ARCH</key>
+        <string>ARM64</string>
+        <key>SUPPORTED_ARCH</key>
+        <string>arm64</string>
     </dict>
     <key>MinimumVersion</key>
     <string>0.4.0</string>
@@ -23,9 +29,9 @@
             <key>Arguments</key>
             <dict>
                 <key>url</key>
-                <string>%DOWNLOAD_URL%</string>
+                <string>https://download.scdn.co/Spotify%DOWNLOAD_ARCH%.dmg</string>
                 <key>filename</key>
-                <string>%NAME%.dmg</string>
+                <string>%NAME%-%SUPPORTED_ARCH%.dmg</string>
             </dict>
         </dict>
         <dict>

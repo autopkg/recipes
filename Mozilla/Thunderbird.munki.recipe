@@ -5,7 +5,7 @@
     <key>Description</key>
     <string>Downloads Thunderbird disk image and imports into Munki.
 Some useful values for RELEASE are: 'latest', 'beta-latest'.
-LOCALE controls the language localization to be downloded.
+LOCALE controls the language localization to be downloaded.
 Examples include 'en-US', 'de', 'sv-SE', and 'zh-TW'
 See the following URLs for more info:
     http://ftp.mozilla.org/pub/thunderbird/releases/latest/README.txt
@@ -34,7 +34,7 @@ See the following URLs for more info:
         </dict>
     </dict>
     <key>MinimumVersion</key>
-    <string>0.2.0</string>
+    <string>2.0</string>
     <key>ParentRecipe</key>
     <string>com.github.autopkg.download.thunderbird</string>
     <key>Process</key>

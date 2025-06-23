@@ -1,0 +1,17 @@
+Description: Builds relocatable-python framework.
+Identifier: com.github.autopkg.build.relocatablepython
+MinimumVersion: 2.4.0
+
+Input:
+  NAME: RelocatablePython
+  MUNKI_REPO_SUBDIR: apps/relocatable_python
+  PYTHON_VERSION: 3.10.9
+  PYTHON_OS_VERSION: "11"
+  REQUIREMENTS_PATH: "%RECIPE_CACHE_DIR%/relocatable-python/requirements_python3_\
+        recommended.txt"
+Process:
+  - Processor: com.github.autopkg.AutoPkgGitMaster/GenerateRelocatablePython
+    Arguments:
+      requirements_path: '%REQUIREMENTS_PATH%'
+      python_version: "%PYTHON_VERSION%"
+      os_version: "%PYTHON_OS_VERSION%"

@@ -3,9 +3,9 @@
 <plist version="1.0">
     <dict>
         <key>Description</key>
-        <string>Download recipe for XQuartz. Downloads latest XQuartz disk image.
+        <string>Download recipe for XQuartz. Downloads latest XQuartz package.
 
-Override BRANCH with either 'beta' or 'release' for the applicable Sparkle feed.
+Override BRANCH with either 'alpha', 'beta', or 'release' for the applicable Sparkle feed.
         </string>
         <key>Identifier</key>
         <string>com.github.autopkg.download.xquartz</string>
@@ -22,20 +22,11 @@ Override BRANCH with either 'beta' or 'release' for the applicable Sparkle feed.
         <array>
             <dict>
                 <key>Processor</key>
-                <string>DeprecationWarning</string>
-                <key>Arguments</key>
-                <dict>
-                    <key>warning_message</key>
-                    <string>This recipe will soon be removed. Please remove it from your list of recipes.</string>
-                </dict>
-            </dict>
-            <dict>
-                <key>Processor</key>
                 <string>SparkleUpdateInfoProvider</string>
                 <key>Arguments</key>
                 <dict>
                     <key>appcast_url</key>
-                    <string>https://www.xquartz.org/releases/sparkle/%BRANCH%.xml</string>
+                    <string>https://www.xquartz.org/releases/sparkle-r1/%BRANCH%.xml</string>
                 </dict>
             </dict>
             <dict>
@@ -62,7 +53,7 @@ Override BRANCH with either 'beta' or 'release' for the applicable Sparkle feed.
                 <key>Arguments</key>
                 <dict>
                     <key>input_path</key>
-                    <string>%pathname%/XQuartz.pkg</string>
+                    <string>%pathname%</string>
                     <key>expected_authority_names</key>
                     <array>
                         <string>Developer ID Installer: Apple Inc. - XQuartz (NA574AWV7E)</string>

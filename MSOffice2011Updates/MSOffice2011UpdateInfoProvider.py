@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/local/autopkg/python
 #
 # Copyright 2013 Greg Neagle
 #
@@ -15,22 +15,13 @@
 # limitations under the License.
 """See docstring for MSOffice2011UpdateInfoProvider class"""
 
+import plistlib
 from builtins import hex
 from distutils.version import LooseVersion
+from urllib.parse import urlparse, urlunparse
 
 from autopkglib import ProcessorError
 from autopkglib.URLGetter import URLGetter
-from past.builtins import basestring
-
-try:
-    from urlparse import urlparse, urlunparse
-except ImportError:
-    from urllib.parse import urlparse, urlunparse
-
-try:
-    from plistlib import readPlistFromString
-except ImportError:
-    from plistlib import readPlistFromBytes as readPlistFromString
 
 __all__ = ["MSOffice2011UpdateInfoProvider"]
 
@@ -226,7 +217,7 @@ class MSOffice2011UpdateInfoProvider(URLGetter):
         }
         data = self.download(base_url, headers)
 
-        metadata = readPlistFromString(data)
+        metadata = plistlib.loads(data)
         if version_str == "latest":
             # Office 2011 update metadata is a list of dicts.
             # we need to sort by date.

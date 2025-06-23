@@ -3,15 +3,15 @@
 <plist version="1.0">
 <dict>
     <key>Description</key>
-    <string>Downloads the latest TextMate 2 and imports into Munki.
+    <string>Downloads the latest TextMate 2 from their GitHub repo and imports into Munki.
 
 The postinstall script symlinks the 'mate' command-line helper tool from
 the application bundle to /usr/local/bin/mate, the same path that TextMate2
 would install it to.
 
-BRANCH can be one of 'release' or 'beta', which correspond respectively
-to the 'Normal' and 'Nightly' options in TextMate 2's Software Update
-preferences panel.
+Set PRERELEASE to a non-empty string to download prereleases, either
+via Input in an override or via the -k option,
+i.e.: `-k PRERELEASE=yes`
 </string>
     <key>Identifier</key>
     <string>com.github.autopkg.munki.TextMate2</string>
@@ -21,10 +21,6 @@ preferences panel.
         <string>apps/TextMate2</string>
         <key>NAME</key>
         <string>TextMate2</string>
-        <key>BRANCH</key>
-        <string>release</string>
-        <key>MACOS</key>
-        <string>10.15</string>
         <key>pkginfo</key>
         <dict>
             <key>catalogs</key>
@@ -42,7 +38,7 @@ preferences panel.
             <key>postinstall_script</key>
             <string>#!/bin/sh
 [ -d /usr/local/bin ] || mkdir -p /usr/local/bin
-/bin/cp -f -p /Applications/TextMate.app/Contents/Resources/mate /usr/local/bin/mate
+/bin/cp -f -p /Applications/TextMate.app/Contents/MacOS/mate /usr/local/bin/mate
 </string>
             <key>postuninstall_script</key>
             <string>#!/bin/sh
@@ -79,6 +75,18 @@ preferences panel.
             </dict>
             <key>Processor</key>
             <string>MunkiImporter</string>
+        </dict>
+        <dict>
+            <key>Arguments</key>
+            <dict>
+                <key>path_list</key>
+                <array>
+                    <string>%RECIPE_CACHE_DIR%/%NAME%</string>
+                    <string>%RECIPE_CACHE_DIR%/%NAME%.dmg</string>
+                </array>
+            </dict>
+            <key>Processor</key>
+            <string>PathDeleter</string>
         </dict>
     </array>
 </dict>

@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/local/autopkg/python
 #
 # Copyright 2015 Allister Banks and Tim Sutton,
 # based on MSOffice2011UpdateInfoProvider by Greg Neagle
@@ -17,15 +17,12 @@
 # limitations under the License.
 """See docstring for MSOfficeMacURLandUpdateInfoProvider class"""
 
+import plistlib
 import re
 
 from autopkglib import ProcessorError
+from autopkglib import version_equal_or_greater
 from autopkglib.URLGetter import URLGetter
-
-try:
-    from plistlib import readPlistFromString
-except ImportError:
-    from plistlib import readPlistFromBytes as readPlistFromString
 
 __all__ = ["MSOfficeMacURLandUpdateInfoProvider"]
 
@@ -45,36 +42,46 @@ BASE_URL = "https://officecdn.microsoft.com/pr/%s/MacAutoupdate/%s.xml"
 PROD_DICT = {
     "Excel2016": {"id": "XCEL15", "path": "/Applications/Microsoft Excel.app"},
     "Excel2019": {
+        "bundle_id": "com.microsoft.Excel",
         "id": "XCEL2019",
         "path": "/Applications/Microsoft Excel.app",
         "minimum_os": "10.12",
+        "minimum_update_version": "16.17",
     },
     "OneNote2016": {"id": "ONMC15", "path": "/Applications/Microsoft OneNote.app"},
     "OneNote2019": {
+        "bundle_id": "com.microsoft.onenote.mac",
         "id": "ONMC2019",
         "path": "/Applications/Microsoft OneNote.app",
         "minimum_os": "10.12",
+        "minimum_update_version": "16.17",
     },
     "Outlook2016": {"id": "OPIM15", "path": "/Applications/Microsoft Outlook.app"},
     "Outlook2019": {
+        "bundle_id": "com.microsoft.Outlook",
         "id": "OPIM2019",
         "path": "/Applications/Microsoft Outlook.app",
         "minimum_os": "10.12",
+        "minimum_update_version": "16.17",
     },
     "PowerPoint2016": {
         "id": "PPT315",
         "path": "/Applications/Microsoft PowerPoint.app",
     },
     "PowerPoint2019": {
+        "bundle_id": "com.microsoft.PowerPoint",
         "id": "PPT32019",
         "path": "/Applications/Microsoft PowerPoint.app",
         "minimum_os": "10.12",
+        "minimum_update_version": "16.17",
     },
     "Word2016": {"id": "MSWD15", "path": "/Applications/Microsoft Word.app"},
     "Word2019": {
+        "bundle_id": "com.microsoft.Word",
         "id": "MSWD2019",
         "path": "/Applications/Microsoft Word.app",
         "minimum_os": "10.12",
+        "minimum_update_version": "16.17",
     },
     "SkypeForBusiness": {
         "id": "MSFB16",
@@ -97,6 +104,31 @@ PROD_DICT = {
         "path": "/Applications/Microsoft Defender ATP.app",
         "minimum_os": "10.12",
     },
+    "Edge": {
+        "id": "EDGE01",
+        "path": "/Applications/Microsoft Edge.app",
+        "minimum_os": "10.11",
+    },
+    "Teams": {
+        "id": "TEAMS10",
+        "path": "/Applications/Microsoft Teams classic.app",
+        "minimum_os": "10.11",
+    },
+    "Teams2": {
+        "id": "TEAMS21",
+        "path": "/Applications/Microsoft Teams.app",
+        "minimum_os": "12.0",
+    },
+    "CompanyPortal": {
+        "id": "IMCP01",
+        "path": "/Applications/Company Portal.app",
+        "minimum_os": "10.15",
+    },
+    "RemoteDesktop": {
+        "id": "MSRD10",
+        "path": "/Applications/Windows App.app",
+        "minimum_os": "12.0",
+    },
 }
 LOCALE_ID_INFO_URL = "https://msdn.microsoft.com/en-us/goglobal/bb964664.aspx"
 SUPPORTED_VERSIONS = ["latest", "latest-delta", "latest-standalone"]
@@ -107,6 +139,7 @@ CHANNELS = {
     "InsiderFast": "4B2D7701-0A4F-49C8-B4CB-0C2D4043F51F",
 }
 DEFAULT_CHANNEL = "Production"
+NO_TRIGGER_CONDITIONS = ["SkypeForBusiness", "Teams", "Teams2", "Edge", "CompanyPortal"]
 
 
 class MSOfficeMacURLandUpdateInfoProvider(URLGetter):
@@ -205,9 +238,9 @@ class MSOfficeMacURLandUpdateInfoProvider(URLGetter):
     def get_installs_items(self, item):
         """Attempts to parse the Triggers to create an installs item using
         only manifest data, making the assumption that CFBundleVersion and
-        CFBundleShortVersionString are equal. Skip SkypeForBusiness as its
-        xml does not contain a 'Trigger Condition'"""
-        if self.env["product"] != "SkypeForBusiness":
+        CFBundleShortVersionString are equal. Skip SkypeForBusiness, Teams, 
+        and Edge as their xml does not contain a 'Trigger Condition'"""
+        if self.env["product"] not in NO_TRIGGER_CONDITIONS:
             self.sanity_check_expected_triggers(item)
         version = self.get_version(item)
         # Skipping CFBundleShortVersionString because it doesn't contain
@@ -264,7 +297,7 @@ class MSOfficeMacURLandUpdateInfoProvider(URLGetter):
         }
         data = self.download(base_url, headers)
 
-        metadata = readPlistFromString(data)
+        metadata = plistlib.loads(data)
         item = {}
         # Update feeds for a given 'channel' will have either combo or delta
         # pkg urls, with delta's additionally having a 'FullUpdaterLocation'
@@ -307,20 +340,6 @@ class MSOfficeMacURLandUpdateInfoProvider(URLGetter):
         # now extract useful info from the rest of the metadata that could
         # be used in a pkginfo
         pkginfo = {}
-        # Get a copy of the description in our locale_id
-        all_localizations = item.get("Localized")
-        lcid = self.env["locale_id"]
-        if lcid not in all_localizations:
-            raise ProcessorError(
-                "Locale ID %s not found in manifest metadata. Available IDs: "
-                "%s. See %s for more details."
-                % (lcid, ", ".join(all_localizations), LOCALE_ID_INFO_URL)
-            )
-        manifest_description = all_localizations[lcid]["Short Description"]
-        # Store the description in a separate output variable and in our pkginfo
-        # directly.
-        pkginfo["description"] = "<html>%s</html>" % manifest_description
-        self.env["description"] = manifest_description
 
         # Minimum OS version key should exist!
         pkginfo["minimum_os_version"] = (
@@ -329,10 +348,27 @@ class MSOfficeMacURLandUpdateInfoProvider(URLGetter):
             or "10.10.5"
         )
 
+        # Make sure that the minimum_os_version is at least higher than the pre defined value
+        if not version_equal_or_greater(
+            pkginfo["minimum_os_version"],
+            PROD_DICT[self.env["product"]].get("minimum_os", "10.10.5")
+        ):
+            pkginfo["minimum_os_version"] = PROD_DICT[self.env["product"]].get(
+                "minimum_os",
+                "10.10.5"
+            )
+
         installs_items = self.get_installs_items(item)
         if installs_items:
             pkginfo["installs"] = installs_items
 
+        # If bundle_id is defined
+        if PROD_DICT[self.env["product"]].get("bundle_id"):
+            # Add to pkginfo
+            pkginfo["installs"][0]["CFBundleIdentifier"] = PROD_DICT[self.env["product"]].get(
+                "bundle_id"
+            )
+           
         # Extra work to do if this is a delta updater
         if self.env["version"] == "latest-delta":
             try:
@@ -363,6 +399,15 @@ class MSOfficeMacURLandUpdateInfoProvider(URLGetter):
             pkginfo["requires"] = [
                 "%s-%s" % (required_update_name, self.min_delta_version)
             ]
+        elif PROD_DICT[self.env["product"]].get("minimum_update_version"):
+            # Put minimum_update_version into installs item as it is specified in PROD_DICT
+            self.output(
+                "Adding minimum required version: %s"
+                % PROD_DICT[self.env["product"]].get("minimum_update_version")
+            )
+            pkginfo["installs"][0]["minimum_update_version"] = PROD_DICT[
+                self.env["product"]
+            ].get("minimum_update_version")
 
         self.env["version"] = self.get_version(item)
         self.env["minimum_os_version"] = pkginfo["minimum_os_version"]

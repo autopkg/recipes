@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+    <dict>
+        <key>Description</key>
+        <string>Build Chocolatey package the current Git commit of the master branch of autopkg.
+This is not used to obtain the latest released version.
+        </string>
+        <key>Identifier</key>
+        <string>com.github.autopkg.AutoPkgGitMasterChoco</string>
+        <key>Input</key>
+        <dict>
+            <key>NAME</key>
+            <string>autopkg</string>
+            <key>BRANCH</key>
+            <string>master</string>
+            <key>URL</key>
+            <string>https://github.com/autopkg/autopkg/zipball/</string>
+            <key>PYTHON_PACKAGE_ID</key>
+            <string>python3</string>
+            <key>PYTHON_VERSION</key>
+            <string>3.8.5</string>
+        </dict>
+        <key>MinimumVersion</key>
+        <string>2.1</string>
+        <key>SupportedPlatforms</key>
+        <array>
+            <string>Windows</string>
+        </array>
+        <key>Process</key>
+        <array>
+            <dict>
+                <key>Comment</key>
+                <string>Download latest autopkg zip archive</string>
+                <key>Processor</key>
+                <string>URLDownloader</string>
+                <key>Arguments</key>
+                <dict>
+                    <key>url</key>
+                    <string>%URL%%BRANCH%</string>
+                    <key>filename</key>
+                    <string>%NAME%.zip</string>
+                </dict>
+            </dict>
+            <dict>
+                <key>Processor</key>
+                <string>EndOfCheckPhase</string>
+            </dict>
+            <dict>
+                <key>Comment</key>
+                <string>Extract version from autopkg zip</string>
+                <key>Processor</key>
+                <string>Versioner</string>
+                <key>Arguments</key>
+                <dict>
+                    <key>plist_version_key</key>
+                    <string>Version</string>
+                    <key>input_plist_path</key>
+                    <string>%pathname%/Code/autopkglib/version.plist</string>
+                    <key>skip_single_root_dir</key>
+                    <true/>
+                </dict>
+            </dict>
+            <dict>
+                <key>Comment</key>
+                <string>Package the zip archive</string>
+                <key>Processor</key>
+                <string>ChocolateyPackager</string>
+                <key>Arguments</key>
+                <dict>
+                    <key>id</key>                    <!-- Nupkg ID -->
+                    <string>autopkg</string>
+                    <key>version</key>
+                    <string>%version%</string>
+                    <key>title</key>
+                    <string>autopkg</string>
+                    <key>authors</key>
+                    <string>Autopkg Contributors</string>
+                    <key>description</key>
+                    <string>AutoPkg is an automation framework software packaging and distribution, oriented towards the tasks one would normally perform manually to prepare third-party software for mass deployment to managed clients.</string>
+                    <key>installer_type</key>
+                    <string>zip</string>
+                    <key>dependencies</key>
+                    <array>
+                        <dict>
+                            <key>id</key>
+                            <string>python3</string>
+                            <key>version</key>
+                            <string>%PYTHON_VERSION%</string>
+                        </dict>
+                    </array>
+                    <key>additional_install_actions</key>
+                    <string><![CDATA[
+$AutoPkgDir = Resolve-Path $toolsDir\*-autopkg-*
+& python -m venv $AutoPkgDir\.python-env
+Write-Output 'Running "pip install ..." to generate self-contained environment.'
+& $AutoPkgDir\.python-env\Scripts\pip --disable-pip-version-check install -r $AutoPkgDir\requirements.txt | Write-Verbose
+Get-ChildItem -Recurse $AutoPkgDir\.python-env -Include *.exe, *.dll | 
+    foreach { New-Item -ItemType File "$($_.FullName).ignore" } | Write-Verbose
+Install-ChocolateyPowershellCommand -PackageName $packageArgs.packageName -PsFileFullPath $AutoPkgDir\Scripts\autopkg.ps1
+                    ]]>
+                    </string>
+                </dict>
+            </dict>
+        </array>
+    </dict>
+</plist>
