@@ -23,7 +23,7 @@
             <key>Arguments</key>
             <dict>
                 <key>warning_message</key>
-                <string>This recipe has been deprecated. As of May 2025, Microsoft has discontuned Skype. Please remove recipe from your runs.
+                <string>This recipe has been deprecated. As of May 2025, Microsoft has discontuned Skype. Please remove this recipe from your runs.
 
 For more details, see https://support.microsoft.com/en-us/skype/skype-is-retiring-in-may-2025-what-you-need-to-know-2a7d2501-427f-485e-8be0-2068a9f90472</string>
             </dict>
