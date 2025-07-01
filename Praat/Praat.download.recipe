@@ -19,7 +19,7 @@
 			<key>Arguments</key>
 			<dict>
 				<key>re_pattern</key>
-				<string>a href="?(praat\d+_mac.dmg)"?</string>
+				<string>https:\/\/github\.com\/praat\/praat\/releases\/download\/v[\d.]+\/(praat\d+_mac.dmg)</string>
 				<key>result_output_var_name</key>
 				<string>dl_filename</string>
 				<key>url</key>
