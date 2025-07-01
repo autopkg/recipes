@@ -20,8 +20,7 @@
 import plistlib
 import re
 
-from autopkglib import ProcessorError
-from autopkglib import version_equal_or_greater
+from autopkglib import ProcessorError, version_equal_or_greater
 from autopkglib.URLGetter import URLGetter
 
 __all__ = ["MSOfficeMacURLandUpdateInfoProvider"]
@@ -238,7 +237,7 @@ class MSOfficeMacURLandUpdateInfoProvider(URLGetter):
     def get_installs_items(self, item):
         """Attempts to parse the Triggers to create an installs item using
         only manifest data, making the assumption that CFBundleVersion and
-        CFBundleShortVersionString are equal. Skip SkypeForBusiness, Teams, 
+        CFBundleShortVersionString are equal. Skip SkypeForBusiness, Teams,
         and Edge as their xml does not contain a 'Trigger Condition'"""
         if self.env["product"] not in NO_TRIGGER_CONDITIONS:
             self.sanity_check_expected_triggers(item)
@@ -351,11 +350,10 @@ class MSOfficeMacURLandUpdateInfoProvider(URLGetter):
         # Make sure that the minimum_os_version is at least higher than the pre defined value
         if not version_equal_or_greater(
             pkginfo["minimum_os_version"],
-            PROD_DICT[self.env["product"]].get("minimum_os", "10.10.5")
+            PROD_DICT[self.env["product"]].get("minimum_os", "10.10.5"),
         ):
             pkginfo["minimum_os_version"] = PROD_DICT[self.env["product"]].get(
-                "minimum_os",
-                "10.10.5"
+                "minimum_os", "10.10.5"
             )
 
         installs_items = self.get_installs_items(item)
@@ -365,10 +363,10 @@ class MSOfficeMacURLandUpdateInfoProvider(URLGetter):
         # If bundle_id is defined
         if PROD_DICT[self.env["product"]].get("bundle_id"):
             # Add to pkginfo
-            pkginfo["installs"][0]["CFBundleIdentifier"] = PROD_DICT[self.env["product"]].get(
-                "bundle_id"
-            )
-           
+            pkginfo["installs"][0]["CFBundleIdentifier"] = PROD_DICT[
+                self.env["product"]
+            ].get("bundle_id")
+
         # Extra work to do if this is a delta updater
         if self.env["version"] == "latest-delta":
             try:

@@ -34,8 +34,9 @@
 	<string>com.github.autopkg.download.google-earth</string>
     <key>Process</key>
 	<array>
-        <!-- Make a fake pkg root -->
         <dict>
+            <key>Comment</key>
+            <string>Make a fake pkg root</string>
             <key>Arguments</key>
             <dict>
                 <key>pkgroot</key>
@@ -53,8 +54,9 @@
             <key>Processor</key>
             <string>PkgRootCreator</string>
         </dict>
-        <!-- Expand packages into fake root -->
         <dict>
+            <key>Comment</key>
+            <string>Expand packages into fake root</string>
             <key>Processor</key>
             <string>FlatPkgUnpacker</string>
             <key>Arguments</key>
@@ -76,8 +78,9 @@
                 <string>%RECIPE_CACHE_DIR%/expanded/Google_Earth_Pro.pkg/Payload</string>
             </dict>
         </dict>
-        <!-- Make and merge Munki installs items -->
         <dict>
+            <key>Comment</key>
+            <string>Make and merge Munki installs items</string>
             <key>Arguments</key>
             <dict>
                 <key>installs_item_paths</key>
@@ -96,8 +99,9 @@
             <key>Processor</key>
             <string>MunkiPkginfoMerger</string>
         </dict>
-        <!-- Extract a version from Google Earth.app and merge pkginfo version key -->
         <dict>
+            <key>Comment</key>
+            <string>Extract a version from Google Earth.app and merge pkginfo version key</string>
             <key>Processor</key>
             <string>Versioner</string>
             <key>Arguments</key>

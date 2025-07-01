@@ -9,7 +9,7 @@
 	<key>Input</key>
 	<dict/>
 	<key>MinimumVersion</key>
-	<string>0.2.9</string>
+	<string>1.0</string>
 	<key>ParentRecipe</key>
 	<string>com.github.autopkg.download.Praat</string>
 	<key>Process</key>
