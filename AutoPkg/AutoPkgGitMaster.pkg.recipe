@@ -17,14 +17,14 @@ This is not used to obtain the latest released version.
             <key>URL</key>
             <string>https://github.com/autopkg/autopkg/zipball/</string>
             <key>PYTHON_VERSION</key>
-            <string>3.7.5</string>
+            <string>3.10.4</string>
             <key>REQUIREMENTS_FILENAME</key>
-            <string>requirements.txt</string>
+            <string>new_requirements.txt</string>
             <key>OS_VERSION</key>
-            <string>10.9</string>
+            <string>11</string>
         </dict>
         <key>MinimumVersion</key>
-        <string>0.2.1</string>
+        <string>2.3</string>
         <key>Process</key>
         <array>
             <dict>
