@@ -90,6 +90,8 @@ This is not used to obtain the latest released version.
                     <string>%PYTHON_VERSION%</string>
                     <key>os_version</key>
                     <string>%OS_VERSION%</string>
+                    <key>upgrade_pip</key>
+                    <string>true</string>
                 </dict>
                 <key>Processor</key>
                 <string>GenerateRelocatablePython</string>
