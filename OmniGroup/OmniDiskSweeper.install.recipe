@@ -23,7 +23,7 @@
 			<key>Arguments</key>
 			<dict>
 				<key>dmg_path</key>
-				<string>%pathname%</string>
+				<string>%RECIPE_CACHE_DIR%/%NAME%.dmg</string>
 				<key>items_to_copy</key>
 				<array>
 					<dict>

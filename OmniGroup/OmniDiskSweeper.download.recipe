@@ -20,8 +20,39 @@
 		<dict>
 			<key>Arguments</key>
 			<dict>
-				<key>input_path</key>
+				<key>destination_path</key>
+				<string>%RECIPE_CACHE_DIR%/Applications/OmniDiskSweeper.app</string>
+				<key>source_path</key>
 				<string>%pathname%/OmniDiskSweeper.app</string>
+			</dict>
+			<key>Processor</key>
+			<string>Copier</string>
+		</dict>
+		<dict>
+			<key>Processor</key>
+			<string>com.github.dataJAR-recipes.Shared Processors/QuarantineRemover</string>
+			<key>Arguments</key>
+			<dict>
+				<key>quarantined_files_path</key>
+				<string>%RECIPE_CACHE_DIR%/Applications/OmniDiskSweeper.app</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>Arguments</key>
+			<dict>
+				<key>dmg_path</key>
+				<string>%RECIPE_CACHE_DIR%/%NAME%.dmg</string>
+				<key>dmg_root</key>
+				<string>%RECIPE_CACHE_DIR%/Applications</string>
+			</dict>
+			<key>Processor</key>
+			<string>DmgCreator</string>
+		</dict>
+		<dict>
+			<key>Arguments</key>
+			<dict>
+				<key>input_path</key>
+				<string>%RECIPE_CACHE_DIR%/%NAME%.dmg/OmniDiskSweeper.app</string>
 				<key>requirement</key>
 				<string>identifier "com.omnigroup.OmniDiskSweeper" and anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = "34YW5XSRB7"</string>
 				<key>strict_verification</key>
