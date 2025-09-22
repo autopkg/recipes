@@ -198,7 +198,7 @@ echo "No Adobe Acrobat DC Unified App found with AcroSCA=True"
 # Check if Adobe Acrobat Reader.app is installed
 reader_app_path="/Applications/Adobe Acrobat Reader.app"
 reader_plist_path="$reader_app_path/Contents/Info.plist"
-munki_version="app_version"
+munki_version="%app_version%"
 
 echo "Checking for Adobe Acrobat Reader at: $reader_app_path"
 
