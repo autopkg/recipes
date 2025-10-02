@@ -86,6 +86,17 @@ descending by tag names according to LooseVersion semantics.
                 <string>%pathname%</string>
             </dict>
         </dict>
+        <dict>
+            <key>Processor</key>
+            <string>MunkiOptionalReceiptEditor</string>
+            <key>Arguments</key>
+            <dict>
+                <key>pkg_ids_set_optional_true</key>
+                <array>
+                    <string>com.googlecode.munki.libs</string>
+                </array>
+            </dict>
+        </dict>
     </array>
 </dict>
 </plist>
