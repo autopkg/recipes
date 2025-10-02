@@ -77,6 +77,21 @@ descending by tag names according to LooseVersion semantics.
         </dict>
         <dict>
             <key>Processor</key>
+            <string>CodeSignatureVerifier</string>
+            <key>Arguments</key>
+            <dict>
+                <key>expected_authority_names</key>
+                <array>
+                    <string>Developer ID Installer: Mac Admins Open Source (T4SK8ZXCXG)</string>
+                    <string>Developer ID Certification Authority</string>
+                    <string>Apple Root CA</string>
+                </array>
+                <key>input_path</key>
+                <string>%pathname%</string>
+            </dict>
+        </dict>
+        <dict>
+            <key>Processor</key>
             <string>MunkiImporter</string>
             <key>Arguments</key>
             <dict>
