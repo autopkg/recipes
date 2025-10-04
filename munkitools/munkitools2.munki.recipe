@@ -80,6 +80,15 @@ MUNKI_ICON should be overridden with your icon name.
     <array>
         <dict>
             <key>Processor</key>
+            <string>DeprecationWarning</string>
+            <key>Arguments</key>
+            <dict>
+                <key>warning_message</key>
+                <string>This recipe for an old version of Munki has been deprecated. Please switch to munkitools7.munki.recipe for the latest release.</string>
+            </dict>
+        </dict>
+        <dict>
+            <key>Processor</key>
             <string>GitHubReleasesInfoProvider</string>
             <key>Arguments</key>
             <dict>
