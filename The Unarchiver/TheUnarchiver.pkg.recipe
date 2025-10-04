@@ -75,8 +75,6 @@ yet in a released version. It should still download and unzip properly if is it 
                     <string>%version%</string>
                     <key>id</key>
                     <string>cx.c3.theunarchiver</string>
-                    <key>options</key>
-                    <string>purge_ds_store</string>
                     <key>chown</key>
                     <array>
                         <dict>

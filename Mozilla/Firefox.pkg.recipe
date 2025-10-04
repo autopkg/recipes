@@ -71,8 +71,6 @@ See the following URLs for more info:
                     <string>%RECIPE_CACHE_DIR%</string>
                     <key>id</key>
                     <string>org.mozilla.firefox.pkg</string>
-                    <key>options</key>
-                    <string>purge_ds_store</string>
                     <key>chown</key>
                     <array>
                         <dict>
