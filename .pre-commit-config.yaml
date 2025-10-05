@@ -1,6 +1,6 @@
 repos:
   - repo: https://github.com/homebysix/pre-commit-macadmin
-    rev: v1.18.0
+    rev: v1.21.0
     hooks:
       - id: check-autopkg-recipes
         args: ["--recipe-prefix=com.github.autopkg.", "--strict", "--"]
@@ -9,7 +9,7 @@ repos:
         exclude: ^(MSOfficeUpdates|OmniGroup)/
       - id: forbid-autopkg-trust-info
   - repo: https://github.com/psf/black
-    rev: 24.10.0
+    rev: 25.9.0
     hooks:
       - id: black
   - repo: https://github.com/pre-commit/mirrors-isort
@@ -21,6 +21,6 @@ repos:
     hooks:
       - id: seed-isort-config
   - repo: https://github.com/pycqa/flake8
-    rev: 7.1.1
+    rev: 7.3.0
     hooks:
       - id: flake8
