@@ -73,8 +73,7 @@ class MakeCatalogsProcessor(Processor):
         # but might be harder to grasp...
         for result in run_results:
             for item in result:
-                if ("Output" in item and
-                        item["Output"].get("munki_repo_changed", False)):
+                if "Output" in item and item["Output"].get("munki_repo_changed", False):
                     repo_changed = True
                     break
 
