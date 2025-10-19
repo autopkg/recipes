@@ -75,8 +75,6 @@
                     <string>%NAME%-%version%</string>
                     <key>id</key>
                     <string>com.adiumX.adiumX.pkg</string>
-                    <key>resources</key>
-                    <string>Resources</string>
                     <key>chown</key>
                     <array>
                         <dict>
