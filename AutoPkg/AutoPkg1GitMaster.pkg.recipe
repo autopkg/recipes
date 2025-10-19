@@ -250,8 +250,6 @@ This is not used to obtain the latest released version.
                         <string>com.github.autopkg.autopkg</string>
                         <key>infofile</key>
                         <string>%RECIPE_CACHE_DIR%/PackageInfo</string>
-                        <key>resources</key>
-                        <string>Resources</string>
                         <key>scripts</key>
                         <string>Scripts</string>
                         <key>chown</key>

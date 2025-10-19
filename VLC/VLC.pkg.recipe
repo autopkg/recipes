@@ -77,8 +77,6 @@
                     <string>%RECIPE_CACHE_DIR%</string>
                     <key>id</key>
                     <string>org.videolan.vlc.pkg</string>
-                    <key>resources</key>
-                    <string>Resources</string>
                     <key>chown</key>
                     <array>
                         <dict>
