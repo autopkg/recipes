@@ -22,6 +22,15 @@ the default, 'latest'.</string>
     <key>Process</key>
     <array>
         <dict>
+            <key>Processor</key>
+            <string>DeprecationWarning</string>
+            <key>Arguments</key>
+            <dict>
+                <key>warning_message</key>
+                <string>Please consider the more up-to-date Puppet recipes available in the grahamgilbert-recipes, gerardkok-recipes, or arubdesu-recipes repos.</string>
+            </dict>
+        </dict>
+        <dict>
             <key>Arguments</key>
             <dict>
                 <key>get_version</key>
