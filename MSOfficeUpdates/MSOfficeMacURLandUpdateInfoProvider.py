@@ -20,7 +20,7 @@
 import plistlib
 import re
 
-from autopkglib import ProcessorError
+from autopkglib import ProcessorError, version_equal_or_greater
 from autopkglib.URLGetter import URLGetter
 
 __all__ = ["MSOfficeMacURLandUpdateInfoProvider"]
@@ -41,6 +41,7 @@ BASE_URL = "https://officecdn.microsoft.com/pr/%s/MacAutoupdate/%s.xml"
 PROD_DICT = {
     "Excel2016": {"id": "XCEL15", "path": "/Applications/Microsoft Excel.app"},
     "Excel2019": {
+        "bundle_id": "com.microsoft.Excel",
         "id": "XCEL2019",
         "path": "/Applications/Microsoft Excel.app",
         "minimum_os": "10.12",
@@ -48,6 +49,7 @@ PROD_DICT = {
     },
     "OneNote2016": {"id": "ONMC15", "path": "/Applications/Microsoft OneNote.app"},
     "OneNote2019": {
+        "bundle_id": "com.microsoft.onenote.mac",
         "id": "ONMC2019",
         "path": "/Applications/Microsoft OneNote.app",
         "minimum_os": "10.12",
@@ -55,6 +57,7 @@ PROD_DICT = {
     },
     "Outlook2016": {"id": "OPIM15", "path": "/Applications/Microsoft Outlook.app"},
     "Outlook2019": {
+        "bundle_id": "com.microsoft.Outlook",
         "id": "OPIM2019",
         "path": "/Applications/Microsoft Outlook.app",
         "minimum_os": "10.12",
@@ -65,6 +68,7 @@ PROD_DICT = {
         "path": "/Applications/Microsoft PowerPoint.app",
     },
     "PowerPoint2019": {
+        "bundle_id": "com.microsoft.PowerPoint",
         "id": "PPT32019",
         "path": "/Applications/Microsoft PowerPoint.app",
         "minimum_os": "10.12",
@@ -72,6 +76,7 @@ PROD_DICT = {
     },
     "Word2016": {"id": "MSWD15", "path": "/Applications/Microsoft Word.app"},
     "Word2019": {
+        "bundle_id": "com.microsoft.Word",
         "id": "MSWD2019",
         "path": "/Applications/Microsoft Word.app",
         "minimum_os": "10.12",
@@ -105,8 +110,13 @@ PROD_DICT = {
     },
     "Teams": {
         "id": "TEAMS10",
-        "path": "/Applications/Microsoft Teams.app",
+        "path": "/Applications/Microsoft Teams classic.app",
         "minimum_os": "10.11",
+    },
+    "Teams2": {
+        "id": "TEAMS21",
+        "path": "/Applications/Microsoft Teams.app",
+        "minimum_os": "12.0",
     },
     "CompanyPortal": {
         "id": "IMCP01",
@@ -118,6 +128,11 @@ PROD_DICT = {
         "path": "/Applications/OneDrive.app",
         "minimum_os":"10.15",
     },
+    "RemoteDesktop": {
+        "id": "MSRD10",
+        "path": "/Applications/Windows App.app",
+        "minimum_os": "12.0",
+    },
 }
 LOCALE_ID_INFO_URL = "https://msdn.microsoft.com/en-us/goglobal/bb964664.aspx"
 SUPPORTED_VERSIONS = ["latest", "latest-delta", "latest-standalone"]
@@ -128,7 +143,7 @@ CHANNELS = {
     "InsiderFast": "4B2D7701-0A4F-49C8-B4CB-0C2D4043F51F",
 }
 DEFAULT_CHANNEL = "Production"
-NO_TRIGGER_CONDITIONS = ["SkypeForBusiness", "Teams", "Edge", "CompanyPortal"]
+NO_TRIGGER_CONDITIONS = ["SkypeForBusiness", "Teams", "Teams2", "Edge", "CompanyPortal"]
 
 
 class MSOfficeMacURLandUpdateInfoProvider(URLGetter):
@@ -227,7 +242,7 @@ class MSOfficeMacURLandUpdateInfoProvider(URLGetter):
     def get_installs_items(self, item):
         """Attempts to parse the Triggers to create an installs item using
         only manifest data, making the assumption that CFBundleVersion and
-        CFBundleShortVersionString are equal. Skip SkypeForBusiness, Teams, 
+        CFBundleShortVersionString are equal. Skip SkypeForBusiness, Teams,
         and Edge as their xml does not contain a 'Trigger Condition'"""
         if self.env["product"] not in NO_TRIGGER_CONDITIONS:
             self.sanity_check_expected_triggers(item)
@@ -337,9 +352,25 @@ class MSOfficeMacURLandUpdateInfoProvider(URLGetter):
             or "10.10.5"
         )
 
+        # Make sure that the minimum_os_version is at least higher than the pre defined value
+        if not version_equal_or_greater(
+            pkginfo["minimum_os_version"],
+            PROD_DICT[self.env["product"]].get("minimum_os", "10.10.5"),
+        ):
+            pkginfo["minimum_os_version"] = PROD_DICT[self.env["product"]].get(
+                "minimum_os", "10.10.5"
+            )
+
         installs_items = self.get_installs_items(item)
         if installs_items:
             pkginfo["installs"] = installs_items
+
+        # If bundle_id is defined
+        if PROD_DICT[self.env["product"]].get("bundle_id"):
+            # Add to pkginfo
+            pkginfo["installs"][0]["CFBundleIdentifier"] = PROD_DICT[
+                self.env["product"]
+            ].get("bundle_id")
 
         # Extra work to do if this is a delta updater
         if self.env["version"] == "latest-delta":

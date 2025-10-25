@@ -34,7 +34,7 @@ the latest full update for the given CHANNEL.
     <key>Input</key>
     <dict>
         <key>NAME</key>
-        <string>MSTeams</string>
+        <string>MSTeamsClassic</string>
         <key>MUNKI_REPO_SUBDIR</key>
         <string>apps</string>
         <key>munki_required_update_name</key>
@@ -44,6 +44,7 @@ the latest full update for the given CHANNEL.
             <key>blocking_applications</key>
             <array>
                 <string>Microsoft Teams</string>
+                <string>Microsoft Teams classic</string>
                 <string>Microsoft Error Reporting</string>
                 <string>Microsoft AutoUpdate</string>
             </array>
@@ -52,7 +53,7 @@ the latest full update for the given CHANNEL.
                 <string>testing</string>
             </array>
             <key>display_name</key>
-            <string>Microsoft Teams</string>
+            <string>Microsoft Teams classic</string>
             <key>developer</key>
             <string>Microsoft</string>
             <key>name</key>

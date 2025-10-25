@@ -37,7 +37,7 @@ The XQuartz project is an open-source effort to develop a version of the X.Org X
             </dict>
         </dict>
         <key>MinimumVersion</key>
-        <string>0.2.0</string>
+        <string>0.2.5</string>
         <key>ParentRecipe</key>
         <string>com.github.autopkg.download.xquartz</string>
         <key>Process</key>

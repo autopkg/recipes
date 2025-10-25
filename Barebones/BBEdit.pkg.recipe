@@ -64,8 +64,6 @@
                     <string>%RECIPE_CACHE_DIR%</string>
                     <key>id</key>
                     <string>com.barebones.bbedit.pkg</string>
-                    <key>options</key>
-                    <string>purge_ds_store</string>
                     <key>scripts</key>
                     <string>BBEdit_Scripts</string>
                     <key>chown</key>

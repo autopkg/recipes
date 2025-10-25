@@ -12,7 +12,7 @@
         <string>Transmit5</string>
     </dict>
     <key>MinimumVersion</key>
-    <string>0.2.0</string>
+    <string>0.2.5</string>
     <key>ParentRecipe</key>
     <string>com.github.autopkg.download.transmit5</string>
     <key>Process</key>
@@ -75,8 +75,6 @@
                     <string>%RECIPE_CACHE_DIR%</string>
                     <key>id</key>
                     <string>%bundleid%</string>
-                    <key>options</key>
-                    <string>purge_ds_store</string>
                     <key>chown</key>
                     <array>
                         <dict>

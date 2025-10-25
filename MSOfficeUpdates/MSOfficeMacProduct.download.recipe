@@ -4,7 +4,7 @@
 <dict>
     <key>Description</key>
     <string>Downloads a Microsoft Office Mac product. This recipe should only
-ever be used as a child recipe with specific values overridden.
+ever be used as a parent to a child recipe with specific values overridden.
 
 PRODUCT is one of the keys defined in PROD_DICT in the
 MSOfficeMacURLandUpdateInfoProvider processor. Common values are:

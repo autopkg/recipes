@@ -1,17 +1,26 @@
 repos:
--   repo: https://github.com/python/black
-    rev: 20.8b1
+  - repo: https://github.com/homebysix/pre-commit-macadmin
+    rev: v1.21.0
     hooks:
-    - id: black
--   repo: https://github.com/pre-commit/mirrors-isort
-    rev: v5.6.4
+      - id: check-autopkg-recipes
+        args: ["--recipe-prefix=com.github.autopkg.", "--strict", "--"]
+        exclude: ^(MSOfficeUpdates|OmniGroup|munkitools|AutoPkg|Munki|Mozilla|SassafrasK2Client)/
+      - id: forbid-autopkg-overrides
+        exclude: ^(MSOfficeUpdates|OmniGroup)/
+      - id: forbid-autopkg-trust-info
+  - repo: https://github.com/psf/black
+    rev: 25.9.0
     hooks:
-    - id: isort
--   repo: https://github.com/asottile/seed-isort-config
+      - id: black
+  - repo: https://github.com/pre-commit/mirrors-isort
+    rev: v5.10.1
+    hooks:
+      - id: isort
+  - repo: https://github.com/asottile/seed-isort-config
     rev: v2.2.0
     hooks:
-    -   id: seed-isort-config
--   repo: https://github.com/pycqa/flake8
-    rev: 5.0.4
+      - id: seed-isort-config
+  - repo: https://github.com/pycqa/flake8
+    rev: 7.3.0
     hooks:
-    - id: flake8
+      - id: flake8

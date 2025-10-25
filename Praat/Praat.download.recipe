@@ -19,11 +19,11 @@
 			<key>Arguments</key>
 			<dict>
 				<key>re_pattern</key>
-				<string>a href="?(praat\d+_mac.dmg)"?</string>
+				<string>href="(praat\d+_mac.dmg)"&gt;praat\d+_mac.dmg</string>
 				<key>result_output_var_name</key>
 				<string>dl_filename</string>
 				<key>url</key>
-				<string>http://www.fon.hum.uva.nl/praat/download_mac.html</string>
+				<string>https://www.fon.hum.uva.nl/praat/download_mac.html</string>
 			</dict>
 			<key>Processor</key>
 			<string>URLTextSearcher</string>
@@ -34,7 +34,7 @@
 				<key>filename</key>
 				<string>%NAME%.dmg</string>
 				<key>url</key>
-				<string>http://www.fon.hum.uva.nl/praat/%dl_filename%</string>
+				<string>https://www.fon.hum.uva.nl/praat/%dl_filename%</string>
 			</dict>
 			<key>Processor</key>
 			<string>URLDownloader</string>

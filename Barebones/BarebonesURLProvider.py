@@ -15,15 +15,18 @@
 # limitations under the License.
 """See docstring for BarebonesURLProvider class"""
 
-from distutils.version import LooseVersion
 import plistlib
 
 from autopkglib import ProcessorError
 from autopkglib.URLGetter import URLGetter
+from distutils.version import LooseVersion
 
 __all__ = ["BarebonesURLProvider"]
 
-URLS = {"bbedit": "https://versioncheck.barebones.com/BBEdit.xml"}
+URLS = {
+    "bbedit": "https://versioncheck.barebones.com/BBEdit.xml",
+    "yojimbo": "https://versioncheck.barebones.com/Yojimbo.xml"
+    }
 
 
 class BarebonesURLProvider(URLGetter):
@@ -33,7 +36,7 @@ class BarebonesURLProvider(URLGetter):
     input_variables = {
         "product_name": {
             "required": True,
-            "description": "Product to fetch URL for. One of 'textwrangler', 'bbedit'.",
+            "description": "Product to fetch URL for. One of 'bbedit', 'yojimbo'."
         }
     }
     output_variables = {

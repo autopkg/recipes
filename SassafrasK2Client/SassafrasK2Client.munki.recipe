@@ -93,6 +93,10 @@ we use its version in the pkginfo.
             <string>URLDownloader</string>
         </dict>
         <dict>
+            <key>Processor</key>
+            <string>EndOfCheckPhase</string>
+        </dict>
+        <dict>
             <key>Arguments</key>
             <dict>
                 <key>base_pkg_path</key>

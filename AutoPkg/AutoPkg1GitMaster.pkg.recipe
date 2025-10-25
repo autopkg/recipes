@@ -16,9 +16,13 @@ This is not used to obtain the latest released version.
             <string>https://github.com/autopkg/autopkg/zipball/AutoPkg_1.x</string>
         </dict>
         <key>MinimumVersion</key>
-        <string>0.2.1</string>
+        <string>1.1</string>
         <key>Process</key>
         <array>
+            <dict>
+                <key>Processor</key>
+                <string>DeprecationWarning</string>
+            </dict>
             <dict>
                 <key>Comment</key>
                 <string>Download latest autopkg zip archive</string>
@@ -246,10 +250,6 @@ This is not used to obtain the latest released version.
                         <string>com.github.autopkg.autopkg</string>
                         <key>infofile</key>
                         <string>%RECIPE_CACHE_DIR%/PackageInfo</string>
-                        <key>resources</key>
-                        <string>Resources</string>
-                        <key>options</key>
-                        <string>purge_ds_store</string>
                         <key>scripts</key>
                         <string>Scripts</string>
                         <key>chown</key>

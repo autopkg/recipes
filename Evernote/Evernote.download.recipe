@@ -23,7 +23,7 @@
                 <key>filename</key>
                 <string>%NAME%.dmg</string>
                 <key>url</key>
-                <string>https://evernote.com/download/get.php?file=EvernoteMac</string>
+                <string>https://mac.desktop.evernote.com/builds/Evernote-latest.dmg</string>
             </dict>
         </dict>
         <dict>

@@ -68,10 +68,10 @@ exit 0
 		<dict>
 			<key>Arguments</key>
 			<dict>
-				<key>destination_path</key>
-				<string>%RECIPE_CACHE_DIR%/pkg_unpack</string>
 				<key>flat_pkg_path</key>
 				<string>%pathname%/*.pkg</string>
+				<key>destination_path</key>
+				<string>%RECIPE_CACHE_DIR%/pkg_unpack</string>
 				<key>purge_destination</key>
 				<true/>
 			</dict>
@@ -81,10 +81,10 @@ exit 0
 		<dict>
 			<key>Arguments</key>
 			<dict>
-				<key>pkgdirs</key>
-				<dict/>
 				<key>pkgroot</key>
 				<string>%RECIPE_CACHE_DIR%/application_payload/Applications</string>
+				<key>pkgdirs</key>
+				<dict/>
 			</dict>
 			<key>Processor</key>
 			<string>PkgRootCreator</string>
@@ -92,10 +92,10 @@ exit 0
 		<dict>
 			<key>Arguments</key>
 			<dict>
-				<key>destination_path</key>
-				<string>%RECIPE_CACHE_DIR%/application_payload/Applications</string>
 				<key>pkg_payload_path</key>
 				<string>%RECIPE_CACHE_DIR%/pkg_unpack/application.pkg/Payload</string>
+				<key>destination_path</key>
+				<string>%RECIPE_CACHE_DIR%/application_payload/Applications</string>
 				<key>purge_destination</key>
 				<true/>
 			</dict>
@@ -105,20 +105,11 @@ exit 0
 		<dict>
 			<key>Arguments</key>
 			<dict>
-				<key>pattern</key>
-				<string>%RECIPE_CACHE_DIR%/application_payload/Applications/*.app</string>
-			</dict>
-			<key>Processor</key>
-			<string>FileFinder</string>
-		</dict>
-		<dict>
-			<key>Arguments</key>
-			<dict>
 				<key>faux_root</key>
 				<string>%RECIPE_CACHE_DIR%/application_payload</string>
 				<key>installs_item_paths</key>
 				<array>
-					<string>/Applications/%found_basename%</string>
+					<string>/Applications/Adobe Acrobat Reader.app</string>
 				</array>
 			</dict>
 			<key>Processor</key>
@@ -131,6 +122,116 @@ exit 0
 		<dict>
 			<key>Arguments</key>
 			<dict>
+				<key>info_path</key>
+				<string>%RECIPE_CACHE_DIR%/application_payload/Applications/Adobe Acrobat Reader.app/Contents/Info.plist</string>
+				<key>plist_keys</key>
+				<dict>
+					<key>CFBundleShortVersionString</key>
+					<string>app_version</string>
+				</dict>
+			</dict>
+			<key>Processor</key>
+			<string>PlistReader</string>
+		</dict>
+		<dict>
+			<key>Processor</key>
+			<string>MunkiPkginfoMerger</string>
+			<key>Arguments</key>
+			<dict>
+				<key>additional_pkginfo</key>
+				<dict>
+					<key>version</key>
+					<string>%app_version%</string>
+					<key>installcheck_script</key>
+					<string>#!/bin/zsh
+#
+# DESCRIPTION
+# - Exits with code 1 if Adobe Acrobat DC Unified App is installed (AcroSCA key is True).
+# - If Adobe Acrobat Reader.app is not installed, proceeds with install.
+# - If installed version is older than Munki version, proceeds with install.
+# - Otherwise, skips install.
+
+# Function to compare version strings using sort -V
+compare_versions() {
+    local version1="$1"
+    local version2="$2"
+
+    # Use sort -V to compare versions
+    local sorted_first=$(printf '%s\n%s\n' "$version1" "$version2" | sort -V | head -n1)
+
+    if [[ "$sorted_first" == "$version1" ]] &amp;&amp; [[ "$version1" != "$version2" ]]; then
+        # version1 is strictly less than version2
+        return 0
+    else
+        # version1 is greater than or equal to version2
+        return 1
+    fi
+}
+
+# Check for Adobe Acrobat DC Unified App with AcroSCA key
+acrobat_app_path="/Applications/Adobe Acrobat DC/Adobe Acrobat.app"
+acrobat_plist_path="$acrobat_app_path/Contents/Info.plist"
+
+echo "Checking for Adobe Acrobat DC Unified App..."
+
+if [[ -f "$acrobat_plist_path" ]]; then
+    echo "Found Acrobat DC at: $acrobat_app_path"
+
+    # Check if the AcroSCA key exists and if it's True
+    if acrosca=$(plutil -extract AcroSCA raw "$acrobat_plist_path" 2&gt;/dev/null); then
+        echo "AcroSCA value found: $acrosca"
+        if [[ "$acrosca" == "1" ]] || [[ "$acrosca" == "true" ]]; then
+            echo "AcroSCA key is True. Unified App is installed. Exiting install."
+            exit 1
+        else
+            echo "AcroSCA key exists but is False: $acrosca"
+        fi
+    else
+        echo "AcroSCA key not found in $acrobat_plist_path"
+    fi
+else
+    echo "Adobe Acrobat DC not found at: $acrobat_app_path"
+fi
+
+echo "No Adobe Acrobat DC Unified App found with AcroSCA=True"
+
+# Check if Adobe Acrobat Reader.app is installed
+reader_app_path="/Applications/Adobe Acrobat Reader.app"
+reader_plist_path="$reader_app_path/Contents/Info.plist"
+munki_version="%app_version%"
+
+echo "Checking for Adobe Acrobat Reader at: $reader_app_path"
+
+if [[ ! -d "$reader_app_path" ]]; then
+    echo "Adobe Acrobat Reader is not installed. Proceeding with install..."
+    exit 0
+fi
+
+echo "Adobe Acrobat Reader found. Checking version..."
+
+# Get installed version
+if installed_version=$(plutil -extract CFBundleShortVersionString raw "$reader_plist_path" 2&gt;/dev/null); then
+    echo "Found Adobe Acrobat Reader version: $installed_version"
+    echo "Munki version to install: $munki_version"
+else
+    echo "Failed to read version from $reader_plist_path. Proceeding with install..."
+    exit 0
+fi
+
+# Compare installed version with Munki version
+if compare_versions "$installed_version" "$munki_version"; then
+    echo "Adobe Acrobat Reader version $installed_version is older than Munki version $munki_version. Proceeding with install..."
+    exit 0
+else
+    echo "Adobe Acrobat Reader version $installed_version is same or newer than Munki version $munki_version. Skipping install..."
+    exit 1
+fi</string>
+				</dict>
+			</dict>
+		</dict>
+		<dict>
+			<key>Arguments</key>
+			<dict>
 				<key>pkg_path</key>
 				<string>%pathname%</string>
 				<key>repo_subdirectory</key>
@@ -138,6 +239,18 @@ exit 0
 			</dict>
 			<key>Processor</key>
 			<string>MunkiImporter</string>
+		</dict>
+		<dict>
+			<key>Arguments</key>
+			<dict>
+				<key>path_list</key>
+				<array>
+					<string>%RECIPE_CACHE_DIR%/pkg_unpack</string>
+					<string>%RECIPE_CACHE_DIR%/application_payload</string>
+				</array>
+			</dict>
+			<key>Processor</key>
+			<string>PathDeleter</string>
 		</dict>
 	</array>
 </dict>

@@ -76,6 +76,18 @@ i.e.: `-k PRERELEASE=yes`
             <key>Processor</key>
             <string>MunkiImporter</string>
         </dict>
+        <dict>
+            <key>Arguments</key>
+            <dict>
+                <key>path_list</key>
+                <array>
+                    <string>%RECIPE_CACHE_DIR%/%NAME%</string>
+                    <string>%RECIPE_CACHE_DIR%/%NAME%.dmg</string>
+                </array>
+            </dict>
+            <key>Processor</key>
+            <string>PathDeleter</string>
+        </dict>
     </array>
 </dict>
 </plist>

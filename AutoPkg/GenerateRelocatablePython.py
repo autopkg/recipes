@@ -42,7 +42,11 @@ class GenerateRelocatablePython(Processor):
         "os_version": {
             "required": True,
             "description": "What OS to fetch.",
-        }
+        },
+        "upgrade_pip": {
+            "required": False,
+            "description": "Whether to upgrade pip to the latest version.",
+        },
     }
     output_variables = {
         "python_path": {"description": "Path to built Python framework."}
@@ -80,6 +84,8 @@ class GenerateRelocatablePython(Processor):
             "--destination",
             dest,
         ]
+        if self.env.get("upgrade_pip"):
+            cmd.append("--upgrade-pip")
         self.output("Building relocatable python framework...")
         self.output(f"Command: {' '.join(cmd)}", verbose_level=4)
         try:

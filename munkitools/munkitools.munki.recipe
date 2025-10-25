@@ -186,7 +186,7 @@ MUNKI_ICON should be overridden with your icon name.
             <key>Arguments</key>
             <dict>
                 <key>pattern</key>
-                <string>%RECIPE_CACHE_DIR%/unpack/munkitools_app*.pkg</string>
+                <string>%RECIPE_CACHE_DIR%/unpack/munkitools_app[.-]*pkg</string>
             </dict>
         </dict>
         <dict>

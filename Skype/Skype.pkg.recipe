@@ -14,11 +14,22 @@
             <string>CFBundleVersion</string>
         </dict>
         <key>MinimumVersion</key>
-        <string>1.0.0</string>
+        <string>1.1</string>
         <key>ParentRecipe</key>
         <string>com.github.autopkg.download.Skype</string>
         <key>Process</key>
         <array>
+            <dict>
+                <key>Processor</key>
+                <string>DeprecationWarning</string>
+                <key>Arguments</key>
+                <dict>
+                    <key>warning_message</key>
+                    <string>This recipe has been deprecated. As of May 2025, Microsoft has discontinued Skype. Please remove this recipe from your runs.
+
+For more details, see https://support.microsoft.com/en-us/skype/skype-is-retiring-in-may-2025-what-you-need-to-know-2a7d2501-427f-485e-8be0-2068a9f90472</string>
+                </dict>
+            </dict>
             <dict>
                 <key>Arguments</key>
                 <dict>

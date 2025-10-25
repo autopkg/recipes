@@ -64,7 +64,7 @@ class MakeCatalogsProcessor(Processor):
         except (IOError, OSError):
             run_results = []
 
-        something_imported = False
+        repo_changed = False
         # run_results is an array of autopackager.results,
         # which is itself an array.
         # look through all the results for evidence that
@@ -73,12 +73,11 @@ class MakeCatalogsProcessor(Processor):
         # but might be harder to grasp...
         for result in run_results:
             for item in result:
-                if item.get("Processor") == "MunkiImporter":
-                    if item["Output"].get("pkginfo_repo_path"):
-                        something_imported = True
-                        break
+                if "Output" in item and item["Output"].get("munki_repo_changed", False):
+                    repo_changed = True
+                    break
 
-        if not something_imported and not self.env.get("force_rebuild"):
+        if not repo_changed and not self.env.get("force_rebuild"):
             self.output("No need to rebuild catalogs.")
             self.env["makecatalogs_resultcode"] = 0
             self.env["makecatalogs_stderr"] = ""

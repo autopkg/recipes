@@ -3,13 +3,17 @@
 <plist version="1.0">
 <dict>
     <key>Description</key>
-    <string>Downloads the current release version of Dropbox</string>
+    <string>Downloads the current release version of Dropbox. Change the BUILD value from 'stable' to 'beta' for beta builds.</string>
     <key>Identifier</key>
     <string>com.github.autopkg.download.dropbox</string>
     <key>Input</key>
     <dict>
         <key>NAME</key>
         <string>Dropbox</string>
+        <key>DOWNLOADURL</key>
+        <string>https://www.dropbox.com/download?plat=mac&amp;full=1&amp;build=%BUILD%</string>
+        <key>BUILD</key>
+        <string>stable</string>
     </dict>
     <key>MinimumVersion</key>
     <string>0.4.0</string>
@@ -18,8 +22,8 @@
         <dict>
             <key>Arguments</key>
             <dict>
-            	<key>url</key>
-            	<string>https://www.dropbox.com/download?plat=mac&amp;full=1</string>
+                <key>url</key>
+                <string>%DOWNLOADURL%</string>
                 <key>filename</key>
                 <string>%NAME%.dmg</string>
             </dict>

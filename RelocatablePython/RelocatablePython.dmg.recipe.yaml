@@ -1,0 +1,34 @@
+Description: Wraps relocatable-python framework in a DMG.
+Identifier: com.github.autopkg.dmg.relocatablepython
+ParentRecipe: com.github.autopkg.build.relocatablepython
+MinimumVersion: 2.4.0
+
+Input:
+  NAME: RelocatablePython
+  MUNKI_REPO_SUBDIR: apps/relocatable_python
+  PYTHON_VERSION: '3.10.9'
+  PYTHON_OS_VERSION: '11'
+  pkginfo:
+    catalogs:
+    - testing
+    category: Productivity
+    description: Relocatable-python generates a useful Python framework.
+    developer: Greg Neagle
+    display_name: Python 3
+    name: '%NAME%'
+    unattended_install: true
+    unattended_uninstall: true
+
+Process:
+  - Processor: PkgRootCreator
+    Arguments:
+      pkgroot: '%RECIPE_CACHE_DIR%/dmgroot'
+      pkgdirs: {} 
+  - Processor: FileMover
+    Arguments: 
+      source: '%python_path%'
+      target: '%pkgroot%/Python.framework'
+  - Processor: DmgCreator
+    Arguments:
+      dmg_root: '%pkgroot%'
+      dmg_path: '%RECIPE_CACHE_DIR%/Python.dmg'
