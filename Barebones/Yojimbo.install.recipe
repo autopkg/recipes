@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Description</key>
+    <string>Installs the current release version of Yojimbo.</string>
+    <key>Identifier</key>
+    <string>com.github.autopkg.install.Yojimbo</string>
+    <key>Input</key>
+    <dict>
+    </dict>
+    <key>MinimumVersion</key>
+    <string>0.4.0</string>
+    <key>ParentRecipe</key>
+    <string>com.github.autopkg.download.Yojimbo</string>
+    <key>Process</key>
+	<array>
+		<dict>
+			<key>Arguments</key>
+			<dict>
+				<key>dmg_path</key>
+				<string>%pathname%</string>
+				<key>items_to_copy</key>
+				<array>
+					<dict>
+						<key>destination_path</key>
+						<string>/Applications</string>
+						<key>source_item</key>
+						<string>Yojimbo.app</string>
+					</dict>
+				</array>
+			</dict>
+			<key>Processor</key>
+			<string>InstallFromDMG</string>
+		</dict>
+	</array>
+</dict>
+</plist>
