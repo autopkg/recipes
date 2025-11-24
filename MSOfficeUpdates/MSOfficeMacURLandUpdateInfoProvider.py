@@ -126,7 +126,7 @@ PROD_DICT = {
     "OneDrive": {
         "id": "ONDR18",
         "path": "/Applications/OneDrive.app",
-        "minimum_os":"10.15",
+        "minimum_os": "10.15",
     },
     "RemoteDesktop": {
         "id": "MSRD10",
