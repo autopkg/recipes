@@ -46,7 +46,7 @@ descending by tag names according to LooseVersion semantics.
             <key>icon_name</key>
             <string>%MUNKI_ICON%</string>
             <key>minimum_os_version</key>
-            <string>10.13</string>
+            <string>10.15</string>
             <key>name</key>
             <string>%NAME%</string>
             <key>unattended_install</key>
