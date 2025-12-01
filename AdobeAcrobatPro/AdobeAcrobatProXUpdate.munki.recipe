@@ -41,7 +41,7 @@ default, 'latest'.</string>
                 <string>testing</string>
             </array>
             <key>description</key>
-            <string></string>
+            <string>Updates for Adobe Acrobat Pro X (10) or XI (11).</string>
             <key>display_name</key>
             <string>Adobe Acrobat Pro Update</string>
             <key>name</key>
