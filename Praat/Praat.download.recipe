@@ -18,23 +18,17 @@
 		<dict>
 			<key>Arguments</key>
 			<dict>
-				<key>re_pattern</key>
-				<string>href="(praat\d+_mac.dmg)"&gt;praat\d+_mac.dmg</string>
-				<key>result_output_var_name</key>
-				<string>dl_filename</string>
-				<key>url</key>
-				<string>https://www.fon.hum.uva.nl/praat/download_mac.html</string>
+				<key>github_repo</key>
+				<string>praat/praat</string>
 			</dict>
 			<key>Processor</key>
-			<string>URLTextSearcher</string>
+			<string>GitHubReleasesInfoProvider</string>
 		</dict>
 		<dict>
 			<key>Arguments</key>
 			<dict>
 				<key>filename</key>
 				<string>%NAME%.dmg</string>
-				<key>url</key>
-				<string>https://www.fon.hum.uva.nl/praat/%dl_filename%</string>
 			</dict>
 			<key>Processor</key>
 			<string>URLDownloader</string>
