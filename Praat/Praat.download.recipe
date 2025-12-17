@@ -1,59 +1,59 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
-<dict>
-	<key>Description</key>
-	<string>Downloads the latest version of Praat.</string>
-	<key>Identifier</key>
-	<string>com.github.autopkg.download.Praat</string>
-	<key>Input</key>
 	<dict>
-		<key>NAME</key>
-		<string>Praat</string>
+		<key>Description</key>
+		<string>Downloads the latest version of Praat.</string>
+		<key>Identifier</key>
+		<string>com.github.autopkg.download.Praat</string>
+		<key>Input</key>
+		<dict>
+			<key>NAME</key>
+			<string>Praat</string>
+		</dict>
+		<key>MinimumVersion</key>
+		<string>1.4</string>
+		<key>Process</key>
+		<array>
+			<dict>
+				<key>Arguments</key>
+				<dict>
+					<key>github_repo</key>
+					<string>praat/praat</string>
+					<key>asset_regex</key>
+					<string>praat.*\.dmg$</string>
+				</dict>
+				<key>Processor</key>
+				<string>GitHubReleasesInfoProvider</string>
+			</dict>
+			<dict>
+				<key>Arguments</key>
+				<dict>
+					<key>filename</key>
+					<string>%NAME%.dmg</string>
+				</dict>
+				<key>Processor</key>
+				<string>URLDownloader</string>
+			</dict>
+			<dict>
+				<key>Processor</key>
+				<string>EndOfCheckPhase</string>
+			</dict>
+			<dict>
+				<key>Arguments</key>
+				<dict>
+					<key>input_path</key>
+					<string>%pathname%/Praat.app</string>
+					<key>requirement</key>
+					<string>anchor apple generic and identifier "org.praat.Praat" and (certificate
+						leaf[field.1.2.840.113635.100.6.1.9] /* exists */ or certificate
+						1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate
+						leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate
+						leaf[subject.OU] = J9C6R9XA5W)</string>
+				</dict>
+				<key>Processor</key>
+				<string>CodeSignatureVerifier</string>
+			</dict>
+		</array>
 	</dict>
-	<key>MinimumVersion</key>
-	<string>1.4</string>
-	<key>Process</key>
-	<array>
-		<dict>
-			<key>Arguments</key>
-			<dict>
-				<key>re_pattern</key>
-				<string>href="(praat\d+_mac.dmg)"&gt;praat\d+_mac.dmg</string>
-				<key>result_output_var_name</key>
-				<string>dl_filename</string>
-				<key>url</key>
-				<string>https://www.fon.hum.uva.nl/praat/download_mac.html</string>
-			</dict>
-			<key>Processor</key>
-			<string>URLTextSearcher</string>
-		</dict>
-		<dict>
-			<key>Arguments</key>
-			<dict>
-				<key>filename</key>
-				<string>%NAME%.dmg</string>
-				<key>url</key>
-				<string>https://www.fon.hum.uva.nl/praat/%dl_filename%</string>
-			</dict>
-			<key>Processor</key>
-			<string>URLDownloader</string>
-		</dict>
-		<dict>
-			<key>Processor</key>
-			<string>EndOfCheckPhase</string>
-		</dict>
-		<dict>
-			<key>Arguments</key>
-			<dict>
-				<key>input_path</key>
-				<string>%pathname%/Praat.app</string>
-				<key>requirement</key>
-				<string>anchor apple generic and identifier "org.praat.Praat" and (certificate leaf[field.1.2.840.113635.100.6.1.9] /* exists */ or certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = J9C6R9XA5W)</string>
-			</dict>
-			<key>Processor</key>
-			<string>CodeSignatureVerifier</string>
-		</dict>
-	</array>
-</dict>
 </plist>
