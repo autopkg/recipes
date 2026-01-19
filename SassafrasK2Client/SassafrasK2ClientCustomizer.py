@@ -15,7 +15,6 @@
 # limitations under the License.
 """See docstring for SassafrasK2ClientCustomizer class"""
 
-
 from __future__ import absolute_import
 
 import os

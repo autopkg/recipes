@@ -162,7 +162,7 @@ class AdobeAcrobatProUpdateInfoProvider(URLGetter):
         munki_update_name = self.env.get("munki_update_name", "")
         if not munki_update_name:
             munki_update_name = self.process_url_vars(MUNKI_UPDATE_NAME_DEFAULT)
-        (url, version, prev_version) = self.get_acrobat_metadata(get_version)
+        url, version, prev_version = self.get_acrobat_metadata(get_version)
 
         new_pkginfo = {}
 
