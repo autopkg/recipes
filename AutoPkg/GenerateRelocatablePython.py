@@ -15,7 +15,6 @@
 # limitations under the License.
 """See docstring for GenerateRelocatablePython class"""
 
-
 import os
 import shutil
 import subprocess

@@ -98,7 +98,7 @@ class MakeCatalogsProcessor(Processor):
                 proc = subprocess.Popen(
                     args, stdout=subprocess.PIPE, stderr=subprocess.PIPE
                 )
-                (_, err_out) = proc.communicate()
+                _, err_out = proc.communicate()
             except OSError as err:
                 raise ProcessorError(
                     "makecatalog execution failed with error code %d: %s"

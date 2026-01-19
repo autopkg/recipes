@@ -15,7 +15,6 @@
 # limitations under the License.
 """See docstring for AutoPkgSourceFinder class"""
 
-
 import glob
 import os
 
