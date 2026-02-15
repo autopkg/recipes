@@ -1,0 +1,8 @@
+#!/bin/sh
+export PATH=/usr/bin:/bin:/usr/sbin:/sbin
+
+# Cleanly remove previous install, in order to prevent
+# issues installing 2.x releases over 3.x betas
+rm -rf /Library/AutoPkg /usr/local/autopkg /usr/local/bin/autopkg
+
+exit 0
