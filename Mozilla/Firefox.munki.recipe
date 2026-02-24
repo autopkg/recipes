@@ -48,6 +48,11 @@ See the following URLs for more info:
                 <string>%pathname%</string>
                 <key>repo_subdirectory</key>
                 <string>%MUNKI_REPO_SUBDIR%</string>
+                <key>additional_makepkginfo_options</key>
+                <array>
+                    <string>--mode</string>
+                    <string>ug+w,o-w</string>
+                </array>
             </dict>
             <key>Processor</key>
             <string>MunkiImporter</string>
