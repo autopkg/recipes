@@ -1,0 +1,76 @@
+---
+name: Test AutoPkg Release Nupkg
+# based upon: https://github.com/autopkg/recipes/blob/master/AutoPkg/AutoPkgGitMaster.nupkg.recipe
+
+on:
+  push:
+    paths:
+      - ".github/workflows/AutoPkgReleaseNupkg.yaml"
+      - "AutoPkg/AutoPkg-Release-Source.download.recipe.yaml"
+      - "AutoPkg/AutoPkg-Release-Source.nupkg.recipe.yaml"
+  pull_request:
+    paths:
+      - ".github/workflows/AutoPkgReleaseNupkg.yaml"
+      - "AutoPkg/AutoPkg-Release-Source.download.recipe.yaml"
+      - "AutoPkg/AutoPkg-Release-Source.nupkg.recipe.yaml"
+
+jobs:
+  AutoPkgNupkg:
+    runs-on: windows-latest
+    steps:
+      # only needed on self hosted windows runners:
+      - name: set powershell execution policy CurrentUser
+        if: runner.os == 'Windows'
+        shell: cmd
+        run: powershell -command "Set-ExecutionPolicy -Force -ExecutionPolicy RemoteSigned -Scope CurrentUser"
+
+      - name: Set token
+        # required for githubreleaseinfoprovider in github actions
+        # without this, API limits will be hit
+        run: |
+          cd ~
+          echo ${{ secrets.GITHUB_TOKEN }} > ".autopkg_gh_token"
+
+      - uses: actions/checkout@v3
+      - name: Set up Python
+        uses: actions/setup-python@v3
+        with:
+          python-version: 3.8
+
+      # - name: Install requirements
+      #   run: pip install --requirement requirements.txt
+      - name: rename folder, git clone autopkg
+        shell: cmd
+        run: |
+          rename "AutoPkg" "AutoPkgRecipe"
+          git clone https://github.com/autopkg/autopkg.git
+      - name: Install AutoPkg Reqirements
+        run: pip install --requirement autopkg/requirements.txt
+      - name: create empty config windows
+        # https://stackoverflow.com/questions/57946173/github-actions-run-step-on-specific-os
+        if: runner.os == 'Windows'
+        shell: cmd
+        run: |
+          if not exist "%USERPROFILE%/AppData/Local/Autopkg" mkdir "%USERPROFILE%/AppData/Local/Autopkg"
+          if not exist "%USERPROFILE%/AppData/Local/Autopkg/config.json" echo {} > "%USERPROFILE%/AppData/Local/Autopkg/config.json"
+      - name: create default autopkg config file Linux
+        if: runner.os == 'Linux'
+        run: |
+          cd ~ && mkdir -p .config/Autopkg
+          cd ~ && echo {} > .config/Autopkg/config.json
+      - name: run test recipe
+        run: python autopkg/Code/autopkg run -v com.github.autopkg.test.AutoPkgCoreProcessors
+      - name: run nupkg recipe
+        run: python autopkg/Code/autopkg run -v AutoPkgRecipe/AutoPkg-Release-Source.nupkg.recipe.yaml
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: chocolately install python
+        # python versions: 3.8.10, 3.9.12, 3.10.4
+        # - See Here: https://community.chocolatey.org/packages/python#versionhistory
+        run: choco install python3 --version 3.9.12 --no-progress --yes --force --force-dependencies
+      - name: test chocolately install autopkg.nupkg
+        run: choco install autopkg -s "$env:USERPROFILE\Library\AutoPkg\Cache\com.github.autopkg.nupkg.AutoPkgRelease\nupkgs" --no-progress --yes --force --force-dependencies
+      - name: test autopkg chocolately install
+        run: autopkg run -vv com.github.autopkg.test.AutoPkgCoreProcessors
+# Related:
+# - https://github.com/jgstew/bigfix-content/blob/master/.github/workflows/autopkg.yaml
