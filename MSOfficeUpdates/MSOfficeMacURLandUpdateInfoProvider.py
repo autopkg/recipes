@@ -138,6 +138,7 @@ LOCALE_ID_INFO_URL = "https://msdn.microsoft.com/en-us/goglobal/bb964664.aspx"
 SUPPORTED_VERSIONS = ["latest", "latest-delta", "latest-standalone"]
 DEFAULT_VERSION = "latest"
 CHANNELS = {
+    "CurrentThrottle": "A1E15C18-4D18-40B0-8577-616A9470BB10",
     "Production": "C1297A47-86C4-4C1F-97FA-950631F94777",
     "InsiderSlow": "1ac37578-5a24-40fb-892e-b89d85b6dfaa",
     "InsiderFast": "4B2D7701-0A4F-49C8-B4CB-0C2D4043F51F",
@@ -188,6 +189,7 @@ class MSOfficeMacURLandUpdateInfoProvider(URLGetter):
             "default": DEFAULT_CHANNEL,
             "description": (
                 "Update feed channel that will be checked for updates. "
+                "Note: CurrentThrottle is only for use with Outook Monthly updates."
                 "Defaults to %s, acceptable values are either a custom "
                 "UUID or one of: %s" % (DEFAULT_CHANNEL, ", ".join(CHANNELS))
             ),
@@ -274,10 +276,16 @@ class MSOfficeMacURLandUpdateInfoProvider(URLGetter):
         channel_input = self.env.get("channel", DEFAULT_CHANNEL)
         rex = r"^([0-9a-fA-F]{8}-([0-9a-fA-F]{4}-){3}[0-9a-fA-F]{12})$"
         match_uuid = re.match(rex, channel_input)
+        product_input = self.env.get("product")
+        if not product_input == "Outlook2019" and channel_input == "CurrentThrottle":
+            raise ProcessorError(
+                "'CurrentThrottle' channel is only for use with Outlook."
+            )
         if not match_uuid and channel_input not in CHANNELS:
             raise ProcessorError(
                 "'channel' input variable must be one of: %s or a custom "
-                "uuid" % (", ".join(CHANNELS))
+                "uuid. Note: CurrentThrottle is only for use with Outook " 
+                "Monthly updates." % (", ".join(CHANNELS)),
             )
         if match_uuid:
             channel = match_uuid.groups()[0]
