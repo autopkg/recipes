@@ -93,7 +93,7 @@ exit 0
 			<key>Arguments</key>
 			<dict>
 				<key>pkg_payload_path</key>
-				<string>%RECIPE_CACHE_DIR%/pkg_unpack/application.pkg/Payload</string>
+				<string>%RECIPE_CACHE_DIR%/pkg_unpack/application_mini_7z.pkg/Payload</string>
 				<key>destination_path</key>
 				<string>%RECIPE_CACHE_DIR%/application_payload/Applications</string>
 				<key>purge_destination</key>
@@ -109,7 +109,7 @@ exit 0
 				<string>%RECIPE_CACHE_DIR%/application_payload</string>
 				<key>installs_item_paths</key>
 				<array>
-					<string>/Applications/Adobe Acrobat Reader.app</string>
+					<string>/Applications/Adobe Acrobat DC/Adobe Acrobat.app</string>
 				</array>
 			</dict>
 			<key>Processor</key>
@@ -123,7 +123,7 @@ exit 0
 			<key>Arguments</key>
 			<dict>
 				<key>info_path</key>
-				<string>%RECIPE_CACHE_DIR%/application_payload/Applications/Adobe Acrobat Reader.app/Contents/Info.plist</string>
+				<string>%RECIPE_CACHE_DIR%/application_payload/Applications/Adobe Acrobat.app/Contents/Info.plist</string>
 				<key>plist_keys</key>
 				<dict>
 					<key>CFBundleShortVersionString</key>
