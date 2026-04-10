@@ -52,6 +52,14 @@ if [ -e "/Applications/Adobe Acrobat Reader.app" ]; then
 fi
 if [ -e "/Applications/Adobe Acrobat Reader DC.app" ]; then
 	rm -r "/Applications/Adobe Acrobat Reader DC.app"
+if [ -e "/Applications/Adobe Acrobat Reader.app" ]; then
+rm -r "/Applications/Adobe Acrobat Reader.app"
+fi
+if [ -e "/Applications/Adobe Acrobat Reader DC.app" ]; then
+rm -r "/Applications/Adobe Acrobat Reader DC.app"
+fi
+if [ -e "/Applications/Adobe Acrobat DC/Adobe Acrobat.app" ]; then
+rm -r "/Applications/Adobe Acrobat DC/Adobe Acrobat.app"
 fi
 exit 0
 </string>
