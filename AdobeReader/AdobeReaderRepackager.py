@@ -61,7 +61,7 @@ class AdobeReaderRepackager(DmgMounter):
     # 1) Expand the pkg with pkgutil --expand
     # 2) Modify the Distribution file to allow install anywhere by removing
     #    the <domains> element if it exists.
-    # 3) Replace the preinstall in application.pkg with our own
+    # 3) Replace the preinstall in application_mini_7z.pkg with our own
     # 4) Reflatten the pkg with pkgutil --flatten
     #
     # Note that this will remove any signing that is present. This is actually
@@ -143,11 +143,11 @@ class AdobeReaderRepackager(DmgMounter):
                 raise ProcessorError("Could not write %s: %s" % (dist_file, err))
 
     def replace_app_preinstall(self, expanded_pkg):
-        """Replace the preinstall script in application.pkg with our own"""
+        """Replace the preinstall script in application_mini_7z.pkg with our own"""
         pkg_name = os.path.basename(expanded_pkg)
-        app_pkg = os.path.join(expanded_pkg, "application.pkg")
+        app_pkg = os.path.join(expanded_pkg, "application_mini_7z.pkg")
         if not os.path.exists(app_pkg):
-            raise ProcessorError("application.pkg not found!")
+            raise ProcessorError("application_mini_7z.pkg not found!")
         preinstall_script = os.path.join(app_pkg, "Scripts/preinstall")
         if pkg_name.startswith("AcroRdrDC"):
             our_script = os.path.join(
