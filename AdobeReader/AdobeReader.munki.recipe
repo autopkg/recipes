@@ -53,6 +53,9 @@ fi
 if [ -e "/Applications/Adobe Acrobat Reader DC.app" ]; then
 	rm -r "/Applications/Adobe Acrobat Reader DC.app"
 fi
+if [ -e "/Applications/Adobe Acrobat DC/Adobe Acrobat.app" ]; then
+	rm -r "/Applications/Adobe Acrobat DC/Adobe Acrobat.app"
+fi
 exit 0
 </string>
 			<key>unattended_install</key>
@@ -93,7 +96,7 @@ exit 0
 			<key>Arguments</key>
 			<dict>
 				<key>pkg_payload_path</key>
-				<string>%RECIPE_CACHE_DIR%/pkg_unpack/application.pkg/Payload</string>
+				<string>%RECIPE_CACHE_DIR%/pkg_unpack/application_mini_7z.pkg/Payload</string>
 				<key>destination_path</key>
 				<string>%RECIPE_CACHE_DIR%/application_payload/Applications</string>
 				<key>purge_destination</key>
@@ -109,7 +112,7 @@ exit 0
 				<string>%RECIPE_CACHE_DIR%/application_payload</string>
 				<key>installs_item_paths</key>
 				<array>
-					<string>/Applications/Adobe Acrobat Reader.app</string>
+					<string>/Applications/Adobe Acrobat.app</string>
 				</array>
 			</dict>
 			<key>Processor</key>
@@ -123,7 +126,7 @@ exit 0
 			<key>Arguments</key>
 			<dict>
 				<key>info_path</key>
-				<string>%RECIPE_CACHE_DIR%/application_payload/Applications/Adobe Acrobat Reader.app/Contents/Info.plist</string>
+				<string>%RECIPE_CACHE_DIR%/application_payload/Applications/Adobe Acrobat.app/Contents/Info.plist</string>
 				<key>plist_keys</key>
 				<dict>
 					<key>CFBundleShortVersionString</key>
@@ -195,8 +198,8 @@ fi
 
 echo "No Adobe Acrobat DC Unified App found with AcroSCA=True"
 
-# Check if Adobe Acrobat Reader.app is installed
-reader_app_path="/Applications/Adobe Acrobat Reader.app"
+# Check if Adobe Acrobat.app is installed
+reader_app_path="/Applications/Adobe Acrobat.app"
 reader_plist_path="$reader_app_path/Contents/Info.plist"
 munki_version="%app_version%"
 
