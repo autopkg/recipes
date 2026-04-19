@@ -302,6 +302,14 @@ class MSOfficeMacURLandUpdateInfoProvider(URLGetter):
         data = self.download(base_url, headers)
 
         metadata = plistlib.loads(data)
+        # Upstream feed has emitted Location values with stray newlines
+        # that break curl; normalize whitespace on all string values.
+        if isinstance(metadata, list):
+            metadata = [
+                {k: v.strip() if isinstance(v, str) else v for k, v in entry.items()}
+                for entry in metadata
+                if isinstance(entry, dict)
+            ]
         item = {}
         # Update feeds for a given 'channel' will have either combo or delta
         # pkg urls, with delta's additionally having a 'FullUpdaterLocation'
