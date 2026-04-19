@@ -32,7 +32,7 @@ i.e.: `-k PRERELEASE=yes`</string>
                 <key>sort_by_highest_tag_names</key>
                 <string>True</string>
                 <key>asset_regex</key>
-                <string>HandBrake-\S.*?.dmg</string>
+                <string>HandBrake-\S.*\.dmg$</string>
             </dict>
         </dict>
         <dict>
