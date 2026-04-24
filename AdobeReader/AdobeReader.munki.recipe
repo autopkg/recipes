@@ -38,7 +38,7 @@ preflight script, looking to find a user's trash folder to copy the .app into.
 				<string>testing</string>
 			</array>
 			<key>description</key>
-			<string>Adobe® Reader® is the global standard for reliably viewing, printing, and commenting on PDF documents. It's the only PDF file viewer that can open and interact with all types of PDF content, including forms and multimedia.</string>
+			<string>Adobe® Reader® is the global standard for reliably viewing, printing, and commenting on PDF documents. It's the only PDF file viewer that can open and interact with all types of PDF content, including forms and multimedia. Adobe Reader is now part of Adobe Acrobat.</string>
 			<key>display_name</key>
 			<string>Adobe Reader</string>
 			<key>minimum_os_version</key>
@@ -54,12 +54,16 @@ if [ -e "/Applications/Adobe Acrobat Reader DC.app" ]; then
 	rm -r "/Applications/Adobe Acrobat Reader DC.app"
 fi
 if [ -e "/Applications/Adobe Acrobat DC/Adobe Acrobat.app" ]; then
-	rm -r "/Applications/Adobe Acrobat DC/Adobe Acrobat.app"
+	'/Applications/Adobe Acrobat DC/Adobe Acrobat.app/Contents/Helpers/Acrobat Uninstaller.app/Contents/Library/LaunchServices/com.adobe.Acrobat.RemoverTool' "/Applications/Adobe Acrobat DC/Adobe Acrobat.app"
 fi
 exit 0
 </string>
 			<key>unattended_install</key>
 			<true/>
+			<key>uninstall_script</key>
+			<string>#!/bin/zsh
+'/Applications/Adobe Acrobat DC/Adobe Acrobat.app/Contents/Helpers/Acrobat Uninstaller.app/Contents/Library/LaunchServices/com.adobe.Acrobat.RemoverTool' "/Applications/Adobe Acrobat DC/Adobe Acrobat.app"
+			</string>
 		</dict>
 	</dict>
 	<key>MinimumVersion</key>
