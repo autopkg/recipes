@@ -60,6 +60,8 @@ exit 0
 </string>
 			<key>unattended_install</key>
 			<true/>
+			<key>uninstall_method</key>
+			<string>uninstall_script</string>
 			<key>uninstall_script</key>
 			<string>#!/bin/zsh
 '/Applications/Adobe Acrobat DC/Adobe Acrobat.app/Contents/Helpers/Acrobat Uninstaller.app/Contents/Library/LaunchServices/com.adobe.Acrobat.RemoverTool' "/Applications/Adobe Acrobat DC/Adobe Acrobat.app"
