@@ -54,7 +54,7 @@ if [ -e "/Applications/Adobe Acrobat Reader DC.app" ]; then
 	rm -r "/Applications/Adobe Acrobat Reader DC.app"
 fi
 if [ -e "/Applications/Adobe Acrobat DC/Adobe Acrobat.app" ]; then
-	'/Applications/Adobe Acrobat DC/Adobe Acrobat.app/Contents/Helpers/Acrobat Uninstaller.app/Contents/Library/LaunchServices/com.adobe.Acrobat.RemoverTool' "/Applications/Adobe Acrobat DC/Adobe Acrobat.app"
+	rm -r "/Applications/Adobe Acrobat DC/Adobe Acrobat.app"
 fi
 exit 0
 </string>
