@@ -101,7 +101,7 @@ exit 0
 				<key>pkg_payload_path</key>
 				<string>%RECIPE_CACHE_DIR%/pkg_unpack/application_mini_7z.pkg/Payload</string>
 				<key>destination_path</key>
-				<string>%RECIPE_CACHE_DIR%/application_payload/Applications</string>
+				<string>%RECIPE_CACHE_DIR%/application_payload/Applications/Adobe Acrobat DC</string>
 				<key>purge_destination</key>
 				<true/>
 			</dict>
@@ -115,7 +115,7 @@ exit 0
 				<string>%RECIPE_CACHE_DIR%/application_payload</string>
 				<key>installs_item_paths</key>
 				<array>
-					<string>/Applications/Adobe Acrobat.app</string>
+					<string>/Applications/Adobe Acrobat DC/Adobe Acrobat.app</string>
 				</array>
 			</dict>
 			<key>Processor</key>
