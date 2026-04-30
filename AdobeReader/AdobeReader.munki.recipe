@@ -115,7 +115,7 @@ exit 0
 				<string>%RECIPE_CACHE_DIR%/application_payload</string>
 				<key>installs_item_paths</key>
 				<array>
-					<string>/Applications/Adobe Acrobat.app</string>
+					<string>/Applications/Adobe Acrobat DC/Adobe Acrobat.app</string>
 				</array>
 			</dict>
 			<key>Processor</key>
