@@ -42,7 +42,7 @@ preflight script, looking to find a user's trash folder to copy the .app into.
 			<key>display_name</key>
 			<string>Adobe Reader</string>
 			<key>minimum_os_version</key>
-			<string>10.15.0</string>
+			<string>12.0</string>
 			<key>name</key>
 			<string>%NAME%</string>
 			<key>preinstall_script</key>
