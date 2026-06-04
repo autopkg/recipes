@@ -24,6 +24,8 @@
             <dict>
                 <key>input_path</key>
                 <string>%pathname%/OmniOutliner.app</string>
+                <key>strict_verification</key>
+                <true/>
                 <key>requirement</key>
                 <string>certificate leaf = H"26fe998f5ff3bad1beeac952a233231d4e5ad523" and identifier "com.omnigroup.OmniOutliner4"</string>
             </dict>

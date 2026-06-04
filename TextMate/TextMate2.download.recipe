@@ -65,6 +65,8 @@ i.e.: `-k PRERELEASE=yes`</string>
 			<dict>
 				<key>input_path</key>
 				<string>%RECIPE_CACHE_DIR%/%NAME%/TextMate.app</string>
+				<key>strict_verification</key>
+				<true/>
 				<key>requirement</key>
 				<string>identifier "com.macromates.TextMate" and anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = "45TL96F76G"</string>
 			</dict>

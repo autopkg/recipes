@@ -69,6 +69,8 @@
             <dict>
                 <key>input_path</key>
                 <string>%RECIPE_CACHE_DIR%/%NAME%/Transmit.app</string>
+                <key>strict_verification</key>
+                <true/>
                 <key>requirement</key>
                 <string>anchor apple generic and identifier "com.panic.Transmit" and (certificate leaf[field.1.2.840.113635.100.6.1.9] /* exists */ or certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = VE8FC488U5)</string>
             </dict>

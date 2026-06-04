@@ -59,6 +59,8 @@ Alternate URLs that can be used for SPARKLE_FEED_URL:
             <dict>
                 <key>input_path</key>
                 <string>%RECIPE_CACHE_DIR%/%NAME%/CyberDuck.app</string>
+                <key>strict_verification</key>
+                <true/>
                 <key>requirement</key>
                 <string>identifier "ch.sudo.cyberduck" and (anchor apple generic and (certificate leaf[field.1.2.840.113635.100.6.1.9] /* exists */ or certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = G69SCX94XU) or certificate root = H"a1fb64aab7a4441436d50b91f310bf8c3dafc22c")</string>
             </dict>
