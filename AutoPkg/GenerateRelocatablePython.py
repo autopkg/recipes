@@ -125,6 +125,7 @@ class GenerateRelocatablePython(Processor):
             f"python{major_minor}",
             "site-packages",
         )
+        os.makedirs(site_packages, exist_ok=True)
         sitecustomize_path = os.path.join(site_packages, "sitecustomize.py")
         if os.path.exists(sitecustomize_path):
             self.output(
@@ -165,13 +166,25 @@ if not _ssl_cert_file_is_valid():
                 [
                     python_bin,
                     "-c",
-                    "import urllib.request; urllib.request.urlopen('https://example.com')",
+                    (
+                        "import urllib.request; "
+                        "urllib.request.urlopen('https://example.com', timeout=15).close()"
+                    ),
                 ],
                 timeout=30,
                 check=True,
+                capture_output=True,
+                text=True,
             )
         except subprocess.CalledProcessError as e:
-            raise ProcessorError(f"HTTPS smoke test failed: {e}")
+            detail = e.stderr or e.stdout or str(e)
+            raise ProcessorError(
+                f"HTTPS smoke test failed with exit code {e.returncode}: {detail}"
+            )
+        except subprocess.TimeoutExpired as e:
+            raise ProcessorError(f"HTTPS smoke test timed out: {e}")
+        except OSError as e:
+            raise ProcessorError(f"Could not run framework Python at {python_bin}: {e}")
         self.output("HTTPS smoke test passed.")
 
     def main(self):
