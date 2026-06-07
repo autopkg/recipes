@@ -46,13 +46,21 @@ class GenerateRelocatablePython(Processor):
             "required": False,
             "description": "Whether to upgrade pip to the latest version.",
         },
+        "relocatable_python_sha": {
+            "required": False,
+            "description": (
+                "Git commit SHA to check out after cloning relocatable-python. "
+                "Pin this to a known-good commit to avoid surprise breakage from "
+                "upstream changes."
+            ),
+        },
     }
     output_variables = {
         "python_path": {"description": "Path to built Python framework."}
     }
 
     def clone_git_repo(self, target_dir):
-        """Clone the Relocatable Python git repo."""
+        """Clone the Relocatable Python git repo, optionally pinning to a SHA."""
         if os.path.exists(target_dir):
             shutil.rmtree(target_dir)
         git_repo = "https://github.com/gregneagle/relocatable-python.git"
@@ -63,6 +71,17 @@ class GenerateRelocatablePython(Processor):
             subprocess.run(cmd, timeout=3600, check=True)
         except subprocess.CalledProcessError as e:
             raise ProcessorError(e)
+        sha = self.env.get("relocatable_python_sha")
+        if sha:
+            self.output(f"Checking out relocatable-python at {sha}")
+            try:
+                subprocess.run(
+                    ["git", "-C", target_dir, "checkout", sha],
+                    timeout=60,
+                    check=True,
+                )
+            except subprocess.CalledProcessError as e:
+                raise ProcessorError(e)
 
     def build_python_framework(self, target_dir):
         """Build the relocatable python framework."""
