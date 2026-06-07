@@ -17,7 +17,9 @@ This is not used to obtain the latest released version.
             <key>URL</key>
             <string>https://github.com/autopkg/autopkg/zipball/</string>
             <key>PYTHON_VERSION</key>
-            <string>3.10.11</string>
+            <string>3.11.9</string>
+            <key>RELOCATABLE_PYTHON_SHA</key>
+            <string>8ee72fe3a5dbef733365370ebf44f25022b895ef</string>
             <key>REQUIREMENTS_FILENAME</key>
             <string>requirements.txt</string>
             <key>OS_VERSION</key>
@@ -92,6 +94,8 @@ This is not used to obtain the latest released version.
                     <string>%OS_VERSION%</string>
                     <key>upgrade_pip</key>
                     <string>true</string>
+                    <key>relocatable_python_sha</key>
+                    <string>%RELOCATABLE_PYTHON_SHA%</string>
                 </dict>
                 <key>Processor</key>
                 <string>GenerateRelocatablePython</string>
@@ -166,7 +170,7 @@ This is not used to obtain the latest released version.
                 <key>Arguments</key>
                 <dict>
                     <key>source_path</key>
-                    <string>/Library/AutoPkg/Python3/Python.framework/Versions/Current/bin/python3</string>
+                    <string>/Library/AutoPkg/Python3/Python.framework/Versions/Current/Resources/Python.app/Contents/MacOS/Python</string>
                     <key>destination_path</key>
                     <string>%pkgroot%/usr/local/autopkg/python</string>
                 </dict>
