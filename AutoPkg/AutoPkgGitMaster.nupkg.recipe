@@ -19,7 +19,7 @@ This is not used to obtain the latest released version.
             <key>PYTHON_PACKAGE_ID</key>
             <string>python3</string>
             <key>PYTHON_VERSION</key>
-            <string>3.8.5</string>
+            <string>3.10.0</string>
         </dict>
         <key>MinimumVersion</key>
         <string>2.1</string>
