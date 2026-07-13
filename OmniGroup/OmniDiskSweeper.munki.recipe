@@ -22,8 +22,6 @@
 			<string>OmniDiskSweeper shows you the files on your drive, in descending order by size, and letting you decide what to do with them. Delete away, but exercise caution.</string>
 			<key>display_name</key>
 			<string>OmniDiskSweeper</string>
-			<key>minimum_os_version</key>
-			<string>10.8</string>
 			<key>name</key>
 			<string>%NAME%</string>
 			<key>unattended_install</key>
