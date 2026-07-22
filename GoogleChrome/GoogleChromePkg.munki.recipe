@@ -119,6 +119,18 @@ Set the DERIVE_MIN_OS variable to a non-empty string to set the minimum_os_versi
 				<key>Processor</key>
 				<string>MunkiImporter</string>
 			</dict>
+			<dict>
+			<key>Processor</key>
+			<string>PathDeleter</string>
+			<key>Arguments</key>
+			<dict>
+				<key>path_list</key>
+				<array>
+					<string>%RECIPE_CACHE_DIR%/payload</string>
+					<string>%RECIPE_CACHE_DIR%/unpack</string>
+				</array>
+			</dict>
+		</dict>
 		</array>
 	</dict>
 </plist>
