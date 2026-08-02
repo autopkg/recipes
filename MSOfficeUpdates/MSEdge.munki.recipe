@@ -13,11 +13,9 @@ pkginfo Input override below.
 CHANNEL, LOCALE_ID, and VERSION are inherited from the .download recipe but can
 still be overridden in an override for this .munki recipe.
 
-CHANNEL can be set to several values in order to get more frequent updates
-that can be used for testing purposes. See the explanations in the 'Channel'
-table at http://macadmins.software/docs/MAU_ManifestServer.pdf. Supported
-values are 'Production', 'InsiderSlow', 'InsiderFast', or a custom UUID to be
-inserted into the Base URL.
+CHANNEL supports 'Production', 'InsiderSlow' and 'InsiderFast', which map
+to the Edge Enterprise API's Stable, Beta and Dev channels. Custom UUID
+channels are not supported for Edge.
 
 LOCALE_ID sets the locale for a descriptive text that will be
 extracted from the Microsoft update metadata. See
@@ -79,7 +77,7 @@ the latest full update for the given CHANNEL.
                 <key>repo_subdirectory</key>
                 <string>%MUNKI_REPO_SUBDIR%</string>
                 <key>version_comparison_key</key>
-                <string>CFBundleVersion</string>
+                <string>CFBundleShortVersionString</string>
             </dict>
             <key>Processor</key>
             <string>MunkiImporter</string>

@@ -17,10 +17,11 @@
 # limitations under the License.
 """See docstring for MSOfficeMacURLandUpdateInfoProvider class"""
 
+import json
 import plistlib
 import re
 
-from autopkglib import ProcessorError, version_equal_or_greater
+from autopkglib import APLooseVersion, ProcessorError, version_equal_or_greater
 from autopkglib.URLGetter import URLGetter
 
 __all__ = ["MSOfficeMacURLandUpdateInfoProvider"]
@@ -31,6 +32,26 @@ CULTURE_CODE = "0409"
 BASE_URL = (
     "https://res.public.onecdn.static.microsoft/mro1cdnstorage/%s/MacAutoupdate/%s.xml"
 )
+EDGE_ENTERPRISE_API_URL = (
+    "https://edgeupdates.microsoft.com/api/products?view=enterprise"
+)
+EDGE_ENTERPRISE_CHANNELS = {
+    "Production": {
+        "channel": "Stable",
+        "bundle_id": "com.microsoft.edgemac",
+        "path": "/Applications/Microsoft Edge.app",
+    },
+    "InsiderSlow": {
+        "channel": "Beta",
+        "bundle_id": "com.microsoft.edgemac.Beta",
+        "path": "/Applications/Microsoft Edge Beta.app",
+    },
+    "InsiderFast": {
+        "channel": "Dev",
+        "bundle_id": "com.microsoft.edgemac.Dev",
+        "path": "/Applications/Microsoft Edge Dev.app",
+    },
+}
 
 # These can be easily be found as "Application ID" in
 # ~/Library/Preferences/com.microsoft.autoupdate2.plist on a
@@ -145,11 +166,12 @@ CHANNELS = {
     "InsiderFast": "4B2D7701-0A4F-49C8-B4CB-0C2D4043F51F",
 }
 DEFAULT_CHANNEL = "Production"
-NO_TRIGGER_CONDITIONS = ["SkypeForBusiness", "Teams", "Teams2", "Edge", "CompanyPortal"]
+NO_TRIGGER_CONDITIONS = ["SkypeForBusiness", "Teams", "Teams2", "CompanyPortal"]
 
 
 class MSOfficeMacURLandUpdateInfoProvider(URLGetter):
-    """Provides a download URL for the most recent version of MS Office 2016."""
+    """Provides a download URL and update info for Microsoft Mac products, from
+    the Microsoft AutoUpdate manifest feed or, for Edge, the Edge Enterprise API."""
 
     input_variables = {
         "locale_id": {
@@ -171,8 +193,8 @@ class MSOfficeMacURLandUpdateInfoProvider(URLGetter):
             "default": DEFAULT_VERSION,
             "description": (
                 "Update type to fetch. Supported values are: "
-                "'%s'. Defaults to %s."
-                % ("', '".join(SUPPORTED_VERSIONS), DEFAULT_VERSION)
+                "'%s'. Defaults to %s. Edge supports only '%s'."
+                % ("', '".join(SUPPORTED_VERSIONS), DEFAULT_VERSION, DEFAULT_VERSION)
             ),
         },
         "munki_required_update_name": {
@@ -191,7 +213,9 @@ class MSOfficeMacURLandUpdateInfoProvider(URLGetter):
             "description": (
                 "Update feed channel that will be checked for updates. "
                 "Defaults to %s, acceptable values are either a custom "
-                "UUID or one of: %s" % (DEFAULT_CHANNEL, ", ".join(CHANNELS))
+                "UUID or one of: %s. Edge accepts only the named channels, "
+                "which map to the Edge Enterprise API's Stable, Beta and Dev."
+                % (DEFAULT_CHANNEL, ", ".join(CHANNELS))
             ),
         },
     }
@@ -269,6 +293,86 @@ class MSOfficeMacURLandUpdateInfoProvider(URLGetter):
                 % item["Update Version"]
             )
             return item["Update Version"]
+
+    def get_edge_installer_info(self):
+        """Gets Microsoft Edge installer info from the Edge Enterprise API."""
+        if self.env["version"] != "latest":
+            raise ProcessorError("Edge supports only VERSION 'latest'.")
+
+        channel_input = self.env.get("channel", DEFAULT_CHANNEL)
+        if channel_input not in EDGE_ENTERPRISE_CHANNELS:
+            raise ProcessorError(
+                "Edge CHANNEL must be one of: %s. Custom UUID channels are not "
+                "supported by the Edge Enterprise API."
+                % ", ".join(EDGE_ENTERPRISE_CHANNELS)
+            )
+        edge = EDGE_ENTERPRISE_CHANNELS[channel_input]
+        edge_channel = edge["channel"]
+
+        self.output("Requesting Edge Enterprise API: %s" % EDGE_ENTERPRISE_API_URL)
+        products = json.loads(self.download(EDGE_ENTERPRISE_API_URL))
+
+        product = next(
+            (
+                item
+                for item in products
+                if item.get("Product", "").lower() == edge_channel.lower()
+            ),
+            None,
+        )
+        if not product:
+            raise ProcessorError(
+                "Could not find Edge channel '%s' in Enterprise API response."
+                % edge_channel
+            )
+
+        releases = []
+        for release in product.get("Releases", []):
+            if (
+                release.get("Platform", "").lower() != "macos"
+                or release.get("Architecture", "").lower() != "universal"
+            ):
+                continue
+            artifact = next(
+                (
+                    item
+                    for item in release.get("Artifacts") or []
+                    if item.get("ArtifactName", "").lower() == "pkg"
+                    or item.get("Location", "").lower().endswith(".pkg")
+                ),
+                None,
+            )
+            if artifact and release.get("ProductVersion") and artifact.get("Location"):
+                releases.append((release, artifact))
+
+        if not releases:
+            raise ProcessorError(
+                "Could not find a macOS universal pkg release for Edge channel '%s'."
+                % edge_channel
+            )
+
+        release, artifact = max(
+            releases,
+            key=lambda item: APLooseVersion(item[0]["ProductVersion"]),
+        )
+        version = release["ProductVersion"]
+        self.env["version"] = version
+        self.env["minimum_version_for_delta"] = ""
+        self.env["url"] = artifact["Location"].strip()
+        self.env["additional_pkginfo"] = {
+            "installs": [
+                {
+                    "CFBundleIdentifier": edge["bundle_id"],
+                    "CFBundleShortVersionString": version,
+                    "path": edge["path"],
+                    "type": "application",
+                }
+            ],
+        }
+
+        self.output("Found Edge %s version %s" % (edge_channel, version))
+        self.output("Found URL %s" % self.env["url"])
+        self.output("Additional pkginfo: %s" % self.env["additional_pkginfo"])
 
     def get_installer_info(self):
         """Gets info about an installer from MS metadata."""
@@ -441,6 +545,10 @@ class MSOfficeMacURLandUpdateInfoProvider(URLGetter):
                 "Invalid 'version': supported values are '%s'"
                 % "', '".join(SUPPORTED_VERSIONS)
             )
+        product = self.env["product"]
+        if product == "Edge":
+            self.get_edge_installer_info()
+            return
         self.get_installer_info()
 
 
