@@ -19,7 +19,7 @@ Alternate URLs that can be used for SPARKLE_FEED_URL:
         <string>https://version.cyberduck.io/changelog.rss</string>
     </dict>
     <key>MinimumVersion</key>
-    <string>0.4.0</string>
+    <string>0.4.1</string>
     <key>Process</key>
     <array>
         <dict>
