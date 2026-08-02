@@ -28,7 +28,9 @@ __all__ = ["MSOfficeMacURLandUpdateInfoProvider"]
 # CULTURE_CODE defaulting to 'en-US' as the installers and updates seem to be
 # multilingual.
 CULTURE_CODE = "0409"
-BASE_URL = "https://officecdnmac.microsoft.com/pr/%s/MacAutoupdate/%s.xml"
+BASE_URL = (
+    "https://res.public.onecdn.static.microsoft/mro1cdnstorage/%s/MacAutoupdate/%s.xml"
+)
 
 # These can be easily be found as "Application ID" in
 # ~/Library/Preferences/com.microsoft.autoupdate2.plist on a
@@ -302,14 +304,19 @@ class MSOfficeMacURLandUpdateInfoProvider(URLGetter):
         data = self.download(base_url, headers)
 
         metadata = plistlib.loads(data)
+        if not isinstance(metadata, list):
+            raise ProcessorError(
+                "No update metadata returned for product '%s' from %s. This "
+                "product may no longer be published to the update feed."
+                % (self.env["product"], base_url)
+            )
         # Upstream feed has emitted Location values with stray newlines
         # that break curl; normalize whitespace on all string values.
-        if isinstance(metadata, list):
-            metadata = [
-                {k: v.strip() if isinstance(v, str) else v for k, v in entry.items()}
-                for entry in metadata
-                if isinstance(entry, dict)
-            ]
+        metadata = [
+            {k: v.strip() if isinstance(v, str) else v for k, v in entry.items()}
+            for entry in metadata
+            if isinstance(entry, dict)
+        ]
         item = {}
         # Update feeds for a given 'channel' will have either combo or delta
         # pkg urls, with delta's additionally having a 'FullUpdaterLocation'
