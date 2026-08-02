@@ -157,7 +157,6 @@ PROD_DICT = {
         "minimum_os": "12.0",
     },
 }
-LOCALE_ID_INFO_URL = "https://msdn.microsoft.com/en-us/goglobal/bb964664.aspx"
 SUPPORTED_VERSIONS = ["latest", "latest-delta", "latest-standalone"]
 DEFAULT_VERSION = "latest"
 CHANNELS = {
@@ -183,16 +182,6 @@ class MSOfficeMacURLandUpdateInfoProvider(URLGetter):
     the Microsoft AutoUpdate manifest feed or, for Edge, the Edge Enterprise API."""
 
     input_variables = {
-        "locale_id": {
-            "required": False,
-            "default": "1033",
-            "description": (
-                "Locale ID that determines the language "
-                "that is retrieved from the metadata, currently only "
-                "used by the update description. See %s "
-                "for a list of locale codes. The default is en-US." % LOCALE_ID_INFO_URL
-            ),
-        },
         "product": {
             "required": True,
             "description": "Name of product to fetch, e.g. Excel.",
@@ -231,12 +220,6 @@ class MSOfficeMacURLandUpdateInfoProvider(URLGetter):
     output_variables = {
         "additional_pkginfo": {
             "description": "Some pkginfo fields extracted from the Microsoft metadata."
-        },
-        "description": {
-            "description": (
-                "Description of the update from the manifest, in the language "
-                "given by the locale_id input variable."
-            )
         },
         "version": {
             "description": (

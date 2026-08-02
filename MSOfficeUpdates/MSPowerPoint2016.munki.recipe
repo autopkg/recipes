@@ -16,11 +16,6 @@ table at http://macadmins.software/docs/MAU_ManifestServer.pdf. Supported
 values are 'Production', 'InsiderSlow', 'InsiderFast', or a custom UUID to be
 inserted into the Base URL.
 
-LOCALE_ID sets the locale for a descriptive text that will be
-extracted from the Microsoft update metadata. See
-https://msdn.microsoft.com/en-us/goglobal/bb964664.aspx
-for more information about locale IDs.
-
 VERSION supports three values: 'latest', which will download
 the latest full update for the given CHANNEL, 'latest-delta',
 which will download the latest delta update for the given CHANNEL,
