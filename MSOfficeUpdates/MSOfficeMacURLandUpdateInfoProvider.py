@@ -167,6 +167,15 @@ CHANNELS = {
 }
 DEFAULT_CHANNEL = "Production"
 NO_TRIGGER_CONDITIONS = ["SkypeForBusiness", "Teams", "Teams2", "CompanyPortal"]
+# Office 2016 reached end of support in October 2020 at 16.16.27, and Microsoft
+# no longer publishes these products to the update feed.
+DEPRECATED_PRODUCTS = [
+    "Excel2016",
+    "OneNote2016",
+    "Outlook2016",
+    "PowerPoint2016",
+    "Word2016",
+]
 
 
 class MSOfficeMacURLandUpdateInfoProvider(URLGetter):
@@ -546,6 +555,15 @@ class MSOfficeMacURLandUpdateInfoProvider(URLGetter):
                 % "', '".join(SUPPORTED_VERSIONS)
             )
         product = self.env["product"]
+        if product in DEPRECATED_PRODUCTS:
+            self.show_deprecation(
+                "As of August 2026, Microsoft no longer publishes %s updates to "
+                "the Microsoft AutoUpdate feed. Office for Mac 2016 support ended "
+                "in October 2020 at version 16.16.27. Please use the MS%s recipes "
+                "instead." % (product, product.replace("2016", "2019"))
+            )
+            self.env["stop_processing_recipe"] = True
+            return
         if product == "Edge":
             self.get_edge_installer_info()
             return
