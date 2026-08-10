@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Description</key>
+    <string>Downloads and verifies the latest Nexus Shell release, then imports it into a Munki repository.</string>
+    <key>Identifier</key>
+    <string>com.github.autopkg.munki.NexusShell</string>
+    <key>Input</key>
+    <dict>
+        <key>NAME</key>
+        <string>NexusShell</string>
+        <key>MUNKI_REPO_SUBDIR</key>
+        <string>apps/NexusShell</string>
+        <key>pkginfo</key>
+        <dict>
+            <key>catalogs</key>
+            <array>
+                <string>testing</string>
+            </array>
+            <key>category</key>
+            <string>Developer Tools</string>
+            <key>description</key>
+            <string>Native macOS SSH workspace with terminal sessions, dual-pane SFTP, SSH key management, Docker controls, and server monitoring.</string>
+            <key>developer</key>
+            <string>Nexus Shell</string>
+            <key>display_name</key>
+            <string>Nexus Shell</string>
+            <key>minimum_os_version</key>
+            <string>14.2</string>
+            <key>name</key>
+            <string>%NAME%</string>
+            <key>supported_architectures</key>
+            <array>
+                <string>arm64</string>
+            </array>
+            <key>unattended_install</key>
+            <false/>
+        </dict>
+    </dict>
+    <key>MinimumVersion</key>
+    <string>2.3.0</string>
+    <key>ParentRecipe</key>
+    <string>com.github.autopkg.download.NexusShell</string>
+    <key>Process</key>
+    <array>
+        <dict>
+            <key>Arguments</key>
+            <dict>
+                <key>pkg_path</key>
+                <string>%pathname%</string>
+                <key>repo_subdirectory</key>
+                <string>%MUNKI_REPO_SUBDIR%</string>
+            </dict>
+            <key>Processor</key>
+            <string>MunkiImporter</string>
+        </dict>
+    </array>
+</dict>
+</plist>
