@@ -12,7 +12,7 @@
         <string>Transmit5</string>
     </dict>
     <key>MinimumVersion</key>
-    <string>0.4.0</string>
+    <string>0.4.1</string>
     <key>Process</key>
     <array>
         <dict>

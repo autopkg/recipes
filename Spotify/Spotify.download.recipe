@@ -20,7 +20,7 @@ For Intel leave DOWNLOAD_ARCH empty and set SUPPORTED_ARCH to "x86_64"</string>
         <string>arm64</string>
     </dict>
     <key>MinimumVersion</key>
-    <string>0.4.0</string>
+    <string>0.4.1</string>
     <key>Process</key>
     <array>
         <dict>
