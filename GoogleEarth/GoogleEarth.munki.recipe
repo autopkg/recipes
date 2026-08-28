@@ -85,7 +85,7 @@
             <dict>
                 <key>installs_item_paths</key>
                 <array>
-                    <string>/Applications/Google Earth.app</string>
+                    <string>/Applications/Google Earth Pro.app</string>
                 </array>
                 <key>faux_root</key>
                 <string>%RECIPE_CACHE_DIR%/unpack/root</string>
