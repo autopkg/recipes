@@ -1,0 +1,33 @@
+---
+# Based upon: https://github.com/autopkg/recipes/blob/master/AutoPkg/AutoPkgGitMaster.nupkg.recipe
+Description: Build Chocolatey Package for Released AutoPkg
+Identifier: com.github.autopkg.nupkg.AutoPkgRelease
+Input:
+  NAME: autopkg
+  PYTHON_PACKAGE_ID: python3
+  PYTHON_VERSION: "3.8"
+MinimumVersion: "2.3"
+SupportedPlatforms:
+  - Windows
+ParentRecipe: com.github.autopkg.download.AutoPkgReleaseSource
+Process:
+  - Processor: ChocolateyPackager
+    Arguments:
+      id: "%NAME%"
+      version: "%version%"
+      title: "%NAME%"
+      authors: Autopkg Contributors
+      description: AutoPkg is an automation framework software packaging and distribution, oriented towards the tasks one would normally perform manually to prepare third-party software for mass deployment to managed clients.
+      installer_type: zip
+      dependencies:
+        - {"id": "%PYTHON_PACKAGE_ID%", "version": "%PYTHON_VERSION%"}
+      additional_install_actions: |
+        $AutoPkgDir = Resolve-Path $env:ChocolateyPackageFolder\tools\autopkg-*
+        & python -m venv $AutoPkgDir\.python-env
+        Write-Output 'Running "pip install ..." to generate self-contained environment.'
+        & $AutoPkgDir\.python-env\Scripts\pip --disable-pip-version-check install -r $AutoPkgDir\requirements.txt --quiet
+        Get-ChildItem -Recurse $AutoPkgDir\.python-env -Include *.exe, *.dll |
+            foreach { New-Item -ItemType File "$($_.FullName).ignore" } | Write-Verbose
+        Install-ChocolateyPowershellCommand -PackageName $packageArgs.packageName -PsFileFullPath $AutoPkgDir\Scripts\autopkg.ps1
+
+# TODO: set output var `nuget_package_path` to ENV for further github action use
