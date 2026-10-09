@@ -128,6 +128,11 @@ exit 0
 		<dict>
 			<key>Arguments</key>
 			<dict>
+				<key>additional_makepkginfo_options</key>
+				<array>
+					<string>--pkgvers</string>
+					<string>%version%</string>
+				</array>
 				<key>pkg_path</key>
 				<string>%pathname%</string>
 				<key>repo_subdirectory</key>
